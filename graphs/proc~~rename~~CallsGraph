@@ -1,0 +1,21 @@
+digraph "proc~~rename~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"proc~rename" [label=rename]
+		graph [concentrate=false]
+		json_get [label=json_get color="#777777" fontcolor=white style=filled]
+		json_info [label=json_info color="#777777" fontcolor=white style=filled]
+		json_update [label=json_update color="#777777" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~rename" -> json_get
+			"proc~rename" -> json_info
+			"proc~rename" -> json_update
+		graph [concentrate=false]
+}

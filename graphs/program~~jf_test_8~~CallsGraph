@@ -1,0 +1,37 @@
+digraph "program~~jf_test_8~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"program~jf_test_8" [label=jf_test_8]
+		graph [concentrate=false]
+		"proc~test_8" [label=test_8 URL="../proc/test_8.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		json_parse [label=json_parse color="#777777" fontcolor=white style=filled]
+		json_initialize [label=json_initialize color="#777777" fontcolor=white style=filled]
+		json_destroy [label=json_destroy color="#777777" fontcolor=white style=filled]
+		json_print [label=json_print color="#777777" fontcolor=white style=filled]
+		json_print_error_message [label=json_print_error_message color="#777777" fontcolor=white style=filled]
+		json_failed [label=json_failed color="#777777" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~test_8" -> json_parse
+			"proc~test_8" -> json_initialize
+			"proc~test_8" -> json_destroy
+			"proc~test_8" -> json_print
+			"proc~test_8" -> json_print_error_message
+			"proc~test_8" -> json_failed
+		graph [concentrate=false]
+			"program~jf_test_8" -> "proc~test_8"
+		graph [concentrate=false]
+}

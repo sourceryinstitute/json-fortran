@@ -1,0 +1,29 @@
+digraph "proc~~test_9~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"proc~test_9" [label=test_9]
+		graph [concentrate=false]
+		json_initialize [label=json_initialize color="#777777" fontcolor=white style=filled]
+		"proc~read_file" [label=read_file URL="../proc/read_file.html" color="#d9534f" fontcolor=white style=filled]
+		json_failed [label=json_failed color="#777777" fontcolor=white style=filled]
+		json_print_error_message [label=json_print_error_message color="#777777" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		character [label=character color="#777777" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~read_file" -> character
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~test_9" -> json_initialize
+			"proc~test_9" -> "proc~read_file"
+			"proc~test_9" -> json_failed
+			"proc~test_9" -> json_print_error_message
+		graph [concentrate=false]
+}
