@@ -1,0 +1,37 @@
+digraph "proc~~wrap_json_value_create_logical~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"proc~wrap_json_value_create_logical" [label=wrap_json_value_create_logical]
+		graph [concentrate=false]
+		"proc~json_value_create_logical" [label=json_value_create_logical URL="../proc/json_value_create_logical.html" color="#d9534f" fontcolor=white style=filled]
+		"interface~to_unicode" [label=to_unicode URL="../interface/to_unicode.html" color="#A7506F" fontcolor=white style=filled]
+		graph [concentrate=false]
+		"proc~json_value_create" [label=json_value_create URL="../proc/json_value_create.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~to_logical" [label=to_logical URL="../proc/to_logical.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~destroy_json_data" [label=destroy_json_data URL="../proc/destroy_json_data.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~to_logical" -> "proc~destroy_json_data"
+		graph [concentrate=false]
+			"proc~json_value_create_logical" -> "proc~json_value_create"
+			"proc~json_value_create_logical" -> "proc~to_logical"
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~to_uni_vec" [label=to_uni_vec URL="../proc/to_uni_vec.html" color="#d94e8f" fontcolor=white style=filled]
+		"proc~to_uni" [label=to_uni URL="../proc/to_uni.html" color="#d94e8f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"interface~to_unicode" -> "proc~to_uni_vec" [style=dashed]
+			"interface~to_unicode" -> "proc~to_uni" [style=dashed]
+			"proc~wrap_json_value_create_logical" -> "proc~json_value_create_logical"
+			"proc~wrap_json_value_create_logical" -> "interface~to_unicode"
+		graph [concentrate=false]
+}

@@ -1,0 +1,337 @@
+digraph "interface~~json_parse~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"interface~json_parse" [label=json_parse]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~wrap_json_parse_string" [label=wrap_json_parse_string URL="../proc/wrap_json_parse_string.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_parse_file" [label=json_parse_file URL="../proc/json_parse_file.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_parse_string" [label=json_parse_string URL="../proc/json_parse_string.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		"interface~to_unicode" [label=to_unicode URL="../interface/to_unicode.html" color="#A7506F" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~to_uni_vec" [label=to_uni_vec URL="../proc/to_uni_vec.html" color="#d94e8f" fontcolor=white style=filled]
+		"proc~to_uni" [label=to_uni URL="../proc/to_uni.html" color="#d94e8f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"interface~to_unicode" -> "proc~to_uni_vec" [style=dashed]
+			"interface~to_unicode" -> "proc~to_uni" [style=dashed]
+			"proc~wrap_json_parse_string" -> "interface~to_unicode"
+			"proc~wrap_json_parse_string" -> "proc~json_parse_string"
+		graph [concentrate=false]
+		"proc~parse_value" [label=parse_value URL="../proc/parse_value.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_initialize" [label=json_initialize URL="../proc/json_initialize.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~annotate_invalid_json" [label=annotate_invalid_json URL="../proc/annotate_invalid_json.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_create" [label=json_value_create URL="../proc/json_value_create.html" color="#d9534f" fontcolor=white style=filled]
+		"interface~throw_exception" [label=throw_exception URL="../interface/throw_exception.html" color="#A7506F" fontcolor=white style=filled]
+		graph [concentrate=false]
+		"proc~parse_string" [label=parse_string URL="../proc/parse_string.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~parse_number" [label=parse_number URL="../proc/parse_number.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~to_string" [label=to_string URL="../proc/to_string.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~to_array" [label=to_array URL="../proc/to_array.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~to_logical" [label=to_logical URL="../proc/to_logical.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~to_object" [label=to_object URL="../proc/to_object.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~push_char" [label=push_char URL="../proc/push_char.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~to_null" [label=to_null URL="../proc/to_null.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~parse_object" [label=parse_object URL="../proc/parse_object.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~pop_char" [label=pop_char URL="../proc/pop_char.html" color="#d94e8f" fontcolor=white style=filled]
+		"proc~parse_array" [label=parse_array URL="../proc/parse_array.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~parse_for_chars" [label=parse_for_chars URL="../proc/parse_for_chars.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		"proc~valid_json_hex" [label=valid_json_hex URL="../proc/valid_json_hex.html" color="#d94e8f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~parse_string" -> "proc~pop_char"
+			"proc~parse_string" -> "proc~valid_json_hex"
+			"proc~parse_string" -> "interface~throw_exception"
+		graph [concentrate=false]
+		"proc~string_to_double" [label=string_to_double URL="../proc/string_to_double.html" color="#d94e8f" fontcolor=white style=filled]
+		"proc~string_to_integer" [label=string_to_integer URL="../proc/string_to_integer.html" color="#d94e8f" fontcolor=white style=filled]
+		"proc~to_integer" [label=to_integer URL="../proc/to_integer.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~to_double" [label=to_double URL="../proc/to_double.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~string_to_double" -> "interface~throw_exception"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~string_to_integer" -> "interface~throw_exception"
+		graph [concentrate=false]
+		"proc~destroy_json_data" [label=destroy_json_data URL="../proc/destroy_json_data.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~to_integer" -> "proc~destroy_json_data"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~to_double" -> "proc~destroy_json_data"
+		graph [concentrate=false]
+			"proc~parse_number" -> "interface~throw_exception"
+			"proc~parse_number" -> "proc~pop_char"
+			"proc~parse_number" -> "proc~string_to_double"
+			"proc~parse_number" -> "proc~push_char"
+			"proc~parse_number" -> "proc~string_to_integer"
+			"proc~parse_number" -> "proc~to_integer"
+			"proc~parse_number" -> "proc~to_double"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~to_string" -> "proc~destroy_json_data"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~to_array" -> "proc~destroy_json_data"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~to_logical" -> "proc~destroy_json_data"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~to_object" -> "proc~destroy_json_data"
+		graph [concentrate=false]
+		"proc~integer_to_string" [label=integer_to_string URL="../proc/integer_to_string.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~push_char" -> "proc~integer_to_string"
+			"proc~push_char" -> "interface~throw_exception"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~to_null" -> "proc~destroy_json_data"
+		graph [concentrate=false]
+		"interface~json_add" [label=json_add URL="../interface/json_add.html" color="#A7506F" fontcolor=white style=filled]
+		"interface~json_destroy" [label=json_destroy URL="../interface/json_destroy.html" color="#A7506F" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~json_value_add_member" [label=json_value_add_member URL="../proc/json_value_add_member.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_logical" [label=json_value_add_logical URL="../proc/json_value_add_logical.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_value_add_logical" [label=wrap_json_value_add_logical URL="../proc/wrap_json_value_add_logical.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_value_add_integer_vec" [label=wrap_json_value_add_integer_vec URL="../proc/wrap_json_value_add_integer_vec.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_string_vec_val_ascii" [label=json_value_add_string_vec_val_ascii URL="../proc/json_value_add_string_vec_val_ascii.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_integer_vec" [label=json_value_add_integer_vec URL="../proc/json_value_add_integer_vec.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_integer" [label=json_value_add_integer URL="../proc/json_value_add_integer.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_string_vec" [label=json_value_add_string_vec URL="../proc/json_value_add_string_vec.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_value_add_double_vec" [label=wrap_json_value_add_double_vec URL="../proc/wrap_json_value_add_double_vec.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_string_vec_name_ascii" [label=json_value_add_string_vec_name_ascii URL="../proc/json_value_add_string_vec_name_ascii.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_logical_vec" [label=json_value_add_logical_vec URL="../proc/json_value_add_logical_vec.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_double" [label=json_value_add_double URL="../proc/json_value_add_double.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_value_add_string" [label=wrap_json_value_add_string URL="../proc/wrap_json_value_add_string.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_value_add_logical_vec" [label=wrap_json_value_add_logical_vec URL="../proc/wrap_json_value_add_logical_vec.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_string" [label=json_value_add_string URL="../proc/json_value_add_string.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_string_val_ascii" [label=json_value_add_string_val_ascii URL="../proc/json_value_add_string_val_ascii.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_double_vec" [label=json_value_add_double_vec URL="../proc/json_value_add_double_vec.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_value_add_string_vec" [label=wrap_json_value_add_string_vec URL="../proc/wrap_json_value_add_string_vec.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_value_add_string_name_ascii" [label=json_value_add_string_name_ascii URL="../proc/json_value_add_string_name_ascii.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_value_add_integer" [label=wrap_json_value_add_integer URL="../proc/wrap_json_value_add_integer.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_value_add_double" [label=wrap_json_value_add_double URL="../proc/wrap_json_value_add_double.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_logical" -> "proc~json_value_create"
+			"proc~json_value_add_logical" -> "proc~to_logical"
+			"proc~json_value_add_logical" -> "interface~json_add"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~wrap_json_value_add_logical" -> "proc~json_value_add_logical"
+			"proc~wrap_json_value_add_logical" -> "interface~to_unicode"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~wrap_json_value_add_integer_vec" -> "proc~json_value_add_integer_vec"
+			"proc~wrap_json_value_add_integer_vec" -> "interface~to_unicode"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_string_vec_val_ascii" -> "interface~to_unicode"
+			"proc~json_value_add_string_vec_val_ascii" -> "proc~json_value_add_string_vec"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_integer_vec" -> "interface~json_add"
+			"proc~json_value_add_integer_vec" -> "proc~json_value_create"
+			"proc~json_value_add_integer_vec" -> "proc~to_array"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_integer" -> "proc~json_value_create"
+			"proc~json_value_add_integer" -> "proc~to_integer"
+			"proc~json_value_add_integer" -> "interface~json_add"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_string_vec" -> "interface~json_add"
+			"proc~json_value_add_string_vec" -> "proc~json_value_create"
+			"proc~json_value_add_string_vec" -> "proc~to_array"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~wrap_json_value_add_double_vec" -> "proc~json_value_add_double_vec"
+			"proc~wrap_json_value_add_double_vec" -> "interface~to_unicode"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_string_vec_name_ascii" -> "interface~to_unicode"
+			"proc~json_value_add_string_vec_name_ascii" -> "proc~json_value_add_string_vec"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_logical_vec" -> "interface~json_add"
+			"proc~json_value_add_logical_vec" -> "proc~json_value_create"
+			"proc~json_value_add_logical_vec" -> "proc~to_array"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_double" -> "proc~json_value_create"
+			"proc~json_value_add_double" -> "proc~to_double"
+			"proc~json_value_add_double" -> "interface~json_add"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~wrap_json_value_add_string" -> "interface~to_unicode"
+			"proc~wrap_json_value_add_string" -> "proc~json_value_add_string"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~wrap_json_value_add_logical_vec" -> "interface~to_unicode"
+			"proc~wrap_json_value_add_logical_vec" -> "proc~json_value_add_logical_vec"
+		graph [concentrate=false]
+		"proc~escape_string" [label=escape_string URL="../proc/escape_string.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_string" -> "interface~json_add"
+			"proc~json_value_add_string" -> "proc~escape_string"
+			"proc~json_value_add_string" -> "proc~to_string"
+			"proc~json_value_add_string" -> "proc~json_value_create"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_string_val_ascii" -> "interface~to_unicode"
+			"proc~json_value_add_string_val_ascii" -> "proc~json_value_add_string"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_double_vec" -> "interface~json_add"
+			"proc~json_value_add_double_vec" -> "proc~json_value_create"
+			"proc~json_value_add_double_vec" -> "proc~to_array"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~wrap_json_value_add_string_vec" -> "interface~to_unicode"
+			"proc~wrap_json_value_add_string_vec" -> "proc~json_value_add_string_vec"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_add_string_name_ascii" -> "interface~to_unicode"
+			"proc~json_value_add_string_name_ascii" -> "proc~json_value_add_string"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~wrap_json_value_add_integer" -> "proc~json_value_add_integer"
+			"proc~wrap_json_value_add_integer" -> "interface~to_unicode"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~wrap_json_value_add_double" -> "proc~json_value_add_double"
+			"proc~wrap_json_value_add_double" -> "interface~to_unicode"
+		graph [concentrate=false]
+			"interface~json_add" -> "proc~json_value_add_member" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_logical" [style=dashed]
+			"interface~json_add" -> "proc~wrap_json_value_add_logical" [style=dashed]
+			"interface~json_add" -> "proc~wrap_json_value_add_integer_vec" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_string_vec_val_ascii" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_integer_vec" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_integer" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_string_vec" [style=dashed]
+			"interface~json_add" -> "proc~wrap_json_value_add_double_vec" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_string_vec_name_ascii" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_logical_vec" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_double" [style=dashed]
+			"interface~json_add" -> "proc~wrap_json_value_add_string" [style=dashed]
+			"interface~json_add" -> "proc~wrap_json_value_add_logical_vec" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_string" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_string_val_ascii" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_double_vec" [style=dashed]
+			"interface~json_add" -> "proc~wrap_json_value_add_string_vec" [style=dashed]
+			"interface~json_add" -> "proc~json_value_add_string_name_ascii" [style=dashed]
+			"interface~json_add" -> "proc~wrap_json_value_add_integer" [style=dashed]
+			"interface~json_add" -> "proc~wrap_json_value_add_double" [style=dashed]
+		graph [concentrate=false]
+		"proc~json_value_destroy" [label=json_value_destroy URL="../proc/json_value_destroy.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_destroy" -> "proc~destroy_json_data"
+			"proc~json_value_destroy" -> "proc~json_value_destroy"
+		graph [concentrate=false]
+			"interface~json_destroy" -> "proc~json_value_destroy" [style=dashed]
+			"proc~parse_object" -> "interface~json_add"
+			"proc~parse_object" -> "proc~parse_string"
+			"proc~parse_object" -> "proc~parse_value"
+			"proc~parse_object" -> "interface~json_destroy"
+			"proc~parse_object" -> "interface~throw_exception"
+			"proc~parse_object" -> "proc~parse_object"
+			"proc~parse_object" -> "proc~pop_char"
+			"proc~parse_object" -> "proc~json_value_create"
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~parse_array" -> "interface~json_add"
+			"proc~parse_array" -> "proc~parse_value"
+			"proc~parse_array" -> "interface~throw_exception"
+			"proc~parse_array" -> "interface~json_destroy"
+			"proc~parse_array" -> "proc~json_value_create"
+			"proc~parse_array" -> "proc~pop_char"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~parse_for_chars" -> "proc~pop_char"
+			"proc~parse_for_chars" -> "interface~throw_exception"
+		graph [concentrate=false]
+			"proc~parse_value" -> "proc~parse_string"
+			"proc~parse_value" -> "proc~parse_number"
+			"proc~parse_value" -> "proc~to_string"
+			"proc~parse_value" -> "proc~to_array"
+			"proc~parse_value" -> "proc~to_logical"
+			"proc~parse_value" -> "proc~to_object"
+			"proc~parse_value" -> "proc~push_char"
+			"proc~parse_value" -> "interface~throw_exception"
+			"proc~parse_value" -> "proc~to_null"
+			"proc~parse_value" -> "proc~parse_object"
+			"proc~parse_value" -> "proc~pop_char"
+			"proc~parse_value" -> "proc~parse_array"
+			"proc~parse_value" -> "proc~parse_for_chars"
+		graph [concentrate=false]
+		"proc~json_clear_exceptions" [label=json_clear_exceptions URL="../proc/json_clear_exceptions.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_initialize" -> "interface~throw_exception"
+			"proc~json_initialize" -> "proc~json_clear_exceptions"
+		graph [concentrate=false]
+		"proc~get_current_line_from_file_stream" [label=get_current_line_from_file_stream URL="../proc/get_current_line_from_file_stream.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~get_current_line_from_file_sequential" [label=get_current_line_from_file_sequential URL="../proc/get_current_line_from_file_sequential.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~annotate_invalid_json" -> "proc~integer_to_string"
+			"proc~annotate_invalid_json" -> "proc~get_current_line_from_file_stream"
+			"proc~annotate_invalid_json" -> "proc~get_current_line_from_file_sequential"
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~json_throw_exception" [label=json_throw_exception URL="../proc/json_throw_exception.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_throw_exception" [label=wrap_json_throw_exception URL="../proc/wrap_json_throw_exception.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~wrap_json_throw_exception" -> "proc~json_throw_exception"
+			"proc~wrap_json_throw_exception" -> "interface~to_unicode"
+		graph [concentrate=false]
+			"interface~throw_exception" -> "proc~json_throw_exception" [style=dashed]
+			"interface~throw_exception" -> "proc~wrap_json_throw_exception" [style=dashed]
+			"proc~json_parse_file" -> "proc~parse_value"
+			"proc~json_parse_file" -> "proc~json_initialize"
+			"proc~json_parse_file" -> "proc~annotate_invalid_json"
+			"proc~json_parse_file" -> "proc~json_value_create"
+			"proc~json_parse_file" -> "interface~throw_exception"
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_parse_string" -> "proc~parse_value"
+			"proc~json_parse_string" -> "proc~json_initialize"
+			"proc~json_parse_string" -> "proc~annotate_invalid_json"
+			"proc~json_parse_string" -> "proc~json_value_create"
+		graph [concentrate=false]
+			"interface~json_parse" -> "proc~wrap_json_parse_string" [style=dashed]
+			"interface~json_parse" -> "proc~json_parse_file" [style=dashed]
+			"interface~json_parse" -> "proc~json_parse_string" [style=dashed]
+}

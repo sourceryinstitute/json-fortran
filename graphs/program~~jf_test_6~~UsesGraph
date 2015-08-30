@@ -4,9 +4,10 @@ digraph "program~~jf_test_6~~UsesGraph" {
 	edge [fontname=Helvetica fontsize=9.5]
 		"program~jf_test_6" [label=jf_test_6]
 		"module~jf_test_6_mod" [label=jf_test_6_mod URL="../module/jf_test_6_mod.html" color="#337AB7" fontcolor=white style=filled]
-		json_module [label=json_module color="#337AB7" fontcolor=white style=filled]
 		iso_fortran_env [label=iso_fortran_env URL="https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fFORTRAN_005fENV.html" color="#337AB7" fontcolor=white style=filled]
-			json_module -> "module~jf_test_6_mod" [style=dashed]
+		"module~json_module" [label=json_module URL="../module/json_module.html" color="#337AB7" fontcolor=white style=filled]
+			iso_fortran_env -> "module~json_module" [style=dashed]
 			iso_fortran_env -> "module~jf_test_6_mod" [style=dashed]
+			"module~json_module" -> "module~jf_test_6_mod" [style=dashed]
 			"module~jf_test_6_mod" -> "program~jf_test_6" [style=dashed]
 }

@@ -1,0 +1,21 @@
+digraph "proc~~default_comp_ucs4~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"proc~default_comp_ucs4" [label=default_comp_ucs4]
+		graph [concentrate=false]
+		"interface~to_unicode" [label=to_unicode URL="../interface/to_unicode.html" color="#A7506F" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~to_uni_vec" [label=to_uni_vec URL="../proc/to_uni_vec.html" color="#d94e8f" fontcolor=white style=filled]
+		"proc~to_uni" [label=to_uni URL="../proc/to_uni.html" color="#d94e8f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"interface~to_unicode" -> "proc~to_uni_vec" [style=dashed]
+			"interface~to_unicode" -> "proc~to_uni" [style=dashed]
+			"proc~default_comp_ucs4" -> "interface~to_unicode"
+		graph [concentrate=false]
+}

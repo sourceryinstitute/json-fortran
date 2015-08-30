@@ -1,0 +1,33 @@
+digraph "proc~~wrap_json_file_variable_info~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"proc~wrap_json_file_variable_info" [label=wrap_json_file_variable_info]
+		graph [concentrate=false]
+		"interface~to_unicode" [label=to_unicode URL="../interface/to_unicode.html" color="#A7506F" fontcolor=white style=filled]
+		"proc~json_file_variable_info" [label=json_file_variable_info URL="../proc/json_file_variable_info.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~to_uni_vec" [label=to_uni_vec URL="../proc/to_uni_vec.html" color="#d94e8f" fontcolor=white style=filled]
+		"proc~to_uni" [label=to_uni URL="../proc/to_uni.html" color="#d94e8f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"interface~to_unicode" -> "proc~to_uni_vec" [style=dashed]
+			"interface~to_unicode" -> "proc~to_uni" [style=dashed]
+		"proc~json_info" [label=json_info URL="../proc/json_info.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		"proc~json_count" [label=json_count URL="../proc/json_count.html" color="#d94e8f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_info" -> "proc~json_count"
+		graph [concentrate=false]
+			"proc~json_file_variable_info" -> "proc~json_info"
+		graph [concentrate=false]
+			"proc~wrap_json_file_variable_info" -> "interface~to_unicode"
+			"proc~wrap_json_file_variable_info" -> "proc~json_file_variable_info"
+		graph [concentrate=false]
+}

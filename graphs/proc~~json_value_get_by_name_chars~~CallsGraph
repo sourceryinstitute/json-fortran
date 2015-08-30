@@ -1,0 +1,38 @@
+digraph "proc~~json_value_get_by_name_chars~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"proc~json_value_get_by_name_chars" [label=json_value_get_by_name_chars]
+		graph [concentrate=false]
+		"interface~throw_exception" [label=throw_exception URL="../interface/throw_exception.html" color="#A7506F" fontcolor=white style=filled]
+		"proc~json_count" [label=json_count URL="../proc/json_count.html" color="#d94e8f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~json_throw_exception" [label=json_throw_exception URL="../proc/json_throw_exception.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_throw_exception" [label=wrap_json_throw_exception URL="../proc/wrap_json_throw_exception.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"interface~to_unicode" [label=to_unicode URL="../interface/to_unicode.html" color="#A7506F" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~to_uni_vec" [label=to_uni_vec URL="../proc/to_uni_vec.html" color="#d94e8f" fontcolor=white style=filled]
+		"proc~to_uni" [label=to_uni URL="../proc/to_uni.html" color="#d94e8f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"interface~to_unicode" -> "proc~to_uni_vec" [style=dashed]
+			"interface~to_unicode" -> "proc~to_uni" [style=dashed]
+			"proc~wrap_json_throw_exception" -> "proc~json_throw_exception"
+			"proc~wrap_json_throw_exception" -> "interface~to_unicode"
+		graph [concentrate=false]
+			"interface~throw_exception" -> "proc~json_throw_exception" [style=dashed]
+			"interface~throw_exception" -> "proc~wrap_json_throw_exception" [style=dashed]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_get_by_name_chars" -> "interface~throw_exception"
+			"proc~json_value_get_by_name_chars" -> "proc~json_count"
+		graph [concentrate=false]
+}

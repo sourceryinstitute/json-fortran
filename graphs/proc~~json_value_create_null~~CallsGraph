@@ -1,0 +1,21 @@
+digraph "proc~~json_value_create_null~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"proc~json_value_create_null" [label=json_value_create_null]
+		graph [concentrate=false]
+		"proc~json_value_create" [label=json_value_create URL="../proc/json_value_create.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~to_null" [label=to_null URL="../proc/to_null.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~destroy_json_data" [label=destroy_json_data URL="../proc/destroy_json_data.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~to_null" -> "proc~destroy_json_data"
+		graph [concentrate=false]
+			"proc~json_value_create_null" -> "proc~json_value_create"
+			"proc~json_value_create_null" -> "proc~to_null"
+		graph [concentrate=false]
+}

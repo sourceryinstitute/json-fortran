@@ -1,0 +1,14 @@
+digraph "proc~~json_traverse~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"proc~json_traverse" [label=json_traverse]
+		graph [concentrate=false]
+		"proc~json_count" [label=json_count URL="../proc/json_count.html" color="#d94e8f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_traverse" -> "proc~json_traverse"
+			"proc~json_traverse" -> "proc~json_count"
+		graph [concentrate=false]
+}

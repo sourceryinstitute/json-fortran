@@ -1,0 +1,22 @@
+digraph "interface~~json_remove~~CallsGraph" {
+	graph [concentrate=true rankdir=LR size="8.90625,1000.0"]
+	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
+	edge [fontname=Helvetica fontsize=9.5]
+		"interface~json_remove" [label=json_remove]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~json_value_remove" [label=json_value_remove URL="../proc/json_value_remove.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		"proc~json_value_destroy" [label=json_value_destroy URL="../proc/json_value_destroy.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		"proc~destroy_json_data" [label=destroy_json_data URL="../proc/destroy_json_data.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_value_destroy" -> "proc~destroy_json_data"
+			"proc~json_value_destroy" -> "proc~json_value_destroy"
+		graph [concentrate=false]
+			"proc~json_value_remove" -> "proc~json_value_destroy"
+		graph [concentrate=false]
+			"interface~json_remove" -> "proc~json_value_remove" [style=dashed]
+}

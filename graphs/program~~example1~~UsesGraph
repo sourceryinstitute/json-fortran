@@ -3,6 +3,8 @@ digraph "program~~example1~~UsesGraph" {
 	node [fontname=Helvetica fontsize=10.5 height=0.0 margin=0.08 shape=box]
 	edge [fontname=Helvetica fontsize=9.5]
 		"program~example1" [label=example1]
-		json_module [label=json_module color="#337AB7" fontcolor=white style=filled]
-			json_module -> "program~example1" [style=dashed]
+		"module~json_module" [label=json_module URL="../module/json_module.html" color="#337AB7" fontcolor=white style=filled]
+		iso_fortran_env [label=iso_fortran_env URL="https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fFORTRAN_005fENV.html" color="#337AB7" fontcolor=white style=filled]
+			iso_fortran_env -> "module~json_module" [style=dashed]
+			"module~json_module" -> "program~example1" [style=dashed]
 }

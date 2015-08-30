@@ -4,18 +4,52 @@ digraph "proc~~test_13~~CallsGraph" {
 	edge [fontname=Helvetica fontsize=9.5]
 		"proc~test_13" [label=test_13]
 		graph [concentrate=false]
-		json_initialize [label=json_initialize color="#777777" fontcolor=white style=filled]
-		json_failed [label=json_failed color="#777777" fontcolor=white style=filled]
-		json_print_error_message [label=json_print_error_message color="#777777" fontcolor=white style=filled]
+		"proc~json_initialize" [label=json_initialize URL="../proc/json_initialize.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_print_error_message" [label=json_print_error_message URL="../proc/json_print_error_message.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~json_failed" [label=json_failed URL="../proc/json_failed.html" color="#d94e8f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		"interface~throw_exception" [label=throw_exception URL="../interface/throw_exception.html" color="#A7506F" fontcolor=white style=filled]
+		"proc~json_clear_exceptions" [label=json_clear_exceptions URL="../proc/json_clear_exceptions.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~json_throw_exception" [label=json_throw_exception URL="../proc/json_throw_exception.html" color="#d9534f" fontcolor=white style=filled]
+		"proc~wrap_json_throw_exception" [label=wrap_json_throw_exception URL="../proc/wrap_json_throw_exception.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"interface~to_unicode" [label=to_unicode URL="../interface/to_unicode.html" color="#A7506F" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		"proc~to_uni_vec" [label=to_uni_vec URL="../proc/to_uni_vec.html" color="#d94e8f" fontcolor=white style=filled]
+		"proc~to_uni" [label=to_uni URL="../proc/to_uni.html" color="#d94e8f" fontcolor=white style=filled]
 		graph [concentrate=false]
 		graph [concentrate=false]
 		graph [concentrate=false]
 		graph [concentrate=false]
 		graph [concentrate=false]
+			"interface~to_unicode" -> "proc~to_uni_vec" [style=dashed]
+			"interface~to_unicode" -> "proc~to_uni" [style=dashed]
+			"proc~wrap_json_throw_exception" -> "proc~json_throw_exception"
+			"proc~wrap_json_throw_exception" -> "interface~to_unicode"
+		graph [concentrate=false]
+			"interface~throw_exception" -> "proc~json_throw_exception" [style=dashed]
+			"interface~throw_exception" -> "proc~wrap_json_throw_exception" [style=dashed]
 		graph [concentrate=false]
 		graph [concentrate=false]
-			"proc~test_13" -> json_initialize
-			"proc~test_13" -> json_failed
-			"proc~test_13" -> json_print_error_message
+			"proc~json_initialize" -> "interface~throw_exception"
+			"proc~json_initialize" -> "proc~json_clear_exceptions"
+		graph [concentrate=false]
+		"proc~json_check_for_errors" [label=json_check_for_errors URL="../proc/json_check_for_errors.html" color="#d9534f" fontcolor=white style=filled]
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~json_print_error_message" -> "proc~json_check_for_errors"
+			"proc~json_print_error_message" -> "proc~json_clear_exceptions"
+		graph [concentrate=false]
+		graph [concentrate=false]
+		graph [concentrate=false]
+			"proc~test_13" -> "proc~json_initialize"
+			"proc~test_13" -> "proc~json_print_error_message"
+			"proc~test_13" -> "proc~json_failed"
 		graph [concentrate=false]
 }
