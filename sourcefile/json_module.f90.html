@@ -472,19 +472,19 @@
     <span class="c">!  The types of JSON data.</span>
     <span class="c">!</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">json_unknown</span>   <span class="o">=</span> <span class="mi">0</span>  <span class="c">!! Unknown JSON data type </span>
-	                                                    <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
+                                                        <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">json_null</span>      <span class="o">=</span> <span class="mi">1</span>  <span class="c">!! Null JSON data type</span>
-	                                                    <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
+                                                        <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">json_object</span>    <span class="o">=</span> <span class="mi">2</span>  <span class="c">!! Object JSON data type</span>
-	                                                    <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
+                                                        <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">json_array</span>     <span class="o">=</span> <span class="mi">3</span>  <span class="c">!! Array JSON data type</span>
-	                                                    <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
+                                                        <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">json_logical</span>   <span class="o">=</span> <span class="mi">4</span>  <span class="c">!! Logical JSON data type </span>
-	                                                    <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
+                                                        <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">json_integer</span>   <span class="o">=</span> <span class="mi">5</span>  <span class="c">!! Integer JSON data type</span>
-	                                                    <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
+                                                        <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">json_double</span>    <span class="o">=</span> <span class="mi">6</span>  <span class="c">!! Double JSON data type</span>
-	                                                    <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
+                                                        <span class="c">!! (see [[json_file_variable_info]] and [[json_info]])</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">json_string</span>    <span class="o">=</span> <span class="mi">7</span>  <span class="c">!! String JSON data type</span>
     <span class="c">!*********************************************************</span>
 
@@ -1126,7 +1126,7 @@
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">max_numeric_str_len</span> <span class="o">=</span> <span class="n">real_precision</span> <span class="o">+</span> <span class="n">real_exponent_digits</span> <span class="o">+</span> <span class="mi">6</span>  
     <span class="c">!! 6 = sign + leading 0 + decimal + &#39;E&#39; + exponent sign + 1 extra</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">int_fmt</span>  <span class="o">=</span> <span class="s1">&#39;(ss,I0)&#39;</span> <span class="c">!! minimum width format for integers</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">star</span>     <span class="o">=</span> <span class="s1">&#39;*&#39;</span>       <span class="c">!! for invalid numbers</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">star</span>     <span class="o">=</span> <span class="s1">&#39;*&#39;</span> <span class="c">!! for invalid numbers and list-directed real output</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">real_fmt</span>  <span class="c">!! the format string to use for real numbers</span>
                                                        <span class="c">!! it is set in [[json_initialize]]</span>
 
@@ -1137,7 +1137,7 @@
     <span class="c">!exception handling [private variables]</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">is_verbose</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>        <span class="c">!! if true, all exceptions are immediately printed to console</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">exception_thrown</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>   <span class="c">!! the error flag (by default, this is true to </span>
-	                                           <span class="c">!! make sure that [[json_initialize]] is called.</span>
+                                               <span class="c">!! make sure that [[json_initialize]] is called.</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">err_message</span> <span class="c">!! the error message</span>
 
     <span class="c">!temp vars used when parsing lines in file [private variables]</span>
@@ -1929,6 +1929,16 @@
           <span class="nb">present</span><span class="p">(</span><span class="n">compact_reals</span><span class="p">)</span>     <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
           <span class="nb">present</span><span class="p">(</span><span class="n">print_signs</span><span class="p">)</span>       <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
           <span class="nb">present</span><span class="p">(</span><span class="n">real_format</span><span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+        
+        <span class="c">!allow the special case where real format is &#39;*&#39;:</span>
+        <span class="c">! [this overrides the other options]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">real_format</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            if</span> <span class="p">(</span><span class="n">real_format</span><span class="o">==</span><span class="n">star</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                </span><span class="n">compact_real</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="n">real_fmt</span> <span class="o">=</span> <span class="n">star</span>
+                <span class="k">return</span>
+<span class="k">            end if</span>
+<span class="k">        end if</span>
 
 <span class="k">        if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">compact_reals</span><span class="p">))</span> <span class="n">compact_real</span> <span class="o">=</span> <span class="n">compact_reals</span>  
 
@@ -4183,6 +4193,11 @@
 <span class="c">!  date: 1/19/2014</span>
 <span class="c">!</span>
 <span class="c">!  Convert a string into a double.</span>
+<span class="c">!</span>
+<span class="c">!# History</span>
+<span class="c">!  * Jacob Williams, 10/27/2015 : Now using fmt=*, rather than</span>
+<span class="c">!    fmt=real_fmt, since it doesn&#39;t work for some unusual cases</span>
+<span class="c">!    (e.g., when str=&#39;1E-5&#39;).</span>
 
     <span class="k">function </span><span class="n">string_to_double</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">rval</span><span class="p">)</span>
 
@@ -4194,15 +4209,16 @@
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ierr</span>
 
     <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
-
-<span class="k">        read</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="n">real_fmt</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span> <span class="n">rval</span>    <span class="c">!string to double</span>
-
+                
+        <span class="c">!string to double</span>
+        <span class="k">read</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">fmt</span><span class="o">=*</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span> <span class="n">rval</span>    
+        
         <span class="k">if</span> <span class="p">(</span><span class="n">ierr</span><span class="o">/=</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>    <span class="c">!if there was an error</span>
             <span class="n">rval</span> <span class="o">=</span> <span class="mf">0.0_RK</span>
             <span class="k">call </span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in string_to_double:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
                                  <span class="s1">&#39; string cannot be converted to a double: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">str</span><span class="p">))</span>
         <span class="k">end if</span>
-
+<span class="k">        </span>
 <span class="k">    end if</span>
 
 <span class="k">    end function </span><span class="n">string_to_double</span>
@@ -6864,6 +6880,7 @@
 <span class="c">!</span>
 <span class="c">!# Modified</span>
 <span class="c">!  * Izaak Beekman : 02/24/2015 : added the compact option.</span>
+<span class="c">!  * Jacob Williams : 10/27/2015 : added the star option.</span>
 
     <span class="k">subroutine </span><span class="n">real_to_string</span><span class="p">(</span><span class="n">rval</span><span class="p">,</span><span class="n">str</span><span class="p">)</span>
 
@@ -6874,10 +6891,13 @@
 
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">istat</span>
 
-    <span class="c">!default format:</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="n">real_fmt</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span> <span class="n">rval</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">real_fmt</span><span class="o">==</span><span class="n">star</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        write</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">fmt</span><span class="o">=*</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span> <span class="n">rval</span>
+    <span class="k">else</span>
+<span class="k">        write</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="n">real_fmt</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span> <span class="n">rval</span>
+    <span class="k">end if</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">istat</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">    if</span> <span class="p">(</span><span class="n">istat</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
 
         <span class="c">!in this case, the default string will be compacted,</span>
         <span class="c">! so that the same value is displayed with fewer characters.</span>
