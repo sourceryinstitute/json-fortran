@@ -10,7 +10,7 @@
     <meta name="author" content="Chris MacMackin" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_value_get_parent &ndash; JSON-Fortran</title>
+    <title>json_value_clone_func &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -91,7 +91,7 @@
     
   
   <div class="row">
-    <h1>json_value_get_parent
+    <h1>json_value_clone_func
     <small>Subroutine</small>
     
     </h1>
@@ -104,7 +104,7 @@
     <li><i class="fa fa-pencil"></i> Jacob Williams</li>
      
      
-    <li><i class="fa fa-calendar-o"></i> 10/16/2015</li>
+    <li><i class="fa fa-calendar-o"></i> 10/31/2015</li>
      
      
      
@@ -119,7 +119,7 @@
   
      <li><a href='../module/json_module.html'>json_module</a></li>
   
-     <li class="active">json_value_get_parent</li>
+     <li class="active">json_value_clone_func</li>
   </ol>
 </div>
 </div>
@@ -153,7 +153,7 @@
   <div class="panel panel-primary">
     <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
     <div class="list-group">
-      <a class="list-group-item" href="../proc/json_value_get_parent.html#src">json_value_get_parent</a>
+      <a class="list-group-item" href="../proc/json_value_clone_func.html#src">json_value_clone_func</a>
     </div>
   </div>
   
@@ -190,6 +190,8 @@
       <a class="list-group-item" href="../proc/json_check_for_errors.html">json_check_for_errors</a>
       
       <a class="list-group-item" href="../proc/json_clear_exceptions.html">json_clear_exceptions</a>
+      
+      <a class="list-group-item" href="../proc/json_clone.html">json_clone</a>
       
       <a class="list-group-item" href="../proc/json_count.html">json_count</a>
       
@@ -297,7 +299,11 @@
       
       <a class="list-group-item" href="../proc/json_get_logical_with_path.html">json_get_logical_with_path</a>
       
-      <a class="list-group-item" href="../interface/json_get_parent.html">json_get_parent</a>
+      <a class="list-group-item" href="../proc/json_get_next.html">json_get_next</a>
+      
+      <a class="list-group-item" href="../proc/json_get_parent.html">json_get_parent</a>
+      
+      <a class="list-group-item" href="../proc/json_get_previous.html">json_get_previous</a>
       
       <a class="list-group-item" href="../proc/json_get_string.html">json_get_string</a>
       
@@ -306,6 +312,8 @@
       <a class="list-group-item" href="../proc/json_get_string_vec_with_path.html">json_get_string_vec_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_string_with_path.html">json_get_string_with_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_tail.html">json_get_tail</a>
       
       <a class="list-group-item" href="../proc/json_info.html">json_info</a>
       
@@ -375,6 +383,8 @@
       
       <a class="list-group-item" href="../proc/json_value_add_string_vec_val_ascii.html">json_value_add_string_vec_val_ascii</a>
       
+      <a class="list-group-item" href="../proc/json_value_clone_func.html">json_value_clone_func</a>
+      
       <a class="list-group-item" href="../proc/json_value_create.html">json_value_create</a>
       
       <a class="list-group-item" href="../proc/json_value_create_array.html">json_value_create_array</a>
@@ -396,8 +406,6 @@
       <a class="list-group-item" href="../proc/json_value_get_by_index.html">json_value_get_by_index</a>
       
       <a class="list-group-item" href="../proc/json_value_get_by_name_chars.html">json_value_get_by_name_chars</a>
-      
-      <a class="list-group-item" href="../proc/json_value_get_parent.html">json_value_get_parent</a>
       
       <a class="list-group-item" href="../proc/json_value_print.html">json_value_print</a>
       
@@ -597,7 +605,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine json_value_get_parent(me, p)
+private recursivesubroutine json_value_clone_func(from, to, parent, previous, next, children, tail)
     
     
     
@@ -625,12 +633,12 @@ private subroutine json_value_get_parent(me, p)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E64"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  <td>intent(in),</td>
+  <td><span class="anchor" id="variable-from%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>me</strong></td><td><p><abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> object</p></td>
+  <td><strong>from</strong></td><td><p>this is the structure to clone</p></td>
   
 </tr>
 
@@ -640,12 +648,88 @@ private subroutine json_value_get_parent(me, p)
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E23"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-to%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>,</td>
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p</strong></td><td><p>pointer to the parent</p></td>
+  <td><strong>to</strong></td><td><p>the clone is put here 
+ (it must not already be associated)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-parent%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td>optional</td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>parent</strong></td><td><p>to%parent</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-previous%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td>optional</td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>previous</strong></td><td><p>to%previous</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-next%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td>optional</td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>next</strong></td><td><p>to%next</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-children%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td>optional</td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>children</strong></td><td><p>to%children</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-tail%7E2"></span>logical</td>
+  <td>,</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>tail</strong></td><td><p>if "to" is the tail of its parent's children</p></td>
   
 </tr>
 
@@ -656,8 +740,9 @@ private subroutine json_value_get_parent(me, p)
     
     
     <h3>Description</h3>
-    <p>Returns a pointer to the parent of a <a href="../type/json_value.html">json_value</a>.
-  If there is no parent, then a null() pointer is returned.</p>
+    <p>Recursive deep copy function called by <a href="../proc/json_clone.html">json_clone</a>.</p>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4>If new data is added to the <a href="../type/json_value.html">json_value</a> type, 
+      then this would need to be updated.</div>
     
     
      
@@ -668,28 +753,57 @@ private subroutine json_value_get_parent(me, p)
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generated by graphviz version 2.26.3 (20100126.1600)
  -->
-<!-- Title: proc~~json_value_get_parent~~CalledByGraph Pages: 1 -->
-<svg id="procjson_value_get_parentCalledByGraph" width="256pt" height="34pt"
- viewBox="0.00 0.00 256.00 34.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="proc~~json_value_get_parent~~CalledByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 30)">
-<title>proc~~json_value_get_parent~~CalledByGraph</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-30 253,-30 253,5 -4,5"/>
-<!-- proc~json_value_get_parent -->
-<g id="node1" class="node"><title>proc~json_value_get_parent</title>
-<polygon fill="none" stroke="black" points="247,-26 127,-26 127,-1.24345e-14 247,-3.55271e-15 247,-26"/>
-<text text-anchor="middle" x="187" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_value_get_parent</text>
+<!-- Title: proc~~json_value_clone_func~~CalledByGraph Pages: 1 -->
+<svg id="procjson_value_clone_funcCalledByGraph" width="410pt" height="52pt"
+ viewBox="0.00 0.00 410.00 52.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~json_value_clone_func~~CalledByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 48)">
+<title>proc~~json_value_clone_func~~CalledByGraph</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-48 407,-48 407,5 -4,5"/>
+<!-- proc~json_value_clone_func -->
+<g id="node1" class="node"><title>proc~json_value_clone_func</title>
+<polygon fill="none" stroke="black" points="401,-26 281,-26 281,-1.24345e-14 401,-3.55271e-15 401,-26"/>
+<text text-anchor="middle" x="341" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_value_clone_func</text>
 </g>
-<!-- interface~json_get_parent -->
-<g id="node2" class="node"><title>interface~json_get_parent</title>
-<a xlink:href="../interface/json_get_parent.html" xlink:title="json_get_parent">
-<polygon fill="#a7506f" stroke="#a7506f" points="90,-26 4.26326e-14,-26 0,-1.24345e-14 90,-3.55271e-15 90,-26"/>
-<text text-anchor="middle" x="45" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_get_parent</text>
+<!-- proc~json_value_clone_func&#45;&gt;proc~json_value_clone_func -->
+<g id="edge6" class="edge"><title>proc~json_value_clone_func&#45;&gt;proc~json_value_clone_func</title>
+<path fill="none" stroke="black" d="M319.344,-26.0602C312.781,-35.0996 320,-44 341,-44 353.797,-44 361.476,-40.6949 364.038,-36.0674"/>
+<polygon fill="black" stroke="black" points="367.491,-35.4874 362.656,-26.0602 360.557,-36.4449 367.491,-35.4874"/>
+</g>
+<!-- proc~json_clone -->
+<g id="node2" class="node"><title>proc~json_clone</title>
+<a xlink:href="../proc/json_clone.html" xlink:title="json_clone">
+<polygon fill="#d9534f" stroke="#d9534f" points="244,-26 180,-26 180,-1.24345e-14 244,-3.55271e-15 244,-26"/>
+<text text-anchor="middle" x="212" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_clone</text>
 </a>
 </g>
-<!-- interface~json_get_parent&#45;&gt;proc~json_value_get_parent -->
-<g id="edge2" class="edge"><title>interface~json_get_parent&#45;&gt;proc~json_value_get_parent</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M90.3201,-13C98.5458,-13 107.303,-13 116.059,-13"/>
-<polygon fill="black" stroke="black" points="116.305,-16.5001 126.305,-13 116.305,-9.5001 116.305,-16.5001"/>
+<!-- proc~json_clone&#45;&gt;proc~json_value_clone_func -->
+<g id="edge8" class="edge"><title>proc~json_clone&#45;&gt;proc~json_value_clone_func</title>
+<path fill="none" stroke="black" d="M244.219,-13C252.19,-13 261.046,-13 270.073,-13"/>
+<polygon fill="black" stroke="black" points="270.297,-16.5001 280.297,-13 270.297,-9.5001 270.297,-16.5001"/>
+</g>
+<!-- proc~test_2 -->
+<g id="node3" class="node"><title>proc~test_2</title>
+<a xlink:href="../proc/test_2.html" xlink:title="test_2">
+<polygon fill="#d9534f" stroke="#d9534f" points="144,-26 90,-26 90,-1.24345e-14 144,-3.55271e-15 144,-26"/>
+<text text-anchor="middle" x="117" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_2</text>
+</a>
+</g>
+<!-- proc~test_2&#45;&gt;proc~json_clone -->
+<g id="edge4" class="edge"><title>proc~test_2&#45;&gt;proc~json_clone</title>
+<path fill="none" stroke="black" d="M144.223,-13C152.097,-13 160.886,-13 169.458,-13"/>
+<polygon fill="black" stroke="black" points="169.729,-16.5001 179.729,-13 169.729,-9.5001 169.729,-16.5001"/>
+</g>
+<!-- program~jf_test_2 -->
+<g id="node4" class="node"><title>program~jf_test_2</title>
+<a xlink:href="../program/jf_test_2.html" xlink:title="jf_test_2">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="54,-26 2.13163e-14,-26 0,-1.24345e-14 54,-3.55271e-15 54,-26"/>
+<text text-anchor="middle" x="27" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_2</text>
+</a>
+</g>
+<!-- program~jf_test_2&#45;&gt;proc~test_2 -->
+<g id="edge2" class="edge"><title>program~jf_test_2&#45;&gt;proc~test_2</title>
+<path fill="none" stroke="black" d="M54.003,-13C62.0277,-13 70.9665,-13 79.5309,-13"/>
+<polygon fill="black" stroke="black" points="79.7051,-16.5001 89.705,-13 79.705,-9.5001 79.7051,-16.5001"/>
 </g>
 </g>
 </svg>
@@ -804,20 +918,66 @@ implementation in a submodule of an interface in a parent module.</p>
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre>    <span class="k">subroutine </span><span class="n">json_value_get_parent</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+    <div class="highlight"><pre>    <span class="k">recursive subroutine </span><span class="n">json_value_clone_func</span><span class="p">(</span><span class="n">from</span><span class="p">,</span><span class="n">to</span><span class="p">,</span><span class="n">parent</span><span class="p">,</span><span class="n">previous</span><span class="p">,</span><span class="n">next</span><span class="p">,</span><span class="n">children</span><span class="p">,</span><span class="n">tail</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">me</span>   <span class="c">!! JSON object</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>            <span class="kd">::</span> <span class="n">p</span>    <span class="c">!! pointer to the parent</span>
+<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>          <span class="kd">::</span> <span class="n">from</span>     <span class="c">!! this is the structure to clone</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>          <span class="kd">::</span> <span class="n">to</span>       <span class="c">!! the clone is put here </span>
+                                                  <span class="c">!! (it must not already be associated)</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">parent</span>   <span class="c">!! to%parent</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">previous</span> <span class="c">!! to%previous</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">next</span>     <span class="c">!! to%next</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">children</span> <span class="c">!! to%children</span>
+    <span class="kt">logical</span><span class="p">,</span><span class="k">optional</span>                  <span class="kd">::</span> <span class="n">tail</span>     <span class="c">!! if &quot;to&quot; is the tail of its parent&#39;s children</span>
     
-    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">        </span><span class="n">p</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">parent</span>
-    <span class="k">else</span>
-<span class="k">        </span><span class="n">p</span> <span class="o">=&gt;</span> <span class="nb">null</span><span class="p">()</span>
-    <span class="k">end if</span>
+    <span class="k">nullify</span><span class="p">(</span><span class="n">to</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">from</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">    </span>
-<span class="k">    end subroutine </span><span class="n">json_value_get_parent</span>
+<span class="k">        allocate</span><span class="p">(</span><span class="n">to</span><span class="p">)</span>
+        
+        <span class="c">!copy over the data variables:</span>
+        <span class="c">! [note: the allocate() statements don&#39;t work here for the </span>
+        <span class="c">!  deferred-length characters in gfortran-4.9]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">name</span><span class="p">))</span>      <span class="n">to</span><span class="p">%</span><span class="n">name</span> <span class="o">=</span> <span class="n">from</span><span class="p">%</span><span class="n">name</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">))</span> <span class="k">allocate</span><span class="p">(</span><span class="n">to</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">from</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">log_value</span><span class="p">))</span> <span class="k">allocate</span><span class="p">(</span><span class="n">to</span><span class="p">%</span><span class="n">log_value</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">from</span><span class="p">%</span><span class="n">log_value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">str_value</span><span class="p">))</span> <span class="n">to</span><span class="p">%</span><span class="n">str_value</span> <span class="o">=</span> <span class="n">from</span><span class="p">%</span><span class="n">str_value</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">int_value</span><span class="p">))</span> <span class="k">allocate</span><span class="p">(</span><span class="n">to</span><span class="p">%</span><span class="n">int_value</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">from</span><span class="p">%</span><span class="n">int_value</span><span class="p">)</span>
+        <span class="n">to</span><span class="p">%</span><span class="n">var_type</span>   <span class="o">=</span> <span class="n">from</span><span class="p">%</span><span class="n">var_type</span>
+        <span class="n">to</span><span class="p">%</span><span class="n">n_children</span> <span class="o">=</span> <span class="n">from</span><span class="p">%</span><span class="n">n_children</span>
+        
+        <span class="c">!allocate and associate the pointers as necessary:</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">parent</span><span class="p">))</span>      <span class="n">to</span><span class="p">%</span><span class="n">parent</span>      <span class="o">=&gt;</span> <span class="n">parent</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">previous</span><span class="p">))</span>    <span class="n">to</span><span class="p">%</span><span class="n">previous</span>    <span class="o">=&gt;</span> <span class="n">previous</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">next</span><span class="p">))</span>        <span class="n">to</span><span class="p">%</span><span class="n">next</span>        <span class="o">=&gt;</span> <span class="n">next</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">children</span><span class="p">))</span>    <span class="n">to</span><span class="p">%</span><span class="n">children</span>    <span class="o">=&gt;</span> <span class="n">children</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">tail</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            if</span> <span class="p">(</span><span class="n">tail</span><span class="p">)</span> <span class="n">to</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span> <span class="o">=&gt;</span> <span class="n">to</span>
+        <span class="k">end if</span>
+<span class="k">        </span>
+<span class="k">        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">next</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            allocate</span><span class="p">(</span><span class="n">to</span><span class="p">%</span><span class="n">next</span><span class="p">)</span>
+            <span class="k">call </span><span class="n">json_value_clone_func</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">next</span><span class="p">,&amp;</span>
+                                       <span class="n">to</span><span class="p">%</span><span class="n">next</span><span class="p">,&amp;</span>
+                                       <span class="n">previous</span><span class="o">=</span><span class="n">to</span><span class="p">,&amp;</span>
+                                       <span class="n">parent</span><span class="o">=</span><span class="n">to</span><span class="p">%</span><span class="n">parent</span><span class="p">,&amp;</span>
+                                       <span class="n">tail</span><span class="o">=</span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">next</span><span class="p">%</span><span class="n">next</span><span class="p">)))</span>
+        <span class="k">end if</span>
+
+<span class="k">        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">children</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            allocate</span><span class="p">(</span><span class="n">to</span><span class="p">%</span><span class="n">children</span><span class="p">)</span>
+            <span class="k">call </span><span class="n">json_value_clone_func</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">children</span><span class="p">,&amp;</span>
+                                       <span class="n">to</span><span class="p">%</span><span class="n">children</span><span class="p">,&amp;</span>
+                                       <span class="n">parent</span><span class="o">=</span><span class="n">to</span><span class="p">,&amp;</span>
+                                       <span class="n">tail</span><span class="o">=</span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">children</span><span class="p">%</span><span class="n">next</span><span class="p">)))</span> 
+        <span class="k">end if</span>
+<span class="k">        </span>
+<span class="k">    end if</span>
+
+<span class="k">    end subroutine </span><span class="n">json_value_clone_func</span>
 </pre></div>
 
     </section>

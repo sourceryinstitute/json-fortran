@@ -724,15 +724,6 @@
 
     <span class="c">!*************************************************************************************</span>
     <span class="c">!&gt;</span>
-    <span class="c">!  Get the parent.</span>
-    <span class="c">!  Returns a [[json_value]] pointer.</span>
-    <span class="k">interface </span><span class="n">json_get_parent</span>
-        <span class="k">module procedure </span><span class="n">json_value_get_parent</span>
-    <span class="k">end interface </span><span class="n">json_get_parent</span>
-    <span class="c">!*************************************************************************************</span>
-
-    <span class="c">!*************************************************************************************</span>
-    <span class="c">!&gt;</span>
     <span class="c">!  Add objects to a linked list of [[json_value]]s.</span>
     <span class="c">!</span>
     <span class="c">!@note Formerly, this was called json_value_add</span>
@@ -889,7 +880,7 @@
         <span class="k">module procedure </span><span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_remove_if_present</span><span class="p">)</span>
     <span class="k">end interface</span>
     <span class="c">!*************************************************************************************</span>
-
+  
     <span class="c">!*************************************************************************************</span>
     <span class="c">!&gt;</span>
     <span class="c">!  Allocate a [[json_value]] pointer and make it a double variable.</span>
@@ -1052,10 +1043,14 @@
     <span class="k">public</span> <span class="kd">::</span> <span class="n">json_create_object</span>         <span class="c">! allocate a json_value object</span>
     <span class="k">public</span> <span class="kd">::</span> <span class="n">json_create_string</span>         <span class="c">! allocate a json_value string</span>
     <span class="k">public</span> <span class="kd">::</span> <span class="n">json_destroy</span>               <span class="c">! clear a JSON structure (destructor)</span>
+    <span class="k">public</span> <span class="kd">::</span> <span class="n">json_clone</span>                 <span class="c">! clone a JSON structure (deep copy)</span>
     <span class="k">public</span> <span class="kd">::</span> <span class="n">json_failed</span>                <span class="c">! check for error</span>
     <span class="k">public</span> <span class="kd">::</span> <span class="n">json_get</span>                   <span class="c">! get data from the JSON structure</span>
     <span class="k">public</span> <span class="kd">::</span> <span class="n">json_get_child</span>             <span class="c">! get a child of a json_value</span>
-    <span class="k">public</span> <span class="kd">::</span> <span class="n">json_get_parent</span>            <span class="c">! get the parent of a json_value</span>
+    <span class="k">public</span> <span class="kd">::</span> <span class="n">json_get_parent</span>            <span class="c">! get pointer to json_value parent</span>
+    <span class="k">public</span> <span class="kd">::</span> <span class="n">json_get_next</span>              <span class="c">! get pointer to json_value next</span>
+    <span class="k">public</span> <span class="kd">::</span> <span class="n">json_get_previous</span>          <span class="c">! get pointer to json_value previous</span>
+    <span class="k">public</span> <span class="kd">::</span> <span class="n">json_get_tail</span>              <span class="c">! get pointer to json_value tail</span>
     <span class="k">public</span> <span class="kd">::</span> <span class="n">json_info</span>                  <span class="c">! get info about a json_value</span>
     <span class="k">public</span> <span class="kd">::</span> <span class="n">json_initialize</span>            <span class="c">! to initialize the module</span>
     <span class="k">public</span> <span class="kd">::</span> <span class="n">json_parse</span>                 <span class="c">! read a JSON file and populate the structure</span>
@@ -1157,6 +1152,113 @@
 <span class="c">!*****************************************************************************************</span>
 
 <span class="c">!*****************************************************************************************</span>
+<span class="c">!&gt; author: Jacob Williams</span>
+<span class="c">!  date: 10/31/2015</span>
+<span class="c">!</span>
+<span class="c">!  Create a deep copy of a [[json_value]] linked-list structure.</span>
+<span class="c">!</span>
+<span class="c">!# Example</span>
+<span class="c">!</span>
+<span class="c">!```fortran</span>
+<span class="c">!    program test</span>
+<span class="c">!     use json_module</span>
+<span class="c">!     implicit none</span>
+<span class="c">!     type(json_value),pointer :: j1, j2</span>
+<span class="c">!     call json_initialize()</span>
+<span class="c">!     call json_parse(&#39;../files/inputs/test1.json&#39;,j1)</span>
+<span class="c">!     call json_clone(j1,j2) !now have two independent copies</span>
+<span class="c">!     call json_destroy(j1)  !destroys j1, but j2 remains</span>
+<span class="c">!     call json_print(j2,&#39;j2.json&#39;)</span>
+<span class="c">!     call json_destroy(j2)</span>
+<span class="c">!    end program test</span>
+<span class="c">!```</span>
+
+    <span class="k">subroutine </span><span class="n">json_clone</span><span class="p">(</span><span class="n">from</span><span class="p">,</span><span class="n">to</span><span class="p">)</span>
+
+    <span class="k">implicit none</span>
+
+<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">from</span>  <span class="c">!! this is the structure to clone</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">to</span>    <span class="c">!! the clone is put here </span>
+                                      <span class="c">!! (it must not already be associated)</span>
+    
+    <span class="c">!call the main function:</span>
+    <span class="k">call </span><span class="n">json_value_clone_func</span><span class="p">(</span><span class="n">from</span><span class="p">,</span><span class="n">to</span><span class="p">)</span>   
+                                      
+    <span class="k">end subroutine </span><span class="n">json_clone</span>
+<span class="c">!*****************************************************************************************</span>
+
+<span class="c">!*****************************************************************************************</span>
+<span class="c">!&gt; author: Jacob Williams</span>
+<span class="c">!  date: 10/31/2015</span>
+<span class="c">!</span>
+<span class="c">!  Recursive deep copy function called by [[json_clone]].</span>
+<span class="c">!</span>
+<span class="c">!@note If new data is added to the [[json_value]] type, </span>
+<span class="c">!      then this would need to be updated.</span>
+    
+    <span class="k">recursive subroutine </span><span class="n">json_value_clone_func</span><span class="p">(</span><span class="n">from</span><span class="p">,</span><span class="n">to</span><span class="p">,</span><span class="n">parent</span><span class="p">,</span><span class="n">previous</span><span class="p">,</span><span class="n">next</span><span class="p">,</span><span class="n">children</span><span class="p">,</span><span class="n">tail</span><span class="p">)</span>
+
+    <span class="k">implicit none</span>
+
+<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>          <span class="kd">::</span> <span class="n">from</span>     <span class="c">!! this is the structure to clone</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>          <span class="kd">::</span> <span class="n">to</span>       <span class="c">!! the clone is put here </span>
+                                                  <span class="c">!! (it must not already be associated)</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">parent</span>   <span class="c">!! to%parent</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">previous</span> <span class="c">!! to%previous</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">next</span>     <span class="c">!! to%next</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">children</span> <span class="c">!! to%children</span>
+    <span class="kt">logical</span><span class="p">,</span><span class="k">optional</span>                  <span class="kd">::</span> <span class="n">tail</span>     <span class="c">!! if &quot;to&quot; is the tail of its parent&#39;s children</span>
+    
+    <span class="k">nullify</span><span class="p">(</span><span class="n">to</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">from</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">    </span>
+<span class="k">        allocate</span><span class="p">(</span><span class="n">to</span><span class="p">)</span>
+        
+        <span class="c">!copy over the data variables:</span>
+        <span class="c">! [note: the allocate() statements don&#39;t work here for the </span>
+        <span class="c">!  deferred-length characters in gfortran-4.9]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">name</span><span class="p">))</span>      <span class="n">to</span><span class="p">%</span><span class="n">name</span> <span class="o">=</span> <span class="n">from</span><span class="p">%</span><span class="n">name</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">))</span> <span class="k">allocate</span><span class="p">(</span><span class="n">to</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">from</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">log_value</span><span class="p">))</span> <span class="k">allocate</span><span class="p">(</span><span class="n">to</span><span class="p">%</span><span class="n">log_value</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">from</span><span class="p">%</span><span class="n">log_value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">str_value</span><span class="p">))</span> <span class="n">to</span><span class="p">%</span><span class="n">str_value</span> <span class="o">=</span> <span class="n">from</span><span class="p">%</span><span class="n">str_value</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">int_value</span><span class="p">))</span> <span class="k">allocate</span><span class="p">(</span><span class="n">to</span><span class="p">%</span><span class="n">int_value</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">from</span><span class="p">%</span><span class="n">int_value</span><span class="p">)</span>
+        <span class="n">to</span><span class="p">%</span><span class="n">var_type</span>   <span class="o">=</span> <span class="n">from</span><span class="p">%</span><span class="n">var_type</span>
+        <span class="n">to</span><span class="p">%</span><span class="n">n_children</span> <span class="o">=</span> <span class="n">from</span><span class="p">%</span><span class="n">n_children</span>
+        
+        <span class="c">!allocate and associate the pointers as necessary:</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">parent</span><span class="p">))</span>      <span class="n">to</span><span class="p">%</span><span class="n">parent</span>      <span class="o">=&gt;</span> <span class="n">parent</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">previous</span><span class="p">))</span>    <span class="n">to</span><span class="p">%</span><span class="n">previous</span>    <span class="o">=&gt;</span> <span class="n">previous</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">next</span><span class="p">))</span>        <span class="n">to</span><span class="p">%</span><span class="n">next</span>        <span class="o">=&gt;</span> <span class="n">next</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">children</span><span class="p">))</span>    <span class="n">to</span><span class="p">%</span><span class="n">children</span>    <span class="o">=&gt;</span> <span class="n">children</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">tail</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            if</span> <span class="p">(</span><span class="n">tail</span><span class="p">)</span> <span class="n">to</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span> <span class="o">=&gt;</span> <span class="n">to</span>
+        <span class="k">end if</span>
+<span class="k">        </span>
+<span class="k">        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">next</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            allocate</span><span class="p">(</span><span class="n">to</span><span class="p">%</span><span class="n">next</span><span class="p">)</span>
+            <span class="k">call </span><span class="n">json_value_clone_func</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">next</span><span class="p">,&amp;</span>
+                                       <span class="n">to</span><span class="p">%</span><span class="n">next</span><span class="p">,&amp;</span>
+                                       <span class="n">previous</span><span class="o">=</span><span class="n">to</span><span class="p">,&amp;</span>
+                                       <span class="n">parent</span><span class="o">=</span><span class="n">to</span><span class="p">%</span><span class="n">parent</span><span class="p">,&amp;</span>
+                                       <span class="n">tail</span><span class="o">=</span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">next</span><span class="p">%</span><span class="n">next</span><span class="p">)))</span>
+        <span class="k">end if</span>
+
+<span class="k">        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">children</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            allocate</span><span class="p">(</span><span class="n">to</span><span class="p">%</span><span class="n">children</span><span class="p">)</span>
+            <span class="k">call </span><span class="n">json_value_clone_func</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">children</span><span class="p">,&amp;</span>
+                                       <span class="n">to</span><span class="p">%</span><span class="n">children</span><span class="p">,&amp;</span>
+                                       <span class="n">parent</span><span class="o">=</span><span class="n">to</span><span class="p">,&amp;</span>
+                                       <span class="n">tail</span><span class="o">=</span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">from</span><span class="p">%</span><span class="n">children</span><span class="p">%</span><span class="n">next</span><span class="p">)))</span> 
+        <span class="k">end if</span>
+<span class="k">        </span>
+<span class="k">    end if</span>
+
+<span class="k">    end subroutine </span><span class="n">json_value_clone_func</span>
+<span class="c">!*****************************************************************************************</span>
+
+<span class="c">!*****************************************************************************************</span>
 <span class="c">!&gt; author: Izaak Beekman</span>
 <span class="c">!  date: 07/23/2015</span>
 <span class="c">!</span>
@@ -1166,8 +1268,8 @@
     
     <span class="k">implicit none</span>
 <span class="k">    </span>
-<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span> <span class="k">pointer</span><span class="p">,</span> <span class="k">optional</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>    <span class="c">!! `json_value` object to cast</span>
-                                                            <span class="c">!! as a `json_file` object</span>
+<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>  <span class="c">!! `json_value` object to cast</span>
+                                                       <span class="c">!! as a `json_file` object</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span> <span class="kd">::</span> <span class="n">file_object</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="n">file_object</span><span class="p">%</span><span class="n">p</span> <span class="o">=&gt;</span> <span class="n">p</span>
@@ -3486,20 +3588,73 @@
 <span class="c">!  Returns a pointer to the parent of a [[json_value]].</span>
 <span class="c">!  If there is no parent, then a null() pointer is returned.</span>
 
-    <span class="k">subroutine </span><span class="n">json_value_get_parent</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">subroutine </span><span class="n">json_get_parent</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
 <span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">me</span>   <span class="c">!! JSON object</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>            <span class="kd">::</span> <span class="n">p</span>    <span class="c">!! pointer to the parent</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>   <span class="c">!! pointer to parent</span>
     
-    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">        </span><span class="n">p</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">parent</span>
-    <span class="k">else</span>
-<span class="k">        </span><span class="n">p</span> <span class="o">=&gt;</span> <span class="nb">null</span><span class="p">()</span>
-    <span class="k">end if</span>
-<span class="k">    </span>
-<span class="k">    end subroutine </span><span class="n">json_value_get_parent</span>
+    <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">parent</span>
+    
+    <span class="k">end subroutine </span><span class="n">json_get_parent</span>
+<span class="c">!*****************************************************************************************</span>
+
+<span class="c">!*****************************************************************************************</span>
+<span class="c">!&gt; author: Jacob Williams</span>
+<span class="c">!  date: 10/31/2015</span>
+<span class="c">!</span>
+<span class="c">!  Returns a pointer to the next of a [[json_value]].</span>
+<span class="c">!  If there is no next, then a null() pointer is returned.</span>
+
+    <span class="k">subroutine </span><span class="n">json_get_next</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="k">implicit none</span>
+
+<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">me</span>   <span class="c">!! JSON object</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>    <span class="c">!! pointer to next</span>
+    
+    <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">next</span>
+    
+    <span class="k">end subroutine </span><span class="n">json_get_next</span>
+<span class="c">!*****************************************************************************************</span>
+
+<span class="c">!*****************************************************************************************</span>
+<span class="c">!&gt; author: Jacob Williams</span>
+<span class="c">!  date: 10/31/2015</span>
+<span class="c">!</span>
+<span class="c">!  Returns a pointer to the previous of a [[json_value]].</span>
+<span class="c">!  If there is no previous, then a null() pointer is returned.</span>
+
+    <span class="k">subroutine </span><span class="n">json_get_previous</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="k">implicit none</span>
+
+<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">me</span>   <span class="c">!! JSON object</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>    <span class="c">!! pointer to previous</span>
+    
+    <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">previous</span>
+    
+    <span class="k">end subroutine </span><span class="n">json_get_previous</span>
+<span class="c">!*****************************************************************************************</span>
+
+<span class="c">!*****************************************************************************************</span>
+<span class="c">!&gt; author: Jacob Williams</span>
+<span class="c">!  date: 10/31/2015</span>
+<span class="c">!</span>
+<span class="c">!  Returns a pointer to the tail of a [[json_value]].</span>
+<span class="c">!  If there is no tail, then a null() pointer is returned.</span>
+
+    <span class="k">subroutine </span><span class="n">json_get_tail</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="k">implicit none</span>
+
+<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">me</span>    <span class="c">!! JSON object</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>    <span class="c">!! pointer to tail</span>
+    
+    <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">tail</span>
+    
+    <span class="k">end subroutine </span><span class="n">json_get_tail</span>
 <span class="c">!*****************************************************************************************</span>
 
 <span class="c">!*****************************************************************************************</span>

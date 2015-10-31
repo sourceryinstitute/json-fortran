@@ -247,9 +247,12 @@
 
 <span class="k">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">error_cnt</span>
 
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>    <span class="kd">::</span> <span class="n">p</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">traj</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">p_tmp</span><span class="p">,</span> <span class="n">p_integer_array</span><span class="p">,</span> <span class="n">p_clone</span>
 
     <span class="kt">integer</span> <span class="kd">::</span> <span class="n">iunit</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">name</span>
+    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">ival</span><span class="p">,</span><span class="n">ival_clone</span>
+    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
 
     <span class="n">error_cnt</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">call </span><span class="n">json_initialize</span><span class="p">()</span>
@@ -366,6 +369,116 @@
         <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="k">end if</span>
 <span class="k">    close</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span>
+    
+    <span class="c">!test the deep copy routine:</span>
+    
+    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;json_clone test&#39;</span>
+    <span class="k">call </span><span class="n">json_clone</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">p_clone</span><span class="p">)</span>
+    
+    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=============&#39;</span>
+    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39; p_clone&#39;</span>
+    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=============&#39;</span>
+    <span class="k">call </span><span class="n">json_print</span><span class="p">(</span><span class="n">p_clone</span><span class="p">,</span><span class="n">error_unit</span><span class="p">)</span>
+    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=============&#39;</span>
+    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+    
+    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;ERROR: p has become unassociated&#39;</span>
+    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p_clone</span><span class="p">))</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;ERROR: p_clone is not associated&#39;</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">else</span>        
+        <span class="c">!now, change one and verify that they are independent:</span>
+        <span class="k">call </span><span class="n">json_update</span><span class="p">(</span><span class="n">p_clone</span><span class="p">,</span><span class="s1">&#39;inputs.integer_scalar&#39;</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;json_update Error for p_clone&#39;</span>
+        <span class="k">call </span><span class="n">json_get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;inputs.integer_scalar&#39;</span><span class="p">,</span><span class="n">ival</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;json_get Error for p&#39;</span>
+        <span class="k">call </span><span class="n">json_get</span><span class="p">(</span><span class="n">p_clone</span><span class="p">,</span><span class="s1">&#39;inputs.integer_scalar&#39;</span><span class="p">,</span><span class="n">ival_clone</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;json_get Error for p_clone&#39;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span>
+<span class="k">            if</span> <span class="p">(</span><span class="n">ival</span><span class="o">==</span><span class="mi">1</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">ival_clone</span><span class="o">==</span><span class="mi">100</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;json_clone ... passed&#39;</span>
+            <span class="k">else</span>
+<span class="k">                write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Error: ival /= ival_clone&#39;</span>
+                <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">end if</span>
+<span class="k">        end if</span>
+<span class="k">    end if</span>
+    
+    <span class="c">!test some of the pointer routines:</span>
+    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Pointer routine tests&#39;</span>
+    <span class="k">call </span><span class="n">json_get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;inputs.integer_array&#39;</span><span class="p">,</span><span class="n">p_integer_array</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">else</span>
+    
+        <span class="c">!get parent test:</span>
+        <span class="k">call </span><span class="n">json_get_parent</span><span class="p">(</span><span class="n">p_integer_array</span><span class="p">,</span><span class="n">p_tmp</span><span class="p">)</span>  <span class="c">!should be &quot;inputs&quot;</span>
+        <span class="k">call </span><span class="n">json_info</span><span class="p">(</span><span class="n">p_tmp</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span>
+<span class="k">            if</span> <span class="p">(</span><span class="n">name</span><span class="o">==</span><span class="s1">&#39;inputs&#39;</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;json_get_parent ... passed&#39;</span>
+            <span class="k">else</span>
+<span class="k">                write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Error: parent should be &quot;inputs&quot;, is actually: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">end if</span>
+<span class="k">        end if</span>
+        
+        <span class="c">!get next test:</span>
+        <span class="k">call </span><span class="n">json_get_next</span><span class="p">(</span><span class="n">p_integer_array</span><span class="p">,</span><span class="n">p_tmp</span><span class="p">)</span>  <span class="c">!should be &quot;names&quot;</span>
+        <span class="k">call </span><span class="n">json_info</span><span class="p">(</span><span class="n">p_tmp</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span>
+<span class="k">            if</span> <span class="p">(</span><span class="n">name</span><span class="o">==</span><span class="s1">&#39;names&#39;</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;json_get_next ... passed&#39;</span>
+            <span class="k">else</span>
+<span class="k">                write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Error: next should be &quot;names&quot;, is actually: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">end if</span>
+<span class="k">        end if</span>
+        
+        <span class="c">!get previous test:</span>
+        <span class="k">call </span><span class="n">json_get_previous</span><span class="p">(</span><span class="n">p_integer_array</span><span class="p">,</span><span class="n">p_tmp</span><span class="p">)</span>  <span class="c">!should be &quot;integer_scalar&quot;</span>
+        <span class="k">call </span><span class="n">json_info</span><span class="p">(</span><span class="n">p_tmp</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span>
+<span class="k">            if</span> <span class="p">(</span><span class="n">name</span><span class="o">==</span><span class="s1">&#39;integer_scalar&#39;</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;json_get_previous ... passed&#39;</span>
+            <span class="k">else</span>
+<span class="k">                write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Error: next should be &quot;integer_scalar&quot;, is actually: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">end if</span>
+<span class="k">        end if</span>
+
+        <span class="c">!get tail test:</span>
+        <span class="k">call </span><span class="n">json_get_tail</span><span class="p">(</span><span class="n">p_integer_array</span><span class="p">,</span><span class="n">p_tmp</span><span class="p">)</span>  <span class="c">!should be 99, the last element in the array</span>
+        <span class="k">call </span><span class="n">json_get</span><span class="p">(</span><span class="n">p_tmp</span><span class="p">,</span><span class="n">ival</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span>
+<span class="k">            if</span> <span class="p">(</span><span class="n">ival</span><span class="o">==</span><span class="mi">99</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;json_get_tail ... passed&#39;</span>
+            <span class="k">else</span>
+<span class="k">                write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,1X,I5)&#39;</span><span class="p">)</span> <span class="s1">&#39;Error: tail value should be 99, is actually: &#39;</span><span class="p">,</span><span class="n">ival</span>
+                <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">end if</span>
+<span class="k">        end if</span>
+
+<span class="k">    end if</span>
 
     <span class="c">!cleanup:</span>
     <span class="k">call </span><span class="n">json_destroy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
