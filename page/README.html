@@ -198,14 +198,6 @@ A Fortran 2008 <abbr title="JavaScript Object Notation: A human friendly syntax 
 <li><a href="#brief-description">Brief description</a></li>
 <li><a href="#download">Download</a></li>
 <li><a href="#building-the-library">Building the library</a></li>
-<li><a href="#example-usage">Example Usage</a><ul>
-<li><a href="#reading-json-from-a-file">Reading <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> from a file</a></li>
-<li><a href="#reading-json-from-a-string">Reading <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> from a string</a></li>
-<li><a href="#modifying-variables-in-a-json-file">Modifying variables in a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file</a></li>
-<li><a href="#writing-a-json-file">Writing a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file</a></li>
-<li><a href="#building-a-json-file-from-scratch">Building a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file from scratch</a></li>
-</ul>
-</li>
 <li><a href="#documentation">Documentation</a></li>
 <li><a href="#contributing">Contributing</a></li>
 <li><a href="#license">License</a></li>
@@ -225,8 +217,8 @@ A Fortran 2008 <abbr title="JavaScript Object Notation: A human friendly syntax 
 <a href="https://waffle.io/jacobwilliams/json-fortran"><img alt="Needs Review" src="https://badge.waffle.io/jacobwilliams/json-fortran.png?label=Needs%20Review&amp;title=Needs%20Review"></a></p>
 <p>Take a look at the
 <a href="https://github.com/jacobwilliams/json-fortran/blob/master/CHANGELOG.md#unreleased">CHANGELOG</a>
-for a list of changes since the latest release.
-<a href="#json-fortran">top</a></p>
+for a list of changes since the latest release.</p>
+<p><a href="#json-fortran">top</a></p>
 <h2 id="brief-description">Brief description</h2>
 <p>A user-friendly and object-oriented <abbr title="Application Programming Interface: a set of routines, protocols, and tools for building software applications">API</abbr> for reading and writing <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> files, written in
 modern Fortran.  The source code is a single Fortran module file (<a href="https://github.com/jacobwilliams/json-fortran/blob/master/src/json_module.F90">json_module.F90</a>).</p>
@@ -309,150 +301,13 @@ linking against those compiled/installed by the first copy:</p>
 
 
 <p><a href="#json-fortran">top</a></p>
-<h2 id="example-usage">Example Usage</h2>
-<p>In this section the basic functionality of the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>-Fortran library is illustrated.</p>
-<h3 id="reading-json-from-a-file">Reading <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> from a file</h3>
-<p>Reading a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file and getting data from it is fairly
-straightforward using the <code>json_file</code> class.  Here is an example.  See unit tests 1 and 3-6
-for more examples. The source files may be found in <code>src/tests/</code>.</p>
-<div class="codehilite"><pre>    <span class="k">program </span><span class="n">example1</span>
-
-        <span class="k">use </span><span class="n">json_module</span>
-
-        <span class="k">type</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
-        <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
-        <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span>
-
-        <span class="c">! initialize the module</span>
-        <span class="k">call </span><span class="n">json_initialize</span><span class="p">()</span>
-
-        <span class="c">! read the file</span>
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">load_file</span><span class="p">(</span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;../files/inputs/test1.json&#39;</span><span class="p">)</span>
-
-        <span class="c">! print the file to the console</span>
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
-
-        <span class="c">! extract data from the file</span>
-        <span class="c">! [found can be used to check if the data was really there]</span>
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version.major&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">found</span> <span class="p">)</span> <span class="k">stop </span><span class="mi">1</span>
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version.minor&#39;</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">found</span> <span class="p">)</span> <span class="k">stop </span><span class="mi">1</span>
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(1).number&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">found</span> <span class="p">)</span> <span class="k">stop </span><span class="mi">1</span>
-
-        <span class="c">! clean up</span>
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">()</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">stop </span><span class="mi">1</span>
-
-    <span class="k">end program </span><span class="n">example1</span>
-</pre></div>
-
-
-<p><a href="#json-fortran">top</a></p>
-<h3 id="reading-json-from-a-string">Reading <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> from a string</h3>
-<p><abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> can also be read directly from a character string like so:</p>
-<div class="codehilite"><pre>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">load_from_string</span><span class="p">(</span><span class="s1">&#39;{&quot;name&quot;: &quot;Leonidas&quot;}&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p><a href="#json-fortran">top</a></p>
-<h3 id="modifying-variables-in-a-json-file">Modifying variables in a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file</h3>
-<p>After reading a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file, if you want to change the values of some of the variables, you can use the <code>update</code> method.  For the example above:</p>
-<div class="codehilite"><pre>    <span class="c">! [found can be used to check if the data was really there]</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;version.major&#39;</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>  <span class="c">!change major version to 9</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;version.minor&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>  <span class="c">!change minor version to 0</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;version.patch&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>  <span class="c">!change patch to 0</span>
-</pre></div>
-
-
-<p><a href="#json-fortran">top</a></p>
-<h3 id="writing-a-json-file">Writing a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file</h3>
-<p>To print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file (either to a file or the console), the <code>print_file</code> method can be used.  For the above example:</p>
-<div class="codehilite"><pre>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>         <span class="c">!prints to the console</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">(</span><span class="n">iunit</span><span class="p">)</span>    <span class="c">!prints to the file connected to iunit</span>
-</pre></div>
-
-
-<p><a href="#json-fortran">top</a></p>
-<h3 id="building-a-json-file-from-scratch">Building a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file from scratch</h3>
-<p>Constructing a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file element by element is slightly more complicated and involves the use
-of <code>json_value</code> pointers.  For more examples see unit tests 2, 4 and 7 in <code>src/tests/</code>.</p>
-<div class="codehilite"><pre>    <span class="k">program </span><span class="n">example2</span>
-
-        <span class="k">use</span><span class="p">,</span><span class="k">intrinsic</span> <span class="kd">::</span> <span class="n">iso_fortran_env</span><span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">wp</span> <span class="o">=&gt;</span> <span class="n">real64</span>
-
-        <span class="k">use </span><span class="n">json_module</span>
-
-        <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span><span class="p">,</span> <span class="n">inp</span>
-
-        <span class="c">! initialize the module</span>
-        <span class="k">call </span><span class="n">json_initialize</span><span class="p">()</span>
-
-        <span class="c">! initialize the structure:</span>
-        <span class="k">call </span><span class="n">json_create_object</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-
-        <span class="c">! add an &quot;inputs&quot; object to the structure:</span>
-        <span class="k">call </span><span class="n">json_create_object</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span><span class="s1">&#39;inputs&#39;</span><span class="p">)</span>
-        <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">inp</span><span class="p">)</span> <span class="c">!add it to the root</span>
-
-        <span class="c">! add some data to inputs:</span>
-        <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="s1">&#39;t0&#39;</span><span class="p">,</span> <span class="mf">0.1_wp</span><span class="p">)</span>
-        <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="s1">&#39;tf&#39;</span><span class="p">,</span> <span class="mf">1.1_wp</span><span class="p">)</span>
-        <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="mi">999</span><span class="mf">9.0000</span><span class="n">d0</span><span class="p">)</span>
-        <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="s1">&#39;integer_scalar&#39;</span><span class="p">,</span> <span class="mi">787</span><span class="p">)</span>
-        <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="s1">&#39;integer_array&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">99</span><span class="p">])</span>
-        <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;aaa&#39;</span><span class="p">,</span><span class="s1">&#39;bbb&#39;</span><span class="p">,</span><span class="s1">&#39;ccc&#39;</span><span class="p">])</span>
-        <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="s1">&#39;logical_scalar&#39;</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
-        <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="s1">&#39;logical_vector&#39;</span><span class="p">,</span> <span class="p">[.</span><span class="n">true</span><span class="p">.,</span> <span class="p">.</span><span class="n">false</span><span class="p">.,</span> <span class="p">.</span><span class="n">true</span><span class="p">.])</span>
-        <span class="k">nullify</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>  <span class="c">!don&#39;t need this anymore</span>
-
-        <span class="c">! write the file:</span>
-        <span class="k">call </span><span class="n">json_print</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;../files/example2.json&#39;</span><span class="p">)</span>
-
-        <span class="c">!cleanup:</span>
-        <span class="k">call </span><span class="n">json_destroy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">stop </span><span class="mi">1</span>
-
-    <span class="k">end program </span><span class="n">example2</span>
-</pre></div>
-
-
-<p>The code above produces the file:</p>
-<div class="codehilite"><pre><span class="p">{</span>
-  <span class="nt">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;t0&quot;</span><span class="p">:</span> <span class="mf">0.1E+0</span><span class="p">,</span>
-    <span class="nt">&quot;tf&quot;</span><span class="p">:</span> <span class="mf">0.11E+1</span><span class="p">,</span>
-    <span class="nt">&quot;x0&quot;</span><span class="p">:</span> <span class="mf">0.9999E+4</span><span class="p">,</span>
-    <span class="nt">&quot;integer_scalar&quot;</span><span class="p">:</span> <span class="mi">787</span><span class="p">,</span>
-    <span class="nt">&quot;integer_array&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="mi">2</span><span class="p">,</span>
-      <span class="mi">4</span><span class="p">,</span>
-      <span class="mi">99</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;names&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&quot;aaa&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;bbb&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;ccc&quot;</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;logical_scalar&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nt">&quot;logical_vector&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="kc">true</span><span class="p">,</span>
-      <span class="kc">false</span><span class="p">,</span>
-      <span class="kc">true</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p><a href="#json-fortran">top</a></p>
 <h2 id="documentation">Documentation</h2>
 <p>The <abbr title="Application Programming Interface: a set of routines, protocols, and tools for building software applications">API</abbr> documentation for the latest release version can be found
 <a href="http://jacobwilliams.github.io/json-fortran/">here</a>.  The
 documentation can also be generated by processing the source files
 with <a href="https://github.com/cmacmackin/ford">FORD</a>.  Note that both the
 shell script and CMake will also generate these files automatically in the documentation folder, assuming you have FORD installed.</p>
+<p>Some examples can also be found on the <a href="https://github.com/jacobwilliams/json-fortran/wiki/Example-Usage">wiki</a>.</p>
 <p><a href="#json-fortran">top</a></p>
 <h2 id="contributing">Contributing</h2>
 <p><a href="https://github.com/jacobwilliams/json-fortran/blob/master/CONTRIBUTING.md"><img alt="Ready in backlog" src="https://badge.waffle.io/jacobwilliams/json-fortran.png?label=Ready&amp;title=Ready"></a></p>
