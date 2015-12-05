@@ -197,6 +197,7 @@
 <li><a href="#changes-between-releases">Changes Between Releases</a><ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#430-2015-12-05">4.3.0 (2015-12-05)</a></li>
 <li><a href="#420-2015-08-03">4.2.0 (2015-08-03)</a></li>
 <li><a href="#411-2015-05-27">4.1.1 (2015-05-27)</a></li>
 <li><a href="#410-2015-05-05">4.1.0 (2015-05-05)</a></li>
@@ -218,7 +219,7 @@ of the <code>master</code> branch, please head back to the
 <a href="../../index.html">main page</a>.</p>
 <h2 id="latest-stable-release">Latest Stable Release</h2>
 <p><strong>Documentation:</strong>
-<a href="http://jacobwilliams.github.io/json-fortran/4.2.0/index.html">4.2.0</a></p>
+<a href="http://jacobwilliams.github.io/json-fortran/4.3.0/index.html">4.3.0</a></p>
 <p><strong>Download:</strong>
 <a href="https://github.com/jacobwilliams/json-fortran/releases/latest">https://github.com/jacobwilliams/json-fortran/releases/latest</a></p>
 <h2 id="past-releases">Past Releases</h2>
@@ -227,6 +228,11 @@ documentation from the documentation for official releases other than
 using the browser's back button. Feel free to bookmark this page, or
 the <a href="../../index.html">main project page</a> for convenient navigation.</p>
 <ul>
+<li><a href="http://jacobwilliams.github.io/json-fortran/4.3.0/index.html">4.3.0</a>
+   (<a href="https://github.com/cmacmackin/ford">FORD</a> generated documentation)<ul>
+<li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/4.3.0">Download</a></li>
+</ul>
+</li>
 <li><a href="http://jacobwilliams.github.io/json-fortran/4.2.0/index.html">4.2.0</a>
    (<a href="https://github.com/cmacmackin/ford">FORD</a> generated documentation)<ul>
 <li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/4.2.0">Download</a></li>
@@ -270,7 +276,7 @@ the <a href="../../index.html">main project page</a> for convenient navigation.<
 </ul>
 <h1 id="development-version">Development Version</h1>
 <p>Documentation for the latest development version may be found at
-<a href="https://jacobwilliams.github.io/json-fortran/4.2.0/index.html">https://jacobwilliams.github.io/json-fortran/4.2.0/index.html</a>
+<a href="https://jacobwilliams.github.io/json-fortran/4.3.0/index.html">https://jacobwilliams.github.io/json-fortran/4.3.0/index.html</a>
 or generated locally using the
 <a href="../../page/development-resources/build.sh.html">build.sh</a> build
 script.</p>
@@ -282,6 +288,7 @@ implemented between each release.</p>
 <ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#430-2015-12-05">4.3.0 (2015-12-05)</a></li>
 <li><a href="#420-2015-08-03">4.2.0 (2015-08-03)</a></li>
 <li><a href="#411-2015-05-27">4.1.1 (2015-05-27)</a></li>
 <li><a href="#410-2015-05-05">4.1.0 (2015-05-05)</a></li>
@@ -294,7 +301,28 @@ implemented between each release.</p>
 </li>
 </ul>
 <h3 id="unreleased"><a href="https://github.com/jacobwilliams/json-fortran/tree/HEAD">Unreleased</a></h3>
-<p><a href="https://github.com/jacobwilliams/json-fortran/compare/4.2.0...HEAD">Complete Changeset</a></p>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/4.3.0...HEAD">Complete Changeset</a></p>
+<h3 id="430-2015-12-05"><a href="https://github.com/jacobwilliams/json-fortran/tree/4.3.0">4.3.0</a> (2015-12-05)</h3>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/4.2.0...4.3.0">Complete Changeset</a>
+or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/4.3.0">Download v4.3.0</a></p>
+<p><strong>Enhancements:</strong></p>
+<ul>
+<li>Added routines for getting the <code>parent</code>, <code>next</code>, <code>previous</code>, and <code>tail</code> pointers <a href="https://github.com/jacobwilliams/json-fortran/issues/161">#161</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added a deep copy routine for <code>json_value</code> structures <a href="https://github.com/jacobwilliams/json-fortran/issues/160">#160</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Updated the Visual Studio solution to VS 2013. Also removed the test projects (it now just compiles the library) (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
+<p><strong>Fixed issues:</strong></p>
+<ul>
+<li>Rewrote logic for decoding strings, and fixed bugs related to parsing strings with certain escape character combinations <a href="https://github.com/jacobwilliams/json-fortran/issues/164">#164</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Fixed a bug where some real numbers weren't being read in properly. Also added an option to output real numbers with <code>fmt=*</code> formatting <a href="https://github.com/jacobwilliams/json-fortran/issues/157">#157</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Minor documentation change. <a href="https://github.com/jacobwilliams/json-fortran/pull/153">#153</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Enabled FORD graphs in documentation. <a href="https://github.com/jacobwilliams/json-fortran/pull/149">#149</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Tag documentation fix <a href="https://github.com/jacobwilliams/json-fortran/pull/147">#147</a> (<a href="https://github.com/zbeekman">zbeekman</a>)</li>
+<li>Fix url in 4.2.0 tag documentation <a href="https://github.com/jacobwilliams/json-fortran/pull/146">#146</a> (<a href="https://github.com/zbeekman">zbeekman</a>)</li>
+</ul>
 <h3 id="420-2015-08-03"><a href="https://github.com/jacobwilliams/json-fortran/tree/4.2.0">4.2.0</a> (2015-08-03)</h3>
 <p><a href="https://github.com/jacobwilliams/json-fortran/compare/4.1.1...4.2.0">Complete Changeset</a>
 or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/4.2.0">Download v4.2.0</a></p>
