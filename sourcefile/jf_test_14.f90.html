@@ -224,127 +224,127 @@
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span class="c">!*****************************************************************************************</span>
-<span class="c">!&gt; author: Jacob Williams</span>
-<span class="c">!  date: 09/02/2015</span>
-<span class="c">!</span>
-<span class="c">! Module for the 14th unit test.</span>
-
-<span class="k">module </span><span class="n">jf_test_14_mod</span>
-
-    <span class="k">use </span><span class="n">json_module</span>
-    <span class="k">use</span><span class="p">,</span> <span class="k">intrinsic</span> <span class="kd">::</span> <span class="n">iso_fortran_env</span> <span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">error_unit</span><span class="p">,</span><span class="n">output_unit</span>
-
-    <span class="k">implicit none</span>
-<span class="k">    </span>
-<span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">dir</span> <span class="o">=</span> <span class="s1">&#39;../files/inputs/&#39;</span>  <span class="c">!! working directory</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">filename1</span> <span class="o">=</span> <span class="s1">&#39;test1.json&#39;</span>  <span class="c">!! the file to read</span>
-    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">icount</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c">!! a count of the number of &quot;name&quot; variables found</span>
-
-<span class="k">contains</span>
-
-<span class="k">    subroutine </span><span class="n">test_14</span><span class="p">(</span><span class="n">error_cnt</span><span class="p">)</span>
-    
-    <span class="c">!! Tests the traversal of a JSON structure</span>
-    <span class="c">!!</span>
-    <span class="c">!! It traverses the structure, looks for all &quot;name&quot; variables, and changes the name.</span>
-    
-    <span class="k">implicit none</span>
-
-<span class="k">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">error_cnt</span> <span class="c">!! report number of errors to caller</span>
-    
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>  <span class="kd">::</span> <span class="n">json</span>
-        
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;   TEST 14&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-
-    <span class="n">error_cnt</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">icount</span> <span class="o">=</span> <span class="mi">0</span> <span class="c">!number of name changes (should be 2)</span>
-        
-    <span class="k">call </span><span class="n">json_initialize</span><span class="p">()</span> <span class="c">!initialize the module</span>
-    
-    <span class="k">call </span><span class="n">json_parse</span><span class="p">(</span><span class="n">dir</span><span class="o">//</span><span class="n">filename1</span><span class="p">,</span><span class="n">json</span><span class="p">)</span>  <span class="c">!read the file</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">end if</span>
-<span class="k">    </span>
-<span class="k">    call </span><span class="n">json_traverse</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="nb">rename</span><span class="p">)</span> <span class="c">!traverse all nodes in the structure</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">end if</span>
-
-<span class="k">    if</span> <span class="p">(</span><span class="n">icount</span><span class="o">/=</span><span class="mi">2</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Error: should be 2 &quot;name&quot; variables in this file: &#39;</span><span class="o">//</span><span class="n">filename1</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">end if </span>
-<span class="k">    </span>
-<span class="k">    if</span> <span class="p">(</span><span class="n">error_cnt</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39; All names changed to Fred:&#39;</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">call </span><span class="n">json_print</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">output_unit</span><span class="p">)</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">end if</span>
-<span class="k">    </span>
-<span class="k">    call </span><span class="n">json_destroy</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>  <span class="c">!clean up</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">end if</span>
-<span class="k">        </span>
-<span class="k">    end subroutine </span><span class="n">test_14</span>
-    
-    <span class="k">subroutine </span><span class="nb">rename</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">finished</span><span class="p">)</span>  <span class="c">!! change all &quot;name&quot; variable values to &quot;Fred&quot;</span>
-    
-    <span class="k">implicit none</span>
-<span class="k">    </span>
-<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>
-    <span class="kt">logical</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">finished</span>
-    
-    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">var_type</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">str</span>
-    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
-    
-    <span class="c">!get info about this variable:</span>
-    <span class="k">call </span><span class="n">json_info</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">var_type</span><span class="o">=</span><span class="n">var_type</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">str</span><span class="p">)</span>
-    
-    <span class="c">!it must be a string named &quot;name&quot;:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">var_type</span><span class="o">==</span><span class="n">json_string</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">str</span><span class="o">==</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;@&#39;</span><span class="p">,</span><span class="n">str</span><span class="p">)</span>             <span class="c">! get original name</span>
-        <span class="k">call </span><span class="n">json_update</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;@&#39;</span><span class="p">,</span><span class="s1">&#39;Fred&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span> <span class="c">!change it</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="n">str</span><span class="o">//</span><span class="s1">&#39; name changed&#39;</span>
-        <span class="n">icount</span> <span class="o">=</span> <span class="n">icount</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">end if</span>
-    
-    <span class="c">!cleanup:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">str</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-    
-    <span class="c">!always false, since we want to traverse all nodes:</span>
-    <span class="n">finished</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
-   
-    <span class="k">end subroutine </span><span class="nb">rename</span>
-
-<span class="k">end module </span><span class="n">jf_test_14_mod</span>
-<span class="c">!*****************************************************************************************</span>
-
-<span class="c">!*****************************************************************************************</span>
-<span class="k">program </span><span class="n">jf_test_14</span>
-
-    <span class="c">!! 14th unit test.</span>
-    
-    <span class="k">use </span><span class="n">jf_test_14_mod</span><span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">test_14</span>
-    <span class="k">implicit none</span>
-<span class="k">    </span><span class="kt">integer</span> <span class="kd">::</span> <span class="n">n_errors</span>
-    <span class="k">call </span><span class="n">test_14</span><span class="p">(</span><span class="n">n_errors</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="n">n_errors</span> <span class="o">/=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">stop </span><span class="mi">1</span>
-    
-<span class="k">end program </span><span class="n">jf_test_14</span>
-<span class="c">!*****************************************************************************************</span>
+    <div class="hl"><pre><a name="ln-1"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-2"></a><span class="c">!&gt; author: Jacob Williams</span>
+<a name="ln-3"></a><span class="c">!  date: 09/02/2015</span>
+<a name="ln-4"></a><span class="c">!</span>
+<a name="ln-5"></a><span class="c">! Module for the 14th unit test.</span>
+<a name="ln-6"></a>
+<a name="ln-7"></a><span class="k">module </span><span class="n">jf_test_14_mod</span>
+<a name="ln-8"></a>
+<a name="ln-9"></a>    <span class="k">use </span><span class="n">json_module</span>
+<a name="ln-10"></a>    <span class="k">use</span><span class="p">,</span> <span class="k">intrinsic</span> <span class="kd">::</span> <span class="n">iso_fortran_env</span> <span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">error_unit</span><span class="p">,</span><span class="n">output_unit</span>
+<a name="ln-11"></a>
+<a name="ln-12"></a>    <span class="k">implicit none</span>
+<a name="ln-13"></a><span class="k">    </span>
+<a name="ln-14"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">dir</span> <span class="o">=</span> <span class="s1">&#39;../files/inputs/&#39;</span>  <span class="c">!! working directory</span>
+<a name="ln-15"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">filename1</span> <span class="o">=</span> <span class="s1">&#39;test1.json&#39;</span>  <span class="c">!! the file to read</span>
+<a name="ln-16"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">icount</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c">!! a count of the number of &quot;name&quot; variables found</span>
+<a name="ln-17"></a>
+<a name="ln-18"></a><span class="k">contains</span>
+<a name="ln-19"></a>
+<a name="ln-20"></a><span class="k">    subroutine </span><span class="n">test_14</span><span class="p">(</span><span class="n">error_cnt</span><span class="p">)</span>
+<a name="ln-21"></a>    
+<a name="ln-22"></a>    <span class="c">!! Tests the traversal of a JSON structure</span>
+<a name="ln-23"></a>    <span class="c">!!</span>
+<a name="ln-24"></a>    <span class="c">!! It traverses the structure, looks for all &quot;name&quot; variables, and changes the name.</span>
+<a name="ln-25"></a>    
+<a name="ln-26"></a>    <span class="k">implicit none</span>
+<a name="ln-27"></a>
+<a name="ln-28"></a><span class="k">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">error_cnt</span> <span class="c">!! report number of errors to caller</span>
+<a name="ln-29"></a>    
+<a name="ln-30"></a>    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>  <span class="kd">::</span> <span class="n">json</span>
+<a name="ln-31"></a>        
+<a name="ln-32"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-33"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
+<a name="ln-34"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;   TEST 14&#39;</span>
+<a name="ln-35"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
+<a name="ln-36"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-37"></a>
+<a name="ln-38"></a>    <span class="n">error_cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<a name="ln-39"></a>    <span class="n">icount</span> <span class="o">=</span> <span class="mi">0</span> <span class="c">!number of name changes (should be 2)</span>
+<a name="ln-40"></a>        
+<a name="ln-41"></a>    <span class="k">call </span><span class="n">json_initialize</span><span class="p">()</span> <span class="c">!initialize the module</span>
+<a name="ln-42"></a>    
+<a name="ln-43"></a>    <span class="k">call </span><span class="n">json_parse</span><span class="p">(</span><span class="n">dir</span><span class="o">//</span><span class="n">filename1</span><span class="p">,</span><span class="n">json</span><span class="p">)</span>  <span class="c">!read the file</span>
+<a name="ln-44"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-45"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-46"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-47"></a>    <span class="k">end if</span>
+<a name="ln-48"></a><span class="k">    </span>
+<a name="ln-49"></a><span class="k">    call </span><span class="n">json_traverse</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="nb">rename</span><span class="p">)</span> <span class="c">!traverse all nodes in the structure</span>
+<a name="ln-50"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-51"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-52"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-53"></a>    <span class="k">end if</span>
+<a name="ln-54"></a>
+<a name="ln-55"></a><span class="k">    if</span> <span class="p">(</span><span class="n">icount</span><span class="o">/=</span><span class="mi">2</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-56"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Error: should be 2 &quot;name&quot; variables in this file: &#39;</span><span class="o">//</span><span class="n">filename1</span>
+<a name="ln-57"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-58"></a>    <span class="k">end if </span>
+<a name="ln-59"></a><span class="k">    </span>
+<a name="ln-60"></a><span class="k">    if</span> <span class="p">(</span><span class="n">error_cnt</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-61"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-62"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39; All names changed to Fred:&#39;</span>
+<a name="ln-63"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-64"></a>        <span class="k">call </span><span class="n">json_print</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">output_unit</span><span class="p">)</span>
+<a name="ln-65"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-66"></a>    <span class="k">end if</span>
+<a name="ln-67"></a><span class="k">    </span>
+<a name="ln-68"></a><span class="k">    call </span><span class="n">json_destroy</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>  <span class="c">!clean up</span>
+<a name="ln-69"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-70"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-71"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-72"></a>    <span class="k">end if</span>
+<a name="ln-73"></a><span class="k">        </span>
+<a name="ln-74"></a><span class="k">    end subroutine </span><span class="n">test_14</span>
+<a name="ln-75"></a>    
+<a name="ln-76"></a>    <span class="k">subroutine </span><span class="nb">rename</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">finished</span><span class="p">)</span>  <span class="c">!! change all &quot;name&quot; variable values to &quot;Fred&quot;</span>
+<a name="ln-77"></a>    
+<a name="ln-78"></a>    <span class="k">implicit none</span>
+<a name="ln-79"></a><span class="k">    </span>
+<a name="ln-80"></a><span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>
+<a name="ln-81"></a>    <span class="kt">logical</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">finished</span>
+<a name="ln-82"></a>    
+<a name="ln-83"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">var_type</span>
+<a name="ln-84"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">str</span>
+<a name="ln-85"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
+<a name="ln-86"></a>    
+<a name="ln-87"></a>    <span class="c">!get info about this variable:</span>
+<a name="ln-88"></a>    <span class="k">call </span><span class="n">json_info</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">var_type</span><span class="o">=</span><span class="n">var_type</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">str</span><span class="p">)</span>
+<a name="ln-89"></a>    
+<a name="ln-90"></a>    <span class="c">!it must be a string named &quot;name&quot;:</span>
+<a name="ln-91"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">var_type</span><span class="o">==</span><span class="n">json_string</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">str</span><span class="o">==</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-92"></a><span class="k">        call </span><span class="n">json_get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;@&#39;</span><span class="p">,</span><span class="n">str</span><span class="p">)</span>             <span class="c">! get original name</span>
+<a name="ln-93"></a>        <span class="k">call </span><span class="n">json_update</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;@&#39;</span><span class="p">,</span><span class="s1">&#39;Fred&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span> <span class="c">!change it</span>
+<a name="ln-94"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="n">str</span><span class="o">//</span><span class="s1">&#39; name changed&#39;</span>
+<a name="ln-95"></a>        <span class="n">icount</span> <span class="o">=</span> <span class="n">icount</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-96"></a>    <span class="k">end if</span>
+<a name="ln-97"></a>    
+<a name="ln-98"></a>    <span class="c">!cleanup:</span>
+<a name="ln-99"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">str</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<a name="ln-100"></a>    
+<a name="ln-101"></a>    <span class="c">!always false, since we want to traverse all nodes:</span>
+<a name="ln-102"></a>    <span class="n">finished</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+<a name="ln-103"></a>   
+<a name="ln-104"></a>    <span class="k">end subroutine </span><span class="nb">rename</span>
+<a name="ln-105"></a>
+<a name="ln-106"></a><span class="k">end module </span><span class="n">jf_test_14_mod</span>
+<a name="ln-107"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-108"></a>
+<a name="ln-109"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-110"></a><span class="k">program </span><span class="n">jf_test_14</span>
+<a name="ln-111"></a>
+<a name="ln-112"></a>    <span class="c">!! 14th unit test.</span>
+<a name="ln-113"></a>    
+<a name="ln-114"></a>    <span class="k">use </span><span class="n">jf_test_14_mod</span><span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">test_14</span>
+<a name="ln-115"></a>    <span class="k">implicit none</span>
+<a name="ln-116"></a><span class="k">    </span><span class="kt">integer</span> <span class="kd">::</span> <span class="n">n_errors</span>
+<a name="ln-117"></a>    <span class="k">call </span><span class="n">test_14</span><span class="p">(</span><span class="n">n_errors</span><span class="p">)</span>
+<a name="ln-118"></a>    <span class="k">if</span> <span class="p">(</span> <span class="n">n_errors</span> <span class="o">/=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">stop </span><span class="mi">1</span>
+<a name="ln-119"></a>    
+<a name="ln-120"></a><span class="k">end program </span><span class="n">jf_test_14</span>
+<a name="ln-121"></a><span class="c">!*****************************************************************************************</span>
 </pre></div>
 
     </section>
@@ -354,8 +354,9 @@
     <hr>
     <footer>
         <div class="row">
-        <div class="col-md-6">&copy; 2015 JSON-Fortran was written by Jacob Williams. </div>
-        <div class="col-md-6"><span class="pull-right">Documentation generated by <a href="https://github.com/cmacmackin/ford">FORD</a>.</span></div>
+        <div class="col-md-4">&copy; 2016 </div>
+	<div class="col-md-4"><span class="text-center"> JSON-Fortran was developed by Jacob Williams</span></div>
+        <div class="col-md-4"><span class="pull-right">Documentation generated by <a href="https://github.com/cmacmackin/ford">FORD</a></span></div>
         </div>
         <br>
     </footer>

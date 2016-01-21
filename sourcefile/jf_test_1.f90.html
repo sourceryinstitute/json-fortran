@@ -224,267 +224,267 @@
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span class="c">!*****************************************************************************************</span>
-<span class="c">!&gt;</span>
-<span class="c">! Module for the first unit test.</span>
-<span class="c">!</span>
-<span class="c">!# HISTORY</span>
-<span class="c">!  * Izaak Beekman : 2/18/2015 : Created (refactoried original json_example.f90 file)</span>
-
-<span class="k">module </span><span class="n">jf_test_1_mod</span>
-
-    <span class="k">use </span><span class="n">json_module</span>
-    <span class="k">use</span><span class="p">,</span> <span class="k">intrinsic</span> <span class="kd">::</span> <span class="n">iso_fortran_env</span> <span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">error_unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">,</span> <span class="n">wp</span> <span class="o">=&gt;</span> <span class="n">real64</span>
-
-    <span class="k">implicit none</span>
-
-<span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">dir</span> <span class="o">=</span> <span class="s1">&#39;../files/inputs/&#39;</span>    <span class="c">!! working directory</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">filename1</span> <span class="o">=</span> <span class="s1">&#39;test1.json&#39;</span>
-
-<span class="k">contains</span>
-
-<span class="k">    subroutine </span><span class="n">test_1</span><span class="p">(</span><span class="n">error_cnt</span><span class="p">)</span>
-
-    <span class="c">!! Read a sample JSON file and retrieve some data from it</span>
-
-    <span class="k">implicit none</span>
-
-<span class="k">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">error_cnt</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>    <span class="c">!the JSON structure read from the file:</span>
-    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">ival</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cval</span>
-    <span class="kt">real</span><span class="p">(</span><span class="n">wp</span><span class="p">)</span> <span class="kd">::</span> <span class="n">rval</span>
-    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
-
-    <span class="n">error_cnt</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">call </span><span class="n">json_initialize</span><span class="p">()</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">      call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-      <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">end if</span>
-
-<span class="k">    write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;   TEST 1&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-
-    <span class="c">! parse the json file:</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;parsing file &#39;</span><span class="o">//</span><span class="n">dir</span><span class="o">//</span><span class="n">filename1</span>
-
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">load_file</span><span class="p">(</span><span class="n">filename</span> <span class="o">=</span> <span class="n">dir</span><span class="o">//</span><span class="n">filename1</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>    <span class="c">!if there was an error reading the file</span>
-
-      <span class="k">call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-      <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-
-    <span class="k">else</span>
-
-      <span class="c">! print the parsed data to the console</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing the file...&#39;</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;{ &quot;part a&quot; :&#39;</span> <span class="c">!Wrap 3 outputs to make stdout valid json</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">end if</span>
-
-      <span class="c">! extract data from the parsed value</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;get some data from the file...&#39;</span>
-
-      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version.svn&#39;</span><span class="p">,</span> <span class="n">ival</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,I5)&#39;</span><span class="p">)</span> <span class="s1">&#39;version.svn = &#39;</span><span class="p">,</span><span class="n">ival</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(1).array(2)&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;data(1).array(2) = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files(1)&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files(1) = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files(2)&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files(2) = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files(3)&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files(3) = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(2).real&#39;</span><span class="p">,</span> <span class="n">rval</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,E30.16)&#39;</span><span class="p">)</span> <span class="s1">&#39;data(2).real = &#39;</span><span class="p">,</span><span class="n">rval</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files[4]&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>      <span class="c">!has hex characters</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files[4] = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files[5]&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>      <span class="c">!string with spaces and no escape characters</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files[5] = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
-      <span class="k">end if</span>
-
-      <span class="c">!</span>
-      <span class="c">! Test of values that aren&#39;t there:</span>
-      <span class="c">! Note: when using the &quot;found&quot; output, the exceptions are cleared automatically.</span>
-      <span class="c">!</span>
-
-      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files[10]&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>      <span class="c">!value that isn&#39;t there</span>
-      <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">found</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files[10] not in file.&#39;</span>
-      <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(1x,A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files[10] = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version.blah&#39;</span><span class="p">,</span> <span class="n">ival</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>      <span class="c">!value that isn&#39;t there</span>
-      <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">found</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;version.blah not in file.&#39;</span>
-      <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;version.blah = &#39;</span><span class="p">,</span><span class="n">ival</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39; Test removing data from the json structure:&#39;</span>
-
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>         <span class="c">!in the middle of a list</span>
-      <span class="k">call </span><span class="n">json_remove</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">end if</span>
-
-<span class="k">      call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(1).array&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>   <span class="c">!at the end of a list</span>
-      <span class="k">call </span><span class="n">json_remove</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">end if</span>
-
-<span class="k">      call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(2).number&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>  <span class="c">!at the beginning of a list</span>
-      <span class="k">call </span><span class="n">json_remove</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing the modified structure...&#39;</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;, &quot;part b&quot; : &#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39; Test replacing data from the json structure:&#39;</span>
-
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(1)&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-      <span class="k">call </span><span class="n">json_update</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;Cuthbert&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">end if</span>
-
-      <span class="c">!call json%get(&#39;data(2)&#39;, p)</span>
-      <span class="c">!call json_update(p,&#39;real&#39;,[1.0_wp, 2.0_wp, 3.0_wp],found)   !don&#39;t have one like this yet...</span>
-
-      <span class="c">!use the json_file procedure to update a variable:</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;version.svn&#39;</span><span class="p">,</span><span class="mi">999</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">end if</span>
-
-<span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing the modified structure...&#39;</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;, &quot;part c&quot; : &#39;</span>
-      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
-      <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;}&#39;</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">end if</span>
-
-<span class="k">    end if</span>
-
-    <span class="c">! clean up</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;destroy...&#39;</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">()</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">      call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-      <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">end if</span>
-
-<span class="k">    end subroutine </span><span class="n">test_1</span>
-
-<span class="k">end module </span><span class="n">jf_test_1_mod</span>
-<span class="c">!*****************************************************************************************</span>
-
-<span class="c">!*****************************************************************************************</span>
-<span class="k">program </span><span class="n">jf_test_1</span>
-
-    <span class="c">!! First unit test.</span>
-    
-    <span class="k">use </span><span class="n">jf_test_1_mod</span> <span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">test_1</span>
-    <span class="k">implicit none</span>
-<span class="k">    </span><span class="kt">integer</span> <span class="kd">::</span> <span class="n">n_errors</span>
-    <span class="n">n_errors</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">call </span><span class="n">test_1</span><span class="p">(</span><span class="n">n_errors</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">n_errors</span> <span class="o">/=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">stop </span><span class="mi">1</span>
-    
-<span class="k">end program </span><span class="n">jf_test_1</span>
-<span class="c">!*****************************************************************************************</span>
+    <div class="hl"><pre><a name="ln-1"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-2"></a><span class="c">!&gt;</span>
+<a name="ln-3"></a><span class="c">! Module for the first unit test.</span>
+<a name="ln-4"></a><span class="c">!</span>
+<a name="ln-5"></a><span class="c">!# HISTORY</span>
+<a name="ln-6"></a><span class="c">!  * Izaak Beekman : 2/18/2015 : Created (refactoried original json_example.f90 file)</span>
+<a name="ln-7"></a>
+<a name="ln-8"></a><span class="k">module </span><span class="n">jf_test_1_mod</span>
+<a name="ln-9"></a>
+<a name="ln-10"></a>    <span class="k">use </span><span class="n">json_module</span>
+<a name="ln-11"></a>    <span class="k">use</span><span class="p">,</span> <span class="k">intrinsic</span> <span class="kd">::</span> <span class="n">iso_fortran_env</span> <span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">error_unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">,</span> <span class="n">wp</span> <span class="o">=&gt;</span> <span class="n">real64</span>
+<a name="ln-12"></a>
+<a name="ln-13"></a>    <span class="k">implicit none</span>
+<a name="ln-14"></a>
+<a name="ln-15"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">dir</span> <span class="o">=</span> <span class="s1">&#39;../files/inputs/&#39;</span>    <span class="c">!! working directory</span>
+<a name="ln-16"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">filename1</span> <span class="o">=</span> <span class="s1">&#39;test1.json&#39;</span>
+<a name="ln-17"></a>
+<a name="ln-18"></a><span class="k">contains</span>
+<a name="ln-19"></a>
+<a name="ln-20"></a><span class="k">    subroutine </span><span class="n">test_1</span><span class="p">(</span><span class="n">error_cnt</span><span class="p">)</span>
+<a name="ln-21"></a>
+<a name="ln-22"></a>    <span class="c">!! Read a sample JSON file and retrieve some data from it</span>
+<a name="ln-23"></a>
+<a name="ln-24"></a>    <span class="k">implicit none</span>
+<a name="ln-25"></a>
+<a name="ln-26"></a><span class="k">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">error_cnt</span>
+<a name="ln-27"></a>    <span class="k">type</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>    <span class="c">!the JSON structure read from the file:</span>
+<a name="ln-28"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">ival</span>
+<a name="ln-29"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cval</span>
+<a name="ln-30"></a>    <span class="kt">real</span><span class="p">(</span><span class="n">wp</span><span class="p">)</span> <span class="kd">::</span> <span class="n">rval</span>
+<a name="ln-31"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
+<a name="ln-32"></a>    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
+<a name="ln-33"></a>
+<a name="ln-34"></a>    <span class="n">error_cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<a name="ln-35"></a>    <span class="k">call </span><span class="n">json_initialize</span><span class="p">()</span>
+<a name="ln-36"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-37"></a><span class="k">      call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-38"></a>      <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-39"></a>    <span class="k">end if</span>
+<a name="ln-40"></a>
+<a name="ln-41"></a><span class="k">    write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-42"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
+<a name="ln-43"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;   TEST 1&#39;</span>
+<a name="ln-44"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
+<a name="ln-45"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-46"></a>
+<a name="ln-47"></a>    <span class="c">! parse the json file:</span>
+<a name="ln-48"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-49"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;parsing file &#39;</span><span class="o">//</span><span class="n">dir</span><span class="o">//</span><span class="n">filename1</span>
+<a name="ln-50"></a>
+<a name="ln-51"></a>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">load_file</span><span class="p">(</span><span class="n">filename</span> <span class="o">=</span> <span class="n">dir</span><span class="o">//</span><span class="n">filename1</span><span class="p">)</span>
+<a name="ln-52"></a>
+<a name="ln-53"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>    <span class="c">!if there was an error reading the file</span>
+<a name="ln-54"></a>
+<a name="ln-55"></a>      <span class="k">call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-56"></a>      <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-57"></a>
+<a name="ln-58"></a>    <span class="k">else</span>
+<a name="ln-59"></a>
+<a name="ln-60"></a>      <span class="c">! print the parsed data to the console</span>
+<a name="ln-61"></a>      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-62"></a>      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing the file...&#39;</span>
+<a name="ln-63"></a>      <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;{ &quot;part a&quot; :&#39;</span> <span class="c">!Wrap 3 outputs to make stdout valid json</span>
+<a name="ln-64"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
+<a name="ln-65"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-66"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-67"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-68"></a>      <span class="k">end if</span>
+<a name="ln-69"></a>
+<a name="ln-70"></a>      <span class="c">! extract data from the parsed value</span>
+<a name="ln-71"></a>      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-72"></a>      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;get some data from the file...&#39;</span>
+<a name="ln-73"></a>
+<a name="ln-74"></a>      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-75"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version.svn&#39;</span><span class="p">,</span> <span class="n">ival</span><span class="p">)</span>
+<a name="ln-76"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-77"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-78"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-79"></a>      <span class="k">else</span>
+<a name="ln-80"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,I5)&#39;</span><span class="p">)</span> <span class="s1">&#39;version.svn = &#39;</span><span class="p">,</span><span class="n">ival</span>
+<a name="ln-81"></a>      <span class="k">end if</span>
+<a name="ln-82"></a>
+<a name="ln-83"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-84"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(1).array(2)&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>
+<a name="ln-85"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-86"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-87"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-88"></a>      <span class="k">else</span>
+<a name="ln-89"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;data(1).array(2) = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
+<a name="ln-90"></a>      <span class="k">end if</span>
+<a name="ln-91"></a>
+<a name="ln-92"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-93"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files(1)&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>
+<a name="ln-94"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-95"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-96"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-97"></a>      <span class="k">else</span>
+<a name="ln-98"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files(1) = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
+<a name="ln-99"></a>      <span class="k">end if</span>
+<a name="ln-100"></a>
+<a name="ln-101"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-102"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files(2)&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>
+<a name="ln-103"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-104"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-105"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-106"></a>      <span class="k">else</span>
+<a name="ln-107"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files(2) = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
+<a name="ln-108"></a>      <span class="k">end if</span>
+<a name="ln-109"></a>
+<a name="ln-110"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-111"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files(3)&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>
+<a name="ln-112"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-113"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-114"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-115"></a>      <span class="k">else</span>
+<a name="ln-116"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files(3) = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
+<a name="ln-117"></a>      <span class="k">end if</span>
+<a name="ln-118"></a>
+<a name="ln-119"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-120"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(2).real&#39;</span><span class="p">,</span> <span class="n">rval</span><span class="p">)</span>
+<a name="ln-121"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-122"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-123"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-124"></a>      <span class="k">else</span>
+<a name="ln-125"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,E30.16)&#39;</span><span class="p">)</span> <span class="s1">&#39;data(2).real = &#39;</span><span class="p">,</span><span class="n">rval</span>
+<a name="ln-126"></a>      <span class="k">end if</span>
+<a name="ln-127"></a>
+<a name="ln-128"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-129"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files[4]&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>      <span class="c">!has hex characters</span>
+<a name="ln-130"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-131"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-132"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-133"></a>      <span class="k">else</span>
+<a name="ln-134"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files[4] = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
+<a name="ln-135"></a>      <span class="k">end if</span>
+<a name="ln-136"></a>
+<a name="ln-137"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-138"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files[5]&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">)</span>      <span class="c">!string with spaces and no escape characters</span>
+<a name="ln-139"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-140"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-141"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-142"></a>      <span class="k">else</span>
+<a name="ln-143"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files[5] = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
+<a name="ln-144"></a>      <span class="k">end if</span>
+<a name="ln-145"></a>
+<a name="ln-146"></a>      <span class="c">!</span>
+<a name="ln-147"></a>      <span class="c">! Test of values that aren&#39;t there:</span>
+<a name="ln-148"></a>      <span class="c">! Note: when using the &quot;found&quot; output, the exceptions are cleared automatically.</span>
+<a name="ln-149"></a>      <span class="c">!</span>
+<a name="ln-150"></a>
+<a name="ln-151"></a>      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-152"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files[10]&#39;</span><span class="p">,</span> <span class="n">cval</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>      <span class="c">!value that isn&#39;t there</span>
+<a name="ln-153"></a>      <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">found</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-154"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files[10] not in file.&#39;</span>
+<a name="ln-155"></a>      <span class="k">else</span>
+<a name="ln-156"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(1x,A)&#39;</span><span class="p">)</span> <span class="s1">&#39;files[10] = &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span>
+<a name="ln-157"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-158"></a>      <span class="k">end if</span>
+<a name="ln-159"></a>
+<a name="ln-160"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-161"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version.blah&#39;</span><span class="p">,</span> <span class="n">ival</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>      <span class="c">!value that isn&#39;t there</span>
+<a name="ln-162"></a>      <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">found</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-163"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;version.blah not in file.&#39;</span>
+<a name="ln-164"></a>      <span class="k">else</span>
+<a name="ln-165"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;version.blah = &#39;</span><span class="p">,</span><span class="n">ival</span>
+<a name="ln-166"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-167"></a>      <span class="k">end if</span>
+<a name="ln-168"></a>
+<a name="ln-169"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-170"></a>      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39; Test removing data from the json structure:&#39;</span>
+<a name="ln-171"></a>
+<a name="ln-172"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;files&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>         <span class="c">!in the middle of a list</span>
+<a name="ln-173"></a>      <span class="k">call </span><span class="n">json_remove</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<a name="ln-174"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-175"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-176"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-177"></a>      <span class="k">end if</span>
+<a name="ln-178"></a>
+<a name="ln-179"></a><span class="k">      call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(1).array&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>   <span class="c">!at the end of a list</span>
+<a name="ln-180"></a>      <span class="k">call </span><span class="n">json_remove</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<a name="ln-181"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-182"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-183"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-184"></a>      <span class="k">end if</span>
+<a name="ln-185"></a>
+<a name="ln-186"></a><span class="k">      call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(2).number&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>  <span class="c">!at the beginning of a list</span>
+<a name="ln-187"></a>      <span class="k">call </span><span class="n">json_remove</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<a name="ln-188"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-189"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-190"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-191"></a>      <span class="k">end if</span>
+<a name="ln-192"></a>
+<a name="ln-193"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-194"></a>      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing the modified structure...&#39;</span>
+<a name="ln-195"></a>      <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;, &quot;part b&quot; : &#39;</span>
+<a name="ln-196"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
+<a name="ln-197"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-198"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-199"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-200"></a>      <span class="k">end if</span>
+<a name="ln-201"></a>
+<a name="ln-202"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-203"></a>      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39; Test replacing data from the json structure:&#39;</span>
+<a name="ln-204"></a>
+<a name="ln-205"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data(1)&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<a name="ln-206"></a>      <span class="k">call </span><span class="n">json_update</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;Cuthbert&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
+<a name="ln-207"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-208"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-209"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-210"></a>      <span class="k">end if</span>
+<a name="ln-211"></a>
+<a name="ln-212"></a>      <span class="c">!call json%get(&#39;data(2)&#39;, p)</span>
+<a name="ln-213"></a>      <span class="c">!call json_update(p,&#39;real&#39;,[1.0_wp, 2.0_wp, 3.0_wp],found)   !don&#39;t have one like this yet...</span>
+<a name="ln-214"></a>
+<a name="ln-215"></a>      <span class="c">!use the json_file procedure to update a variable:</span>
+<a name="ln-216"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;version.svn&#39;</span><span class="p">,</span><span class="mi">999</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
+<a name="ln-217"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-218"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-219"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-220"></a>      <span class="k">end if</span>
+<a name="ln-221"></a>
+<a name="ln-222"></a><span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-223"></a>      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing the modified structure...&#39;</span>
+<a name="ln-224"></a>      <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;, &quot;part c&quot; : &#39;</span>
+<a name="ln-225"></a>      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
+<a name="ln-226"></a>      <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;}&#39;</span>
+<a name="ln-227"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-228"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-229"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-230"></a>      <span class="k">end if</span>
+<a name="ln-231"></a>
+<a name="ln-232"></a><span class="k">    end if</span>
+<a name="ln-233"></a>
+<a name="ln-234"></a>    <span class="c">! clean up</span>
+<a name="ln-235"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-236"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;destroy...&#39;</span>
+<a name="ln-237"></a>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">()</span>
+<a name="ln-238"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-239"></a><span class="k">      call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-240"></a>      <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-241"></a>    <span class="k">end if</span>
+<a name="ln-242"></a>
+<a name="ln-243"></a><span class="k">    end subroutine </span><span class="n">test_1</span>
+<a name="ln-244"></a>
+<a name="ln-245"></a><span class="k">end module </span><span class="n">jf_test_1_mod</span>
+<a name="ln-246"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-247"></a>
+<a name="ln-248"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-249"></a><span class="k">program </span><span class="n">jf_test_1</span>
+<a name="ln-250"></a>
+<a name="ln-251"></a>    <span class="c">!! First unit test.</span>
+<a name="ln-252"></a>    
+<a name="ln-253"></a>    <span class="k">use </span><span class="n">jf_test_1_mod</span> <span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">test_1</span>
+<a name="ln-254"></a>    <span class="k">implicit none</span>
+<a name="ln-255"></a><span class="k">    </span><span class="kt">integer</span> <span class="kd">::</span> <span class="n">n_errors</span>
+<a name="ln-256"></a>    <span class="n">n_errors</span> <span class="o">=</span> <span class="mi">0</span>
+<a name="ln-257"></a>    <span class="k">call </span><span class="n">test_1</span><span class="p">(</span><span class="n">n_errors</span><span class="p">)</span>
+<a name="ln-258"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">n_errors</span> <span class="o">/=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">stop </span><span class="mi">1</span>
+<a name="ln-259"></a>    
+<a name="ln-260"></a><span class="k">end program </span><span class="n">jf_test_1</span>
+<a name="ln-261"></a><span class="c">!*****************************************************************************************</span>
 </pre></div>
 
     </section>
@@ -494,8 +494,9 @@
     <hr>
     <footer>
         <div class="row">
-        <div class="col-md-6">&copy; 2015 JSON-Fortran was written by Jacob Williams. </div>
-        <div class="col-md-6"><span class="pull-right">Documentation generated by <a href="https://github.com/cmacmackin/ford">FORD</a>.</span></div>
+        <div class="col-md-4">&copy; 2016 </div>
+	<div class="col-md-4"><span class="text-center"> JSON-Fortran was developed by Jacob Williams</span></div>
+        <div class="col-md-4"><span class="pull-right">Documentation generated by <a href="https://github.com/cmacmackin/ford">FORD</a></span></div>
         </div>
         <br>
     </footer>

@@ -224,128 +224,128 @@
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span class="c">!*****************************************************************************************</span>
-<span class="c">!&gt;</span>
-<span class="c">! Module for the fifth unit test.</span>
-<span class="c">!</span>
-<span class="c">!# HISTORY</span>
-<span class="c">!  * Izaak Beekman : 2/18/2015 : Created (refactoried original json_example.f90 file)</span>
-
-<span class="k">module </span><span class="n">jf_test_5_mod</span>
-
-    <span class="k">use </span><span class="n">json_module</span>
-    <span class="k">use</span><span class="p">,</span> <span class="k">intrinsic</span> <span class="kd">::</span> <span class="n">iso_fortran_env</span> <span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">error_unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">,</span> <span class="n">wp</span> <span class="o">=&gt;</span> <span class="n">real64</span>
-
-    <span class="k">implicit none</span>
-
-<span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">dir</span> <span class="o">=</span> <span class="s1">&#39;../files/inputs/&#39;</span>   <span class="c">!! working directory</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">filename5</span> <span class="o">=</span> <span class="s1">&#39;test5.json&#39;</span>
-
-<span class="k">contains</span>
-
-<span class="k">    subroutine </span><span class="n">test_5</span><span class="p">(</span><span class="n">error_cnt</span><span class="p">)</span>
-
-    <span class="c">!! Github issue example: https://github.com/josephalevin/fson/issues/12</span>
-    <span class="c">!!</span>
-    <span class="c">!! Read an existing file and extract some variables.</span>
-
-    <span class="k">implicit none</span>
-
-<span class="k">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">error_cnt</span>
-    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">vv</span>
-    <span class="kt">integer</span><span class="p">,</span><span class="k">dimension</span><span class="p">(:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">vvv</span>
-    <span class="kt">real</span><span class="p">(</span><span class="n">wp</span><span class="p">)</span> <span class="kd">::</span> <span class="n">d</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
-    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
-
-    <span class="n">error_cnt</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">call </span><span class="n">json_initialize</span><span class="p">()</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">end if</span>
-
-<span class="k">    write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;   EXAMPLE 5&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-
-    <span class="c">! parse the json file:</span>
-    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;load file...&#39;</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">load_file</span><span class="p">(</span><span class="n">filename</span> <span class="o">=</span> <span class="n">dir</span><span class="o">//</span><span class="n">filename5</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-
-    <span class="k">else</span>
-
-        <span class="c">! print the parsed data to the console:</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;print file...&#39;</span>
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">end if</span>
-
-        <span class="c">! extract data from the parsed value:</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;extract data...&#39;</span>
-
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;--------------------------&#39;</span>
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Correl.ID2&#39;</span><span class="p">,</span> <span class="n">vv</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">end if</span>
-<span class="k">        if</span> <span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,I5)&#39;</span><span class="p">)</span> <span class="s1">&#39;vv = &#39;</span><span class="p">,</span><span class="n">vv</span>
-
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Correl.ID1&#39;</span><span class="p">,</span> <span class="n">vvv</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">end if</span>
-<span class="k">        if</span> <span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,*(I5,1X))&#39;</span><span class="p">)</span> <span class="s1">&#39;vvv= &#39;</span><span class="p">,</span><span class="n">vvv</span>
-
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Prior[3].mode&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">end if</span>
-<span class="k">        if</span> <span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,E30.16)&#39;</span><span class="p">)</span> <span class="s1">&#39;d  = &#39;</span><span class="p">,</span><span class="n">d</span>
-
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
-
-    <span class="k">end if</span>
-
-    <span class="c">! clean up</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">()</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
-        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">end if</span>
-
-<span class="k">    end subroutine </span><span class="n">test_5</span>
-
-<span class="k">end module </span><span class="n">jf_test_5_mod</span>
-<span class="c">!*****************************************************************************************</span>
-
-<span class="c">!*****************************************************************************************</span>
-<span class="k">program </span><span class="n">jf_test_5</span>
-
-    <span class="c">!! Fifth unit test.</span>
-    
-    <span class="k">use </span><span class="n">jf_test_5_mod</span> <span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">test_5</span>
-    <span class="k">implicit none</span>
-<span class="k">    </span><span class="kt">integer</span> <span class="kd">::</span> <span class="n">n_errors</span>
-    <span class="n">n_errors</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">call </span><span class="n">test_5</span><span class="p">(</span><span class="n">n_errors</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">n_errors</span> <span class="o">/=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">stop </span><span class="mi">1</span>
-<span class="k">end program </span><span class="n">jf_test_5</span>
-<span class="c">!*****************************************************************************************</span>
-
-<span class="c">!*******************************************************************************************************</span>
+    <div class="hl"><pre><a name="ln-1"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-2"></a><span class="c">!&gt;</span>
+<a name="ln-3"></a><span class="c">! Module for the fifth unit test.</span>
+<a name="ln-4"></a><span class="c">!</span>
+<a name="ln-5"></a><span class="c">!# HISTORY</span>
+<a name="ln-6"></a><span class="c">!  * Izaak Beekman : 2/18/2015 : Created (refactoried original json_example.f90 file)</span>
+<a name="ln-7"></a>
+<a name="ln-8"></a><span class="k">module </span><span class="n">jf_test_5_mod</span>
+<a name="ln-9"></a>
+<a name="ln-10"></a>    <span class="k">use </span><span class="n">json_module</span>
+<a name="ln-11"></a>    <span class="k">use</span><span class="p">,</span> <span class="k">intrinsic</span> <span class="kd">::</span> <span class="n">iso_fortran_env</span> <span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">error_unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">,</span> <span class="n">wp</span> <span class="o">=&gt;</span> <span class="n">real64</span>
+<a name="ln-12"></a>
+<a name="ln-13"></a>    <span class="k">implicit none</span>
+<a name="ln-14"></a>
+<a name="ln-15"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">dir</span> <span class="o">=</span> <span class="s1">&#39;../files/inputs/&#39;</span>   <span class="c">!! working directory</span>
+<a name="ln-16"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">filename5</span> <span class="o">=</span> <span class="s1">&#39;test5.json&#39;</span>
+<a name="ln-17"></a>
+<a name="ln-18"></a><span class="k">contains</span>
+<a name="ln-19"></a>
+<a name="ln-20"></a><span class="k">    subroutine </span><span class="n">test_5</span><span class="p">(</span><span class="n">error_cnt</span><span class="p">)</span>
+<a name="ln-21"></a>
+<a name="ln-22"></a>    <span class="c">!! Github issue example: https://github.com/josephalevin/fson/issues/12</span>
+<a name="ln-23"></a>    <span class="c">!!</span>
+<a name="ln-24"></a>    <span class="c">!! Read an existing file and extract some variables.</span>
+<a name="ln-25"></a>
+<a name="ln-26"></a>    <span class="k">implicit none</span>
+<a name="ln-27"></a>
+<a name="ln-28"></a><span class="k">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">error_cnt</span>
+<a name="ln-29"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">vv</span>
+<a name="ln-30"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">dimension</span><span class="p">(:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">vvv</span>
+<a name="ln-31"></a>    <span class="kt">real</span><span class="p">(</span><span class="n">wp</span><span class="p">)</span> <span class="kd">::</span> <span class="n">d</span>
+<a name="ln-32"></a>    <span class="k">type</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
+<a name="ln-33"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
+<a name="ln-34"></a>
+<a name="ln-35"></a>    <span class="n">error_cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<a name="ln-36"></a>    <span class="k">call </span><span class="n">json_initialize</span><span class="p">()</span>
+<a name="ln-37"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-38"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-39"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-40"></a>    <span class="k">end if</span>
+<a name="ln-41"></a>
+<a name="ln-42"></a><span class="k">    write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-43"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
+<a name="ln-44"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;   EXAMPLE 5&#39;</span>
+<a name="ln-45"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;=================================&#39;</span>
+<a name="ln-46"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-47"></a>
+<a name="ln-48"></a>    <span class="c">! parse the json file:</span>
+<a name="ln-49"></a>    <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;load file...&#39;</span>
+<a name="ln-50"></a>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">load_file</span><span class="p">(</span><span class="n">filename</span> <span class="o">=</span> <span class="n">dir</span><span class="o">//</span><span class="n">filename5</span><span class="p">)</span>
+<a name="ln-51"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-52"></a>
+<a name="ln-53"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-54"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-55"></a>
+<a name="ln-56"></a>    <span class="k">else</span>
+<a name="ln-57"></a>
+<a name="ln-58"></a>        <span class="c">! print the parsed data to the console:</span>
+<a name="ln-59"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;print file...&#39;</span>
+<a name="ln-60"></a>        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
+<a name="ln-61"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-62"></a><span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-63"></a>            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-64"></a>        <span class="k">end if</span>
+<a name="ln-65"></a>
+<a name="ln-66"></a>        <span class="c">! extract data from the parsed value:</span>
+<a name="ln-67"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-68"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;extract data...&#39;</span>
+<a name="ln-69"></a>
+<a name="ln-70"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;--------------------------&#39;</span>
+<a name="ln-71"></a>        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Correl.ID2&#39;</span><span class="p">,</span> <span class="n">vv</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
+<a name="ln-72"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-73"></a><span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-74"></a>            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-75"></a>        <span class="k">end if</span>
+<a name="ln-76"></a><span class="k">        if</span> <span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,I5)&#39;</span><span class="p">)</span> <span class="s1">&#39;vv = &#39;</span><span class="p">,</span><span class="n">vv</span>
+<a name="ln-77"></a>
+<a name="ln-78"></a>        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Correl.ID1&#39;</span><span class="p">,</span> <span class="n">vvv</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
+<a name="ln-79"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-80"></a><span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-81"></a>            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-82"></a>        <span class="k">end if</span>
+<a name="ln-83"></a><span class="k">        if</span> <span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,*(I5,1X))&#39;</span><span class="p">)</span> <span class="s1">&#39;vvv= &#39;</span><span class="p">,</span><span class="n">vvv</span>
+<a name="ln-84"></a>
+<a name="ln-85"></a>        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Prior[3].mode&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
+<a name="ln-86"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-87"></a><span class="k">            call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-88"></a>            <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-89"></a>        <span class="k">end if</span>
+<a name="ln-90"></a><span class="k">        if</span> <span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A,E30.16)&#39;</span><span class="p">)</span> <span class="s1">&#39;d  = &#39;</span><span class="p">,</span><span class="n">d</span>
+<a name="ln-91"></a>
+<a name="ln-92"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+<a name="ln-93"></a>
+<a name="ln-94"></a>    <span class="k">end if</span>
+<a name="ln-95"></a>
+<a name="ln-96"></a>    <span class="c">! clean up</span>
+<a name="ln-97"></a>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">()</span>
+<a name="ln-98"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">json_failed</span><span class="p">())</span> <span class="k">then</span>
+<a name="ln-99"></a><span class="k">        call </span><span class="n">json_print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
+<a name="ln-100"></a>        <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-101"></a>    <span class="k">end if</span>
+<a name="ln-102"></a>
+<a name="ln-103"></a><span class="k">    end subroutine </span><span class="n">test_5</span>
+<a name="ln-104"></a>
+<a name="ln-105"></a><span class="k">end module </span><span class="n">jf_test_5_mod</span>
+<a name="ln-106"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-107"></a>
+<a name="ln-108"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-109"></a><span class="k">program </span><span class="n">jf_test_5</span>
+<a name="ln-110"></a>
+<a name="ln-111"></a>    <span class="c">!! Fifth unit test.</span>
+<a name="ln-112"></a>    
+<a name="ln-113"></a>    <span class="k">use </span><span class="n">jf_test_5_mod</span> <span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">test_5</span>
+<a name="ln-114"></a>    <span class="k">implicit none</span>
+<a name="ln-115"></a><span class="k">    </span><span class="kt">integer</span> <span class="kd">::</span> <span class="n">n_errors</span>
+<a name="ln-116"></a>    <span class="n">n_errors</span> <span class="o">=</span> <span class="mi">0</span>
+<a name="ln-117"></a>    <span class="k">call </span><span class="n">test_5</span><span class="p">(</span><span class="n">n_errors</span><span class="p">)</span>
+<a name="ln-118"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">n_errors</span> <span class="o">/=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">stop </span><span class="mi">1</span>
+<a name="ln-119"></a><span class="k">end program </span><span class="n">jf_test_5</span>
+<a name="ln-120"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-121"></a>
+<a name="ln-122"></a><span class="c">!*******************************************************************************************************</span>
 </pre></div>
 
     </section>
@@ -355,8 +355,9 @@
     <hr>
     <footer>
         <div class="row">
-        <div class="col-md-6">&copy; 2015 JSON-Fortran was written by Jacob Williams. </div>
-        <div class="col-md-6"><span class="pull-right">Documentation generated by <a href="https://github.com/cmacmackin/ford">FORD</a>.</span></div>
+        <div class="col-md-4">&copy; 2016 </div>
+	<div class="col-md-4"><span class="text-center"> JSON-Fortran was developed by Jacob Williams</span></div>
+        <div class="col-md-4"><span class="pull-right">Documentation generated by <a href="https://github.com/cmacmackin/ford">FORD</a></span></div>
         </div>
         <br>
     </footer>

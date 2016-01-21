@@ -212,34 +212,34 @@
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span class="c">!*******************************************************************************************************</span>
-<span class="c">!&gt; author: Izaak Beekman</span>
-<span class="c">!</span>
-<span class="c">! This program is run when configuring the json-fortran build,</span>
-<span class="c">! to determine whether or not ISO 10646/UCS4 characters are</span>
-<span class="c">! supported by the compiler.</span>
-
-    <span class="k">program </span><span class="n">test_iso_10646_support</span>
-
-    <span class="k">use </span><span class="n">iso_fortran_env</span> <span class="p">,</span><span class="n">only</span><span class="p">:</span> <span class="n">output_unit</span><span class="p">,</span> <span class="n">error_unit</span>
-
-    <span class="k">implicit none</span>
-
-<span class="k">    </span><span class="kt">integer</span><span class="p">,</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">UCS4_K</span> <span class="o">=</span> <span class="nb">selected_char_kind</span><span class="p">(</span><span class="s1">&#39;ISO_10646&#39;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span> <span class="n">UCS4_K</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span> <span class="k">then</span> <span class="c">!Not supported!</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Your compiler does not support ISO 10646/UCS4 characters!&#39;</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;JSON-Fortran must/will be configured to use the &quot;DEFAULT&quot;&#39;</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;character set. (Should be &quot;ASCII&quot; on a reasonable system.)&#39;</span>
-        <span class="k">stop </span><span class="mi">2</span>
-    <span class="k">else</span>
-<span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Congratulations! Your compiler supports ISO 10646/UCS4!&#39;</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;JSON-Fortran may be configured to enable UCS4 support.&#39;</span>
-        <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;UCS4_SUPPORTED&#39;</span>
-    <span class="k">end if</span>
-
-<span class="k">    end program </span><span class="n">test_iso_10646_support</span>
-<span class="c">!*******************************************************************************************************</span>
+    <div class="hl"><pre><a name="ln-1"></a><span class="c">!*******************************************************************************************************</span>
+<a name="ln-2"></a><span class="c">!&gt; author: Izaak Beekman</span>
+<a name="ln-3"></a><span class="c">!</span>
+<a name="ln-4"></a><span class="c">! This program is run when configuring the json-fortran build,</span>
+<a name="ln-5"></a><span class="c">! to determine whether or not ISO 10646/UCS4 characters are</span>
+<a name="ln-6"></a><span class="c">! supported by the compiler.</span>
+<a name="ln-7"></a>
+<a name="ln-8"></a>    <span class="k">program </span><span class="n">test_iso_10646_support</span>
+<a name="ln-9"></a>
+<a name="ln-10"></a>    <span class="k">use </span><span class="n">iso_fortran_env</span> <span class="p">,</span><span class="n">only</span><span class="p">:</span> <span class="n">output_unit</span><span class="p">,</span> <span class="n">error_unit</span>
+<a name="ln-11"></a>
+<a name="ln-12"></a>    <span class="k">implicit none</span>
+<a name="ln-13"></a>
+<a name="ln-14"></a><span class="k">    </span><span class="kt">integer</span><span class="p">,</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">UCS4_K</span> <span class="o">=</span> <span class="nb">selected_char_kind</span><span class="p">(</span><span class="s1">&#39;ISO_10646&#39;</span><span class="p">)</span>
+<a name="ln-15"></a>
+<a name="ln-16"></a>    <span class="k">if</span> <span class="p">(</span> <span class="n">UCS4_K</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span> <span class="k">then</span> <span class="c">!Not supported!</span>
+<a name="ln-17"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Your compiler does not support ISO 10646/UCS4 characters!&#39;</span>
+<a name="ln-18"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;JSON-Fortran must/will be configured to use the &quot;DEFAULT&quot;&#39;</span>
+<a name="ln-19"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;character set. (Should be &quot;ASCII&quot; on a reasonable system.)&#39;</span>
+<a name="ln-20"></a>        <span class="k">stop </span><span class="mi">2</span>
+<a name="ln-21"></a>    <span class="k">else</span>
+<a name="ln-22"></a><span class="k">        write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;Congratulations! Your compiler supports ISO 10646/UCS4!&#39;</span>
+<a name="ln-23"></a>        <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;JSON-Fortran may be configured to enable UCS4 support.&#39;</span>
+<a name="ln-24"></a>        <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;UCS4_SUPPORTED&#39;</span>
+<a name="ln-25"></a>    <span class="k">end if</span>
+<a name="ln-26"></a>
+<a name="ln-27"></a><span class="k">    end program </span><span class="n">test_iso_10646_support</span>
+<a name="ln-28"></a><span class="c">!*******************************************************************************************************</span>
 </pre></div>
 
     </section>
@@ -249,8 +249,9 @@
     <hr>
     <footer>
         <div class="row">
-        <div class="col-md-6">&copy; 2015 JSON-Fortran was written by Jacob Williams. </div>
-        <div class="col-md-6"><span class="pull-right">Documentation generated by <a href="https://github.com/cmacmackin/ford">FORD</a>.</span></div>
+        <div class="col-md-4">&copy; 2016 </div>
+	<div class="col-md-4"><span class="text-center"> JSON-Fortran was developed by Jacob Williams</span></div>
+        <div class="col-md-4"><span class="pull-right">Documentation generated by <a href="https://github.com/cmacmackin/ford">FORD</a></span></div>
         </div>
         <br>
     </footer>
