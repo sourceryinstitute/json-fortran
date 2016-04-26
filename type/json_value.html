@@ -70,8 +70,6 @@
             <li><a href="../lists/types.html">Derived Types</a></li>
 				
 				
-            <li><a href="../lists/programs.html">Programs</a></li>
-				
           </ul>
         
         <form action="../search.html" class="navbar-form navbar-right" role="search">
@@ -106,14 +104,14 @@
      
     
     
-    <li><i class="fa fa-code"></i><a href="../src/json_module.F90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/json_value_module.F90"> Source File</a></li>
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
-     <li><a href='../sourcefile/json_module.f90.html'>json_module.F90</a></li>
+     <li><a href='../sourcefile/json_value_module.f90.html'>json_value_module.F90</a></li>
   
-     <li><a href='../module/json_module.html'>json_module</a></li>
+     <li><a href='../module/json_value_module.html'>json_value_module</a></li>
   
      <li class="active">json_value</li>
   </ol>
@@ -195,6 +193,8 @@
     <div id="alltypes" class="panel-collapse collapse">
         <div class="list-group">
           
+          <a class="list-group-item" href="../type/json_core.html">json_core</a>
+          
           <a class="list-group-item" href="../type/json_file.html">json_file</a>
           
           <a class="list-group-item" href="../type/json_value.html">json_value</a>
@@ -211,25 +211,26 @@
     <h2>type, public :: json_value<br>sequence</h2>
     
     <p>Type used to construct the linked-list <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.
-  Normally, this should always be a pointer variable.</p>
-<h1 id="example"><a class="toclink" href="#example">Example</a></h1>
+  Normally, this should always be a pointer variable.
+  This type should only be used by an instance of <a href="../type/json_core.html">json_core</a>.</p>
+<h1>Example</h1>
 <p>The following test program:</p>
-<div class="codehilite"><pre>    <span class="k">program </span><span class="n">test</span>
+<div class="codehilite"><pre><span></span>    <span class="k">program </span><span class="n">test</span>
      <span class="k">use </span><span class="n">json_module</span>
      <span class="k">implicit none</span>
-<span class="k">     type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
-     <span class="k">call </span><span class="n">json_initialize</span><span class="p">()</span>         <span class="c">!initialize the module</span>
-     <span class="k">call </span><span class="n">json_create_object</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c">!create the root</span>
-     <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="mi">1805</span><span class="p">)</span>   <span class="c">!add some data</span>
-     <span class="k">call </span><span class="n">json_add</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">,</span><span class="mf">1.0</span><span class="n">d0</span><span class="p">)</span> <span class="c">!add some data</span>
-     <span class="k">call </span><span class="n">json_print</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;test.json&#39;</span><span class="p">)</span> <span class="c">!write it to a file</span>
-     <span class="k">call </span><span class="n">json_destroy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>           <span class="c">!cleanup</span>
+<span class="k">     type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
+     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
+     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">create_object</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>   <span class="c">!create the root</span>
+     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="mi">1805</span><span class="p">)</span>    <span class="c">!add some data</span>
+     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">,</span><span class="mf">1.0_RK</span><span class="p">)</span> <span class="c">!add some data</span>
+     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;test.json&#39;</span><span class="p">)</span>  <span class="c">!write it to a file</span>
+     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>            <span class="c">!cleanup</span>
     <span class="k">end program </span><span class="n">test</span>
 </pre></div>
 
 
 <p>Produces the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file <strong>test.json</strong>:</p>
-<div class="codehilite"><pre>    <span class="p">{</span>
+<div class="codehilite"><pre><span></span>    <span class="p">{</span>
       <span class="nt">&quot;year&quot;</span><span class="p">:</span> <span class="mi">1805</span><span class="p">,</span>
       <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.1E+1</span>
     <span class="p">}</span>
@@ -255,7 +256,7 @@
 <text text-anchor="middle" x="75.5" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_value</text>
 </g>
 <!-- type~json_value&#45;&gt;type~json_value -->
-<g id="edge2" class="edge"><title>type~json_value&#45;&gt;type~json_value</title>
+<g id="edge4" class="edge"><title>type~json_value&#45;&gt;type~json_value</title>
 <path fill="none" stroke="black" stroke-dasharray="5,2" d="M66.7021,-26.0602C64.0361,-35.0996 66.9688,-44 75.5,-44 80.6987,-44 83.8185,-40.6949 84.8592,-36.0674"/>
 <polygon fill="black" stroke="black" points="88.3526,-35.8484 84.2979,-26.0602 81.3635,-36.2405 88.3526,-35.8484"/>
 <text text-anchor="middle" x="75.5" y="-48.45" font-family="Helvetica,sans-Serif" font-size="9.50">previous, next, parent, children, tail</text>
@@ -268,7 +269,7 @@
 </a>
 </g>
 <!-- type~json_value&#45;&gt;type~json_file -->
-<g id="edge4" class="edge"><title>type~json_value&#45;&gt;type~json_file</title>
+<g id="edge2" class="edge"><title>type~json_value&#45;&gt;type~json_file</title>
 <path fill="none" stroke="black" stroke-dasharray="5,2" d="M107.735,-13C117.78,-13 128.94,-13 139.296,-13"/>
 <polygon fill="black" stroke="black" points="139.313,-16.5001 149.313,-13 139.313,-9.5001 139.313,-16.5001"/>
 <text text-anchor="middle" x="128.5" y="-17.45" font-family="Helvetica,sans-Serif" font-size="9.50">p</text>
@@ -564,7 +565,7 @@ implementation in a submodule of an interface in a parent module.</p>
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre>    <span class="k">type</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">json_value</span>
+    <div class="highlight"><pre><span></span>    <span class="k">type</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">json_value</span>
 
         <span class="c">!force the constituents to be stored contiguously</span>
         <span class="c">![note: on Intel, the order of the variables below</span>

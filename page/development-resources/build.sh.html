@@ -70,8 +70,6 @@
             <li><a href="../../lists/types.html">Derived Types</a></li>
 				
 				
-            <li><a href="../../lists/programs.html">Programs</a></li>
-				
           </ul>
         
         <form action="../../search.html" class="navbar-form navbar-right" role="search">
@@ -190,7 +188,7 @@
     <div class="col-lg-9" id='text'>
         <p>Below is the build script used to build <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>-Fortran using
 <a href="https://github.com/szaghi/FoBiS">FoBiS.py</a>.</p>
-<div class="codehilite"><pre><span class="ch">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#</span>
 <span class="c1">#  NAME</span>
@@ -308,17 +306,17 @@ print_usage <span class="o">()</span> <span class="o">{</span>
 
     <span class="nv">key</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="c1"># Command line args are key-value pairs or value-less keys</span>
 
-    <span class="k">case</span> $key in <span class="c1">#find known keys</span>
+    <span class="k">case</span> <span class="nv">$key</span> in <span class="c1">#find known keys</span>
     --compiler<span class="o">)</span> <span class="c1">#pick the compiler. Defaults to gfortran, but intel or custom compilers can be used</span>
         <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> in
         intel<span class="p">|</span>Intel<span class="p">|</span>INTEL<span class="p">|</span>ifort<span class="o">)</span>
             <span class="nv">FCOMPILER</span><span class="o">=</span><span class="s1">&#39;Intel&#39;</span>
-            <span class="nv">FCOMPILERFLAGS</span><span class="o">=</span><span class="s2">&quot;</span>$<span class="s2">INTELCOMPILERFLAGS&quot;</span>
+            <span class="nv">FCOMPILERFLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$INTELCOMPILERFLAGS</span><span class="s2">&quot;</span>
             <span class="nb">shift</span>
             <span class="p">;;</span>
         gnu<span class="p">|</span>Gnu<span class="p">|</span>GNU<span class="p">|</span>gfortran<span class="p">|</span>Gfortran<span class="p">|</span>GFortran<span class="p">|</span>GFORTRAN<span class="o">)</span>
             <span class="nv">FCOMPILER</span><span class="o">=</span><span class="s1">&#39;gnu&#39;</span>
-            <span class="nv">FCOMPILERFLAGS</span><span class="o">=</span><span class="s2">&quot;</span>$<span class="s2">GNUCOMPILERFLAGS&quot;</span>
+            <span class="nv">FCOMPILERFLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GNUCOMPILERFLAGS</span><span class="s2">&quot;</span>
             <span class="nb">shift</span>
             <span class="p">;;</span>
         *<span class="o">)</span>
@@ -418,7 +416,7 @@ print_usage <span class="o">()</span> <span class="o">{</span>
         <span class="nb">exit</span> 0
         <span class="p">;;</span>
     --clean<span class="o">)</span>
-        rm -r src<span class="o">{</span>,/tests<span class="o">}</span>/*.o <span class="nv">$D</span>OCDIR* $LIBDIR* <span class="nv">$B</span>INDIR* *.gcov*
+        rm -r src<span class="o">{</span>,/tests<span class="o">}</span>/*.o <span class="nv">$DOCDIR</span>* <span class="nv">$LIBDIR</span>* <span class="nv">$BINDIR</span>* *.gcov*
         <span class="p">;;</span>
     *<span class="o">)</span>
         <span class="nb">echo</span> <span class="s2">&quot;Unknown flag, \&quot;</span><span class="nv">$1</span><span class="s2">\&quot;, passed to </span><span class="si">${</span><span class="nv">script_name</span><span class="si">}</span><span class="s2">!&quot;</span> 2&gt;<span class="p">&amp;</span>1
@@ -430,26 +428,26 @@ print_usage <span class="o">()</span> <span class="o">{</span>
 <span class="k">done</span> <span class="c1"># with argument parsing loop</span>
 
 <span class="c1"># if no compiler selected, then we&#39;re defaulting to gnu, and need to check that the cflags are set</span>
-<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$FC</span><span class="s2">OMPILER&quot;</span> <span class="o">=</span> <span class="s1">&#39;gnu&#39;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$FC</span><span class="s2">OMPILERFLAGS&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nv">FCOMPILERFLAGS</span><span class="o">=</span><span class="s2">&quot;</span>$<span class="s2">GNUCOMPILERFLAGS&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$FCOMPILER</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s1">&#39;gnu&#39;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$FCOMPILERFLAGS</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nv">FCOMPILERFLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GNUCOMPILERFLAGS</span><span class="s2">&quot;</span>
 <span class="k">fi</span>
 
-<span class="k">if</span> <span class="o">[[</span> <span class="nv">$C</span>ODE_COVERAGE <span class="o">==</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$CODE_COVERAGE</span> <span class="o">==</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">echo</span> <span class="s2">&quot;Trying to compile with code coverage instrumentation.&quot;</span>
     <span class="nv">COVERAGE</span><span class="o">=</span><span class="s2">&quot;-coverage&quot;</span>
 <span class="k">fi</span>
 
-<span class="k">if</span> <span class="o">[[</span> <span class="nv">$C</span>ODE_PROFILE <span class="o">==</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$CODE_PROFILE</span> <span class="o">==</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">echo</span> <span class="s2">&quot;Trying to compile with code profiling instrumentation.&quot;</span>
     <span class="nv">PROFILING</span><span class="o">=</span><span class="s2">&quot;-profile&quot;</span>
 <span class="k">fi</span>
 
-<span class="k">if</span> <span class="o">[[</span> <span class="nv">$FC</span>OMPILER <span class="o">==</span> custom <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$FCOMPILER</span> <span class="o">==</span> custom <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">echo</span> <span class="s2">&quot;Trying to compile with custom compiler, </span><span class="nv">$FC</span><span class="s2">&quot;</span>
     <span class="nv">CUSTOM</span><span class="o">=</span><span class="s2">&quot;-fc </span><span class="nv">$FC</span><span class="s2">&quot;</span>
 <span class="k">fi</span>
 
-<span class="k">if</span> <span class="o">[[</span> $<span class="nv">TRY_UNICODE</span> <span class="o">==</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$TRY_UNICODE</span> <span class="o">==</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">echo</span> <span class="s2">&quot;Trying to compile library with Unicode/UCS4 support&quot;</span>
     FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILER</span><span class="si">}</span> <span class="si">${</span><span class="nv">CUSTOM</span><span class="si">}</span> -cflags <span class="s2">&quot;</span><span class="si">${</span><span class="nv">FCOMPILERFLAGS</span><span class="si">}</span><span class="s2">&quot;</span> -dbld <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BINDIR</span><span class="si">}</span><span class="s2">&quot;</span> -s <span class="s2">&quot;</span><span class="si">${</span><span class="nv">INTROSPECDIR</span><span class="si">}</span><span class="s2">&quot;</span> -dmod ./ -dobj ./ -t <span class="si">${</span><span class="nv">UCS4TESTCODE</span><span class="si">}</span> -o <span class="si">${</span><span class="nv">UCS4TESTCODE</span><span class="p">%.f90</span><span class="si">}</span> -colors
     <span class="k">if</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BINDIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">UCS4TESTCODE</span><span class="p">%.f90</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">then</span>
@@ -464,12 +462,12 @@ print_usage <span class="o">()</span> <span class="o">{</span>
 FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILER</span><span class="si">}</span> <span class="si">${</span><span class="nv">CUSTOM</span><span class="si">}</span> -cflags <span class="s2">&quot;</span><span class="si">${</span><span class="nv">FCOMPILERFLAGS</span><span class="si">}</span><span class="s2"> </span><span class="si">${</span><span class="nv">DEFINES</span><span class="si">}</span><span class="s2">&quot;</span> <span class="si">${</span><span class="nv">COVERAGE</span><span class="si">}</span> <span class="si">${</span><span class="nv">PROFILING</span><span class="si">}</span> -dbld <span class="si">${</span><span class="nv">LIBDIR</span><span class="si">}</span> -s <span class="si">${</span><span class="nv">SRCDIR</span><span class="si">}</span> -dmod ./ -dobj ./ -t <span class="si">${</span><span class="nv">MODCODE</span><span class="si">}</span> -o <span class="si">${</span><span class="nv">LIBOUT</span><span class="si">}</span> -mklib static -colors
 
 <span class="c1">#build the unit tests (uses the above library):</span>
-<span class="k">if</span> <span class="o">[[</span> $JF_SKIP_TESTS !<span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$JF_SKIP_TESTS</span> !<span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
     <span class="nb">echo</span> <span class="s2">&quot;Building unit tests...&quot;</span>
 
     <span class="c1"># FoBiS.py PR #45 work around</span>
-    <span class="o">[</span> -d <span class="s2">&quot;</span><span class="nv">$B</span><span class="s2">INDIR&quot;</span> <span class="o">]</span> <span class="o">||</span> mkdir <span class="s2">&quot;</span><span class="nv">$B</span><span class="s2">INDIR&quot;</span>
+    <span class="o">[</span> -d <span class="s2">&quot;</span><span class="nv">$BINDIR</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> mkdir <span class="s2">&quot;</span><span class="nv">$BINDIR</span><span class="s2">&quot;</span>
 
     <span class="k">for</span> TEST in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TESTDIR</span><span class="p">%/</span><span class="si">}</span><span class="s2">&quot;</span>/jf_test_*.<span class="o">[</span>fF<span class="o">]</span>90<span class="p">;</span> <span class="k">do</span>
     <span class="nv">THIS_TEST</span><span class="o">=</span><span class="si">${</span><span class="nv">TEST</span><span class="p">##*/</span><span class="si">}</span>
@@ -482,10 +480,10 @@ FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILE
 
 <span class="c1"># Run all the tests unless $JF_SKIP_TESTS</span>
 <span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
-<span class="k">if</span> <span class="o">[[</span> $JF_SKIP_TESTS !<span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$JF_SKIP_TESTS</span> !<span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
     <span class="nb">echo</span> <span class="s2">&quot;Running tests...&quot;</span>
-    <span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$B</span><span class="s2">INDIR&quot;</span>
-    <span class="nv">OLD_IGNORES</span><span class="o">=</span><span class="s2">&quot;</span>$<span class="s2">GLOBIGNORE&quot;</span>
+    <span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$BINDIR</span><span class="s2">&quot;</span>
+    <span class="nv">OLD_IGNORES</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GLOBIGNORE</span><span class="s2">&quot;</span>
     <span class="nv">GLOBIGNORE</span><span class="o">=</span><span class="s1">&#39;*.*&#39;</span>
     <span class="c1">#</span>
     <span class="k">for</span> TEST in jf_test_*<span class="p">;</span> <span class="k">do</span>
@@ -495,11 +493,11 @@ FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILE
     ./<span class="si">${</span><span class="nv">TEST</span><span class="si">}</span>
     <span class="k">done</span>
     <span class="nb">cd</span> -
-    <span class="nv">GLOBIGNORE</span><span class="o">=</span><span class="s2">&quot;</span>$<span class="s2">OLD_IGNORES&quot;</span>
-    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$C</span>ODE_COVERAGE <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
+    <span class="nv">GLOBIGNORE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$OLD_IGNORES</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$CODE_COVERAGE</span> <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
     <span class="o">[</span> -f json_module.F90.gcov <span class="o">]</span> <span class="o">&amp;&amp;</span> rm json_module.F90.gcov
-    gcov -o $LIBDIR <span class="si">${</span><span class="nv">SRCDIR</span><span class="si">}${</span><span class="nv">MODCODE</span><span class="si">}</span>
-    <span class="k">if</span> <span class="o">[[</span> $<span class="nv">TRY_UNICODE</span> <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
+    gcov -o <span class="nv">$LIBDIR</span> <span class="si">${</span><span class="nv">SRCDIR</span><span class="si">}${</span><span class="nv">MODCODE</span><span class="si">}</span>
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$TRY_UNICODE</span> <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
         <span class="c1"># gcov/gfortran bug work around</span>
         awk -F<span class="s1">&#39;:&#39;</span> <span class="s1">&#39;{line=&quot;&quot;; for(i=2;i&lt;=NF;i++){line=line&quot;:&quot;$i}; if (NR &gt; 1) print $1 prevline; prevline=line}; END{print &quot;        -&quot;prevline}&#39;</span> json_module.F90.gcov &gt; json_module.F90.gcov.fixed <span class="o">&amp;&amp;</span> <span class="se">\</span>
         mv json_module.F90.gcov<span class="o">{</span>.fixed,<span class="o">}</span>
@@ -519,7 +517,7 @@ FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILE
     FoBiS.py rule -gcov_analyzer .
     sed -i<span class="s2">&quot;bak&quot;</span> -E <span class="s1">&#39;s; \*\*([a-zA-Z]+[a-zA-Z0-9_]*)\*\*; \*\*[[\1]]\*\*;&#39;</span> json_module.F90.gcov.md
     sed -i<span class="s2">&quot;bak&quot;</span> -E <span class="s1">&#39;s;, line ([0-9]+);, line [\1](https://github.com/jacobwilliams/json-fortran/blob/master/src/json_module.F90#L\1);&#39;</span> json_module.F90.gcov.md
-    gcov -o <span class="nv">$B</span>INDIR <span class="si">${</span><span class="nv">TESTDIR</span><span class="si">}</span>*.<span class="o">[</span>Ff<span class="o">]</span>90
+    gcov -o <span class="nv">$BINDIR</span> <span class="si">${</span><span class="nv">TESTDIR</span><span class="si">}</span>*.<span class="o">[</span>Ff<span class="o">]</span>90
     <span class="k">fi</span>
 <span class="k">else</span>
     <span class="nb">echo</span> <span class="s2">&quot;Skip running the unit tests since \$JF_SKIP_TESTS has been set to </span><span class="si">${</span><span class="nv">JF_SKIP_TESTS</span><span class="si">}</span><span class="s2">.&quot;</span>
@@ -527,11 +525,11 @@ FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILE
 
 <span class="c1">#build the documentation with ford (if present):</span>
 <span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
-<span class="k">if</span> <span class="o">[[</span> $JF_SKIP_DOCS !<span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$JF_SKIP_DOCS</span> !<span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
     <span class="k">if</span> <span class="nb">hash</span> ford 2&gt;/dev/null<span class="p">;</span> <span class="k">then</span>
     <span class="nb">echo</span> <span class="s2">&quot;Building documentation...&quot;</span>
-    <span class="o">[[</span> $<span class="nv">TRY_UNICODE</span> <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">MACRO_FLAG</span><span class="o">=</span><span class="s2">&quot;-m USE_UCS4&quot;</span>
-    ford $MACRO_FLAG -p $PAGESDIR <span class="nv">$F</span>ORDMD
+    <span class="o">[[</span> <span class="nv">$TRY_UNICODE</span> <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">MACRO_FLAG</span><span class="o">=</span><span class="s2">&quot;-m USE_UCS4&quot;</span>
+    ford <span class="nv">$MACRO_FLAG</span> -p <span class="nv">$PAGESDIR</span> <span class="nv">$FORDMD</span>
     <span class="k">else</span>
     <span class="nb">echo</span> <span class="s2">&quot;FORD not found! Install using: sudo pip install ford&quot;</span>
     <span class="k">fi</span>

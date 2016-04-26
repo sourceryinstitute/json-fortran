@@ -70,8 +70,6 @@
             <li><a href="../lists/types.html">Derived Types</a></li>
 				
 				
-            <li><a href="../lists/programs.html">Programs</a></li>
-				
           </ul>
         
         <form action="../search.html" class="navbar-form navbar-right" role="search">
@@ -110,14 +108,14 @@
      
     
     
-    <li><i class="fa fa-code"></i><a href="../src/json_module.F90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/json_value_module.F90"> Source File</a></li>
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
-     <li><a href='../sourcefile/json_module.f90.html'>json_module.F90</a></li>
+     <li><a href='../sourcefile/json_value_module.f90.html'>json_value_module.F90</a></li>
   
-     <li><a href='../module/json_module.html'>json_module</a></li>
+     <li><a href='../module/json_value_module.html'>json_value_module</a></li>
   
      <li class="active">json_initialize</li>
   </ol>
@@ -149,7 +147,7 @@
         
         <a class="list-group-item" href="../proc/json_initialize.html#variable-rl_edit_desc">rl_edit_desc</a>
         
-        <a class="list-group-item" href="../proc/json_initialize.html#variable-istat%7E2">istat</a>
+        <a class="list-group-item" href="../proc/json_initialize.html#variable-istat%7E3">istat</a>
         
         <a class="list-group-item" href="../proc/json_initialize.html#variable-sgn_prnt">sgn_prnt</a>
         
@@ -189,8 +187,6 @@
     <div id="allprocs" class="panel-collapse collapse">
         <div class="list-group">
           
-          <a class="list-group-item" href="../proc/add_variables_to_input.html">add_variables_to_input</a>
-          
           <a class="list-group-item" href="../proc/annotate_invalid_json.html">annotate_invalid_json</a>
           
           <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
@@ -198,6 +194,10 @@
           <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
           
           <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
+          
+          <a class="list-group-item" href="../proc/default_neq_ucs4.html">default_neq_ucs4</a>
+          
+          <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
           
           <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
           
@@ -207,11 +207,11 @@
           
           <a class="list-group-item" href="../proc/get_current_line_from_file_stream.html">get_current_line_from_file_stream</a>
           
+          <a class="list-group-item" href="../proc/initialize_json_core_in_file.html">initialize_json_core_in_file</a>
+          
           <a class="list-group-item" href="../proc/initialize_json_file.html">initialize_json_file</a>
           
           <a class="list-group-item" href="../proc/integer_to_string.html">integer_to_string</a>
-          
-          <a class="list-group-item" href="../interface/json_add.html">json_add</a>
           
           <a class="list-group-item" href="../proc/json_check_for_errors.html">json_check_for_errors</a>
           
@@ -221,27 +221,17 @@
           
           <a class="list-group-item" href="../proc/json_count.html">json_count</a>
           
-          <a class="list-group-item" href="../interface/json_create_array.html">json_create_array</a>
-          
-          <a class="list-group-item" href="../interface/json_create_double.html">json_create_double</a>
-          
-          <a class="list-group-item" href="../interface/json_create_integer.html">json_create_integer</a>
-          
-          <a class="list-group-item" href="../interface/json_create_logical.html">json_create_logical</a>
-          
-          <a class="list-group-item" href="../interface/json_create_null.html">json_create_null</a>
-          
-          <a class="list-group-item" href="../interface/json_create_object.html">json_create_object</a>
-          
-          <a class="list-group-item" href="../interface/json_create_string.html">json_create_string</a>
-          
-          <a class="list-group-item" href="../interface/json_destroy.html">json_destroy</a>
-          
           <a class="list-group-item" href="../proc/json_failed.html">json_failed</a>
           
           <a class="list-group-item" href="../interface/json_file.html">json_file</a>
           
+          <a class="list-group-item" href="../proc/json_file_check_for_errors.html">json_file_check_for_errors</a>
+          
+          <a class="list-group-item" href="../proc/json_file_clear_exceptions.html">json_file_clear_exceptions</a>
+          
           <a class="list-group-item" href="../proc/json_file_destroy.html">json_file_destroy</a>
+          
+          <a class="list-group-item" href="../proc/json_file_failed.html">json_file_failed</a>
           
           <a class="list-group-item" href="../proc/json_file_get_double.html">json_file_get_double</a>
           
@@ -273,6 +263,8 @@
           
           <a class="list-group-item" href="../proc/json_file_print_2.html">json_file_print_2</a>
           
+          <a class="list-group-item" href="../proc/json_file_print_error_message.html">json_file_print_error_message</a>
+          
           <a class="list-group-item" href="../proc/json_file_print_to_console.html">json_file_print_to_console</a>
           
           <a class="list-group-item" href="../proc/json_file_print_to_string.html">json_file_print_to_string</a>
@@ -291,15 +283,11 @@
           
           <a class="list-group-item" href="../proc/json_file_variable_info.html">json_file_variable_info</a>
           
-          <a class="list-group-item" href="../interface/json_get.html">json_get</a>
-          
           <a class="list-group-item" href="../proc/json_get_array.html">json_get_array</a>
           
           <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
           
           <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
-          
-          <a class="list-group-item" href="../interface/json_get_child.html">json_get_child</a>
           
           <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
           
@@ -345,13 +333,9 @@
           
           <a class="list-group-item" href="../proc/json_initialize.html">json_initialize</a>
           
-          <a class="list-group-item" href="../interface/json_parse.html">json_parse</a>
-          
           <a class="list-group-item" href="../proc/json_parse_file.html">json_parse_file</a>
           
           <a class="list-group-item" href="../proc/json_parse_string.html">json_parse_string</a>
-          
-          <a class="list-group-item" href="../interface/json_print.html">json_print</a>
           
           <a class="list-group-item" href="../proc/json_print_1.html">json_print_1</a>
           
@@ -359,17 +343,9 @@
           
           <a class="list-group-item" href="../proc/json_print_error_message.html">json_print_error_message</a>
           
-          <a class="list-group-item" href="../interface/json_print_to_string.html">json_print_to_string</a>
-          
-          <a class="list-group-item" href="../interface/json_remove.html">json_remove</a>
-          
-          <a class="list-group-item" href="../interface/json_remove_if_present.html">json_remove_if_present</a>
-          
           <a class="list-group-item" href="../proc/json_throw_exception.html">json_throw_exception</a>
           
           <a class="list-group-item" href="../proc/json_traverse.html">json_traverse</a>
-          
-          <a class="list-group-item" href="../interface/json_update.html">json_update</a>
           
           <a class="list-group-item" href="../proc/json_update_double.html">json_update_double</a>
           
@@ -441,7 +417,11 @@
           
           <a class="list-group-item" href="../proc/json_value_to_string.html">json_value_to_string</a>
           
+          <a class="list-group-item" href="../proc/lowercase_character.html">lowercase_character</a>
+          
           <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
+          
+          <a class="list-group-item" href="../interface/operator%28SLASH%3D%29.html">operator(/=)</a>
           
           <a class="list-group-item" href="../interface/operator%28%3D%3D%29.html">operator(==)</a>
           
@@ -461,45 +441,11 @@
           
           <a class="list-group-item" href="../proc/push_char.html">push_char</a>
           
-          <a class="list-group-item" href="../proc/read_file.html">read_file</a>
-          
           <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
-          
-          <a class="list-group-item" href="../proc/rename.html">rename</a>
           
           <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
           
           <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
-          
-          <a class="list-group-item" href="../proc/test_1.html">test_1</a>
-          
-          <a class="list-group-item" href="../proc/test_10.html">test_10</a>
-          
-          <a class="list-group-item" href="../proc/test_11.html">test_11</a>
-          
-          <a class="list-group-item" href="../proc/test_12.html">test_12</a>
-          
-          <a class="list-group-item" href="../proc/test_13.html">test_13</a>
-          
-          <a class="list-group-item" href="../proc/test_14.html">test_14</a>
-          
-          <a class="list-group-item" href="../proc/test_2.html">test_2</a>
-          
-          <a class="list-group-item" href="../proc/test_3.html">test_3</a>
-          
-          <a class="list-group-item" href="../proc/test_4.html">test_4</a>
-          
-          <a class="list-group-item" href="../proc/test_5.html">test_5</a>
-          
-          <a class="list-group-item" href="../proc/test_6.html">test_6</a>
-          
-          <a class="list-group-item" href="../proc/test_7.html">test_7</a>
-          
-          <a class="list-group-item" href="../proc/test_8.html">test_8</a>
-          
-          <a class="list-group-item" href="../proc/test_9.html">test_9</a>
-          
-          <a class="list-group-item" href="../interface/throw_exception.html">throw_exception</a>
           
           <a class="list-group-item" href="../proc/to_array.html">to_array</a>
           
@@ -524,6 +470,8 @@
           <a class="list-group-item" href="../proc/ucs4_comp_default.html">ucs4_comp_default</a>
           
           <a class="list-group-item" href="../proc/ucs4_join_default.html">ucs4_join_default</a>
+          
+          <a class="list-group-item" href="../proc/ucs4_neq_default.html">ucs4_neq_default</a>
           
           <a class="list-group-item" href="../proc/unescape_string.html">unescape_string</a>
           
@@ -635,7 +583,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-public subroutine json_initialize(verbose, compact_reals, print_signs, real_format)
+private subroutine json_initialize(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking)
     
     
     
@@ -663,7 +611,22 @@ public subroutine json_initialize(verbose, compact_reals, print_signs, real_form
   
 <tr>
   
-  <td><span class="anchor" id="variable-verbose"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-json%7E11"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-verbose%7E3"></span>logical(kind=LK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -678,7 +641,7 @@ public subroutine json_initialize(verbose, compact_reals, print_signs, real_form
   
 <tr>
   
-  <td><span class="anchor" id="variable-compact_reals"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-compact_reals%7E3"></span>logical(kind=LK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -693,7 +656,7 @@ public subroutine json_initialize(verbose, compact_reals, print_signs, real_form
   
 <tr>
   
-  <td><span class="anchor" id="variable-print_signs"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-print_signs%7E3"></span>logical(kind=LK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -708,12 +671,44 @@ public subroutine json_initialize(verbose, compact_reals, print_signs, real_form
   
 <tr>
   
-  <td><span class="anchor" id="variable-real_format"></span>character(kind=len=*,CDK),</td>
+  <td><span class="anchor" id="variable-real_format%7E3"></span>character(kind=len=*,CDK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>real_format</strong></td><td><p>exponential (default), scientific, engineering or general</p></td>
+  <td><strong>real_format</strong></td><td><p>Real number format: 'E' [default], '*', 'G', 'EN', or 'ES'</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-spaces_per_tab%7E4"></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>spaces_per_tab</strong></td><td><p>number of spaces per tab for indenting (default is 2)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-strict_type_checking%7E4"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
+ conversions are done for the <code>get</code> routines
+ (default is false)</p></td>
   
 </tr>
 
@@ -724,780 +719,18 @@ public subroutine json_initialize(verbose, compact_reals, print_signs, real_form
     
     
     <h3>Description</h3>
-    <p>Initialize the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>-Fortran module.
-  The routine must be called before any of the routines are used.
-  It can also be called after using the module and encountering exceptions.</p>
-<h1 id="modified"><a class="toclink" href="#modified">Modified</a></h1>
+    <p>Initialize the <a href="../type/json_core.html">json_core</a> instance.</p>
+<p>The routine may be called before any of the <a href="../type/json_core.html">json_core</a> methods are used in
+  order to specify certain parameters. If it is not called, then the defaults
+  are used. This routine is also called internally by various routines.
+  It can also be called to clear exceptions, or to reset some
+  of the variables (note that only the arguments present are changed).</p>
+<h1>Modified</h1>
 <ul>
 <li>Izaak Beekman : 02/24/2015</li>
 </ul>
     
     
-     <h3>Calls</h3>
-     
-                <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
- "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.26.3 (20100126.1600)
- -->
-<!-- Title: proc~~json_initialize~~CallsGraph Pages: 1 -->
-<svg id="procjson_initializeCallsGraph" width="641pt" height="95pt"
- viewBox="0.00 0.00 641.00 95.39" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="proc~~json_initialize~~CallsGraph" class="graph" transform="scale(0.953869 0.953869) rotate(0) translate(4 96)">
-<title>proc~~json_initialize~~CallsGraph</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-96 669,-96 669,5 -4,5"/>
-<!-- proc~json_initialize -->
-<g id="node1" class="node"><title>proc~json_initialize</title>
-<polygon fill="none" stroke="black" points="76,-50 3.55271e-14,-50 0,-24 76,-24 76,-50"/>
-<text text-anchor="middle" x="38" y="-34.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_initialize</text>
-</g>
-<!-- interface~throw_exception -->
-<g id="node2" class="node"><title>interface~throw_exception</title>
-<a xlink:href="../interface/throw_exception.html" xlink:title="throw_exception">
-<polygon fill="#a7506f" stroke="#a7506f" points="216,-72 126,-72 126,-46 216,-46 216,-72"/>
-<text text-anchor="middle" x="171" y="-56.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">throw_exception</text>
-</a>
-</g>
-<!-- proc~json_initialize&#45;&gt;interface~throw_exception -->
-<g id="edge14" class="edge"><title>proc~json_initialize&#45;&gt;interface~throw_exception</title>
-<path fill="none" stroke="black" d="M76.1125,-43.3043C88.3461,-45.3279 102.158,-47.6126 115.38,-49.7996"/>
-<polygon fill="black" stroke="black" points="114.902,-53.2682 125.339,-51.4471 116.045,-46.362 114.902,-53.2682"/>
-</g>
-<!-- proc~json_clear_exceptions -->
-<g id="node3" class="node"><title>proc~json_clear_exceptions</title>
-<a xlink:href="../proc/json_clear_exceptions.html" xlink:title="json_clear_exceptions">
-<polygon fill="#d9534f" stroke="#d9534f" points="230,-28 112,-28 112,-2 230,-2 230,-28"/>
-<text text-anchor="middle" x="171" y="-12.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_clear_exceptions</text>
-</a>
-</g>
-<!-- proc~json_initialize&#45;&gt;proc~json_clear_exceptions -->
-<g id="edge16" class="edge"><title>proc~json_initialize&#45;&gt;proc~json_clear_exceptions</title>
-<path fill="none" stroke="black" d="M76.1125,-30.6957C84.1993,-29.358 92.9756,-27.9063 101.815,-26.4441"/>
-<polygon fill="black" stroke="black" points="102.494,-29.8794 111.789,-24.7943 101.352,-22.9733 102.494,-29.8794"/>
-</g>
-<!-- proc~json_throw_exception -->
-<g id="node4" class="node"><title>proc~json_throw_exception</title>
-<a xlink:href="../proc/json_throw_exception.html" xlink:title="json_throw_exception">
-<polygon fill="#d9534f" stroke="#d9534f" points="564,-92 448,-92 448,-66 564,-66 564,-92"/>
-<text text-anchor="middle" x="506" y="-76.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_throw_exception</text>
-</a>
-</g>
-<!-- interface~throw_exception&#45;&gt;proc~json_throw_exception -->
-<g id="edge10" class="edge"><title>interface~throw_exception&#45;&gt;proc~json_throw_exception</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M216.528,-61.7181C273.5,-65.1194 371.591,-70.9756 437.607,-74.9168"/>
-<polygon fill="black" stroke="black" points="437.724,-78.43 447.915,-75.5323 438.142,-71.4424 437.724,-78.43"/>
-</g>
-<!-- proc~wrap_json_throw_exception -->
-<g id="node5" class="node"><title>proc~wrap_json_throw_exception</title>
-<a xlink:href="../proc/wrap_json_throw_exception.html" xlink:title="wrap_json_throw_exception">
-<polygon fill="#d9534f" stroke="#d9534f" points="411,-51 267,-51 267,-25 411,-25 411,-51"/>
-<text text-anchor="middle" x="339" y="-35.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">wrap_json_throw_exception</text>
-</a>
-</g>
-<!-- interface~throw_exception&#45;&gt;proc~wrap_json_throw_exception -->
-<g id="edge12" class="edge"><title>interface~throw_exception&#45;&gt;proc~wrap_json_throw_exception</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M216.907,-53.2617C229.061,-51.7423 242.566,-50.0543 256.035,-48.3706"/>
-<polygon fill="black" stroke="black" points="256.816,-51.8003 266.305,-47.0869 255.948,-44.8543 256.816,-51.8003"/>
-</g>
-<!-- proc~wrap_json_throw_exception&#45;&gt;proc~json_throw_exception -->
-<g id="edge6" class="edge"><title>proc~wrap_json_throw_exception&#45;&gt;proc~json_throw_exception</title>
-<path fill="none" stroke="black" d="M392.299,-51.0854C408.346,-55.0251 426.113,-59.3871 442.741,-63.4693"/>
-<polygon fill="black" stroke="black" points="442.375,-66.9833 452.921,-65.9686 444.044,-60.1852 442.375,-66.9833"/>
-</g>
-<!-- interface~to_unicode -->
-<g id="node6" class="node"><title>interface~to_unicode</title>
-<a xlink:href="../interface/to_unicode.html" xlink:title="to_unicode">
-<polygon fill="#a7506f" stroke="#a7506f" points="538,-48 474,-48 474,-22 538,-22 538,-48"/>
-<text text-anchor="middle" x="506" y="-32.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_unicode</text>
-</a>
-</g>
-<!-- proc~wrap_json_throw_exception&#45;&gt;interface~to_unicode -->
-<g id="edge8" class="edge"><title>proc~wrap_json_throw_exception&#45;&gt;interface~to_unicode</title>
-<path fill="none" stroke="black" d="M411.763,-36.6929C429.188,-36.3799 447.248,-36.0554 462.839,-35.7754"/>
-<polygon fill="black" stroke="black" points="463.264,-39.2684 473.199,-35.5892 463.138,-32.2695 463.264,-39.2684"/>
-</g>
-<!-- proc~to_uni_vec -->
-<g id="node7" class="node"><title>proc~to_uni_vec</title>
-<a xlink:href="../proc/to_uni_vec.html" xlink:title="to_uni_vec">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="664,-70 600,-70 600,-44 664,-44 664,-70"/>
-<text text-anchor="middle" x="632" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni_vec</text>
-</a>
-</g>
-<!-- interface~to_unicode&#45;&gt;proc~to_uni_vec -->
-<g id="edge2" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M538.776,-40.7228C554.355,-43.443 573.166,-46.7274 589.798,-49.6314"/>
-<polygon fill="black" stroke="black" points="589.371,-53.1097 599.824,-51.382 590.575,-46.214 589.371,-53.1097"/>
-</g>
-<!-- proc~to_uni -->
-<g id="node8" class="node"><title>proc~to_uni</title>
-<a xlink:href="../proc/to_uni.html" xlink:title="to_uni">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="659,-26 605,-26 605,-1.24345e-14 659,-3.55271e-15 659,-26"/>
-<text text-anchor="middle" x="632" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni</text>
-</a>
-</g>
-<!-- interface~to_unicode&#45;&gt;proc~to_uni -->
-<g id="edge4" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M538.776,-29.2772C555.965,-26.276 577.088,-22.5878 594.878,-19.4816"/>
-<polygon fill="black" stroke="black" points="595.664,-22.8974 604.913,-17.7295 594.46,-16.0017 595.664,-22.8974"/>
-</g>
-</g>
-</svg>
-</div>
-                <script>var panprocjson_initializeCallsGraph = svgPanZoom('#procjson_initializeCallsGraph', {
-                    zoomEnabled: true,
-                    controlIconsEnabled: true,
-                    fit: true,
-                    center: true,});
-                    </script>
-                <div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div>
-                <div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
-                      </div>
-                      <div class="modal-body">
-                        
-Nodes of different colours represent the following:
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
- "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.26.3 (20100126.1600)
- -->
-<!-- Title: Graph Key Pages: 1 -->
-<svg width="641pt" height="28pt"
- viewBox="0.00 0.00 641.00 27.80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph1" class="graph" transform="scale(0.817602 0.817602) rotate(0) translate(4 30)">
-<title>Graph Key</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-30 781,-30 781,5 -4,5"/>
-<!-- Module -->
-<g id="node1" class="node"><title>Module</title>
-<polygon fill="#337ab7" stroke="#337ab7" points="54,-26 2.13163e-14,-26 0,-1.24345e-14 54,-3.55271e-15 54,-26"/>
-<text text-anchor="middle" x="27" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
-</g>
-<!-- Submodule -->
-<g id="node2" class="node"><title>Submodule</title>
-<polygon fill="#5bc0de" stroke="#5bc0de" points="138,-26 72,-26 72,-1.24345e-14 138,-3.55271e-15 138,-26"/>
-<text text-anchor="middle" x="105" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
-</g>
-<!-- Type -->
-<g id="node3" class="node"><title>Type</title>
-<polygon fill="#5cb85c" stroke="#5cb85c" points="210,-26 156,-26 156,-1.24345e-14 210,-3.55271e-15 210,-26"/>
-<text text-anchor="middle" x="183" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type</text>
-</g>
-<!-- Subroutine -->
-<g id="node4" class="node"><title>Subroutine</title>
-<polygon fill="#d9534f" stroke="#d9534f" points="292,-26 228,-26 228,-1.24345e-14 292,-3.55271e-15 292,-26"/>
-<text text-anchor="middle" x="260" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
-</g>
-<!-- Function -->
-<g id="node5" class="node"><title>Function</title>
-<polygon fill="#d94e8f" stroke="#d94e8f" points="364,-26 310,-26 310,-1.24345e-14 364,-3.55271e-15 364,-26"/>
-<text text-anchor="middle" x="337" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
-</g>
-<!-- Interface -->
-<g id="node6" class="node"><title>Interface</title>
-<polygon fill="#a7506f" stroke="#a7506f" points="436,-26 382,-26 382,-1.24345e-14 436,-3.55271e-15 436,-26"/>
-<text text-anchor="middle" x="409" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
-</g>
-<!-- Unknown Procedure Type -->
-<g id="node7" class="node"><title>Unknown Procedure Type</title>
-<polygon fill="#777777" stroke="#777777" points="590,-26 454,-26 454,-1.24345e-14 590,-3.55271e-15 590,-26"/>
-<text text-anchor="middle" x="522" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
-</g>
-<!-- Program -->
-<g id="node8" class="node"><title>Program</title>
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="662,-26 608,-26 608,-1.24345e-14 662,-3.55271e-15 662,-26"/>
-<text text-anchor="middle" x="635" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
-</g>
-<!-- This Page&#39;s Entity -->
-<g id="node9" class="node"><title>This Page&#39;s Entity</title>
-<polygon fill="none" stroke="black" points="776,-26 680,-26 680,-1.24345e-14 776,-3.55271e-15 776,-26"/>
-<text text-anchor="middle" x="728" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
-</g>
-</g>
-</svg>
-
-<h5>Module Graph</h5>
-<p>Solid arrows point from a parent (sub)module to the submodule which is
-descended from it. Dashed arrows point from a module being used to the
-module using it.</p>
-<h5>Type Graph</h5>
-<p>Solid arrows point from one derived type to another which extends
-(inherits from) it. Dashed arrows point from a derived type to another
-type containing it as a components, with a label listing the name(s) of
-said component(s).</p>
-<h5>Call Graph</h5>
-<p>Solid arrows point from a procedure to one which it calls. Dashed 
-arrows point from an interface to procedures which implement that interface.
-This could include the module procedures in a generic interface or the
-implementation in a submodule of an interface in a parent module.</p>
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-     
-     
-     <h3>Called By</h3>
-     
-                <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
- "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.26.3 (20100126.1600)
- -->
-<!-- Title: proc~~json_initialize~~CalledByGraph Pages: 1 -->
-<svg id="procjson_initializeCalledByGraph" width="641pt" height="531pt"
- viewBox="0.00 0.00 641.00 530.94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="proc~~json_initialize~~CalledByGraph" class="graph" transform="scale(0.743619 0.743619) rotate(0) translate(4 710)">
-<title>proc~~json_initialize~~CalledByGraph</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-710 859,-710 859,5 -4,5"/>
-<!-- proc~json_initialize -->
-<g id="node1" class="node"><title>proc~json_initialize</title>
-<polygon fill="none" stroke="black" points="854,-356 778,-356 778,-330 854,-330 854,-356"/>
-<text text-anchor="middle" x="816" y="-340.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_initialize</text>
-</g>
-<!-- proc~test_2 -->
-<g id="node2" class="node"><title>proc~test_2</title>
-<a xlink:href="../proc/test_2.html" xlink:title="test_2">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-706 666,-706 666,-680 720,-680 720,-706"/>
-<text text-anchor="middle" x="693" y="-690.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_2</text>
-</a>
-</g>
-<!-- proc~test_2&#45;&gt;proc~json_initialize -->
-<g id="edge48" class="edge"><title>proc~test_2&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.112,-685.978C728.2,-682.656 736.393,-677.858 742,-671 780.77,-623.577 805.704,-433.486 813.433,-366.503"/>
-<polygon fill="black" stroke="black" points="816.956,-366.495 814.601,-356.165 810,-365.709 816.956,-366.495"/>
-</g>
-<!-- proc~test_3 -->
-<g id="node3" class="node"><title>proc~test_3</title>
-<a xlink:href="../proc/test_3.html" xlink:title="test_3">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-662 666,-662 666,-636 720,-636 720,-662"/>
-<text text-anchor="middle" x="693" y="-646.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_3</text>
-</a>
-</g>
-<!-- proc~test_3&#45;&gt;proc~json_initialize -->
-<g id="edge50" class="edge"><title>proc~test_3&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.233,-641.762C728.231,-638.438 736.341,-633.694 742,-627 775.988,-586.799 803.321,-426.459 812.598,-366.121"/>
-<polygon fill="black" stroke="black" points="816.083,-366.48 814.118,-356.069 809.162,-365.434 816.083,-366.48"/>
-</g>
-<!-- proc~test_7 -->
-<g id="node4" class="node"><title>proc~test_7</title>
-<a xlink:href="../proc/test_7.html" xlink:title="test_7">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-618 666,-618 666,-592 720,-592 720,-618"/>
-<text text-anchor="middle" x="693" y="-602.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_7</text>
-</a>
-</g>
-<!-- proc~test_7&#45;&gt;proc~json_initialize -->
-<g id="edge52" class="edge"><title>proc~test_7&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.083,-594.734C728.073,-590.581 736.216,-585.064 742,-578 794.698,-513.643 810.035,-411.457 814.363,-366.05"/>
-<polygon fill="black" stroke="black" points="817.855,-366.293 815.224,-356.03 810.881,-365.694 817.855,-366.293"/>
-</g>
-<!-- proc~test_8 -->
-<g id="node5" class="node"><title>proc~test_8</title>
-<a xlink:href="../proc/test_8.html" xlink:title="test_8">
-<polygon fill="#d9534f" stroke="#d9534f" points="300,-432 246,-432 246,-406 300,-406 300,-432"/>
-<text text-anchor="middle" x="273" y="-416.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_8</text>
-</a>
-</g>
-<!-- proc~test_8&#45;&gt;proc~json_initialize -->
-<g id="edge54" class="edge"><title>proc~test_8&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M300.244,-421.459C373.617,-427.175 580.721,-437.293 742,-387 759.441,-381.561 777.096,-371.286 790.785,-362.032"/>
-<polygon fill="black" stroke="black" points="792.985,-364.765 799.166,-356.16 788.968,-359.032 792.985,-364.765"/>
-</g>
-<!-- interface~json_parse -->
-<g id="node31" class="node"><title>interface~json_parse</title>
-<a xlink:href="../interface/json_parse.html" xlink:title="json_parse">
-<polygon fill="#a7506f" stroke="#a7506f" points="443,-498 379,-498 379,-472 443,-472 443,-498"/>
-<text text-anchor="middle" x="411" y="-482.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_parse</text>
-</a>
-</g>
-<!-- proc~test_8&#45;&gt;interface~json_parse -->
-<g id="edge16" class="edge"><title>proc~test_8&#45;&gt;interface~json_parse</title>
-<path fill="none" stroke="black" d="M300.018,-427.469C312.954,-431.855 328.525,-437.625 342,-444 355.751,-450.505 370.323,-458.919 382.513,-466.429"/>
-<polygon fill="black" stroke="black" points="380.987,-469.604 391.319,-471.951 384.706,-463.673 380.987,-469.604"/>
-</g>
-<!-- proc~test_1 -->
-<g id="node6" class="node"><title>proc~test_1</title>
-<a xlink:href="../proc/test_1.html" xlink:title="test_1">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-378 666,-378 666,-352 720,-352 720,-378"/>
-<text text-anchor="middle" x="693" y="-362.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_1</text>
-</a>
-</g>
-<!-- proc~test_1&#45;&gt;proc~json_initialize -->
-<g id="edge56" class="edge"><title>proc~test_1&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.298,-360.117C734.115,-357.646 751.311,-354.57 767.298,-351.711"/>
-<polygon fill="black" stroke="black" points="768.355,-355.077 777.583,-349.871 767.123,-348.187 768.355,-355.077"/>
-</g>
-<!-- proc~test_10 -->
-<g id="node7" class="node"><title>proc~test_10</title>
-<a xlink:href="../proc/test_10.html" xlink:title="test_10">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-334 666,-334 666,-308 720,-308 720,-334"/>
-<text text-anchor="middle" x="693" y="-318.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_10</text>
-</a>
-</g>
-<!-- proc~test_10&#45;&gt;proc~json_initialize -->
-<g id="edge58" class="edge"><title>proc~test_10&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.298,-325.883C734.115,-328.354 751.311,-331.43 767.298,-334.289"/>
-<polygon fill="black" stroke="black" points="767.123,-337.813 777.583,-336.129 768.355,-330.923 767.123,-337.813"/>
-</g>
-<!-- proc~json_parse_string -->
-<g id="node8" class="node"><title>proc~json_parse_string</title>
-<a xlink:href="../proc/json_parse_string.html" xlink:title="json_parse_string">
-<polygon fill="#d9534f" stroke="#d9534f" points="741,-504 645,-504 645,-478 741,-478 741,-504"/>
-<text text-anchor="middle" x="693" y="-488.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_parse_string</text>
-</a>
-</g>
-<!-- proc~json_parse_string&#45;&gt;proc~json_initialize -->
-<g id="edge60" class="edge"><title>proc~json_parse_string&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M729.124,-477.942C733.742,-475.392 738.181,-472.424 742,-469 774.326,-440.019 796.502,-393.477 807.653,-365.804"/>
-<polygon fill="black" stroke="black" points="811.026,-366.787 811.385,-356.199 804.501,-364.252 811.026,-366.787"/>
-</g>
-<!-- proc~test_4 -->
-<g id="node9" class="node"><title>proc~test_4</title>
-<a xlink:href="../proc/test_4.html" xlink:title="test_4">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-290 666,-290 666,-264 720,-264 720,-290"/>
-<text text-anchor="middle" x="693" y="-274.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_4</text>
-</a>
-</g>
-<!-- proc~test_4&#45;&gt;proc~json_initialize -->
-<g id="edge62" class="edge"><title>proc~test_4&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.222,-288.557C727.384,-291.778 735.049,-295.388 742,-299 756.979,-306.783 773.144,-316.263 786.533,-324.427"/>
-<polygon fill="black" stroke="black" points="784.96,-327.569 795.31,-329.832 788.63,-321.608 784.96,-327.569"/>
-</g>
-<!-- proc~json_parse_file -->
-<g id="node10" class="node"><title>proc~json_parse_file</title>
-<a xlink:href="../proc/json_parse_file.html" xlink:title="json_parse_file">
-<polygon fill="#d9534f" stroke="#d9534f" points="735,-460 651,-460 651,-434 735,-434 735,-460"/>
-<text text-anchor="middle" x="693" y="-444.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_parse_file</text>
-</a>
-</g>
-<!-- proc~json_parse_file&#45;&gt;proc~json_initialize -->
-<g id="edge64" class="edge"><title>proc~json_parse_file&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.104,-433.961C727.489,-429.91 735.296,-425.144 742,-420 763.545,-403.469 784.66,-380.649 798.785,-364.147"/>
-<polygon fill="black" stroke="black" points="801.743,-366.067 805.499,-356.16 796.385,-361.563 801.743,-366.067"/>
-</g>
-<!-- proc~test_5 -->
-<g id="node11" class="node"><title>proc~test_5</title>
-<a xlink:href="../proc/test_5.html" xlink:title="test_5">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-246 666,-246 666,-220 720,-220 720,-246"/>
-<text text-anchor="middle" x="693" y="-230.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_5</text>
-</a>
-</g>
-<!-- proc~test_5&#45;&gt;proc~json_initialize -->
-<g id="edge66" class="edge"><title>proc~test_5&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.15,-242.599C727.615,-245.91 735.451,-250.055 742,-255 766.616,-273.589 788.477,-301.8 801.94,-321.244"/>
-<polygon fill="black" stroke="black" points="799.186,-323.42 807.682,-329.75 804.987,-319.503 799.186,-323.42"/>
-</g>
-<!-- proc~test_13 -->
-<g id="node12" class="node"><title>proc~test_13</title>
-<a xlink:href="../proc/test_13.html" xlink:title="test_13">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-202 666,-202 666,-176 720,-176 720,-202"/>
-<text text-anchor="middle" x="693" y="-186.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_13</text>
-</a>
-</g>
-<!-- proc~test_13&#45;&gt;proc~json_initialize -->
-<g id="edge68" class="edge"><title>proc~test_13&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.024,-197.499C727.737,-200.837 735.739,-205.272 742,-211 775.666,-241.797 797.711,-291.559 808.408,-320.381"/>
-<polygon fill="black" stroke="black" points="805.176,-321.738 811.836,-329.978 811.768,-319.383 805.176,-321.738"/>
-</g>
-<!-- proc~test_6 -->
-<g id="node13" class="node"><title>proc~test_6</title>
-<a xlink:href="../proc/test_6.html" xlink:title="test_6">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-158 666,-158 666,-132 720,-132 720,-158"/>
-<text text-anchor="middle" x="693" y="-142.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_6</text>
-</a>
-</g>
-<!-- proc~test_6&#45;&gt;proc~json_initialize -->
-<g id="edge70" class="edge"><title>proc~test_6&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.185,-152.96C727.993,-156.294 736.007,-160.861 742,-167 784.599,-210.633 804.188,-282.445 811.839,-319.403"/>
-<polygon fill="black" stroke="black" points="808.494,-320.538 813.842,-329.683 815.365,-319.199 808.494,-320.538"/>
-</g>
-<!-- proc~test_14 -->
-<g id="node14" class="node"><title>proc~test_14</title>
-<a xlink:href="../proc/test_14.html" xlink:title="test_14">
-<polygon fill="#d9534f" stroke="#d9534f" points="300,-573 246,-573 246,-547 300,-547 300,-573"/>
-<text text-anchor="middle" x="273" y="-557.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_14</text>
-</a>
-</g>
-<!-- proc~test_14&#45;&gt;proc~json_initialize -->
-<g id="edge72" class="edge"><title>proc~test_14&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M300.077,-560.765C389.086,-562.758 671.005,-564.77 742,-513 790.29,-477.787 807.459,-404.227 813.248,-366.468"/>
-<polygon fill="black" stroke="black" points="816.736,-366.791 814.648,-356.404 809.803,-365.826 816.736,-366.791"/>
-</g>
-<!-- proc~test_14&#45;&gt;interface~json_parse -->
-<g id="edge18" class="edge"><title>proc~test_14&#45;&gt;interface~json_parse</title>
-<path fill="none" stroke="black" d="M300.144,-550.516C313.108,-545.604 328.666,-539.142 342,-532 357.157,-523.882 373.082,-513.196 385.81,-504.064"/>
-<polygon fill="black" stroke="black" points="388.048,-506.764 394.062,-498.041 383.921,-501.11 388.048,-506.764"/>
-</g>
-<!-- proc~test_12 -->
-<g id="node15" class="node"><title>proc~test_12</title>
-<a xlink:href="../proc/test_12.html" xlink:title="test_12">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-114 666,-114 666,-88 720,-88 720,-114"/>
-<text text-anchor="middle" x="693" y="-98.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_12</text>
-</a>
-</g>
-<!-- proc~test_12&#45;&gt;proc~json_initialize -->
-<g id="edge74" class="edge"><title>proc~test_12&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.213,-108.586C728.114,-111.916 736.174,-116.576 742,-123 794.049,-180.39 809.657,-275.667 814.202,-319.552"/>
-<polygon fill="black" stroke="black" points="810.743,-320.152 815.154,-329.785 817.713,-319.504 810.743,-320.152"/>
-</g>
-<!-- proc~test_9 -->
-<g id="node16" class="node"><title>proc~test_9</title>
-<a xlink:href="../proc/test_9.html" xlink:title="test_9">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-70 666,-70 666,-44 720,-44 720,-70"/>
-<text text-anchor="middle" x="693" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_9</text>
-</a>
-</g>
-<!-- proc~test_9&#45;&gt;proc~json_initialize -->
-<g id="edge76" class="edge"><title>proc~test_9&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.16,-64.3009C728.153,-67.6282 736.279,-72.3585 742,-79 773.81,-115.931 802.084,-262.734 812.121,-319.976"/>
-<polygon fill="black" stroke="black" points="808.68,-320.616 813.831,-329.875 815.578,-319.425 808.68,-320.616"/>
-</g>
-<!-- proc~test_11 -->
-<g id="node17" class="node"><title>proc~test_11</title>
-<a xlink:href="../proc/test_11.html" xlink:title="test_11">
-<polygon fill="#d9534f" stroke="#d9534f" points="720,-26 666,-26 666,-1.24345e-14 720,-3.55271e-15 720,-26"/>
-<text text-anchor="middle" x="693" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_11</text>
-</a>
-</g>
-<!-- proc~test_11&#45;&gt;proc~json_initialize -->
-<g id="edge78" class="edge"><title>proc~test_11&#45;&gt;proc~json_initialize</title>
-<path fill="none" stroke="black" d="M720.055,-20.068C728.14,-23.3929 736.345,-28.1806 742,-35 778.592,-79.129 804.662,-255.654 813.08,-319.666"/>
-<polygon fill="black" stroke="black" points="809.653,-320.456 814.404,-329.926 816.595,-319.56 809.653,-320.456"/>
-</g>
-<!-- program~jf_test_2 -->
-<g id="node18" class="node"><title>program~jf_test_2</title>
-<a xlink:href="../program/jf_test_2.html" xlink:title="jf_test_2">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="571,-706 517,-706 517,-680 571,-680 571,-706"/>
-<text text-anchor="middle" x="544" y="-690.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_2</text>
-</a>
-</g>
-<!-- program~jf_test_2&#45;&gt;proc~test_2 -->
-<g id="edge2" class="edge"><title>program~jf_test_2&#45;&gt;proc~test_2</title>
-<path fill="none" stroke="black" d="M571.329,-693C594.958,-693 629.341,-693 655.534,-693"/>
-<polygon fill="black" stroke="black" points="655.844,-696.5 665.844,-693 655.844,-689.5 655.844,-696.5"/>
-</g>
-<!-- program~jf_test_3 -->
-<g id="node20" class="node"><title>program~jf_test_3</title>
-<a xlink:href="../program/jf_test_3.html" xlink:title="jf_test_3">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="571,-662 517,-662 517,-636 571,-636 571,-662"/>
-<text text-anchor="middle" x="544" y="-646.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_3</text>
-</a>
-</g>
-<!-- program~jf_test_3&#45;&gt;proc~test_3 -->
-<g id="edge4" class="edge"><title>program~jf_test_3&#45;&gt;proc~test_3</title>
-<path fill="none" stroke="black" d="M571.329,-649C594.958,-649 629.341,-649 655.534,-649"/>
-<polygon fill="black" stroke="black" points="655.844,-652.5 665.844,-649 655.844,-645.5 655.844,-652.5"/>
-</g>
-<!-- program~jf_test_7 -->
-<g id="node22" class="node"><title>program~jf_test_7</title>
-<a xlink:href="../program/jf_test_7.html" xlink:title="jf_test_7">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="571,-618 517,-618 517,-592 571,-592 571,-618"/>
-<text text-anchor="middle" x="544" y="-602.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_7</text>
-</a>
-</g>
-<!-- program~jf_test_7&#45;&gt;proc~test_7 -->
-<g id="edge6" class="edge"><title>program~jf_test_7&#45;&gt;proc~test_7</title>
-<path fill="none" stroke="black" d="M571.329,-605C594.958,-605 629.341,-605 655.534,-605"/>
-<polygon fill="black" stroke="black" points="655.844,-608.5 665.844,-605 655.844,-601.5 655.844,-608.5"/>
-</g>
-<!-- program~jf_test_8 -->
-<g id="node24" class="node"><title>program~jf_test_8</title>
-<a xlink:href="../program/jf_test_8.html" xlink:title="jf_test_8">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="111,-432 57,-432 57,-406 111,-406 111,-432"/>
-<text text-anchor="middle" x="84" y="-416.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_8</text>
-</a>
-</g>
-<!-- program~jf_test_8&#45;&gt;proc~test_8 -->
-<g id="edge8" class="edge"><title>program~jf_test_8&#45;&gt;proc~test_8</title>
-<path fill="none" stroke="black" d="M111.079,-419C143.78,-419 198.956,-419 235.676,-419"/>
-<polygon fill="black" stroke="black" points="235.971,-422.5 245.971,-419 235.971,-415.5 235.971,-422.5"/>
-</g>
-<!-- program~jf_test_1 -->
-<g id="node26" class="node"><title>program~jf_test_1</title>
-<a xlink:href="../program/jf_test_1.html" xlink:title="jf_test_1">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="571,-378 517,-378 517,-352 571,-352 571,-378"/>
-<text text-anchor="middle" x="544" y="-362.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_1</text>
-</a>
-</g>
-<!-- program~jf_test_1&#45;&gt;proc~test_1 -->
-<g id="edge10" class="edge"><title>program~jf_test_1&#45;&gt;proc~test_1</title>
-<path fill="none" stroke="black" d="M571.329,-365C594.958,-365 629.341,-365 655.534,-365"/>
-<polygon fill="black" stroke="black" points="655.844,-368.5 665.844,-365 655.844,-361.5 655.844,-368.5"/>
-</g>
-<!-- program~jf_test_10 -->
-<g id="node28" class="node"><title>program~jf_test_10</title>
-<a xlink:href="../program/jf_test_10.html" xlink:title="jf_test_10">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="573,-334 515,-334 515,-308 573,-308 573,-334"/>
-<text text-anchor="middle" x="544" y="-318.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_10</text>
-</a>
-</g>
-<!-- program~jf_test_10&#45;&gt;proc~test_10 -->
-<g id="edge12" class="edge"><title>program~jf_test_10&#45;&gt;proc~test_10</title>
-<path fill="none" stroke="black" d="M573.794,-321C597.276,-321 630.161,-321 655.445,-321"/>
-<polygon fill="black" stroke="black" points="655.766,-324.5 665.766,-321 655.766,-317.5 655.766,-324.5"/>
-</g>
-<!-- proc~wrap_json_parse_string -->
-<g id="node30" class="node"><title>proc~wrap_json_parse_string</title>
-<a xlink:href="../proc/wrap_json_parse_string.html" xlink:title="wrap_json_parse_string">
-<polygon fill="#d9534f" stroke="#d9534f" points="607,-498 481,-498 481,-472 607,-472 607,-498"/>
-<text text-anchor="middle" x="544" y="-482.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">wrap_json_parse_string</text>
-</a>
-</g>
-<!-- proc~wrap_json_parse_string&#45;&gt;proc~json_parse_string -->
-<g id="edge26" class="edge"><title>proc~wrap_json_parse_string&#45;&gt;proc~json_parse_string</title>
-<path fill="none" stroke="black" d="M607.622,-487.562C616.49,-487.919 625.569,-488.285 634.341,-488.638"/>
-<polygon fill="black" stroke="black" points="634.334,-492.14 644.466,-489.046 634.615,-485.146 634.334,-492.14"/>
-</g>
-<!-- interface~json_parse&#45;&gt;proc~json_parse_string -->
-<g id="edge28" class="edge"><title>interface~json_parse&#45;&gt;proc~json_parse_string</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M443.842,-497.748C455.124,-501.513 467.949,-505.125 480,-507 536.213,-515.745 551.357,-512.285 608,-507 616.489,-506.208 625.395,-504.98 634.113,-503.549"/>
-<polygon fill="black" stroke="black" points="634.975,-506.952 644.227,-501.789 633.775,-500.055 634.975,-506.952"/>
-</g>
-<!-- interface~json_parse&#45;&gt;proc~json_parse_file -->
-<g id="edge32" class="edge"><title>interface~json_parse&#45;&gt;proc~json_parse_file</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M443.584,-472.888C454.958,-469.124 467.904,-465.349 480,-463 533.922,-452.528 596.755,-448.818 640.134,-447.551"/>
-<polygon fill="black" stroke="black" points="640.272,-451.048 650.178,-447.291 640.09,-444.051 640.272,-451.048"/>
-</g>
-<!-- interface~json_parse&#45;&gt;proc~wrap_json_parse_string -->
-<g id="edge24" class="edge"><title>interface~json_parse&#45;&gt;proc~wrap_json_parse_string</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M443.535,-485C451.724,-485 460.853,-485 470.175,-485"/>
-<polygon fill="black" stroke="black" points="470.333,-488.5 480.333,-485 470.333,-481.5 470.333,-488.5"/>
-</g>
-<!-- proc~json_file_load -->
-<g id="node32" class="node"><title>proc~json_file_load</title>
-<a xlink:href="../proc/json_file_load.html" xlink:title="json_file_load">
-<polygon fill="#d9534f" stroke="#d9534f" points="312,-523 234,-523 234,-497 312,-497 312,-523"/>
-<text text-anchor="middle" x="273" y="-507.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_file_load</text>
-</a>
-</g>
-<!-- proc~json_file_load&#45;&gt;interface~json_parse -->
-<g id="edge20" class="edge"><title>proc~json_file_load&#45;&gt;interface~json_parse</title>
-<path fill="none" stroke="black" d="M312.176,-502.903C329.71,-499.726 350.425,-495.974 368.349,-492.727"/>
-<polygon fill="black" stroke="black" points="369.042,-496.158 378.258,-490.932 367.794,-489.27 369.042,-496.158"/>
-</g>
-<!-- proc~json_file_load_from_string -->
-<g id="node33" class="node"><title>proc~json_file_load_from_string</title>
-<a xlink:href="../proc/json_file_load_from_string.html" xlink:title="json_file_load_from_string">
-<polygon fill="#d9534f" stroke="#d9534f" points="342,-479 204,-479 204,-453 342,-453 342,-479"/>
-<text text-anchor="middle" x="273" y="-463.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_file_load_from_string</text>
-</a>
-</g>
-<!-- proc~json_file_load_from_string&#45;&gt;interface~json_parse -->
-<g id="edge22" class="edge"><title>proc~json_file_load_from_string&#45;&gt;interface~json_parse</title>
-<path fill="none" stroke="black" d="M342,-475.5C350.907,-476.726 359.814,-477.953 368.128,-479.097"/>
-<polygon fill="black" stroke="black" points="367.912,-482.601 378.296,-480.497 368.867,-475.666 367.912,-482.601"/>
-</g>
-<!-- proc~wrap_json_file_load_from_string -->
-<g id="node34" class="node"><title>proc~wrap_json_file_load_from_string</title>
-<a xlink:href="../proc/wrap_json_file_load_from_string.html" xlink:title="wrap_json_file_load_from_string">
-<polygon fill="#d9534f" stroke="#d9534f" points="167,-479 1,-479 1,-453 167,-453 167,-479"/>
-<text text-anchor="middle" x="84" y="-463.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">wrap_json_file_load_from_string</text>
-</a>
-</g>
-<!-- proc~wrap_json_file_load_from_string&#45;&gt;proc~json_file_load_from_string -->
-<g id="edge14" class="edge"><title>proc~wrap_json_file_load_from_string&#45;&gt;proc~json_file_load_from_string</title>
-<path fill="none" stroke="black" d="M167.724,-466C176.382,-466 185.162,-466 193.769,-466"/>
-<polygon fill="black" stroke="black" points="193.775,-469.5 203.775,-466 193.775,-462.5 193.775,-469.5"/>
-</g>
-<!-- program~jf_test_4 -->
-<g id="node43" class="node"><title>program~jf_test_4</title>
-<a xlink:href="../program/jf_test_4.html" xlink:title="jf_test_4">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="571,-290 517,-290 517,-264 571,-264 571,-290"/>
-<text text-anchor="middle" x="544" y="-274.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_4</text>
-</a>
-</g>
-<!-- program~jf_test_4&#45;&gt;proc~test_4 -->
-<g id="edge30" class="edge"><title>program~jf_test_4&#45;&gt;proc~test_4</title>
-<path fill="none" stroke="black" d="M571.329,-277C594.958,-277 629.341,-277 655.534,-277"/>
-<polygon fill="black" stroke="black" points="655.844,-280.5 665.844,-277 655.844,-273.5 655.844,-280.5"/>
-</g>
-<!-- program~jf_test_5 -->
-<g id="node46" class="node"><title>program~jf_test_5</title>
-<a xlink:href="../program/jf_test_5.html" xlink:title="jf_test_5">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="571,-246 517,-246 517,-220 571,-220 571,-246"/>
-<text text-anchor="middle" x="544" y="-230.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_5</text>
-</a>
-</g>
-<!-- program~jf_test_5&#45;&gt;proc~test_5 -->
-<g id="edge34" class="edge"><title>program~jf_test_5&#45;&gt;proc~test_5</title>
-<path fill="none" stroke="black" d="M571.329,-233C594.958,-233 629.341,-233 655.534,-233"/>
-<polygon fill="black" stroke="black" points="655.844,-236.5 665.844,-233 655.844,-229.5 655.844,-236.5"/>
-</g>
-<!-- program~jf_test_13 -->
-<g id="node48" class="node"><title>program~jf_test_13</title>
-<a xlink:href="../program/jf_test_13.html" xlink:title="jf_test_13">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="573,-202 515,-202 515,-176 573,-176 573,-202"/>
-<text text-anchor="middle" x="544" y="-186.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_13</text>
-</a>
-</g>
-<!-- program~jf_test_13&#45;&gt;proc~test_13 -->
-<g id="edge36" class="edge"><title>program~jf_test_13&#45;&gt;proc~test_13</title>
-<path fill="none" stroke="black" d="M573.794,-189C597.276,-189 630.161,-189 655.445,-189"/>
-<polygon fill="black" stroke="black" points="655.766,-192.5 665.766,-189 655.766,-185.5 655.766,-192.5"/>
-</g>
-<!-- program~jf_test_6 -->
-<g id="node50" class="node"><title>program~jf_test_6</title>
-<a xlink:href="../program/jf_test_6.html" xlink:title="jf_test_6">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="571,-158 517,-158 517,-132 571,-132 571,-158"/>
-<text text-anchor="middle" x="544" y="-142.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_6</text>
-</a>
-</g>
-<!-- program~jf_test_6&#45;&gt;proc~test_6 -->
-<g id="edge38" class="edge"><title>program~jf_test_6&#45;&gt;proc~test_6</title>
-<path fill="none" stroke="black" d="M571.329,-145C594.958,-145 629.341,-145 655.534,-145"/>
-<polygon fill="black" stroke="black" points="655.844,-148.5 665.844,-145 655.844,-141.5 655.844,-148.5"/>
-</g>
-<!-- program~jf_test_14 -->
-<g id="node52" class="node"><title>program~jf_test_14</title>
-<a xlink:href="../program/jf_test_14.html" xlink:title="jf_test_14">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="113,-573 55,-573 55,-547 113,-547 113,-573"/>
-<text text-anchor="middle" x="84" y="-557.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_14</text>
-</a>
-</g>
-<!-- program~jf_test_14&#45;&gt;proc~test_14 -->
-<g id="edge40" class="edge"><title>program~jf_test_14&#45;&gt;proc~test_14</title>
-<path fill="none" stroke="black" d="M113.531,-560C146.509,-560 199.947,-560 235.765,-560"/>
-<polygon fill="black" stroke="black" points="235.82,-563.5 245.82,-560 235.82,-556.5 235.82,-563.5"/>
-</g>
-<!-- program~jf_test_12 -->
-<g id="node54" class="node"><title>program~jf_test_12</title>
-<a xlink:href="../program/jf_test_12.html" xlink:title="jf_test_12">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="573,-114 515,-114 515,-88 573,-88 573,-114"/>
-<text text-anchor="middle" x="544" y="-98.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_12</text>
-</a>
-</g>
-<!-- program~jf_test_12&#45;&gt;proc~test_12 -->
-<g id="edge42" class="edge"><title>program~jf_test_12&#45;&gt;proc~test_12</title>
-<path fill="none" stroke="black" d="M573.794,-101C597.276,-101 630.161,-101 655.445,-101"/>
-<polygon fill="black" stroke="black" points="655.766,-104.5 665.766,-101 655.766,-97.5001 655.766,-104.5"/>
-</g>
-<!-- program~jf_test_9 -->
-<g id="node56" class="node"><title>program~jf_test_9</title>
-<a xlink:href="../program/jf_test_9.html" xlink:title="jf_test_9">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="571,-70 517,-70 517,-44 571,-44 571,-70"/>
-<text text-anchor="middle" x="544" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_9</text>
-</a>
-</g>
-<!-- program~jf_test_9&#45;&gt;proc~test_9 -->
-<g id="edge44" class="edge"><title>program~jf_test_9&#45;&gt;proc~test_9</title>
-<path fill="none" stroke="black" d="M571.329,-57C594.958,-57 629.341,-57 655.534,-57"/>
-<polygon fill="black" stroke="black" points="655.844,-60.5001 665.844,-57 655.844,-53.5001 655.844,-60.5001"/>
-</g>
-<!-- program~jf_test_11 -->
-<g id="node58" class="node"><title>program~jf_test_11</title>
-<a xlink:href="../program/jf_test_11.html" xlink:title="jf_test_11">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="573,-26 515,-26 515,-1.24345e-14 573,-3.55271e-15 573,-26"/>
-<text text-anchor="middle" x="544" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">jf_test_11</text>
-</a>
-</g>
-<!-- program~jf_test_11&#45;&gt;proc~test_11 -->
-<g id="edge46" class="edge"><title>program~jf_test_11&#45;&gt;proc~test_11</title>
-<path fill="none" stroke="black" d="M573.794,-13C597.276,-13 630.161,-13 655.445,-13"/>
-<polygon fill="black" stroke="black" points="655.766,-16.5001 665.766,-13 655.766,-9.5001 655.766,-16.5001"/>
-</g>
-</g>
-</svg>
-</div>
-                <script>var panprocjson_initializeCalledByGraph = svgPanZoom('#procjson_initializeCalledByGraph', {
-                    zoomEnabled: true,
-                    controlIconsEnabled: true,
-                    fit: true,
-                    center: true,});
-                    </script>
-                <div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div>
-                <div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
-                      </div>
-                      <div class="modal-body">
-                        
-Nodes of different colours represent the following:
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
- "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.26.3 (20100126.1600)
- -->
-<!-- Title: Graph Key Pages: 1 -->
-<svg width="641pt" height="28pt"
- viewBox="0.00 0.00 641.00 27.80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph1" class="graph" transform="scale(0.817602 0.817602) rotate(0) translate(4 30)">
-<title>Graph Key</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-30 781,-30 781,5 -4,5"/>
-<!-- Module -->
-<g id="node1" class="node"><title>Module</title>
-<polygon fill="#337ab7" stroke="#337ab7" points="54,-26 2.13163e-14,-26 0,-1.24345e-14 54,-3.55271e-15 54,-26"/>
-<text text-anchor="middle" x="27" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
-</g>
-<!-- Submodule -->
-<g id="node2" class="node"><title>Submodule</title>
-<polygon fill="#5bc0de" stroke="#5bc0de" points="138,-26 72,-26 72,-1.24345e-14 138,-3.55271e-15 138,-26"/>
-<text text-anchor="middle" x="105" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
-</g>
-<!-- Type -->
-<g id="node3" class="node"><title>Type</title>
-<polygon fill="#5cb85c" stroke="#5cb85c" points="210,-26 156,-26 156,-1.24345e-14 210,-3.55271e-15 210,-26"/>
-<text text-anchor="middle" x="183" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type</text>
-</g>
-<!-- Subroutine -->
-<g id="node4" class="node"><title>Subroutine</title>
-<polygon fill="#d9534f" stroke="#d9534f" points="292,-26 228,-26 228,-1.24345e-14 292,-3.55271e-15 292,-26"/>
-<text text-anchor="middle" x="260" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
-</g>
-<!-- Function -->
-<g id="node5" class="node"><title>Function</title>
-<polygon fill="#d94e8f" stroke="#d94e8f" points="364,-26 310,-26 310,-1.24345e-14 364,-3.55271e-15 364,-26"/>
-<text text-anchor="middle" x="337" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
-</g>
-<!-- Interface -->
-<g id="node6" class="node"><title>Interface</title>
-<polygon fill="#a7506f" stroke="#a7506f" points="436,-26 382,-26 382,-1.24345e-14 436,-3.55271e-15 436,-26"/>
-<text text-anchor="middle" x="409" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
-</g>
-<!-- Unknown Procedure Type -->
-<g id="node7" class="node"><title>Unknown Procedure Type</title>
-<polygon fill="#777777" stroke="#777777" points="590,-26 454,-26 454,-1.24345e-14 590,-3.55271e-15 590,-26"/>
-<text text-anchor="middle" x="522" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
-</g>
-<!-- Program -->
-<g id="node8" class="node"><title>Program</title>
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="662,-26 608,-26 608,-1.24345e-14 662,-3.55271e-15 662,-26"/>
-<text text-anchor="middle" x="635" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
-</g>
-<!-- This Page&#39;s Entity -->
-<g id="node9" class="node"><title>This Page&#39;s Entity</title>
-<polygon fill="none" stroke="black" points="776,-26 680,-26 680,-1.24345e-14 776,-3.55271e-15 776,-26"/>
-<text text-anchor="middle" x="728" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
-</g>
-</g>
-</svg>
-
-<h5>Module Graph</h5>
-<p>Solid arrows point from a parent (sub)module to the submodule which is
-descended from it. Dashed arrows point from a module being used to the
-module using it.</p>
-<h5>Type Graph</h5>
-<p>Solid arrows point from one derived type to another which extends
-(inherits from) it. Dashed arrows point from a derived type to another
-type containing it as a components, with a label listing the name(s) of
-said component(s).</p>
-<h5>Call Graph</h5>
-<p>Solid arrows point from a procedure to one which it calls. Dashed 
-arrows point from an interface to procedures which implement that interface.
-This could include the module procedures in a generic interface or the
-implementation in a submodule of an interface in a parent module.</p>
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
      
     <br>
     
@@ -1589,7 +822,7 @@ implementation in a submodule of an interface in a parent module.</p>
   
 <tr>
   
-  <td><span class="anchor" id="variable-istat%7E2"></span>integer(kind=IK),</td>
+  <td><span class="anchor" id="variable-istat%7E3"></span>integer(kind=IK),</td>
   
   <td>public</td>
   <td></td><td>::</td>
@@ -1634,63 +867,80 @@ implementation in a submodule of an interface in a parent module.</p>
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre>    <span class="k">subroutine </span><span class="n">json_initialize</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span><span class="n">compact_reals</span><span class="p">,</span><span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_initialize</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">verbose</span><span class="p">,</span><span class="n">compact_reals</span><span class="p">,&amp;</span>
+                               <span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">,</span><span class="n">spaces_per_tab</span><span class="p">,&amp;</span>
+                               <span class="n">strict_type_checking</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    </span><span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">verbose</span>       <span class="c">!! mainly useful for debugging (default is false)</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">json</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">verbose</span>       <span class="c">!! mainly useful for debugging (default is false)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">compact_reals</span> <span class="c">!! to compact the real number strings for output (default is true)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">print_signs</span>   <span class="c">!! always print numeric sign (default is false)</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">,</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">real_format</span> <span class="c">!! exponential (default), scientific, engineering or general</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">,</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">real_format</span> <span class="c">!! Real number format: &#39;E&#39; [default], &#39;*&#39;, &#39;G&#39;, &#39;EN&#39;, or &#39;ES&#39;</span>
+    <span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">spaces_per_tab</span> <span class="c">!! number of spaces per tab for indenting (default is 2)</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">strict_type_checking</span> <span class="c">!! if true, no integer, double, or logical type</span>
+                                                            <span class="c">!! conversions are done for the `get` routines</span>
+                                                            <span class="c">!! (default is false)</span>
 
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="kd">::</span> <span class="n">w</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">sgn</span><span class="p">,</span> <span class="n">rl_edit_desc</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">istat</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">sgn_prnt</span>
 
-    <span class="c">!clear any errors from previous runs:</span>
-    <span class="k">call </span><span class="n">json_clear_exceptions</span><span class="p">()</span>
+    <span class="c">!reset exception to false:</span>
+    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">clear_exceptions</span><span class="p">()</span>
 
+    <span class="c">!</span>
+    <span class="c">!JW comment out for now (these are now protected variables in another module)</span>
+    <span class="c">! for thread-save version, we won&#39;t be able to have global variables.........</span>
+    <span class="c">!</span>
     <span class="c">!Ensure gfortran bug work around &quot;parameters&quot; are set properly</span>
-    <span class="n">null_str</span>  <span class="o">=</span> <span class="s1">&#39;null&#39;</span>
-    <span class="n">true_str</span>  <span class="o">=</span> <span class="s1">&#39;true&#39;</span>
-    <span class="n">false_str</span> <span class="o">=</span> <span class="s1">&#39;false&#39;</span>
+    <span class="c">!null_str  = &#39;null&#39;</span>
+    <span class="c">!true_str  = &#39;true&#39;</span>
+    <span class="c">!false_str = &#39;false&#39;</span>
 
     <span class="c">!Just in case, clear these global variables also:</span>
-    <span class="n">pushed_index</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">pushed_char</span>  <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="n">char_count</span>   <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">line_count</span>   <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">ipos</span>         <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">json</span><span class="p">%</span><span class="n">pushed_index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">json</span><span class="p">%</span><span class="n">pushed_char</span>  <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">json</span><span class="p">%</span><span class="n">char_count</span>   <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">json</span><span class="p">%</span><span class="n">line_count</span>   <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">json</span><span class="p">%</span><span class="n">ipos</span>         <span class="o">=</span> <span class="mi">1</span>
 
-<span class="cp"># ifdef USE_UCS4</span>
+<span class="cp">#ifdef USE_UCS4</span>
     <span class="c">! reopen stdout and stderr with utf-8 encoding</span>
     <span class="k">open</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
     <span class="k">open</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-<span class="cp"># endif</span>
+<span class="cp">#endif</span>
+
+    <span class="c">!spaces per tab:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">spaces_per_tab</span><span class="p">))</span> <span class="n">json</span><span class="p">%</span><span class="n">spaces_per_tab</span> <span class="o">=</span> <span class="n">spaces_per_tab</span>
 
     <span class="c">!verbose error printing:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">verbose</span><span class="p">))</span> <span class="n">is_verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">verbose</span><span class="p">))</span> <span class="n">json</span><span class="p">%</span><span class="n">is_verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+
+    <span class="c">!type checking:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">strict_type_checking</span><span class="p">))</span> <span class="n">json</span><span class="p">%</span><span class="n">strict_type_checking</span> <span class="o">=</span> <span class="n">strict_type_checking</span>
 
     <span class="c">!Set the format for real numbers:</span>
     <span class="c">! [if not changing it, then it remains the same]</span>
 
-    <span class="k">if</span> <span class="p">(</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">real_fmt</span><span class="p">))</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>  <span class="c">! if this hasn&#39;t been done yet</span>
-          <span class="nb">present</span><span class="p">(</span><span class="n">compact_reals</span><span class="p">)</span>     <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
-          <span class="nb">present</span><span class="p">(</span><span class="n">print_signs</span><span class="p">)</span>       <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">real_fmt</span><span class="p">))</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>  <span class="c">! if this hasn&#39;t been done yet</span>
+          <span class="nb">present</span><span class="p">(</span><span class="n">compact_reals</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
+          <span class="nb">present</span><span class="p">(</span><span class="n">print_signs</span><span class="p">)</span>   <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
           <span class="nb">present</span><span class="p">(</span><span class="n">real_format</span><span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
 
         <span class="c">!allow the special case where real format is &#39;*&#39;:</span>
         <span class="c">! [this overrides the other options]</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">real_format</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">            if</span> <span class="p">(</span><span class="n">real_format</span><span class="o">==</span><span class="n">star</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">                </span><span class="n">compact_real</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
-                <span class="n">real_fmt</span> <span class="o">=</span> <span class="n">star</span>
+<span class="k">                </span><span class="n">json</span><span class="p">%</span><span class="n">compact_real</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="n">json</span><span class="p">%</span><span class="n">real_fmt</span> <span class="o">=</span> <span class="n">star</span>
                 <span class="k">return</span>
 <span class="k">            end if</span>
 <span class="k">        end if</span>
 
-<span class="k">        if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">compact_reals</span><span class="p">))</span> <span class="n">compact_real</span> <span class="o">=</span> <span class="n">compact_reals</span>
+<span class="k">        if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">compact_reals</span><span class="p">))</span> <span class="n">json</span><span class="p">%</span><span class="n">compact_real</span> <span class="o">=</span> <span class="n">compact_reals</span>
 
         <span class="c">!set defaults</span>
         <span class="n">sgn_prnt</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
@@ -1707,8 +957,9 @@ implementation in a submodule of an interface in a parent module.</p>
            <span class="k">case</span> <span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;e&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">,</span><span class="s1">&#39;en&#39;</span><span class="p">,</span><span class="s1">&#39;EN&#39;</span><span class="p">,</span><span class="s1">&#39;es&#39;</span><span class="p">,</span><span class="s1">&#39;ES&#39;</span><span class="p">)</span>
               <span class="n">rl_edit_desc</span> <span class="o">=</span> <span class="n">real_format</span>
            <span class="k">case </span><span class="n">default</span>
-              <span class="k">call </span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Invalid real format, &quot;&#39;</span> <span class="o">//</span> <span class="nb">trim</span><span class="p">(</span><span class="n">real_format</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;&quot;, passed to json_initialize.&#39;</span><span class="o">//</span> <span class="p">&amp;</span>
-                   <span class="nb">new_line</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;Acceptable formats are: &quot;G&quot;, &quot;E&quot;, &quot;EN&quot;, and &quot;ES&quot;.&#39;</span> <span class="p">)</span>
+              <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Invalid real format, &quot;&#39;</span> <span class="o">//</span> <span class="p">&amp;</span>
+                        <span class="nb">trim</span><span class="p">(</span><span class="n">real_format</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;&quot;, passed to json_initialize.&#39;</span><span class="o">//</span> <span class="p">&amp;</span>
+                        <span class="nb">new_line</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;Acceptable formats are: &quot;G&quot;, &quot;E&quot;, &quot;EN&quot;, and &quot;ES&quot;.&#39;</span> <span class="p">)</span>
            <span class="k">end select</span>
 <span class="k">        end if</span>
 
@@ -1717,9 +968,11 @@ implementation in a submodule of an interface in a parent module.</p>
         <span class="k">if</span> <span class="p">(</span><span class="n">istat</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">write</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="s1">&#39;(ss,I0)&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span> <span class="n">real_precision</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">istat</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">write</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="s1">&#39;(ss,I0)&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span> <span class="n">real_exponent_digits</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">istat</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">            </span><span class="n">real_fmt</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span> <span class="o">//</span> <span class="n">sgn</span> <span class="o">//</span> <span class="s1">&#39;,&#39;</span> <span class="o">//</span> <span class="nb">trim</span><span class="p">(</span><span class="n">rl_edit_desc</span><span class="p">)</span> <span class="o">//</span> <span class="nb">trim</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;.&#39;</span> <span class="o">//</span> <span class="nb">trim</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;E&#39;</span> <span class="o">//</span> <span class="nb">trim</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;)&#39;</span>
+<span class="k">            </span><span class="n">json</span><span class="p">%</span><span class="n">real_fmt</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span> <span class="o">//</span> <span class="n">sgn</span> <span class="o">//</span> <span class="s1">&#39;,&#39;</span> <span class="o">//</span> <span class="nb">trim</span><span class="p">(</span><span class="n">rl_edit_desc</span><span class="p">)</span> <span class="o">//</span><span class="p">&amp;</span>
+                            <span class="nb">trim</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;.&#39;</span> <span class="o">//</span> <span class="nb">trim</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;E&#39;</span> <span class="o">//</span> <span class="nb">trim</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;)&#39;</span>
         <span class="k">else</span>
-<span class="k">            </span><span class="n">real_fmt</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span> <span class="o">//</span> <span class="n">sgn</span> <span class="o">//</span> <span class="s1">&#39;,&#39;</span> <span class="o">//</span> <span class="nb">trim</span><span class="p">(</span><span class="n">rl_edit_desc</span><span class="p">)</span> <span class="o">//</span> <span class="s1">&#39;30.16E3)&#39;</span>  <span class="c">!just use this one (should never happen)</span>
+<span class="k">            </span><span class="n">json</span><span class="p">%</span><span class="n">real_fmt</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span> <span class="o">//</span> <span class="n">sgn</span> <span class="o">//</span> <span class="s1">&#39;,&#39;</span> <span class="o">//</span> <span class="nb">trim</span><span class="p">(</span><span class="n">rl_edit_desc</span><span class="p">)</span> <span class="o">//</span> <span class="p">&amp;</span>
+                            <span class="s1">&#39;30.16E3)&#39;</span>  <span class="c">!just use this one (should never happen)</span>
         <span class="k">end if</span>
 
 <span class="k">    end if</span>
