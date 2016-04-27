@@ -462,7 +462,7 @@ implementation in a submodule of an interface in a parent module.</p>
     
     <p>The <code>json_file</code> is the main public class that is
   used to open a file and get data from it.</p>
-<p>A <code>json_file</code> contains only two items: an instance of a <a href="../type/json_core.html">json_core</a>,
+<p>A <code>json_file</code> contains only two items: an instance of a <a href="../interface/json_core.html">json_core</a>,
   which use used for all data manipulation, and a <a href="../type/json_value.html">json_value</a>,
   which is used to construct the linked-list data structure.
   Note that most methods in the <code>json_file</code> class are simply wrappers
@@ -510,7 +510,7 @@ implementation in a submodule of an interface in a parent module.</p>
   
   <td>private</td>
   <td></td><td>::</td>
-  <td><strong>json</strong></td><td></td><td></td><td><p>the instance of the <a href="../type/json_core.html">json_core</a> factory used for this file</p></td>
+  <td><strong>json</strong></td><td></td><td></td><td><p>the instance of the <a href="../interface/json_core.html">json_core</a> factory used for this file</p></td>
   
 </tr>
 
@@ -548,7 +548,8 @@ implementation in a submodule of an interface in a parent module.</p>
   <div class="panel-body">
     
     <p>Structure constructor to initialize a <a href="../type/json_file.html">json_file</a> object
-  with an existing <a href="../type/json_value.html">json_value</a> object</p>
+  with an existing <a href="../type/json_value.html">json_value</a> object, and either the <a href="../interface/json_core.html">json_core</a>
+  settings or a <a href="../interface/json_core.html">json_core</a> instance.</p>
   </div>
   
   <ul class="list-group">
@@ -726,6 +727,99 @@ private function <a href='../proc/initialize_json_file.html'>initialize_json_fil
 
     </li>
   
+    <li class="list-group-item">
+    
+    
+    <h3>
+private function <a href='../proc/initialize_json_file_v2.html'>initialize_json_file_v2</a>(json_value_object, json_core_object) result(file_object)
+    
+    
+    
+</h3>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>json_value_object</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json_core_object</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>type(<a href='../type/json_file.html'>json_file</a>)
+  </small></h4>
+  
+    
+    
+    <h4>Description</h4>
+       
+       
+
+<dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>4/26/2016</dd>
+    
+    
+    
+    
+  </dl>
+
+
+       
+       <p>Cast a <a href="../type/json_value.html">json_value</a> pointer and a <a href="../interface/json_core.html">json_core</a> object
+  as a <a href="../type/json_file.html">json_file</a> object.</p>
+        
+
+    </li>
+  
   
   </ul>
 </div>
@@ -893,7 +987,7 @@ private subroutine <a href='../proc/initialize_json_core_in_file.html'>initializ
 
 
        
-       <p>Initialize the <a href="../type/json_core.html">json_core</a> for this <a href="../interface/json_file.html">json_file</a>.
+       <p>Initialize the <a href="../interface/json_core.html">json_core</a> for this <a href="../interface/json_file.html">json_file</a>.
   This is just a wrapper for <a href="../proc/json_initialize.html">json_initialize</a>.</p>
         
 
@@ -1203,7 +1297,7 @@ private subroutine <a href='../proc/wrap_json_file_load_from_string.html'>wrap_j
          
     
     <h3>
-private subroutine <a href='../proc/json_file_destroy.html'>json_file_destroy</a>(me)
+private subroutine <a href='../proc/json_file_destroy.html'>json_file_destroy</a>(me, destroy_core)
     
     
     
@@ -1237,6 +1331,22 @@ private subroutine <a href='../proc/json_file_destroy.html'>json_file_destroy</a
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>destroy_core</strong></td><td><p>to also destroy the <a href="../interface/json_core.html">json_core</a>.
+ default is to leave it as is.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -1253,8 +1363,6 @@ private subroutine <a href='../proc/json_file_destroy.html'>json_file_destroy</a
     <dt>Author</dt><dd>Jacob Williams</dd>
     
     
-    <dt>Date</dt><dd>12/9/2013</dd>
-    
     
     
     
@@ -1262,7 +1370,10 @@ private subroutine <a href='../proc/json_file_destroy.html'>json_file_destroy</a
 
 
        
-       <p>Destroy the <a href="../type/json_file.html">json_file</a>.</p>
+       <p>Destroy the <a href="../type/json_value.html">json_value</a> data in a <a href="../type/json_file.html">json_file</a>.
+  This must be done when the variable is no longer needed,
+  or will be reused to open a different file.
+  Otherwise a memory leak will occur.</p>
         
 
       

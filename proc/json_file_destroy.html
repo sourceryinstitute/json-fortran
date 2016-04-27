@@ -102,8 +102,6 @@
     <li><i class="fa fa-pencil"></i> Jacob Williams</li>
      
      
-    <li><i class="fa fa-calendar-o"></i> 12/9/2013</li>
-     
      
      
     
@@ -183,9 +181,13 @@
           
           <a class="list-group-item" href="../proc/get_current_line_from_file_stream.html">get_current_line_from_file_stream</a>
           
+          <a class="list-group-item" href="../proc/initialize_json_core.html">initialize_json_core</a>
+          
           <a class="list-group-item" href="../proc/initialize_json_core_in_file.html">initialize_json_core_in_file</a>
           
           <a class="list-group-item" href="../proc/initialize_json_file.html">initialize_json_file</a>
+          
+          <a class="list-group-item" href="../proc/initialize_json_file_v2.html">initialize_json_file_v2</a>
           
           <a class="list-group-item" href="../proc/integer_to_string.html">integer_to_string</a>
           
@@ -194,6 +196,8 @@
           <a class="list-group-item" href="../proc/json_clear_exceptions.html">json_clear_exceptions</a>
           
           <a class="list-group-item" href="../proc/json_clone.html">json_clone</a>
+          
+          <a class="list-group-item" href="../interface/json_core.html">json_core</a>
           
           <a class="list-group-item" href="../proc/json_count.html">json_count</a>
           
@@ -559,7 +563,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine json_file_destroy(me)
+private subroutine json_file_destroy(me, destroy_core)
     
     
     
@@ -596,6 +600,22 @@ private subroutine json_file_destroy(me)
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-destroy_core"></span>logical,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>destroy_core</strong></td><td><p>to also destroy the <a href="../interface/json_core.html">json_core</a>.
+ default is to leave it as is.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -603,7 +623,18 @@ private subroutine json_file_destroy(me)
     
     
     <h3>Description</h3>
-    <p>Destroy the <a href="../type/json_file.html">json_file</a>.</p>
+    <p>Destroy the <a href="../type/json_value.html">json_value</a> data in a <a href="../type/json_file.html">json_file</a>.
+  This must be done when the variable is no longer needed,
+  or will be reused to open a different file.
+  Otherwise a memory leak will occur.</p>
+<p>Optionally, also destroy the <a href="../interface/json_core.html">json_core</a> instance (this
+  is not necessary to prevent memory leaks, since a <a href="../interface/json_core.html">json_core</a>
+  does not use pointers).</p>
+<h3>History</h3>
+<ul>
+<li>12/9/2013 : Created</li>
+<li>4/26/2016 : Added optional <code>destroy_core</code> argument</li>
+</ul>
     
     
      
@@ -626,15 +657,21 @@ private subroutine json_file_destroy(me)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_destroy</span><span class="p">(</span><span class="n">me</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_destroy</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">destroy_core</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">me</span>
+    <span class="kt">logical</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">destroy_core</span>  <span class="c">!! to also destroy the [[json_core]].</span>
+                                                 <span class="c">!! default is to leave it as is.</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">))</span> <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">)</span>
 
-    <span class="k">end subroutine </span><span class="n">json_file_destroy</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">destroy_core</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">        if</span> <span class="p">(</span><span class="n">destroy_core</span><span class="p">)</span> <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="k">end if</span>
+
+<span class="k">    end subroutine </span><span class="n">json_file_destroy</span>
 </pre></div>
 
     </section>

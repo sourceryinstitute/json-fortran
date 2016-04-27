@@ -139,7 +139,7 @@
         
         <a class="list-group-item" href="../proc/json_initialize.html#variable-w">w</a>
         
-        <a class="list-group-item" href="../proc/json_initialize.html#variable-d%7E2">d</a>
+        <a class="list-group-item" href="../proc/json_initialize.html#variable-d">d</a>
         
         <a class="list-group-item" href="../proc/json_initialize.html#variable-e">e</a>
         
@@ -207,9 +207,13 @@
           
           <a class="list-group-item" href="../proc/get_current_line_from_file_stream.html">get_current_line_from_file_stream</a>
           
+          <a class="list-group-item" href="../proc/initialize_json_core.html">initialize_json_core</a>
+          
           <a class="list-group-item" href="../proc/initialize_json_core_in_file.html">initialize_json_core_in_file</a>
           
           <a class="list-group-item" href="../proc/initialize_json_file.html">initialize_json_file</a>
+          
+          <a class="list-group-item" href="../proc/initialize_json_file_v2.html">initialize_json_file_v2</a>
           
           <a class="list-group-item" href="../proc/integer_to_string.html">integer_to_string</a>
           
@@ -218,6 +222,8 @@
           <a class="list-group-item" href="../proc/json_clear_exceptions.html">json_clear_exceptions</a>
           
           <a class="list-group-item" href="../proc/json_clone.html">json_clone</a>
+          
+          <a class="list-group-item" href="../interface/json_core.html">json_core</a>
           
           <a class="list-group-item" href="../proc/json_count.html">json_count</a>
           
@@ -611,7 +617,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E11"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E9"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -626,7 +632,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-verbose%7E3"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-verbose%7E4"></span>logical(kind=LK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -641,7 +647,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-compact_reals%7E3"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-compact_reals%7E4"></span>logical(kind=LK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -656,7 +662,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-print_signs%7E3"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-print_signs%7E4"></span>logical(kind=LK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -671,7 +677,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-real_format%7E3"></span>character(kind=len=*,CDK),</td>
+  <td><span class="anchor" id="variable-real_format%7E4"></span>character(kind=len=*,CDK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -686,7 +692,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-spaces_per_tab%7E4"></span>integer,</td>
+  <td><span class="anchor" id="variable-spaces_per_tab%7E5"></span>integer,</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -701,7 +707,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-strict_type_checking%7E4"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-strict_type_checking%7E5"></span>logical(kind=LK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -719,8 +725,8 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
     
     
     <h3>Description</h3>
-    <p>Initialize the <a href="../type/json_core.html">json_core</a> instance.</p>
-<p>The routine may be called before any of the <a href="../type/json_core.html">json_core</a> methods are used in
+    <p>Initialize the <a href="../interface/json_core.html">json_core</a> instance.</p>
+<p>The routine may be called before any of the <a href="../interface/json_core.html">json_core</a> methods are used in
   order to specify certain parameters. If it is not called, then the defaults
   are used. This routine is also called internally by various routines.
   It can also be called to clear exceptions, or to reset some
@@ -729,6 +735,9 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
 <ul>
 <li>Izaak Beekman : 02/24/2015</li>
 </ul>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><a href="../proc/initialize_json_core.html">initialize_json_core</a>, <a href="../proc/json_initialize.html">json_initialize</a>,
+      <a href="../proc/initialize_json_core_in_file.html">initialize_json_core_in_file</a>, and <a href="../proc/initialize_json_file.html">initialize_json_file</a>
+      all have a similar interface.</div>
     
     
      
@@ -766,7 +775,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-d%7E2"></span>character(kind=CDK,len=10),</td>
+  <td><span class="anchor" id="variable-d"></span>character(kind=CDK,len=10),</td>
   
   <td>public</td>
   <td></td><td>::</td>
