@@ -431,11 +431,15 @@
           
           <a class="list-group-item" href="../proc/json_value_get_by_name_chars.html">json_value_get_by_name_chars</a>
           
+          <a class="list-group-item" href="../proc/json_value_is_child_of.html">json_value_is_child_of</a>
+          
           <a class="list-group-item" href="../proc/json_value_print.html">json_value_print</a>
           
           <a class="list-group-item" href="../proc/json_value_remove.html">json_value_remove</a>
           
           <a class="list-group-item" href="../proc/json_value_remove_if_present.html">json_value_remove_if_present</a>
+          
+          <a class="list-group-item" href="../proc/json_value_swap.html">json_value_swap</a>
           
           <a class="list-group-item" href="../proc/json_value_to_string.html">json_value_to_string</a>
           
@@ -633,7 +637,7 @@ private recursive subroutine json_value_print(json, me, iunit, str, indent, need
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E61"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E63"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -1296,6 +1300,12 @@ subroutine write_it(s, advance, comma)
                 <span class="n">element</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">children</span>
                 <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">count</span>
 
+<span class="nb">                    </span><span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_print: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                                  <span class="s1">&#39;Malformed JSON linked list&#39;</span><span class="p">)</span>
+                        <span class="k">return</span>
+<span class="k">                    end if</span>
+
                     <span class="c">! print the name</span>
                     <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">element</span><span class="p">%</span><span class="n">name</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">                        call </span><span class="n">write_it</span><span class="p">(</span><span class="nb">repeat</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="n">spaces</span><span class="p">)</span><span class="o">//</span><span class="n">quotation_mark</span><span class="o">//</span><span class="p">&amp;</span>
@@ -1339,6 +1349,12 @@ subroutine write_it(s, advance, comma)
                 <span class="k">nullify</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
                 <span class="n">element</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">children</span>
                 <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">count</span>
+
+<span class="nb">                    </span><span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_print: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                                  <span class="s1">&#39;Malformed JSON linked list&#39;</span><span class="p">)</span>
+                        <span class="k">return</span>
+<span class="k">                    end if</span>
 
                     <span class="c">! recursive print of the element</span>
                     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">json_value_print</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">iunit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="n">tab</span><span class="p">,&amp;</span>

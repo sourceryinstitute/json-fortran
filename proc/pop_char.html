@@ -405,11 +405,15 @@
           
           <a class="list-group-item" href="../proc/json_value_get_by_name_chars.html">json_value_get_by_name_chars</a>
           
+          <a class="list-group-item" href="../proc/json_value_is_child_of.html">json_value_is_child_of</a>
+          
           <a class="list-group-item" href="../proc/json_value_print.html">json_value_print</a>
           
           <a class="list-group-item" href="../proc/json_value_remove.html">json_value_remove</a>
           
           <a class="list-group-item" href="../proc/json_value_remove_if_present.html">json_value_remove_if_present</a>
+          
+          <a class="list-group-item" href="../proc/json_value_swap.html">json_value_swap</a>
           
           <a class="list-group-item" href="../proc/json_value_to_string.html">json_value_to_string</a>
           
@@ -607,7 +611,7 @@ private recursive function pop_char(json, unit, str, eof, skip_ws) result(popped
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E8"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E9"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -864,7 +868,7 @@ private recursive function pop_char(json, unit, str, eof, skip_ws) result(popped
                     <span class="n">eof</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
                     <span class="k">exit</span>
 
-<span class="k">                </span><span class="n">elseif</span> <span class="p">(</span><span class="nb">IS_IOSTAT_EOR</span><span class="p">(</span><span class="n">ios</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">c</span><span class="o">==</span><span class="n">newline</span><span class="p">)</span> <span class="k">then</span>    <span class="c">!end of record</span>
+<span class="k">                else if</span> <span class="p">(</span><span class="nb">IS_IOSTAT_EOR</span><span class="p">(</span><span class="n">ios</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">c</span><span class="o">==</span><span class="n">newline</span><span class="p">)</span> <span class="k">then</span>    <span class="c">!end of record</span>
 
                     <span class="n">json</span><span class="p">%</span><span class="n">char_count</span> <span class="o">=</span> <span class="mi">0</span>
                     <span class="n">json</span><span class="p">%</span><span class="n">line_count</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">line_count</span> <span class="o">+</span> <span class="mi">1</span>

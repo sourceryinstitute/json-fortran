@@ -401,11 +401,15 @@
           
           <a class="list-group-item" href="../proc/json_value_get_by_name_chars.html">json_value_get_by_name_chars</a>
           
+          <a class="list-group-item" href="../proc/json_value_is_child_of.html">json_value_is_child_of</a>
+          
           <a class="list-group-item" href="../proc/json_value_print.html">json_value_print</a>
           
           <a class="list-group-item" href="../proc/json_value_remove.html">json_value_remove</a>
           
           <a class="list-group-item" href="../proc/json_value_remove_if_present.html">json_value_remove_if_present</a>
+          
+          <a class="list-group-item" href="../proc/json_value_swap.html">json_value_swap</a>
           
           <a class="list-group-item" href="../proc/json_value_to_string.html">json_value_to_string</a>
           
@@ -603,7 +607,7 @@ private subroutine json_value_get_by_name_chars(json, me, name, p)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E56"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E58"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -761,7 +765,12 @@ private subroutine json_value_get_by_name_chars(json, me, name, p)
 <span class="k">                </span><span class="n">n_children</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="nb">count</span><span class="p">(</span><span class="n">me</span><span class="p">)</span>
                 <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">children</span>    <span class="c">!start with first one</span>
                 <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_children</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">name</span><span class="p">))</span> <span class="k">then</span>
+                    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_get_by_name_chars: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                                  <span class="s1">&#39;Malformed JSON linked list&#39;</span><span class="p">)</span>
+                        <span class="k">return</span>
+<span class="k">                    end if</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">name</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">                        if</span> <span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">)</span> <span class="k">return</span>
 <span class="k">                    end if</span>
 <span class="k">                    </span><span class="n">p</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">next</span>

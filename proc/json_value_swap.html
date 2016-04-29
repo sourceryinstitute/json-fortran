@@ -10,7 +10,7 @@
     <meta name="author" content="Chris MacMackin" >
     <link rel="icon" href="../favicon.png">
 
-    <title>parse_array &ndash; JSON-Fortran</title>
+    <title>json_value_swap &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -89,7 +89,7 @@
     
   
   <div class="row">
-    <h1>parse_array
+    <h1>json_value_swap
     <small>Subroutine</small>
     
     </h1>
@@ -99,6 +99,10 @@
 <div class="well well-sm">
   <ul class="list-inline" style="margin-bottom:0px;display:inline">
      
+    <li><i class="fa fa-pencil"></i> Jacob Williams</li>
+     
+     
+    <li><i class="fa fa-calendar-o"></i> 4/26/2016</li>
      
      
      
@@ -113,7 +117,7 @@
   
      <li><a href='../module/json_value_module.html'>json_value_module</a></li>
   
-     <li class="active">parse_array</li>
+     <li class="active">json_value_swap</li>
   </ol>
 </div>
 </div>
@@ -133,11 +137,15 @@
     <div id="vars" class="panel-collapse collapse">
       <div class="list-group">
         
-        <a class="list-group-item" href="../proc/parse_array.html#variable-element%7E4">element</a>
+        <a class="list-group-item" href="../proc/json_value_swap.html#variable-same_parent">same_parent</a>
         
-        <a class="list-group-item" href="../proc/parse_array.html#variable-eof%7E4">eof</a>
+        <a class="list-group-item" href="../proc/json_value_swap.html#variable-first_last">first_last</a>
         
-        <a class="list-group-item" href="../proc/parse_array.html#variable-c%7E9">c</a>
+        <a class="list-group-item" href="../proc/json_value_swap.html#variable-adjacent">adjacent</a>
+        
+        <a class="list-group-item" href="../proc/json_value_swap.html#variable-a">a</a>
+        
+        <a class="list-group-item" href="../proc/json_value_swap.html#variable-b">b</a>
         
       </div>
     </div>
@@ -154,6 +162,18 @@
   
   
   
+  <div class="panel panel-primary">
+    <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs">Subroutines</a></h3></div>
+    <div class="list-group">
+        <div id="subs" class="panel-collapse collapse">
+          
+          <a class="list-group-item" href="../proc/json_value_swap.html#proc-swap_pointers">swap_pointers</a>
+          
+        </div>
+    </div>
+  </div>
+  
+  
   
   
   
@@ -164,7 +184,7 @@
   <div class="panel panel-primary">
     <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
     <div class="list-group">
-      <a class="list-group-item" href="../proc/parse_array.html#src">parse_array</a>
+      <a class="list-group-item" href="../proc/json_value_swap.html#src">json_value_swap</a>
     </div>
   </div>
   
@@ -581,7 +601,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private recursive subroutine parse_array(json, unit, str, array)
+private subroutine json_value_swap(json, p1, p2)
     
     
     
@@ -609,7 +629,7 @@ private recursive subroutine parse_array(json, unit, str, array)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E116"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E19"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -624,42 +644,27 @@ private recursive subroutine parse_array(json, unit, str, array)
   
 <tr>
   
-  <td><span class="anchor" id="variable-unit%7E6"></span>integer(kind=IK),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>unit</strong></td><td><p>file unit number (if parsing from a file)</p></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-str%7E22"></span>character(kind=CK,len=*),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>str</strong></td><td><p><abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> string (if parsing from a string)</p></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-array%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p1%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>,</td>
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>array</strong></td><td></td>
+  <td><strong>p1</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-p2%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p2</strong></td><td></td>
   
 </tr>
 
@@ -670,7 +675,19 @@ private recursive subroutine parse_array(json, unit, str, array)
     
     
     <h3>Description</h3>
-    <p>Core parsing routine.</p>
+    <p>Swap two elements in a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.
+  All of the children are carried along as well.</p>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4>If both are not associated, then an error is thrown.</div>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4>The assumption here is that both variables are part of a valid
+      <a href="../type/json_value.html">json_value</a> linked list (so the normal <code>parent</code>, <code>previous</code>,
+      <code>next</code>, etc. pointers are properly associated if necessary).</div>
+<p></p><div class="alert alert-warning" role="alert"><h4>Warning</h4>This cannot be used to swap a parent/child pair, since that
+         could lead to a circular linkage. An exception is thrown if
+         this is tried.</div>
+<p></p><div class="alert alert-warning" role="alert"><h4>Warning</h4>There are also other situations where using this routine may
+         produce a malformed <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure, such as moving an array
+         element outside of an array. This is not checked for.</div>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4>If <code>p1</code> and <code>p2</code> have a common parent, it is always safe to swap them.</div>
     
     
      <h3>Calls</h3>
@@ -680,28 +697,26 @@ private recursive subroutine parse_array(json, unit, str, array)
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generated by graphviz version 2.26.3 (20100126.1600)
  -->
-<!-- Title: proc~~parse_array~~CallsGraph Pages: 1 -->
-<svg id="procparse_arrayCallsGraph" width="214pt" height="34pt"
- viewBox="0.00 0.00 214.00 34.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="proc~~parse_array~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 30)">
-<title>proc~~parse_array~~CallsGraph</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-30 211,-30 211,5 -4,5"/>
-<!-- proc~parse_array -->
-<g id="node1" class="node"><title>proc~parse_array</title>
-<polygon fill="none" stroke="black" points="70,-26 3.55271e-14,-26 0,-1.24345e-14 70,-3.55271e-15 70,-26"/>
-<text text-anchor="middle" x="35" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">parse_array</text>
+<!-- Title: proc~~json_value_swap~~CallsGraph Pages: 1 -->
+<svg id="procjson_value_swapCallsGraph" width="220pt" height="34pt"
+ viewBox="0.00 0.00 220.00 34.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~json_value_swap~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 30)">
+<title>proc~~json_value_swap~~CallsGraph</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-30 217,-30 217,5 -4,5"/>
+<!-- proc~json_value_swap -->
+<g id="node1" class="node"><title>proc~json_value_swap</title>
+<polygon fill="none" stroke="black" points="94,-26 3.55271e-14,-26 -7.10543e-15,-1.24345e-14 94,-3.55271e-15 94,-26"/>
+<text text-anchor="middle" x="47" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_value_swap</text>
 </g>
-<!-- proc~json_value_create -->
-<g id="node2" class="node"><title>proc~json_value_create</title>
-<a xlink:href="../proc/json_value_create.html" xlink:title="json_value_create">
-<polygon fill="#d9534f" stroke="#d9534f" points="206,-26 106,-26 106,-1.24345e-14 206,-3.55271e-15 206,-26"/>
-<text text-anchor="middle" x="156" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value_create</text>
-</a>
+<!-- none~swap_pointers -->
+<g id="node2" class="node"><title>none~swap_pointers</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="212,-26 130,-26 130,-1.24345e-14 212,-3.55271e-15 212,-26"/>
+<text text-anchor="middle" x="171" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">swap_pointers</text>
 </g>
-<!-- proc~parse_array&#45;&gt;proc~json_value_create -->
-<g id="edge2" class="edge"><title>proc~parse_array&#45;&gt;proc~json_value_create</title>
-<path fill="none" stroke="black" d="M70.3235,-13C78.2451,-13 86.8676,-13 95.4904,-13"/>
-<polygon fill="black" stroke="black" points="95.5709,-16.5001 105.571,-13 95.5708,-9.5001 95.5709,-16.5001"/>
+<!-- proc~json_value_swap&#45;&gt;none~swap_pointers -->
+<g id="edge2" class="edge"><title>proc~json_value_swap&#45;&gt;none~swap_pointers</title>
+<path fill="none" stroke="black" d="M94.2328,-13C102.602,-13 111.352,-13 119.824,-13"/>
+<polygon fill="black" stroke="black" points="119.976,-16.5001 129.976,-13 119.976,-9.5001 119.976,-16.5001"/>
 </g>
 </g>
 </svg>
@@ -818,11 +833,53 @@ implementation in a submodule of an interface in a parent module.</p>
   
 <tr>
   
-  <td><span class="anchor" id="variable-element%7E4"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-same_parent"></span>logical,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>same_parent</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-first_last"></span>logical,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>first_last</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-adjacent"></span>logical,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>adjacent</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-a"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   
   <td>public,</td>
   <td>pointer</td><td>::</td>
-  <td><strong>element</strong></td><td></td><td></td><td></td>
+  <td><strong>a</strong></td><td></td><td></td><td></td>
   
 </tr>
 
@@ -832,25 +889,11 @@ implementation in a submodule of an interface in a parent module.</p>
   
 <tr>
   
-  <td><span class="anchor" id="variable-eof%7E4"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-b"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   
-  <td>public</td>
-  <td></td><td>::</td>
-  <td><strong>eof</strong></td><td></td><td></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-c%7E9"></span>character(kind=CK,len=1),</td>
-  
-  <td>public</td>
-  <td></td><td>::</td>
-  <td><strong>c</strong></td><td></td><td></td><td></td>
+  <td>public,</td>
+  <td>pointer</td><td>::</td>
+  <td><strong>b</strong></td><td></td><td></td><td></td>
   
 </tr>
 
@@ -873,62 +916,213 @@ implementation in a submodule of an interface in a parent module.</p>
 
 
     
+    <section>
+    <h2>Subroutines</h2>
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-swap_pointers"></span><h3>
+pure subroutine swap_pointers(s1, s2)
+    
+    
+    
+</h3></div>
+  <div class="panel-body">
+       
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(inout),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>s1</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(inout),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>s2</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+        
+
+  </div>
+  </div>
+
+    
+    </section>    
+    
     
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">recursive subroutine </span><span class="n">parse_array</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="k">array</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_value_swap</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">json</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">unit</span>   <span class="c">!! file unit number (if parsing from a file)</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>    <span class="c">!! JSON string (if parsing from a string)</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>            <span class="kd">::</span> <span class="k">array</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">p1</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">p2</span>
 
-<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">element</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">eof</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">c</span>
+    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">same_parent</span><span class="p">,</span><span class="n">first_last</span><span class="p">,</span><span class="n">adjacent</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
 
-    <span class="k">do</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">return</span>
 
-<span class="k">        if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">exit</span>
+    <span class="c">!both have to be associated:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">))</span> <span class="k">then</span>
 
-        <span class="c">! try to parse an element value</span>
-        <span class="k">nullify</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-        <span class="k">call </span><span class="n">json_value_create</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">parse_value</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">            if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">))</span> <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-            <span class="k">exit</span>
-<span class="k">        end if</span>
+        <span class="c">!simple check to make sure that they both</span>
+        <span class="c">!aren&#39;t pointing to the same thing:</span>
+        <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="k">then</span>
 
-        <span class="c">! parse value will disassociate an empty array value</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">))</span> <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">add</span><span class="p">(</span><span class="k">array</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+            <span class="c">!we will not allow swapping an item with one of its descendants:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">is_child_of</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">is_child_of</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_swap: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                          <span class="s1">&#39;cannot swap an item with one of its descendants&#39;</span><span class="p">)</span>
+            <span class="k">else</span>
 
-        <span class="c">! popped the next character</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">pop_char</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">str</span><span class="o">=</span><span class="n">str</span><span class="p">,</span> <span class="n">eof</span> <span class="o">=</span> <span class="n">eof</span><span class="p">,</span> <span class="n">skip_ws</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+<span class="k">                </span><span class="n">same_parent</span> <span class="o">=</span> <span class="p">(</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
+                                <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
+                                <span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">,</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span> <span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">same_parent</span><span class="p">)</span> <span class="k">then</span>
+                    <span class="c">!if p1,p2 are the first,last or last,first</span>
+                    <span class="c">!children of a common parent</span>
+                    <span class="n">first_last</span> <span class="o">=</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p1</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
+                                  <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
+                                 <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p1</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
+                                  <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span>
+                <span class="k">else</span>
+<span class="k">                    </span><span class="n">first_last</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="k">end if</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">eof</span><span class="p">)</span> <span class="k">then</span>
-            <span class="c">! The file ended before array was finished:</span>
-            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in parse_array: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                 <span class="s1">&#39;End of file encountered when parsing an array.&#39;</span><span class="p">)</span>
-            <span class="k">exit</span>
-<span class="k">        else if</span> <span class="p">(</span><span class="n">delimiter</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span> <span class="k">then</span>
-            <span class="c">! parse the next element</span>
-            <span class="k">cycle</span>
-<span class="k">        else if</span> <span class="p">(</span><span class="n">end_array</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span> <span class="k">then</span>
-            <span class="c">! end of array</span>
-            <span class="k">exit</span>
+                <span class="c">!first, we fix children,tail pointers:</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">same_parent</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">first_last</span><span class="p">)</span> <span class="k">then</span>
+
+                    <span class="c">!this is all we have to do for the parent in this case:</span>
+                    <span class="k">call </span><span class="n">swap_pointers</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">)</span>
+
+                <span class="k">else if</span> <span class="p">(</span><span class="n">same_parent</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">first_last</span><span class="p">)</span> <span class="k">then</span>
+
+<span class="k">                    if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">p2</span> <span class="c">! p1 is the first child of the parent</span>
+                    <span class="k">else if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">p1</span> <span class="c">! p2 is the first child of the parent</span>
+                    <span class="k">end if</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span> <span class="o">=&gt;</span> <span class="n">p2</span> <span class="c">! p1 is the last child of the parent</span>
+                    <span class="k">else if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span> <span class="o">=&gt;</span> <span class="n">p1</span> <span class="c">! p2 is the last child of the parent</span>
+                    <span class="k">end if</span>
+
+<span class="k">                else</span> <span class="c">! general case: different parents</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span> <span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">p2</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span>     <span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span>     <span class="o">=&gt;</span> <span class="n">p2</span>
+                    <span class="k">end if</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">p1</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span>     <span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span>     <span class="o">=&gt;</span> <span class="n">p1</span>
+                    <span class="k">end if</span>
+<span class="k">                    call </span><span class="n">swap_pointers</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">,</span> <span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span>
+
+                <span class="k">end if</span>
+
+                <span class="c">!now, have to fix previous,next pointers:</span>
+
+                <span class="c">!first, see if they are adjacent:</span>
+                <span class="n">adjacent</span> <span class="o">=</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">next</span><span class="p">,</span><span class="n">p2</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
+                           <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">next</span><span class="p">,</span><span class="n">p1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">next</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span> <span class="k">then</span>    <span class="c">!p2,p1</span>
+                    <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">p2</span>
+                    <span class="n">b</span> <span class="o">=&gt;</span> <span class="n">p1</span>
+                <span class="k">else</span>    <span class="c">!p1,p2 (or not adjacent)</span>
+                    <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">p1</span>
+                    <span class="n">b</span> <span class="o">=&gt;</span> <span class="n">p2</span>
+                <span class="k">end if</span>
+<span class="k">                if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">previous</span><span class="p">))</span> <span class="n">a</span><span class="p">%</span><span class="n">previous</span><span class="p">%</span><span class="n">next</span> <span class="o">=&gt;</span> <span class="n">b</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">b</span><span class="p">%</span><span class="n">next</span><span class="p">))</span>     <span class="n">b</span><span class="p">%</span><span class="n">next</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">a</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">adjacent</span><span class="p">)</span> <span class="k">then</span>
+                    <span class="c">!a comes before b in the original list</span>
+                    <span class="n">b</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">a</span><span class="p">%</span><span class="n">previous</span>
+                    <span class="n">a</span><span class="p">%</span><span class="n">next</span>     <span class="o">=&gt;</span> <span class="n">b</span><span class="p">%</span><span class="n">next</span>
+                    <span class="n">a</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">b</span>
+                    <span class="n">b</span><span class="p">%</span><span class="n">next</span>     <span class="o">=&gt;</span> <span class="n">a</span>
+                <span class="k">else</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">next</span><span class="p">))</span>       <span class="n">a</span><span class="p">%</span><span class="n">next</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">b</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">b</span><span class="p">%</span><span class="n">previous</span><span class="p">))</span>   <span class="n">b</span><span class="p">%</span><span class="n">previous</span><span class="p">%</span><span class="n">next</span> <span class="o">=&gt;</span> <span class="n">a</span>
+                    <span class="k">call </span><span class="n">swap_pointers</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">previous</span><span class="p">,</span><span class="n">b</span><span class="p">%</span><span class="n">previous</span><span class="p">)</span>
+                    <span class="k">call </span><span class="n">swap_pointers</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">next</span><span class="p">,</span>    <span class="n">b</span><span class="p">%</span><span class="n">next</span><span class="p">)</span>
+                <span class="k">end if</span>
+
+<span class="k">            end if</span>
+
 <span class="k">        else</span>
-<span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in parse_array: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                      <span class="s1">&#39;Unexpected character encountered when parsing array.&#39;</span><span class="p">)</span>
-            <span class="k">exit</span>
-<span class="k">        end if</span>
+<span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_swap: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                      <span class="s1">&#39;both pointers must be associated&#39;</span><span class="p">)</span>
+        <span class="k">end if</span>
 
-<span class="k">    end do</span>
+<span class="k">    end if</span>
 
-<span class="k">    end subroutine </span><span class="n">parse_array</span>
+<span class="k">    contains</span>
+
+<span class="k">        pure subroutine </span><span class="n">swap_pointers</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">)</span>
+
+        <span class="k">implicit none</span>
+
+<span class="k">        type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">s1</span>
+        <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">s2</span>
+
+        <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">tmp</span>  <span class="c">!! temporary pointer</span>
+
+        <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            </span><span class="n">tmp</span> <span class="o">=&gt;</span> <span class="n">s1</span>
+            <span class="n">s1</span>  <span class="o">=&gt;</span> <span class="n">s2</span>
+            <span class="n">s2</span>  <span class="o">=&gt;</span> <span class="n">tmp</span>
+            <span class="k">nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+        <span class="k">end if</span>
+
+<span class="k">        end subroutine </span><span class="n">swap_pointers</span>
+
+    <span class="k">end subroutine </span><span class="n">json_value_swap</span>
 </pre></div>
 
     </section>

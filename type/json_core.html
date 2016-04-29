@@ -402,6 +402,14 @@
           
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_parse_string">json_parse_string</a>
           
+          <a class="list-group-item" href="../type/json_core.html#boundprocedure-swap">swap</a>
+          
+          <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_swap">json_value_swap</a>
+          
+          <a class="list-group-item" href="../type/json_core.html#boundprocedure-is_child_of">is_child_of</a>
+          
+          <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_is_child_of">json_value_is_child_of</a>
+          
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-throw_exception">throw_exception</a>
           
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_throw_exception">wrap_json_throw_exception</a>
@@ -430,7 +438,7 @@
           
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-initialize%7E2">initialize</a>
           
-          <a class="list-group-item" href="../type/json_core.html#boundprocedure-traverse">traverse</a>
+          <a class="list-group-item" href="../type/json_core.html#boundprocedure-traverse%7E2">traverse</a>
           
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-print_error_message%7E2">print_error_message</a>
           
@@ -21804,6 +21812,495 @@ private subroutine <a href='../proc/json_parse_string.html'>json_parse_string</a
     
 	   
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-swap"></span><h3>generic, public :: <strong>swap</strong>  => <a href='../type/json_core.html#boundprocedure-json_value_swap'>json_value_swap</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>Swap two <a href="../type/json_value.html">json_value</a> pointers in a structure
+  (or two different structures).</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_value_swap.html'>json_value_swap</a>(json, p1, p2)
+    
+    
+    
+</h3>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p1</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p2</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+    
+    <h4>Description</h4>
+       
+       
+
+<dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>4/26/2016</dd>
+    
+    
+    
+    
+  </dl>
+
+
+       
+       <p>Swap two elements in a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.
+  All of the children are carried along as well.</p>
+        
+
+         
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_value_swap"></span><h3>procedure, private :: <strong>json_value_swap</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_value_swap.html'>json_value_swap</a>(json, p1, p2)
+    
+    
+    
+</h3>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p1</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p2</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+    
+    <h4>Description</h4>
+       
+       
+
+<dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>4/26/2016</dd>
+    
+    
+    
+    
+  </dl>
+
+
+       
+       <p>Swap two elements in a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.
+  All of the children are carried along as well.</p>
+        
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-is_child_of"></span><h3>generic, public :: <strong>is_child_of</strong>  => <a href='../type/json_core.html#boundprocedure-json_value_is_child_of'>json_value_is_child_of</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>Check if a <a href="../type/json_value.html">json_value</a> is a child of another.</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private function <a href='../proc/json_value_is_child_of.html'>json_value_is_child_of</a>(json, p1, p2) result(is_child_of)
+    
+    
+    
+</h3>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p1</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p2</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+    
+    <h4>Description</h4>
+       
+       
+
+<dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>4/28/2016</dd>
+    
+    
+    
+    
+  </dl>
+
+
+       
+       <p>Returns True if <code>p2</code> is a descendant of <code>p1</code>
+  (i.e, a child, or a child of child, etc.)</p>
+        
+
+         
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_value_is_child_of"></span><h3>procedure, private :: <strong>json_value_is_child_of</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private function <a href='../proc/json_value_is_child_of.html'>json_value_is_child_of</a>(json, p1, p2) result(is_child_of)
+    
+    
+    
+</h3>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p1</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p2</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+    
+    <h4>Description</h4>
+       
+       
+
+<dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>4/28/2016</dd>
+    
+    
+    
+    
+  </dl>
+
+
+       
+       <p>Returns True if <code>p2</code> is a descendant of <code>p1</code>
+  (i.e, a child, or a child of child, etc.)</p>
+        
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-throw_exception"></span><h3>generic, public :: <strong>throw_exception</strong>  => <a href='../type/json_core.html#boundprocedure-json_throw_exception'>json_throw_exception</a>, <a href='../type/json_core.html#boundprocedure-wrap_json_throw_exception'>wrap_json_throw_exception</a> 
     
   </h3></div>
@@ -23511,7 +24008,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
     
 	   
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-traverse"></span><h3>procedure, public :: <strong>traverse</strong>  => <a href='../proc/json_traverse.html'>json_traverse</a> 
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-traverse%7E2"></span><h3>procedure, public :: <strong>traverse</strong>  => <a href='../proc/json_traverse.html'>json_traverse</a> 
     
   </h3></div>
   
@@ -23529,7 +24026,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
          
     
     <h3>
-private recursive subroutine <a href='../proc/json_traverse.html'>json_traverse</a>(json, me, traverse_callback)
+private subroutine <a href='../proc/json_traverse.html'>json_traverse</a>(json, me, traverse_callback)
     
     
     
@@ -23609,7 +24106,7 @@ private recursive subroutine <a href='../proc/json_traverse.html'>json_traverse<
     <dt>Author</dt><dd>Jacob Williams</dd>
     
     
-    <dt>Date</dt><dd>09/02/2015</dd>
+    <dt>Date</dt><dd>4/28/2016</dd>
     
     
     
@@ -25688,6 +26185,17 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
         <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">parse</span> <span class="o">=&gt;</span> <span class="n">json_parse_file</span><span class="p">,</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_parse_string</span><span class="p">)</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_parse_file</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_parse_string</span><span class="p">)</span>
+
+        <span class="c">!&gt;</span>
+        <span class="c">!  Swap two [[json_value]] pointers in a structure</span>
+        <span class="c">!  (or two different structures).</span>
+        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">swap</span> <span class="o">=&gt;</span> <span class="n">json_value_swap</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_value_swap</span>
+
+        <span class="c">!&gt;</span>
+        <span class="c">!  Check if a [[json_value]] is a child of another.</span>
+        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">is_child_of</span> <span class="o">=&gt;</span> <span class="n">json_value_is_child_of</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_value_is_child_of</span>
 
         <span class="c">!&gt;</span>
         <span class="c">!  Throw an exception.</span>
