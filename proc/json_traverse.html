@@ -968,7 +968,7 @@ recursive subroutine traverse(p)
                         <span class="k">return</span>
 <span class="k">                    end if</span>
 <span class="k">                    call </span><span class="n">traverse</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">finished</span><span class="p">)</span> <span class="k">exit</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">finished</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">exit</span>
 <span class="k">                    </span><span class="n">element</span> <span class="o">=&gt;</span> <span class="n">element</span><span class="p">%</span><span class="n">next</span>
                 <span class="k">end do</span>
 <span class="k">            end if</span>
