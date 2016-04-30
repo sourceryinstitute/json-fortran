@@ -143,6 +143,8 @@
         
         <a class="list-group-item" href="../proc/escape_string.html#variable-c%7E2">c</a>
         
+        <a class="list-group-item" href="../proc/escape_string.html#variable-tmp">tmp</a>
+        
         <a class="list-group-item" href="../proc/escape_string.html#variable-specials">specials</a>
         
       </div>
@@ -840,6 +842,20 @@ implementation in a submodule of an interface in a parent module.</p>
   
 <tr>
   
+  <td><span class="anchor" id="variable-tmp"></span>character(kind=CK,len=:),</td>
+  
+  <td>public,</td>
+  <td>allocatable</td><td>::</td>
+  <td><strong>tmp</strong></td><td></td><td></td><td><p>workaround for bug in gfortran 6.1</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
   <td><span class="anchor" id="variable-specials"></span>character(kind=CK,len=*),</td>
   
   <td>public,</td>
@@ -878,8 +894,12 @@ implementation in a submodule of an interface in a parent module.</p>
 <span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">str_in</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str_out</span>
 
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span><span class="n">ipos</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">i</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ipos</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">c</span>
+<span class="cp">#if defined __GFORTRAN__</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">tmp</span> <span class="c">!! workaround for bug in gfortran 6.1</span>
+<span class="cp">#endif</span>
 
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">specials</span> <span class="o">=</span> <span class="n">quotation_mark</span><span class="o">//</span><span class="p">&amp;</span>
                                                      <span class="n">backslash</span><span class="o">//</span><span class="p">&amp;</span>
@@ -937,7 +957,12 @@ implementation in a submodule of an interface in a parent module.</p>
 <span class="k">            if</span> <span class="p">(</span><span class="n">ipos</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">                </span><span class="n">str_out</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
             <span class="k">else</span>
-<span class="k">                </span><span class="n">str_out</span> <span class="o">=</span> <span class="n">str_out</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">ipos</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="cp">#if defined __GFORTRAN__</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="n">str_out</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">ipos</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>      <span class="c">!workaround for bug in gfortran 6.1</span>
+                <span class="n">str_out</span> <span class="o">=</span> <span class="n">tmp</span>
+<span class="cp">#else</span>
+                <span class="n">str_out</span> <span class="o">=</span> <span class="n">str_out</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">ipos</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c">!original</span>
+<span class="cp">#endif</span>
             <span class="k">end if</span>
 <span class="k">        end if</span>
 
