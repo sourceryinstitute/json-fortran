@@ -910,8 +910,10 @@ implementation in a submodule of an interface in a parent module.</p>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">pair</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">eof</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">c</span>
+<span class="cp">#if defined __GFORTRAN__</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">tmp</span>  <span class="c">!! this is a work-around for a bug</span>
                                                  <span class="c">!! in the gfortran 4.9 compiler.</span>
+<span class="cp">#endif</span>
 
     <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
 
@@ -933,9 +935,13 @@ implementation in a submodule of an interface in a parent module.</p>
             <span class="k">return</span>
 <span class="k">        else if</span> <span class="p">(</span><span class="n">quotation_mark</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">            call </span><span class="n">json_value_create</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
-            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">parse_string</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span>   <span class="c">!write to a tmp variable because of</span>
-            <span class="n">pair</span> <span class="p">%</span> <span class="n">name</span> <span class="o">=</span> <span class="n">tmp</span>                   <span class="c">! a bug in 4.9 gfortran compiler.</span>
+<span class="cp">#if defined __GFORTRAN__</span>
+            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">parse_string</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span><span class="n">str</span><span class="p">,</span><span class="n">tmp</span><span class="p">)</span>   <span class="c">! write to a tmp variable because of</span>
+            <span class="n">pair</span><span class="p">%</span><span class="n">name</span> <span class="o">=</span> <span class="n">tmp</span>                        <span class="c">! a bug in 4.9 gfortran compiler.</span>
             <span class="k">deallocate</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+<span class="cp">#else</span>
+            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">parse_string</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span><span class="n">str</span><span class="p">,</span><span class="n">pair</span><span class="p">%</span><span class="n">name</span><span class="p">)</span>
+<span class="cp">#endif</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
                 <span class="k">return</span>

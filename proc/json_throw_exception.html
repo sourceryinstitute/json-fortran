@@ -674,13 +674,13 @@ private subroutine json_throw_exception(json, msg)
     <span class="n">json</span><span class="p">%</span><span class="n">err_message</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">is_verbose</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">        write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;***********************&#39;</span>
-        <span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;JSON-Fortran Exception: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="k">        write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;***********************&#39;</span>
+        <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;JSON-Fortran Exception: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="c">!call backtrace()     ! gfortran (use -fbacktrace -fall-intrinsics flags)</span>
 <span class="cp">#ifdef __INTEL_COMPILER</span>
         <span class="k">call </span><span class="n">tracebackqq</span><span class="p">(</span><span class="n">user_exit_code</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>  <span class="c">! print a traceback and return</span>
 <span class="cp">#endif</span>
-        <span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;***********************&#39;</span>
+        <span class="k">write</span><span class="p">(</span><span class="n">output_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;***********************&#39;</span>
     <span class="k">end if</span>
 
 <span class="k">    end subroutine </span><span class="n">json_throw_exception</span>
