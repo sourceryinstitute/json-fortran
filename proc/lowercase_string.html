@@ -10,7 +10,7 @@
     <meta name="author" content="Chris MacMackin" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_value_swap &ndash; JSON-Fortran</title>
+    <title>lowercase_string &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -89,8 +89,8 @@
     
   
   <div class="row">
-    <h1>json_value_swap
-    <small>Subroutine</small>
+    <h1>lowercase_string
+    <small>Function</small>
     
     </h1>
 	 
@@ -102,22 +102,20 @@
     <li><i class="fa fa-pencil"></i> Jacob Williams</li>
      
      
-    <li><i class="fa fa-calendar-o"></i> 4/26/2016</li>
-     
      
      
     
     
-    <li><i class="fa fa-code"></i><a href="../src/json_value_module.F90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/json_string_utilities.F90"> Source File</a></li>
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
-     <li><a href='../sourcefile/json_value_module.f90.html'>json_value_module.F90</a></li>
+     <li><a href='../sourcefile/json_string_utilities.f90.html'>json_string_utilities.F90</a></li>
   
-     <li><a href='../module/json_value_module.html'>json_value_module</a></li>
+     <li><a href='../module/json_string_utilities.html'>json_string_utilities</a></li>
   
-     <li class="active">json_value_swap</li>
+     <li class="active">lowercase_string</li>
   </ol>
 </div>
 </div>
@@ -137,15 +135,9 @@
     <div id="vars" class="panel-collapse collapse">
       <div class="list-group">
         
-        <a class="list-group-item" href="../proc/json_value_swap.html#variable-same_parent">same_parent</a>
+        <a class="list-group-item" href="../proc/lowercase_string.html#variable-i%7E4">i</a>
         
-        <a class="list-group-item" href="../proc/json_value_swap.html#variable-first_last">first_last</a>
-        
-        <a class="list-group-item" href="../proc/json_value_swap.html#variable-adjacent">adjacent</a>
-        
-        <a class="list-group-item" href="../proc/json_value_swap.html#variable-a">a</a>
-        
-        <a class="list-group-item" href="../proc/json_value_swap.html#variable-b">b</a>
+        <a class="list-group-item" href="../proc/lowercase_string.html#variable-n%7E2">n</a>
         
       </div>
     </div>
@@ -162,18 +154,6 @@
   
   
   
-  <div class="panel panel-primary">
-    <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs">Subroutines</a></h3></div>
-    <div class="list-group">
-        <div id="subs" class="panel-collapse collapse">
-          
-          <a class="list-group-item" href="../proc/json_value_swap.html#proc-swap_pointers">swap_pointers</a>
-          
-        </div>
-    </div>
-  </div>
-  
-  
   
   
   
@@ -184,7 +164,7 @@
   <div class="panel panel-primary">
     <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
     <div class="list-group">
-      <a class="list-group-item" href="../proc/json_value_swap.html#src">json_value_swap</a>
+      <a class="list-group-item" href="../proc/lowercase_string.html#src">lowercase_string</a>
     </div>
   </div>
   
@@ -609,7 +589,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine json_value_swap(json, p1, p2)
+public pure elemental function lowercase_string(str) result(s_lower)
     
     
     
@@ -637,42 +617,12 @@ private subroutine json_value_swap(json, p1, p2)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E22"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
-  <td>intent(inout)</td>
+  <td><span class="anchor" id="variable-str%7E7"></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>json</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-p1%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  <td>,</td>
-  <td></td>
-  
-  <td>pointer</td><td>::</td>
-  <td><strong>p1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-p2%7E2"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  <td>,</td>
-  <td></td>
-  
-  <td>pointer</td><td>::</td>
-  <td><strong>p2</strong></td><td></td>
+  <td><strong>str</strong></td><td><p>input string</p></td>
   
 </tr>
 
@@ -682,20 +632,17 @@ private subroutine json_value_swap(json, p1, p2)
     
     
     
+    
+    
+    
+    
+	 <h3>Return Value <small><span class="anchor" id="variable-s_lower"></span>character(kind=CK,len=(len(str)))
+  </small></h3>
+    <p>lowercase version of the string</p>
+    
+    
     <h3>Description</h3>
-    <p>Swap two elements in a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.
-  All of the children are carried along as well.</p>
-<p></p><div class="alert alert-info" role="alert"><h4>Note</h4>If both are not associated, then an error is thrown.</div>
-<p></p><div class="alert alert-info" role="alert"><h4>Note</h4>The assumption here is that both variables are part of a valid
-      <a href="../type/json_value.html">json_value</a> linked list (so the normal <code>parent</code>, <code>previous</code>,
-      <code>next</code>, etc. pointers are properly associated if necessary).</div>
-<p></p><div class="alert alert-warning" role="alert"><h4>Warning</h4>This cannot be used to swap a parent/child pair, since that
-         could lead to a circular linkage. An exception is thrown if
-         this is tried.</div>
-<p></p><div class="alert alert-warning" role="alert"><h4>Warning</h4>There are also other situations where using this routine may
-         produce a malformed <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure, such as moving an array
-         element outside of an array. This is not checked for.</div>
-<p></p><div class="alert alert-info" role="alert"><h4>Note</h4>If <code>p1</code> and <code>p2</code> have a common parent, it is always safe to swap them.</div>
+    <p>Returns lowercase version of the <code>CK</code> string.</p>
     
     
      <h3>Calls</h3>
@@ -705,26 +652,38 @@ private subroutine json_value_swap(json, p1, p2)
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generated by graphviz version 2.26.3 (20100126.1600)
  -->
-<!-- Title: proc~~json_value_swap~~CallsGraph Pages: 1 -->
-<svg id="procjson_value_swapCallsGraph" width="220pt" height="34pt"
- viewBox="0.00 0.00 220.00 34.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="proc~~json_value_swap~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 30)">
-<title>proc~~json_value_swap~~CallsGraph</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-30 217,-30 217,5 -4,5"/>
-<!-- proc~json_value_swap -->
-<g id="node1" class="node"><title>proc~json_value_swap</title>
-<polygon fill="none" stroke="black" points="94,-26 3.55271e-14,-26 -7.10543e-15,-1.24345e-14 94,-3.55271e-15 94,-26"/>
-<text text-anchor="middle" x="47" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_value_swap</text>
+<!-- Title: proc~~lowercase_string~~CallsGraph Pages: 1 -->
+<svg id="proclowercase_stringCallsGraph" width="250pt" height="78pt"
+ viewBox="0.00 0.00 250.00 78.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~lowercase_string~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 74)">
+<title>proc~~lowercase_string~~CallsGraph</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-74 247,-74 247,5 -4,5"/>
+<!-- proc~lowercase_string -->
+<g id="node1" class="node"><title>proc~lowercase_string</title>
+<polygon fill="none" stroke="black" points="93,-48 1,-48 1,-22 93,-22 93,-48"/>
+<text text-anchor="middle" x="47" y="-32.55" font-family="Helvetica,sans-Serif" font-size="10.50">lowercase_string</text>
 </g>
-<!-- none~swap_pointers -->
-<g id="node2" class="node"><title>none~swap_pointers</title>
-<polygon fill="#d9534f" stroke="#d9534f" points="212,-26 130,-26 130,-1.24345e-14 212,-3.55271e-15 212,-26"/>
-<text text-anchor="middle" x="171" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">swap_pointers</text>
+<!-- proc~lowercase_character -->
+<g id="node2" class="node"><title>proc~lowercase_character</title>
+<a xlink:href="../proc/lowercase_character.html" xlink:title="lowercase_character">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="242,-70 130,-70 130,-44 242,-44 242,-70"/>
+<text text-anchor="middle" x="186" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">lowercase_character</text>
+</a>
 </g>
-<!-- proc~json_value_swap&#45;&gt;none~swap_pointers -->
-<g id="edge2" class="edge"><title>proc~json_value_swap&#45;&gt;none~swap_pointers</title>
-<path fill="none" stroke="black" d="M94.2328,-13C102.602,-13 111.352,-13 119.824,-13"/>
-<polygon fill="black" stroke="black" points="119.976,-16.5001 129.976,-13 119.976,-9.5001 119.976,-16.5001"/>
+<!-- proc~lowercase_string&#45;&gt;proc~lowercase_character -->
+<g id="edge2" class="edge"><title>proc~lowercase_string&#45;&gt;proc~lowercase_character</title>
+<path fill="none" stroke="black" d="M93.6717,-42.3869C101.948,-43.6968 110.71,-45.0836 119.411,-46.4608"/>
+<polygon fill="black" stroke="black" points="119.141,-49.9615 129.565,-48.0679 120.235,-43.0475 119.141,-49.9615"/>
+</g>
+<!-- concurrent -->
+<g id="node3" class="node"><title>concurrent</title>
+<polygon fill="#777777" stroke="#777777" points="218,-26 154,-26 154,-1.24345e-14 218,-3.55271e-15 218,-26"/>
+<text text-anchor="middle" x="186" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">concurrent</text>
+</g>
+<!-- proc~lowercase_string&#45;&gt;concurrent -->
+<g id="edge4" class="edge"><title>proc~lowercase_string&#45;&gt;concurrent</title>
+<path fill="none" stroke="black" d="M93.6717,-27.6131C109.846,-25.0532 127.876,-22.1995 143.68,-19.6981"/>
+<polygon fill="black" stroke="black" points="144.373,-23.1322 153.702,-18.1118 143.278,-16.2182 144.373,-23.1322"/>
 </g>
 </g>
 </svg>
@@ -821,6 +780,130 @@ implementation in a submodule of an interface in a parent module.</p>
                 
      
      
+     <h3>Called By</h3>
+     
+                <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: proc~~lowercase_string~~CalledByGraph Pages: 1 -->
+<svg id="proclowercase_stringCalledByGraph" width="210pt" height="34pt"
+ viewBox="0.00 0.00 210.00 34.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~lowercase_string~~CalledByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 30)">
+<title>proc~~lowercase_string~~CalledByGraph</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-30 207,-30 207,5 -4,5"/>
+<!-- proc~lowercase_string -->
+<g id="node1" class="node"><title>proc~lowercase_string</title>
+<polygon fill="none" stroke="black" points="201,-26 109,-26 109,-1.24345e-14 201,-3.55271e-15 201,-26"/>
+<text text-anchor="middle" x="155" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">lowercase_string</text>
+</g>
+<!-- proc~name_equal -->
+<g id="node2" class="node"><title>proc~name_equal</title>
+<a xlink:href="../proc/name_equal.html" xlink:title="name_equal">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="72,-26 2.84217e-14,-26 0,-1.24345e-14 72,-3.55271e-15 72,-26"/>
+<text text-anchor="middle" x="36" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">name_equal</text>
+</a>
+</g>
+<!-- proc~name_equal&#45;&gt;proc~lowercase_string -->
+<g id="edge2" class="edge"><title>proc~name_equal&#45;&gt;proc~lowercase_string</title>
+<path fill="none" stroke="black" d="M72.0269,-13C80.1888,-13 89.0525,-13 97.8477,-13"/>
+<polygon fill="black" stroke="black" points="98.0949,-16.5001 108.095,-13 98.0948,-9.5001 98.0949,-16.5001"/>
+</g>
+</g>
+</svg>
+</div>
+                <div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div>
+                <div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                      </div>
+                      <div class="modal-body">
+                        
+Nodes of different colours represent the following:
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 27.80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(0.817602 0.817602) rotate(0) translate(4 30)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-30 781,-30 781,5 -4,5"/>
+<!-- Module -->
+<g id="node1" class="node"><title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-26 2.13163e-14,-26 0,-1.24345e-14 54,-3.55271e-15 54,-26"/>
+<text text-anchor="middle" x="27" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node"><title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="138,-26 72,-26 72,-1.24345e-14 138,-3.55271e-15 138,-26"/>
+<text text-anchor="middle" x="105" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
+</g>
+<!-- Type -->
+<g id="node3" class="node"><title>Type</title>
+<polygon fill="#5cb85c" stroke="#5cb85c" points="210,-26 156,-26 156,-1.24345e-14 210,-3.55271e-15 210,-26"/>
+<text text-anchor="middle" x="183" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type</text>
+</g>
+<!-- Subroutine -->
+<g id="node4" class="node"><title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="292,-26 228,-26 228,-1.24345e-14 292,-3.55271e-15 292,-26"/>
+<text text-anchor="middle" x="260" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node5" class="node"><title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="364,-26 310,-26 310,-1.24345e-14 364,-3.55271e-15 364,-26"/>
+<text text-anchor="middle" x="337" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node6" class="node"><title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="436,-26 382,-26 382,-1.24345e-14 436,-3.55271e-15 436,-26"/>
+<text text-anchor="middle" x="409" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node7" class="node"><title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="590,-26 454,-26 454,-1.24345e-14 590,-3.55271e-15 590,-26"/>
+<text text-anchor="middle" x="522" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node8" class="node"><title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="662,-26 608,-26 608,-1.24345e-14 662,-3.55271e-15 662,-26"/>
+<text text-anchor="middle" x="635" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node9" class="node"><title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="776,-26 680,-26 680,-1.24345e-14 776,-3.55271e-15 776,-26"/>
+<text text-anchor="middle" x="728" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<h5>Module Graph</h5>
+<p>Solid arrows point from a parent (sub)module to the submodule which is
+descended from it. Dashed arrows point from a module being used to the
+module using it.</p>
+<h5>Type Graph</h5>
+<p>Solid arrows point from one derived type to another which extends
+(inherits from) it. Dashed arrows point from a derived type to another
+type containing it as a components, with a label listing the name(s) of
+said component(s).</p>
+<h5>Call Graph</h5>
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+     
     <br>
     
     <section>
@@ -841,11 +924,11 @@ implementation in a submodule of an interface in a parent module.</p>
   
 <tr>
   
-  <td><span class="anchor" id="variable-same_parent"></span>logical,</td>
+  <td><span class="anchor" id="variable-i%7E4"></span>integer,</td>
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>same_parent</strong></td><td></td><td></td><td></td>
+  <td><strong>i</strong></td><td></td><td></td><td><p>counter</p></td>
   
 </tr>
 
@@ -855,53 +938,11 @@ implementation in a submodule of an interface in a parent module.</p>
   
 <tr>
   
-  <td><span class="anchor" id="variable-first_last"></span>logical,</td>
+  <td><span class="anchor" id="variable-n%7E2"></span>integer,</td>
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>first_last</strong></td><td></td><td></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-adjacent"></span>logical,</td>
-  
-  <td>public</td>
-  <td></td><td>::</td>
-  <td><strong>adjacent</strong></td><td></td><td></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-a"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  
-  <td>public,</td>
-  <td>pointer</td><td>::</td>
-  <td><strong>a</strong></td><td></td><td></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-b"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  
-  <td>public,</td>
-  <td>pointer</td><td>::</td>
-  <td><strong>b</strong></td><td></td><td></td><td></td>
+  <td><strong>n</strong></td><td></td><td></td><td><p>length of input string</p></td>
   
 </tr>
 
@@ -924,213 +965,30 @@ implementation in a submodule of an interface in a parent module.</p>
 
 
     
-    <section>
-    <h2>Subroutines</h2>
-    
-    
-  <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-swap_pointers"></span><h3>
-pure subroutine swap_pointers(s1, s2)
-    
-    
-    
-</h3></div>
-  <div class="panel-body">
-       
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  <td>intent(inout),</td>
-  <td></td>
-  
-  <td>pointer</td><td>::</td>
-  <td><strong>s1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  <td>intent(inout),</td>
-  <td></td>
-  
-  <td>pointer</td><td>::</td>
-  <td><strong>s2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-        
-
-  </div>
-  </div>
-
-    
-    </section>    
-    
     
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_value_swap</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">pure elemental function </span><span class="n">lowercase_string</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">s_lower</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">p1</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">p2</span>
+<span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>      <span class="c">!! input string</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)))</span>   <span class="kd">::</span> <span class="n">s_lower</span>  <span class="c">!! lowercase version of the string</span>
 
-    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">same_parent</span><span class="p">,</span><span class="n">first_last</span><span class="p">,</span><span class="n">adjacent</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span>  <span class="c">!! counter</span>
+    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">n</span>  <span class="c">!! length of input string</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">return</span>
+    <span class="n">s_lower</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len_trim</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
 
-    <span class="c">!both have to be associated:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">))</span> <span class="k">then</span>
-
-        <span class="c">!simple check to make sure that they both</span>
-        <span class="c">!aren&#39;t pointing to the same thing:</span>
-        <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="k">then</span>
-
-            <span class="c">!we will not allow swapping an item with one of its descendants:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">is_child_of</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">is_child_of</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_swap: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                          <span class="s1">&#39;cannot swap an item with one of its descendants&#39;</span><span class="p">)</span>
-            <span class="k">else</span>
-
-<span class="k">                </span><span class="n">same_parent</span> <span class="o">=</span> <span class="p">(</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
-                                <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
-                                <span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">,</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span> <span class="p">)</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">same_parent</span><span class="p">)</span> <span class="k">then</span>
-                    <span class="c">!if p1,p2 are the first,last or last,first</span>
-                    <span class="c">!children of a common parent</span>
-                    <span class="n">first_last</span> <span class="o">=</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p1</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
-                                  <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
-                                 <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p1</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
-                                  <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span>
-                <span class="k">else</span>
-<span class="k">                    </span><span class="n">first_last</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
-                <span class="k">end if</span>
-
-                <span class="c">!first, we fix children,tail pointers:</span>
-
-                <span class="k">if</span> <span class="p">(</span><span class="n">same_parent</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">first_last</span><span class="p">)</span> <span class="k">then</span>
-
-                    <span class="c">!this is all we have to do for the parent in this case:</span>
-                    <span class="k">call </span><span class="n">swap_pointers</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">)</span>
-
-                <span class="k">else if</span> <span class="p">(</span><span class="n">same_parent</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">first_last</span><span class="p">)</span> <span class="k">then</span>
-
-<span class="k">                    if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                        </span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">p2</span> <span class="c">! p1 is the first child of the parent</span>
-                    <span class="k">else if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                        </span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">p1</span> <span class="c">! p2 is the first child of the parent</span>
-                    <span class="k">end if</span>
-<span class="k">                    if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                        </span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span> <span class="o">=&gt;</span> <span class="n">p2</span> <span class="c">! p1 is the last child of the parent</span>
-                    <span class="k">else if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                        </span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span> <span class="o">=&gt;</span> <span class="n">p1</span> <span class="c">! p2 is the last child of the parent</span>
-                    <span class="k">end if</span>
-
-<span class="k">                else</span> <span class="c">! general case: different parents</span>
-
-                    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span> <span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">p2</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span>     <span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span>     <span class="o">=&gt;</span> <span class="n">p2</span>
-                    <span class="k">end if</span>
-<span class="k">                    if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">p1</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span>     <span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span>     <span class="o">=&gt;</span> <span class="n">p1</span>
-                    <span class="k">end if</span>
-<span class="k">                    call </span><span class="n">swap_pointers</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">,</span> <span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span>
-
-                <span class="k">end if</span>
-
-                <span class="c">!now, have to fix previous,next pointers:</span>
-
-                <span class="c">!first, see if they are adjacent:</span>
-                <span class="n">adjacent</span> <span class="o">=</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">next</span><span class="p">,</span><span class="n">p2</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
-                           <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">next</span><span class="p">,</span><span class="n">p1</span><span class="p">)</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">next</span><span class="p">,</span><span class="n">p1</span><span class="p">))</span> <span class="k">then</span>    <span class="c">!p2,p1</span>
-                    <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">p2</span>
-                    <span class="n">b</span> <span class="o">=&gt;</span> <span class="n">p1</span>
-                <span class="k">else</span>    <span class="c">!p1,p2 (or not adjacent)</span>
-                    <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">p1</span>
-                    <span class="n">b</span> <span class="o">=&gt;</span> <span class="n">p2</span>
-                <span class="k">end if</span>
-<span class="k">                if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">previous</span><span class="p">))</span> <span class="n">a</span><span class="p">%</span><span class="n">previous</span><span class="p">%</span><span class="n">next</span> <span class="o">=&gt;</span> <span class="n">b</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">b</span><span class="p">%</span><span class="n">next</span><span class="p">))</span>     <span class="n">b</span><span class="p">%</span><span class="n">next</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">a</span>
-
-                <span class="k">if</span> <span class="p">(</span><span class="n">adjacent</span><span class="p">)</span> <span class="k">then</span>
-                    <span class="c">!a comes before b in the original list</span>
-                    <span class="n">b</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">a</span><span class="p">%</span><span class="n">previous</span>
-                    <span class="n">a</span><span class="p">%</span><span class="n">next</span>     <span class="o">=&gt;</span> <span class="n">b</span><span class="p">%</span><span class="n">next</span>
-                    <span class="n">a</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">b</span>
-                    <span class="n">b</span><span class="p">%</span><span class="n">next</span>     <span class="o">=&gt;</span> <span class="n">a</span>
-                <span class="k">else</span>
-<span class="k">                    if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">next</span><span class="p">))</span>       <span class="n">a</span><span class="p">%</span><span class="n">next</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">b</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">b</span><span class="p">%</span><span class="n">previous</span><span class="p">))</span>   <span class="n">b</span><span class="p">%</span><span class="n">previous</span><span class="p">%</span><span class="n">next</span> <span class="o">=&gt;</span> <span class="n">a</span>
-                    <span class="k">call </span><span class="n">swap_pointers</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">previous</span><span class="p">,</span><span class="n">b</span><span class="p">%</span><span class="n">previous</span><span class="p">)</span>
-                    <span class="k">call </span><span class="n">swap_pointers</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">next</span><span class="p">,</span>    <span class="n">b</span><span class="p">%</span><span class="n">next</span><span class="p">)</span>
-                <span class="k">end if</span>
-
-<span class="k">            end if</span>
-
-<span class="k">        else</span>
-<span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_swap: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                      <span class="s1">&#39;both pointers must be associated&#39;</span><span class="p">)</span>
-        <span class="k">end if</span>
-
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        do </span><span class="n">concurrent</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">)</span>
+            <span class="n">s_lower</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">lowercase_character</span><span class="p">(</span><span class="n">str</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">))</span>
+        <span class="k">end do</span>
 <span class="k">    end if</span>
 
-<span class="k">    contains</span>
-
-<span class="k">        pure subroutine </span><span class="n">swap_pointers</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">)</span>
-
-        <span class="k">implicit none</span>
-
-<span class="k">        type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">s1</span>
-        <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">s2</span>
-
-        <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">tmp</span>  <span class="c">!! temporary pointer</span>
-
-        <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">            </span><span class="n">tmp</span> <span class="o">=&gt;</span> <span class="n">s1</span>
-            <span class="n">s1</span>  <span class="o">=&gt;</span> <span class="n">s2</span>
-            <span class="n">s2</span>  <span class="o">=&gt;</span> <span class="n">tmp</span>
-            <span class="k">nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-        <span class="k">end if</span>
-
-<span class="k">        end subroutine </span><span class="n">swap_pointers</span>
-
-    <span class="k">end subroutine </span><span class="n">json_value_swap</span>
+<span class="k">    end function </span><span class="n">lowercase_string</span>
 </pre></div>
 
     </section>

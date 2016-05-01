@@ -431,6 +431,10 @@
           
           <a class="list-group-item" href="../proc/lowercase_character.html">lowercase_character</a>
           
+          <a class="list-group-item" href="../proc/lowercase_string.html">lowercase_string</a>
+          
+          <a class="list-group-item" href="../proc/name_equal.html">name_equal</a>
+          
           <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
           
           <a class="list-group-item" href="../interface/operator%28SLASH%3D%29.html">operator(/=)</a>
@@ -597,7 +601,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine json_initialize(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking)
+private subroutine json_initialize(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys)
     
     
     
@@ -625,7 +629,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E10"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E11"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -685,7 +689,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-real_format%7E4"></span>character(kind=len=*,CDK),</td>
+  <td><span class="anchor" id="variable-real_format%7E4"></span>character(kind=CDK,len=*),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -700,7 +704,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-spaces_per_tab%7E5"></span>integer,</td>
+  <td><span class="anchor" id="variable-spaces_per_tab%7E5"></span>integer(kind=IK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -723,6 +727,38 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
  (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-trailing_spaces_significant%7E5"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
+ space to be considered significant.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-case_sensitive_keys%7E5"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
+ case sensitive.</p></td>
   
 </tr>
 
@@ -886,7 +922,9 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
     <h2><span class="anchor" id="src"></span>Source Code</h2>
     <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_initialize</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">verbose</span><span class="p">,</span><span class="n">compact_reals</span><span class="p">,&amp;</span>
                                <span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">,</span><span class="n">spaces_per_tab</span><span class="p">,&amp;</span>
-                               <span class="n">strict_type_checking</span><span class="p">)</span>
+                               <span class="n">strict_type_checking</span><span class="p">,&amp;</span>
+                               <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
+                               <span class="n">case_sensitive_keys</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -894,11 +932,15 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">verbose</span>       <span class="c">!! mainly useful for debugging (default is false)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">compact_reals</span> <span class="c">!! to compact the real number strings for output (default is true)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">print_signs</span>   <span class="c">!! always print numeric sign (default is false)</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">,</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">real_format</span> <span class="c">!! Real number format: &#39;E&#39; [default], &#39;*&#39;, &#39;G&#39;, &#39;EN&#39;, or &#39;ES&#39;</span>
-    <span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">spaces_per_tab</span> <span class="c">!! number of spaces per tab for indenting (default is 2)</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">real_format</span> <span class="c">!! Real number format: &#39;E&#39; [default], &#39;*&#39;, &#39;G&#39;, &#39;EN&#39;, or &#39;ES&#39;</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">spaces_per_tab</span> <span class="c">!! number of spaces per tab for indenting (default is 2)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">strict_type_checking</span> <span class="c">!! if true, no integer, double, or logical type</span>
                                                             <span class="c">!! conversions are done for the `get` routines</span>
                                                             <span class="c">!! (default is false)</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">trailing_spaces_significant</span>  <span class="c">!! for name and path comparisons, is trailing</span>
+                                                                    <span class="c">!! space to be considered significant.</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">case_sensitive_keys</span>  <span class="c">!! for name and path comparisons, are they</span>
+                                                            <span class="c">!! case sensitive.</span>
 
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="kd">::</span> <span class="n">w</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">sgn</span><span class="p">,</span> <span class="n">rl_edit_desc</span>
@@ -907,15 +949,6 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
 
     <span class="c">!reset exception to false:</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">clear_exceptions</span><span class="p">()</span>
-
-    <span class="c">!</span>
-    <span class="c">!JW comment out for now (these are now protected variables in another module)</span>
-    <span class="c">! for thread-safe version, we won&#39;t be able to have global variables.........</span>
-    <span class="c">!</span>
-    <span class="c">!Ensure gfortran bug work around &quot;parameters&quot; are set properly</span>
-    <span class="c">!null_str  = &#39;null&#39;</span>
-    <span class="c">!true_str  = &#39;true&#39;</span>
-    <span class="c">!false_str = &#39;false&#39;</span>
 
     <span class="c">!Just in case, clear these global variables also:</span>
     <span class="n">json</span><span class="p">%</span><span class="n">pushed_index</span> <span class="o">=</span> <span class="mi">0</span>
@@ -930,14 +963,17 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
     <span class="k">open</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 <span class="cp">#endif</span>
 
-    <span class="c">!spaces per tab:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">spaces_per_tab</span><span class="p">))</span> <span class="n">json</span><span class="p">%</span><span class="n">spaces_per_tab</span> <span class="o">=</span> <span class="n">spaces_per_tab</span>
-
-    <span class="c">!verbose error printing:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">verbose</span><span class="p">))</span> <span class="n">json</span><span class="p">%</span><span class="n">is_verbose</span> <span class="o">=</span> <span class="n">verbose</span>
-
-    <span class="c">!type checking:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">strict_type_checking</span><span class="p">))</span> <span class="n">json</span><span class="p">%</span><span class="n">strict_type_checking</span> <span class="o">=</span> <span class="n">strict_type_checking</span>
+    <span class="c">!various optional inputs:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">spaces_per_tab</span><span class="p">))</span> <span class="p">&amp;</span>
+        <span class="n">json</span><span class="p">%</span><span class="n">spaces_per_tab</span> <span class="o">=</span> <span class="n">spaces_per_tab</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">verbose</span><span class="p">))</span> <span class="p">&amp;</span>
+        <span class="n">json</span><span class="p">%</span><span class="n">is_verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">strict_type_checking</span><span class="p">))</span> <span class="p">&amp;</span>
+        <span class="n">json</span><span class="p">%</span><span class="n">strict_type_checking</span> <span class="o">=</span> <span class="n">strict_type_checking</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">trailing_spaces_significant</span><span class="p">))</span> <span class="p">&amp;</span>
+        <span class="n">json</span><span class="p">%</span><span class="n">trailing_spaces_significant</span> <span class="o">=</span> <span class="n">trailing_spaces_significant</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">case_sensitive_keys</span><span class="p">))</span> <span class="p">&amp;</span>
+        <span class="n">json</span><span class="p">%</span><span class="n">case_sensitive_keys</span> <span class="o">=</span> <span class="n">case_sensitive_keys</span>
 
     <span class="c">!Set the format for real numbers:</span>
     <span class="c">! [if not changing it, then it remains the same]</span>

@@ -407,6 +407,10 @@
           
           <a class="list-group-item" href="../proc/lowercase_character.html">lowercase_character</a>
           
+          <a class="list-group-item" href="../proc/lowercase_string.html">lowercase_string</a>
+          
+          <a class="list-group-item" href="../proc/name_equal.html">name_equal</a>
+          
           <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
           
           <a class="list-group-item" href="../interface/operator%28SLASH%3D%29.html">operator(/=)</a>
@@ -717,7 +721,7 @@ implementation in a submodule of an interface in a parent module.</p>
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-initialize_json_core"></span><h3>
-private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking) result(json_core_object)
+private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys) result(json_core_object)
     
     
     
@@ -789,7 +793,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   
 <tr>
   
-  <td><span class="anchor" ></span>character(kind=len=*,CDK),</td>
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -804,7 +808,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   
 <tr>
   
-  <td><span class="anchor" ></span>integer,</td>
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -827,6 +831,38 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
  (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
+ space to be considered significant.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
+ case sensitive.</p></td>
   
 </tr>
 

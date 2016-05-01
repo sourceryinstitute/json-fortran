@@ -403,6 +403,10 @@
           
           <a class="list-group-item" href="../proc/lowercase_character.html">lowercase_character</a>
           
+          <a class="list-group-item" href="../proc/lowercase_string.html">lowercase_string</a>
+          
+          <a class="list-group-item" href="../proc/name_equal.html">name_equal</a>
+          
           <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
           
           <a class="list-group-item" href="../interface/operator%28SLASH%3D%29.html">operator(/=)</a>
@@ -569,7 +573,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine initialize_json_core_in_file(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking)
+private subroutine initialize_json_core_in_file(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys)
     
     
     
@@ -657,7 +661,7 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
   
 <tr>
   
-  <td><span class="anchor" id="variable-real_format%7E2"></span>character(kind=len=*,CDK),</td>
+  <td><span class="anchor" id="variable-real_format%7E2"></span>character(kind=CDK,len=*),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -672,7 +676,7 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
   
 <tr>
   
-  <td><span class="anchor" id="variable-spaces_per_tab%7E3"></span>integer,</td>
+  <td><span class="anchor" id="variable-spaces_per_tab%7E3"></span>integer(kind=IK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -695,6 +699,38 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
  (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-trailing_spaces_significant%7E3"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
+ space to be considered significant.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-case_sensitive_keys%7E3"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
+ case sensitive.</p></td>
   
 </tr>
 
@@ -735,7 +771,9 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
     <h2><span class="anchor" id="src"></span>Source Code</h2>
     <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">initialize_json_core_in_file</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">verbose</span><span class="p">,</span><span class="n">compact_reals</span><span class="p">,&amp;</span>
                                             <span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">,</span><span class="n">spaces_per_tab</span><span class="p">,&amp;</span>
-                                            <span class="n">strict_type_checking</span><span class="p">)</span>
+                                            <span class="n">strict_type_checking</span><span class="p">,&amp;</span>
+                                            <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
+                                            <span class="n">case_sensitive_keys</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -743,15 +781,21 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">verbose</span>       <span class="c">!! mainly useful for debugging (default is false)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">compact_reals</span> <span class="c">!! to compact the real number strings for output (default is true)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">print_signs</span>   <span class="c">!! always print numeric sign (default is false)</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">,</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">real_format</span> <span class="c">!! Real number format: &#39;E&#39; [default], &#39;*&#39;, &#39;G&#39;, &#39;EN&#39;, or &#39;ES&#39;</span>
-    <span class="kt">integer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">spaces_per_tab</span> <span class="c">!! number of spaces per tab for indenting (default is 2)</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">real_format</span> <span class="c">!! Real number format: &#39;E&#39; [default], &#39;*&#39;, &#39;G&#39;, &#39;EN&#39;, or &#39;ES&#39;</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">spaces_per_tab</span> <span class="c">!! number of spaces per tab for indenting (default is 2)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">strict_type_checking</span> <span class="c">!! if true, no integer, double, or logical type</span>
                                                             <span class="c">!! conversions are done for the `get` routines</span>
                                                             <span class="c">!! (default is false)</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">trailing_spaces_significant</span>  <span class="c">!! for name and path comparisons, is trailing</span>
+                                                                    <span class="c">!! space to be considered significant.</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">case_sensitive_keys</span>  <span class="c">!! for name and path comparisons, are they</span>
+                                                            <span class="c">!! case sensitive.</span>
 
     <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">json</span><span class="p">%</span><span class="n">initialize</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span><span class="n">compact_reals</span><span class="p">,&amp;</span>
                             <span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">,</span><span class="n">spaces_per_tab</span><span class="p">,&amp;</span>
-                            <span class="n">strict_type_checking</span><span class="p">)</span>
+                            <span class="n">strict_type_checking</span><span class="p">,&amp;</span>
+                            <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
+                            <span class="n">case_sensitive_keys</span><span class="p">)</span>
 
     <span class="k">end subroutine </span><span class="n">initialize_json_core_in_file</span>
 </pre></div>

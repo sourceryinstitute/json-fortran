@@ -413,6 +413,10 @@
           
           <a class="list-group-item" href="../proc/lowercase_character.html">lowercase_character</a>
           
+          <a class="list-group-item" href="../proc/lowercase_string.html">lowercase_string</a>
+          
+          <a class="list-group-item" href="../proc/name_equal.html">name_equal</a>
+          
           <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
           
           <a class="list-group-item" href="../interface/operator%28SLASH%3D%29.html">operator(/=)</a>
@@ -615,29 +619,29 @@
 <polygon fill="none" stroke="black" points="54,-48 2.13163e-14,-48 0,-22 54,-22 54,-48"/>
 <text text-anchor="middle" x="27" y="-32.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_file</text>
 </g>
-<!-- proc~initialize_json_file -->
-<g id="node2" class="node"><title>proc~initialize_json_file</title>
-<a xlink:href="../proc/initialize_json_file.html" xlink:title="initialize_json_file">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="193,-70 99,-70 99,-44 193,-44 193,-70"/>
-<text text-anchor="middle" x="146" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">initialize_json_file</text>
-</a>
-</g>
-<!-- interface~json_file&#45;&gt;proc~initialize_json_file -->
-<g id="edge2" class="edge"><title>interface~json_file&#45;&gt;proc~initialize_json_file</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M54.0029,-39.9921C64.1819,-41.874 76.1913,-44.0942 88.1142,-46.2984"/>
-<polygon fill="black" stroke="black" points="87.5973,-49.7621 98.067,-48.1384 88.87,-42.8787 87.5973,-49.7621"/>
-</g>
 <!-- proc~initialize_json_file_v2 -->
-<g id="node3" class="node"><title>proc~initialize_json_file_v2</title>
+<g id="node2" class="node"><title>proc~initialize_json_file_v2</title>
 <a xlink:href="../proc/initialize_json_file_v2.html" xlink:title="initialize_json_file_v2">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="202,-26 90,-26 90,-1.24345e-14 202,-3.55271e-15 202,-26"/>
-<text text-anchor="middle" x="146" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">initialize_json_file_v2</text>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="202,-70 90,-70 90,-44 202,-44 202,-70"/>
+<text text-anchor="middle" x="146" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">initialize_json_file_v2</text>
 </a>
 </g>
 <!-- interface~json_file&#45;&gt;proc~initialize_json_file_v2 -->
-<g id="edge4" class="edge"><title>interface~json_file&#45;&gt;proc~initialize_json_file_v2</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M54.0029,-30.0079C61.859,-28.5555 70.8053,-26.9015 79.9607,-25.2089"/>
-<polygon fill="black" stroke="black" points="80.7385,-28.6245 89.9356,-23.3648 79.4659,-21.7412 80.7385,-28.6245"/>
+<g id="edge2" class="edge"><title>interface~json_file&#45;&gt;proc~initialize_json_file_v2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M54.0029,-39.9921C61.859,-41.4445 70.8053,-43.0985 79.9607,-44.7911"/>
+<polygon fill="black" stroke="black" points="79.4659,-48.2588 89.9356,-46.6352 80.7385,-41.3755 79.4659,-48.2588"/>
+</g>
+<!-- proc~initialize_json_file -->
+<g id="node3" class="node"><title>proc~initialize_json_file</title>
+<a xlink:href="../proc/initialize_json_file.html" xlink:title="initialize_json_file">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="193,-26 99,-26 99,-1.24345e-14 193,-3.55271e-15 193,-26"/>
+<text text-anchor="middle" x="146" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">initialize_json_file</text>
+</a>
+</g>
+<!-- interface~json_file&#45;&gt;proc~initialize_json_file -->
+<g id="edge4" class="edge"><title>interface~json_file&#45;&gt;proc~initialize_json_file</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M54.0029,-30.0079C64.1819,-28.126 76.1913,-25.9058 88.1142,-23.7016"/>
+<polygon fill="black" stroke="black" points="88.87,-27.1213 98.067,-21.8616 87.5973,-20.2379 88.87,-27.1213"/>
 </g>
 </g>
 </svg>
@@ -746,7 +750,7 @@ implementation in a submodule of an interface in a parent module.</p>
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-initialize_json_file"></span><h3>
-private function <a href='../proc/initialize_json_file.html'>initialize_json_file</a>(p, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking) result(file_object)
+private function <a href='../proc/initialize_json_file.html'>initialize_json_file</a>(p, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys) result(file_object)
     
     
     
@@ -834,7 +838,7 @@ private function <a href='../proc/initialize_json_file.html'>initialize_json_fil
   
 <tr>
   
-  <td><span class="anchor" ></span>character(kind=len=*,CDK),</td>
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -849,7 +853,7 @@ private function <a href='../proc/initialize_json_file.html'>initialize_json_fil
   
 <tr>
   
-  <td><span class="anchor" ></span>integer,</td>
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -872,6 +876,38 @@ private function <a href='../proc/initialize_json_file.html'>initialize_json_fil
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
  (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
+ space to be considered significant.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
+ case sensitive.</p></td>
   
 </tr>
 

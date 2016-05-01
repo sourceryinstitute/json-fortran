@@ -157,6 +157,10 @@
         
         <a class="list-group-item" href="../type/json_core.html#variable-strict_type_checking">strict_type_checking</a>
         
+        <a class="list-group-item" href="../type/json_core.html#variable-trailing_spaces_significant">trailing_spaces_significant</a>
+        
+        <a class="list-group-item" href="../type/json_core.html#variable-case_sensitive_keys">case_sensitive_keys</a>
+        
       </div>
     </div>
   </div>
@@ -443,6 +447,8 @@
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-swap">swap</a>
           
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-is_child_of">is_child_of</a>
+          
+          <a class="list-group-item" href="../type/json_core.html#boundprocedure-name_equal">name_equal</a>
           
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_print">json_value_print</a>
           
@@ -838,7 +844,7 @@ implementation in a submodule of an interface in a parent module.</p>
   
 <tr>
   
-  <td><span class="anchor" id="variable-strict_type_checking"></span>logical,</td>
+  <td><span class="anchor" id="variable-strict_type_checking"></span>logical(kind=LK),</td>
   
   <td>private</td>
   <td></td><td>::</td>
@@ -846,6 +852,36 @@ implementation in a submodule of an interface in a parent module.</p>
  in the <code>get</code> routines if the actual variable
  type is different from the return type (for
  example, integer to double).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-trailing_spaces_significant"></span>logical(kind=LK),</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>trailing_spaces_significant</strong></td><td> =</td><td>.false.</td><td><p>for name and path comparisons, is trailing
+ space to be considered significant.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-case_sensitive_keys"></span>logical(kind=LK),</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>case_sensitive_keys</strong></td><td> =</td><td>.true.</td><td><p>for name and path comparisons, are they
+ case sensitive.</p></td>
   
 </tr>
 
@@ -880,7 +916,7 @@ implementation in a submodule of an interface in a parent module.</p>
     
     
     <h3>
-private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking) result(json_core_object)
+private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys) result(json_core_object)
     
     
     
@@ -950,7 +986,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   
 <tr>
   
-  <td><span class="anchor" ></span>character(kind=len=*,CDK),</td>
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -965,7 +1001,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   
 <tr>
   
-  <td><span class="anchor" ></span>integer,</td>
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -988,6 +1024,38 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
  (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
+ space to be considered significant.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
+ case sensitive.</p></td>
   
 </tr>
 
@@ -23805,7 +23873,7 @@ private subroutine <a href='../proc/json_info.html'>json_info</a>(json, p, var_t
          
     
     <h3>
-private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking)
+private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys)
     
     
     
@@ -23890,7 +23958,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
   
 <tr>
   
-  <td><span class="anchor" ></span>character(kind=len=*,CDK),</td>
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -23905,7 +23973,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
   
 <tr>
   
-  <td><span class="anchor" ></span>integer,</td>
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -23928,6 +23996,38 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
  (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
+ space to be considered significant.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
+ case sensitive.</p></td>
   
 </tr>
 
@@ -24430,6 +24530,128 @@ private function <a href='../proc/json_value_is_child_of.html'>json_value_is_chi
        
        <p>Returns True if <code>p2</code> is a descendant of <code>p1</code>
   (i.e, a child, or a child of child, etc.)</p>
+        
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-name_equal"></span><h3>procedure, private :: <strong>name_equal</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private function <a href='../proc/name_equal.html'>name_equal</a>(json, p, name) result(is_equal)
+    
+    
+    
+</h3>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>p</strong></td><td><p>the json object</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td><p>the name to check for</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  <p>true if the string are lexically equal</p>
+    
+    
+    <h4>Description</h4>
+       
+       
+
+<dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>4/30/2016</dd>
+    
+    
+    
+    
+  </dl>
+
+
+       
+       <p>Returns true if <code>name</code> is equal to <code>p%name</code>, using the specified
+  settings for case sensitivity and trailing whitespace.</p>
         
 
       
@@ -26107,10 +26329,16 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
 
         <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ipos</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c">!! for allocatable strings: next character to read</span>
 
-        <span class="kt">logical</span> <span class="kd">::</span> <span class="n">strict_type_checking</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span> <span class="c">!! if true, then no type conversions are done</span>
-                                                  <span class="c">!! in the `get` routines if the actual variable</span>
-                                                  <span class="c">!! type is different from the return type (for</span>
-                                                  <span class="c">!! example, integer to double).</span>
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">strict_type_checking</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span> <span class="c">!! if true, then no type conversions are done</span>
+                                                      <span class="c">!! in the `get` routines if the actual variable</span>
+                                                      <span class="c">!! type is different from the return type (for</span>
+                                                      <span class="c">!! example, integer to double).</span>
+
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">trailing_spaces_significant</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>    <span class="c">!! for name and path comparisons, is trailing</span>
+                                                                <span class="c">!! space to be considered significant.</span>
+
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">case_sensitive_keys</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>    <span class="c">!! for name and path comparisons, are they</span>
+                                                       <span class="c">!! case sensitive.</span>
 
         <span class="k">contains</span>
 
@@ -26421,6 +26649,7 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">is_child_of</span>         <span class="o">=&gt;</span> <span class="n">json_value_is_child_of</span>   <span class="c">!! Check if a [[json_value]] is a child of another.</span>
 
         <span class="c">!other private routines:</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">name_equal</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_value_print</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">string_to_integer</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">string_to_double</span>
