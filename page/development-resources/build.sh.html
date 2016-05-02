@@ -487,37 +487,42 @@ FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILE
     <span class="nv">GLOBIGNORE</span><span class="o">=</span><span class="s1">&#39;*.*&#39;</span>
     <span class="c1">#</span>
     <span class="k">for</span> TEST in jf_test_*<span class="p">;</span> <span class="k">do</span>
-    <span class="c1"># It would be nice to run json output printed to stdout through jsonlint, however,</span>
-    <span class="c1"># some tests output more than one json structure and these need to be split</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Running </span><span class="si">${</span><span class="nv">TEST</span><span class="si">}</span><span class="s2">&quot;</span>
-    ./<span class="si">${</span><span class="nv">TEST</span><span class="si">}</span>
+        <span class="c1"># It would be nice to run json output printed to stdout through jsonlint, however,</span>
+        <span class="c1"># some tests output more than one json structure and these need to be split</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Running </span><span class="si">${</span><span class="nv">TEST</span><span class="si">}</span><span class="s2">&quot;</span>
+        ./<span class="si">${</span><span class="nv">TEST</span><span class="si">}</span>
     <span class="k">done</span>
     <span class="nb">cd</span> -
     <span class="nv">GLOBIGNORE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$OLD_IGNORES</span><span class="s2">&quot;</span>
     <span class="k">if</span> <span class="o">[[</span> <span class="nv">$CODE_COVERAGE</span> <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
-    <span class="o">[</span> -f json_module.F90.gcov <span class="o">]</span> <span class="o">&amp;&amp;</span> rm json_module.F90.gcov
-    gcov -o <span class="nv">$LIBDIR</span> <span class="si">${</span><span class="nv">SRCDIR</span><span class="si">}${</span><span class="nv">MODCODE</span><span class="si">}</span>
-    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$TRY_UNICODE</span> <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
-        <span class="c1"># gcov/gfortran bug work around</span>
-        awk -F<span class="s1">&#39;:&#39;</span> <span class="s1">&#39;{line=&quot;&quot;; for(i=2;i&lt;=NF;i++){line=line&quot;:&quot;$i}; if (NR &gt; 1) print $1 prevline; prevline=line}; END{print &quot;        -&quot;prevline}&#39;</span> json_module.F90.gcov &gt; json_module.F90.gcov.fixed <span class="o">&amp;&amp;</span> <span class="se">\</span>
-        mv json_module.F90.gcov<span class="o">{</span>.fixed,<span class="o">}</span>
-        <span class="c1"># rename so we can merge coverage info</span>
-        mv json_module.F90.gcov json_module-unicode.F90.gcov
-    <span class="k">else</span>
-        <span class="c1"># rename so we can merge coverage info</span>
-        mv json_module.F90.gcov json_module-no-unicode.F90.gcov
-    <span class="k">fi</span>
-    <span class="k">if</span> <span class="o">[</span> -f json_module-unicode.F90.gcov <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -f json_module-no-unicode.F90.gcov <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-        <span class="c1"># merge them</span>
-        ./pages/development-resources/gccr.pl -n -c json_module-no-unicode.F90.gcov no-unicode <span class="se">\</span>
-                          json_module-unicode.F90.gcov unicode &gt; json_module.F90.gcov
-    <span class="k">else</span>
-        cp json_module*-unicode.F90.gcov json_module.F90.gcov
-    <span class="k">fi</span>
-    FoBiS.py rule -gcov_analyzer .
-    sed -i<span class="s2">&quot;bak&quot;</span> -E <span class="s1">&#39;s; \*\*([a-zA-Z]+[a-zA-Z0-9_]*)\*\*; \*\*[[\1]]\*\*;&#39;</span> json_module.F90.gcov.md
-    sed -i<span class="s2">&quot;bak&quot;</span> -E <span class="s1">&#39;s;, line ([0-9]+);, line [\1](https://github.com/jacobwilliams/json-fortran/blob/master/src/json_module.F90#L\1);&#39;</span> json_module.F90.gcov.md
-    gcov -o <span class="nv">$BINDIR</span> <span class="si">${</span><span class="nv">TESTDIR</span><span class="si">}</span>*.<span class="o">[</span>Ff<span class="o">]</span>90
+        <span class="k">for</span> SRCFILE in json_string_utilities.F90 json_value_module.F90 json_file_module.F90 <span class="p">;</span> <span class="k">do</span>
+            <span class="o">[</span> -f <span class="si">${</span><span class="nv">SRCDIR</span><span class="si">}${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov <span class="o">]</span> <span class="o">&amp;&amp;</span> rm <span class="si">${</span><span class="nv">SRCDIR</span><span class="si">}${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov
+            gcov -o <span class="nv">$LIBDIR</span> <span class="si">${</span><span class="nv">SRCDIR</span><span class="si">}${</span><span class="nv">SRCFILE</span><span class="si">}</span>
+            <span class="k">if</span> <span class="o">[[</span> <span class="nv">$TRY_UNICODE</span> <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
+                <span class="c1"># gcov/gfortran bug work around</span>
+                awk -F<span class="s1">&#39;:&#39;</span> <span class="s1">&#39;{line=&quot;&quot;; for(i=2;i&lt;=NF;i++){line=line&quot;:&quot;$i}; if (NR &gt; 1) print $1 prevline; prevline=line}; END{print &quot;        -&quot;prevline}&#39;</span> <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov &gt; <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov.fixed <span class="o">&amp;&amp;</span> <span class="se">\</span>
+                mv <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov<span class="o">{</span>.fixed,<span class="o">}</span>
+                <span class="c1"># rename so we can merge coverage info</span>
+                mv <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-unicode.gcov
+            <span class="k">else</span>
+                <span class="c1"># rename so we can merge coverage info</span>
+                mv <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-no-unicode.gcov
+            <span class="k">fi</span>
+            <span class="k">if</span> <span class="o">[</span> -f <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-unicode.gcov <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -f <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-no-unicode.gcov <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+                <span class="c1"># merge them</span>
+                ./pages/development-resources/gccr.pl -n -c <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-no-unicode.gcov no-unicode <span class="se">\</span>
+                                  <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-unicode.gcov unicode &gt; <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov
+            <span class="k">else</span>
+                cp <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>*-unicode.gcov <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov
+            <span class="k">fi</span>
+        <span class="k">done</span>
+
+        FoBiS.py rule -gcov_analyzer .
+        <span class="k">for</span> SRCFILE in json_string_utilities.F90 json_value_module.F90 json_file_module.F90 <span class="p">;</span> <span class="k">do</span>
+            sed -i<span class="s2">&quot;bak&quot;</span> -E <span class="s1">&#39;s; \*\*([a-zA-Z]+[a-zA-Z0-9_]*)\*\*; \*\*[[\1]]\*\*;&#39;</span> <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov.md
+            sed -i<span class="s2">&quot;bak&quot;</span> -E <span class="s2">&quot;s;, line ([0-9]+);, line [\1](https://github.com/jacobwilliams/json-fortran/blob/master/src/</span><span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span><span class="s2">#L\1);&quot;</span> <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov.md
+        <span class="k">done</span>
+        gcov -o <span class="nv">$BINDIR</span> <span class="si">${</span><span class="nv">TESTDIR</span><span class="si">}</span>*.<span class="o">[</span>Ff<span class="o">]</span>90
     <span class="k">fi</span>
 <span class="k">else</span>
     <span class="nb">echo</span> <span class="s2">&quot;Skip running the unit tests since \$JF_SKIP_TESTS has been set to </span><span class="si">${</span><span class="nv">JF_SKIP_TESTS</span><span class="si">}</span><span class="s2">.&quot;</span>

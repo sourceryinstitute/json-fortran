@@ -233,11 +233,10 @@ trigger automatic documentation deployment.</p>
       <span class="n">DEPLOY_DOCUMENTATION</span><span class="o">=</span><span class="s2">&quot;no&quot;</span>
 
       <span class="err">#</span> <span class="n">build</span> <span class="k">with</span> <span class="n">build</span><span class="o">.</span><span class="na">sh</span><span class="o">,</span> <span class="n">make</span> <span class="n">documentation</span><span class="o">,</span> <span class="n">run</span> <span class="n">unit</span> <span class="n">tests</span> <span class="n">and</span> <span class="n">perform</span> <span class="n">coverage</span> <span class="n">analysis</span>
-      <span class="err">#</span> <span class="n">JW</span> <span class="n">note</span><span class="o">:</span> <span class="n">disabled</span> <span class="n">coverage</span> <span class="k">for</span> <span class="n">testing</span> <span class="n">purposes</span> <span class="o">!!!!</span> <span class="n">need</span> <span class="n">to</span> <span class="n">fix</span> <span class="o">!!!!</span>
     <span class="o">-</span> <span class="o">&gt;</span>
-      <span class="n">BUILD_SCRIPT</span><span class="o">=</span><span class="s2">&quot;./build.sh --skip-documentation &amp;&amp;</span>
-<span class="s2">      ./build.sh --enable-unicode&quot;</span>
-      <span class="n">CODE_COVERAGE</span><span class="o">=</span><span class="s2">&quot;no&quot;</span>
+      <span class="n">BUILD_SCRIPT</span><span class="o">=</span><span class="s2">&quot;./build.sh --coverage --skip-documentation &amp;&amp;</span>
+<span class="s2">      ./build.sh --coverage --enable-unicode&quot;</span>
+      <span class="n">CODE_COVERAGE</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
       <span class="n">DEPLOY_DOCUMENTATION</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
 
 <span class="n">install</span><span class="o">:</span>
@@ -294,8 +293,8 @@ trigger automatic documentation deployment.</p>
   <span class="o">-</span> <span class="o">(</span><span class="n">yes</span> <span class="o">|</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="n">doc</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="o">)</span> <span class="o">||</span> <span class="kc">true</span> <span class="err">#</span> <span class="n">wipe</span> <span class="n">out</span> <span class="n">doc</span> <span class="n">dirs</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">confusing</span> <span class="n">codecov</span>
   <span class="o">-</span> <span class="o">|</span>
     <span class="k">if</span> <span class="o">[[</span> <span class="n">$CODE_COVERAGE</span> <span class="o">==</span> <span class="o">[</span><span class="n">yY</span><span class="o">]*</span> <span class="o">]];</span> <span class="n">then</span>
-      <span class="n">rm</span> <span class="n">json_module</span><span class="o">-*</span><span class="n">unicode</span><span class="o">.</span><span class="na">F90</span><span class="o">.</span><span class="na">gcov</span> <span class="o">||</span> <span class="kc">true</span>
-      <span class="n">mv</span> <span class="n">json_module</span><span class="o">.</span><span class="na">F90</span><span class="o">.</span><span class="na">gcov</span> <span class="n">src</span><span class="o">/</span>
+      <span class="n">rm</span> <span class="n">json_</span><span class="o">*.</span><span class="n">F90</span><span class="o">-*</span><span class="n">unicode</span><span class="o">.</span><span class="na">gcov</span> <span class="o">||</span> <span class="kc">true</span>
+      <span class="n">mv</span> <span class="n">json_</span><span class="o">*.</span><span class="n">F90</span><span class="o">.</span><span class="na">gcov</span> <span class="n">src</span><span class="o">/</span>
       <span class="n">mv</span> <span class="n">jf_test</span><span class="o">*.[</span><span class="n">fF</span><span class="o">]</span><span class="mi">90</span><span class="o">.</span><span class="na">gcov</span> <span class="n">src</span><span class="sr">/tests/</span>
       <span class="n">bash</span> <span class="o">&lt;(</span><span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="n">https</span><span class="o">://</span><span class="n">codecov</span><span class="o">.</span><span class="na">io</span><span class="o">/</span><span class="n">bash</span><span class="o">)</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">X</span> <span class="n">gcov</span>
     <span class="n">fi</span>
