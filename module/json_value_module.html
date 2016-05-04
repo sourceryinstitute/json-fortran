@@ -275,6 +275,8 @@
           
           <a class="list-group-item" href="../module/json_value_module.html#proc-json_value_swap">json_value_swap</a>
           
+          <a class="list-group-item" href="../module/json_value_module.html#proc-json_value_validate">json_value_validate</a>
+          
           <a class="list-group-item" href="../module/json_value_module.html#proc-json_value_remove_if_present">json_value_remove_if_present</a>
           
           <a class="list-group-item" href="../module/json_value_module.html#proc-wrap_json_value_remove_if_present">wrap_json_value_remove_if_present</a>
@@ -2366,6 +2368,11 @@ private subroutine <a href='../interface/traverse_callback_func.html'>traverse_c
        <tr><td>procedure, public :: <strong>is_child_of</strong>  => json_value_is_child_of </td>
        <td><p>Check if a <a href="../type/json_value.html">json_value</a> is a child of another.</p></td></tr>
       
+       <tr><td>procedure, public :: <strong>validate</strong>  => json_value_validate </td>
+       <td><p>Check that a <a href="../type/json_value.html">json_value</a> linked list is valid
+ (i.e., is properly constructed). This may be
+ useful if it has been constructed externally.</p></td></tr>
+      
        <tr><td>procedure, private :: <strong>name_equal</strong>  </td>
        <td></td></tr>
       
@@ -2703,7 +2710,7 @@ private function <a href='../proc/name_equal.html'>name_equal</a>(json, p, name)
   
   
   
-     <h4>Return Value <small>logical
+     <h4>Return Value <small>logical(kind=LK)
   </small></h4>
   <p>true if the string are lexically equal</p>
     
@@ -2894,7 +2901,7 @@ private function <a href='../proc/json_value_is_child_of.html'>json_value_is_chi
   
   
   
-     <h4>Return Value <small>logical
+     <h4>Return Value <small>logical(kind=LK)
   </small></h4>
   
     
@@ -4953,6 +4960,126 @@ private subroutine <a href='../proc/json_value_swap.html'>json_value_swap</a>(js
        
        <p>Swap two elements in a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.
   All of the children are carried along as well.</p>
+        
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-json_value_validate"></span><h3>
+private subroutine <a href='../proc/json_value_validate.html'>json_value_validate</a>(json, p, is_valid, error_msg)
+    
+    
+    
+</h3></div>
+  <div class="panel-body">
+       
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>is_valid</strong></td><td><p>True if the structure is valid.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=:),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>error_msg</strong></td><td><p>if not valid, this will contain
+ a description of the problem</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+    
+    <h4>Description</h4>
+       
+       
+
+<dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>5/2/2016</dd>
+    
+    
+    
+    
+  </dl>
+
+
+       
+       <p>Validate a <a href="../type/json_value.html">json_value</a> linked list by checking to make sure
+  all the pointers are properly associated, arrays and objects
+  have the correct number of children, and the correct data is
+  allocated for the variable types.</p>
         
 
   </div>

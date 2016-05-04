@@ -448,6 +448,8 @@
           
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-is_child_of">is_child_of</a>
           
+          <a class="list-group-item" href="../type/json_core.html#boundprocedure-validate">validate</a>
+          
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-name_equal">name_equal</a>
           
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_print">json_value_print</a>
@@ -24505,7 +24507,7 @@ private function <a href='../proc/json_value_is_child_of.html'>json_value_is_chi
   
   
   
-     <h4>Return Value <small>logical
+     <h4>Return Value <small>logical(kind=LK)
   </small></h4>
   
     
@@ -24530,6 +24532,146 @@ private function <a href='../proc/json_value_is_child_of.html'>json_value_is_chi
        
        <p>Returns True if <code>p2</code> is a descendant of <code>p1</code>
   (i.e, a child, or a child of child, etc.)</p>
+        
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-validate"></span><h3>procedure, public :: <strong>validate</strong>  => <a href='../proc/json_value_validate.html'>json_value_validate</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>Check that a <a href="../type/json_value.html">json_value</a> linked list is valid
+ (i.e., is properly constructed). This may be
+ useful if it has been constructed externally.</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_value_validate.html'>json_value_validate</a>(json, p, is_valid, error_msg)
+    
+    
+    
+</h3>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>is_valid</strong></td><td><p>True if the structure is valid.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=:),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>error_msg</strong></td><td><p>if not valid, this will contain
+ a description of the problem</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+    
+    <h4>Description</h4>
+       
+       
+
+<dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>5/2/2016</dd>
+    
+    
+    
+    
+  </dl>
+
+
+       
+       <p>Validate a <a href="../type/json_value.html">json_value</a> linked list by checking to make sure
+  all the pointers are properly associated, arrays and objects
+  have the correct number of children, and the correct data is
+  allocated for the variable types.</p>
         
 
       
@@ -24627,7 +24769,7 @@ private function <a href='../proc/name_equal.html'>name_equal</a>(json, p, name)
   
   
   
-     <h4>Return Value <small>logical
+     <h4>Return Value <small>logical(kind=LK)
   </small></h4>
   <p>true if the string are lexically equal</p>
     
@@ -26647,6 +26789,9 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">swap</span>                <span class="o">=&gt;</span> <span class="n">json_value_swap</span>          <span class="c">!! Swap two [[json_value]] pointers</span>
                                                                             <span class="c">!! in a structure (or two different structures).</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">is_child_of</span>         <span class="o">=&gt;</span> <span class="n">json_value_is_child_of</span>   <span class="c">!! Check if a [[json_value]] is a child of another.</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">validate</span>            <span class="o">=&gt;</span> <span class="n">json_value_validate</span>      <span class="c">!! Check that a [[json_value]] linked list is valid</span>
+                                                                            <span class="c">!! (i.e., is properly constructed). This may be</span>
+                                                                            <span class="c">!! useful if it has been constructed externally.</span>
 
         <span class="c">!other private routines:</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">name_equal</span>

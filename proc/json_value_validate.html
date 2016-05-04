@@ -10,7 +10,7 @@
     <meta name="author" content="Chris MacMackin" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_file_update_string_val_ascii &ndash; JSON-Fortran</title>
+    <title>json_value_validate &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -89,7 +89,7 @@
     
   
   <div class="row">
-    <h1>json_file_update_string_val_ascii
+    <h1>json_value_validate
     <small>Subroutine</small>
     
     </h1>
@@ -99,21 +99,25 @@
 <div class="well well-sm">
   <ul class="list-inline" style="margin-bottom:0px;display:inline">
      
+    <li><i class="fa fa-pencil"></i> Jacob Williams</li>
+     
+     
+    <li><i class="fa fa-calendar-o"></i> 5/2/2016</li>
      
      
      
     
     
-    <li><i class="fa fa-code"></i><a href="../src/json_file_module.F90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/json_value_module.F90"> Source File</a></li>
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
-     <li><a href='../sourcefile/json_file_module.f90.html'>json_file_module.F90</a></li>
+     <li><a href='../sourcefile/json_value_module.f90.html'>json_value_module.F90</a></li>
   
-     <li><a href='../module/json_file_module.html'>json_file_module</a></li>
+     <li><a href='../module/json_value_module.html'>json_value_module</a></li>
   
-     <li class="active">json_file_update_string_val_ascii</li>
+     <li class="active">json_value_validate</li>
   </ol>
 </div>
 </div>
@@ -138,6 +142,18 @@
   
   
   
+  <div class="panel panel-primary">
+    <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs">Subroutines</a></h3></div>
+    <div class="list-group">
+        <div id="subs" class="panel-collapse collapse">
+          
+          <a class="list-group-item" href="../proc/json_value_validate.html#proc-check_if_valid">check_if_valid</a>
+          
+        </div>
+    </div>
+  </div>
+  
+  
   
   
   
@@ -148,7 +164,7 @@
   <div class="panel panel-primary">
     <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
     <div class="list-group">
-      <a class="list-group-item" href="../proc/json_file_update_string_val_ascii.html#src">json_file_update_string_val_ascii</a>
+      <a class="list-group-item" href="../proc/json_value_validate.html#src">json_value_validate</a>
     </div>
   </div>
   
@@ -575,7 +591,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine json_file_update_string_val_ascii(me, name, val, found)
+private subroutine json_value_validate(json, p, is_valid, error_msg)
     
     
     
@@ -603,12 +619,12 @@ private subroutine json_file_update_string_val_ascii(me, name, val, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E44"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td><span class="anchor" id="variable-json%7E23"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>me</strong></td><td></td>
+  <td><strong>json</strong></td><td></td>
   
 </tr>
 
@@ -618,12 +634,12 @@ private subroutine json_file_update_string_val_ascii(me, name, val, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-name%7E11"></span>character(kind=CK,len=*),</td>
-  <td>intent(in)</td>
+  <td><span class="anchor" id="variable-p%7E14"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
   <td></td>
   
-  <td></td><td>::</td>
-  <td><strong>name</strong></td><td></td>
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td></td>
   
 </tr>
 
@@ -633,27 +649,28 @@ private subroutine json_file_update_string_val_ascii(me, name, val, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-val%7E18"></span>character(kind=CDK,len=*),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-found%7E30"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-is_valid"></span>logical(kind=LK),</td>
   <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>is_valid</strong></td><td><p>True if the structure is valid.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-error_msg%7E3"></span>character(kind=CK,len=:),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>error_msg</strong></td><td><p>if not valid, this will contain
+ a description of the problem</p></td>
   
 </tr>
 
@@ -664,7 +681,12 @@ private subroutine json_file_update_string_val_ascii(me, name, val, found)
     
     
     <h3>Description</h3>
-    <p>Alternate version of <a href="../proc/json_file_update_string.html">json_file_update_string</a>, where "val" is kind=CDK.</p>
+    <p>Validate a <a href="../type/json_value.html">json_value</a> linked list by checking to make sure
+  all the pointers are properly associated, arrays and objects
+  have the correct number of children, and the correct data is
+  allocated for the variable types.</p>
+<p>It recursively traverses the entire structure and checks every element.</p>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4>This routine does not check or throw any exceptions.</div>
     
     
      <h3>Calls</h3>
@@ -674,52 +696,31 @@ private subroutine json_file_update_string_val_ascii(me, name, val, found)
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generated by graphviz version 2.26.3 (20100126.1600)
  -->
-<!-- Title: proc~~json_file_update_string_val_ascii~~CallsGraph Pages: 1 -->
-<svg id="procjson_file_update_string_val_asciiCallsGraph" width="380pt" height="78pt"
- viewBox="0.00 0.00 380.00 78.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="proc~~json_file_update_string_val_ascii~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 74)">
-<title>proc~~json_file_update_string_val_ascii~~CallsGraph</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-74 377,-74 377,5 -4,5"/>
-<!-- proc~json_file_update_string_val_ascii -->
-<g id="node1" class="node"><title>proc~json_file_update_string_val_ascii</title>
-<polygon fill="none" stroke="black" points="169,-48 1,-48 1,-22 169,-22 169,-48"/>
-<text text-anchor="middle" x="85" y="-32.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_file_update_string_val_ascii</text>
+<!-- Title: proc~~json_value_validate~~CallsGraph Pages: 1 -->
+<svg id="procjson_value_validateCallsGraph" width="230pt" height="52pt"
+ viewBox="0.00 0.00 230.00 52.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~json_value_validate~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 48)">
+<title>proc~~json_value_validate~~CallsGraph</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-48 227,-48 227,5 -4,5"/>
+<!-- proc~json_value_validate -->
+<g id="node1" class="node"><title>proc~json_value_validate</title>
+<polygon fill="none" stroke="black" points="106,-26 3.55271e-14,-26 0,-1.24345e-14 106,-3.55271e-15 106,-26"/>
+<text text-anchor="middle" x="53" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_value_validate</text>
 </g>
-<!-- interface~to_unicode -->
-<g id="node2" class="node"><title>interface~to_unicode</title>
-<a xlink:href="../interface/to_unicode.html" xlink:title="to_unicode">
-<polygon fill="#a7506f" stroke="#a7506f" points="271,-48 207,-48 207,-22 271,-22 271,-48"/>
-<text text-anchor="middle" x="239" y="-32.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_unicode</text>
-</a>
+<!-- none~check_if_valid -->
+<g id="node2" class="node"><title>none~check_if_valid</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="221,-26 143,-26 143,-1.24345e-14 221,-3.55271e-15 221,-26"/>
+<text text-anchor="middle" x="182" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">check_if_valid</text>
 </g>
-<!-- proc~json_file_update_string_val_ascii&#45;&gt;interface~to_unicode -->
-<g id="edge6" class="edge"><title>proc~json_file_update_string_val_ascii&#45;&gt;interface~to_unicode</title>
-<path fill="none" stroke="black" d="M169.659,-35C178.799,-35 187.794,-35 196.122,-35"/>
-<polygon fill="black" stroke="black" points="196.274,-38.5001 206.274,-35 196.274,-31.5001 196.274,-38.5001"/>
+<!-- proc~json_value_validate&#45;&gt;none~check_if_valid -->
+<g id="edge4" class="edge"><title>proc~json_value_validate&#45;&gt;none~check_if_valid</title>
+<path fill="none" stroke="black" d="M106.214,-13C114.799,-13 123.66,-13 132.162,-13"/>
+<polygon fill="black" stroke="black" points="132.312,-16.5001 142.312,-13 132.312,-9.5001 132.312,-16.5001"/>
 </g>
-<!-- proc~to_uni -->
-<g id="node3" class="node"><title>proc~to_uni</title>
-<a xlink:href="../proc/to_uni.html" xlink:title="to_uni">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="367,-70 313,-70 313,-44 367,-44 367,-70"/>
-<text text-anchor="middle" x="340" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni</text>
-</a>
-</g>
-<!-- interface~to_unicode&#45;&gt;proc~to_uni -->
-<g id="edge2" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M271.513,-42.082C281.547,-44.2677 292.671,-46.6907 302.985,-48.9373"/>
-<polygon fill="black" stroke="black" points="302.443,-52.4012 312.959,-51.1098 303.933,-45.5616 302.443,-52.4012"/>
-</g>
-<!-- proc~to_uni_vec -->
-<g id="node4" class="node"><title>proc~to_uni_vec</title>
-<a xlink:href="../proc/to_uni_vec.html" xlink:title="to_uni_vec">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="372,-26 308,-26 308,-1.24345e-14 372,-3.55271e-15 372,-26"/>
-<text text-anchor="middle" x="340" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni_vec</text>
-</a>
-</g>
-<!-- interface~to_unicode&#45;&gt;proc~to_uni_vec -->
-<g id="edge4" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M271.513,-27.918C279.977,-26.0744 289.215,-24.062 298.09,-22.129"/>
-<polygon fill="black" stroke="black" points="298.867,-25.5417 307.893,-19.9935 297.378,-18.7021 298.867,-25.5417"/>
+<!-- none~check_if_valid&#45;&gt;none~check_if_valid -->
+<g id="edge2" class="edge"><title>none~check_if_valid&#45;&gt;none~check_if_valid</title>
+<path fill="none" stroke="black" d="M160.344,-26.0602C153.781,-35.0996 161,-44 182,-44 194.797,-44 202.476,-40.6949 205.038,-36.0674"/>
+<polygon fill="black" stroke="black" points="208.491,-35.4874 203.656,-26.0602 201.557,-36.4449 208.491,-35.4874"/>
 </g>
 </g>
 </svg>
@@ -831,22 +832,267 @@ implementation in a submodule of an interface in a parent module.</p>
 
 
     
+    <section>
+    <h2>Subroutines</h2>
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-check_if_valid"></span><h3>
+recursive subroutine check_if_valid(p, require_parent)
+    
+    
+    
+</h3></div>
+  <div class="panel-body">
+       
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>require_parent</strong></td><td><p>the first one may be a root (so no parent),
+ but all descendants must have a parent.</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+        
+
+  </div>
+  </div>
+
+    
+    </section>    
+    
     
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_update_string_val_ascii</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_value_validate</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">is_valid</span><span class="p">,</span><span class="n">error_msg</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>       <span class="kd">::</span> <span class="n">me</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">name</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">val</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">found</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>       <span class="kd">::</span> <span class="n">json</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">p</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">is_valid</span>  <span class="c">!! True if the structure is valid.</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">error_msg</span> <span class="c">!! if not valid, this will contain</span>
+                                                      <span class="c">!! a description of the problem</span>
 
-    <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">update</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">val</span><span class="p">),</span><span class="n">found</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">        </span><span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+        <span class="k">call </span><span class="n">check_if_valid</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">require_parent</span><span class="o">=</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span>
+    <span class="k">else</span>
+<span class="k">        </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;The pointer is not associated&#39;</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+    <span class="k">end if</span>
 
-    <span class="k">end subroutine </span><span class="n">json_file_update_string_val_ascii</span>
+<span class="k">    contains</span>
+
+<span class="k">    recursive subroutine </span><span class="n">check_if_valid</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">require_parent</span><span class="p">)</span>
+
+        <span class="k">implicit none</span>
+
+<span class="k">        type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>
+        <span class="kt">logical</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">require_parent</span> <span class="c">!! the first one may be a root (so no parent),</span>
+                                             <span class="c">!! but all descendants must have a parent.</span>
+
+        <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span> <span class="c">!! counter</span>
+        <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">element</span>
+        <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">previous</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">is_valid</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
+
+            <span class="c">! data type:</span>
+            <span class="k">select case</span> <span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">var_type</span><span class="p">)</span>
+            <span class="k">case</span><span class="p">(</span><span class="n">json_null</span><span class="p">,</span><span class="n">json_object</span><span class="p">,</span><span class="n">json_array</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">log_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">int_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
+                    <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">str_value</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;incorrect data allocated for &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                <span class="s1">&#39;json_null, json_object, or json_array variable type&#39;</span>
+                    <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">return</span>
+<span class="k">                end if</span>
+<span class="k">            case</span><span class="p">(</span><span class="n">json_logical</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">log_value</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;log_value should be allocated for json_logical variable type&#39;</span>
+                    <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">return</span>
+<span class="k">                else if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">int_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
+                    <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">str_value</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;incorrect data allocated for json_logical variable type&#39;</span>
+                    <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">return</span>
+<span class="k">                end if</span>
+<span class="k">            case</span><span class="p">(</span><span class="n">json_integer</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">int_value</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;int_value should be allocated for json_integer variable type&#39;</span>
+                    <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">return</span>
+<span class="k">                else if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">log_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
+                    <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">str_value</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;incorrect data allocated for json_integer variable type&#39;</span>
+                    <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">return</span>
+<span class="k">                end if</span>
+<span class="k">            case</span><span class="p">(</span><span class="n">json_double</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;dbl_value should be allocated for json_double variable type&#39;</span>
+                    <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">return</span>
+<span class="k">                else if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">log_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">int_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
+                    <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">str_value</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;incorrect data allocated for json_double variable type&#39;</span>
+                    <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">return</span>
+<span class="k">                end if</span>
+<span class="k">            case</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">str_value</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;str_value should be allocated for json_string variable type&#39;</span>
+                    <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">return</span>
+<span class="k">                else if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">log_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">int_value</span><span class="p">)</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
+                    <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;incorrect data allocated for json_string variable type&#39;</span>
+                    <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">return</span>
+<span class="k">                end if</span>
+<span class="k">            case </span><span class="n">default</span>
+                <span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;invalid JSON variable type&#39;</span>
+                <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="k">return</span>
+<span class="k">            end select</span>
+
+<span class="k">            if</span> <span class="p">(</span><span class="n">require_parent</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;parent pointer is not associated&#39;</span>
+                <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="k">return</span>
+<span class="k">            end if</span>
+
+<span class="k">            if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">name</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">var_type</span><span class="o">/=</span><span class="n">json_array</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;JSON variable must have a name if not an &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                    <span class="s1">&#39;array element or the root&#39;</span>
+                        <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                        <span class="k">return</span>
+<span class="k">                    end if</span>
+<span class="k">                end if</span>
+<span class="k">            end if</span>
+
+<span class="k">            if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">children</span><span class="p">)</span> <span class="p">.</span><span class="n">neqv</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">tail</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;both children and tail pointers must be associated&#39;</span>
+                <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="k">return</span>
+<span class="k">            end if</span>
+
+            <span class="c">! now, check next one:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">next</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                call </span><span class="n">check_if_valid</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">next</span><span class="p">,</span><span class="n">require_parent</span><span class="o">=</span><span class="n">require_parent</span><span class="p">)</span>
+            <span class="k">end if</span>
+
+<span class="k">            if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">children</span><span class="p">))</span> <span class="k">then</span>
+
+<span class="k">                if</span> <span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">var_type</span><span class="o">/=</span><span class="n">json_array</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">p</span><span class="p">%</span><span class="n">var_type</span><span class="o">/=</span><span class="n">json_object</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;only arrays and objects can have children&#39;</span>
+                    <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">return</span>
+<span class="k">                end if</span>
+
+                <span class="c">! first validate children pointers:</span>
+
+                <span class="n">previous</span> <span class="o">=&gt;</span> <span class="nb">null</span><span class="p">()</span>
+                <span class="n">element</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">children</span>
+                <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">%</span><span class="n">n_children</span>
+                    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">%</span><span class="n">parent</span><span class="p">,</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;child&#39;&#39;s parent pointer not properly associated&#39;</span>
+                        <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                        <span class="k">return</span>
+<span class="k">                    end if</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="mi">1</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">%</span><span class="n">previous</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;first child shouldn&#39;&#39;t have a previous&#39;</span>
+                        <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                        <span class="k">return</span>
+<span class="k">                    end if</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">p</span><span class="p">%</span><span class="n">n_children</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">%</span><span class="n">next</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;not enough children&#39;</span>
+                        <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                        <span class="k">return</span>
+<span class="k">                    end if</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="n">p</span><span class="p">%</span><span class="n">n_children</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">%</span><span class="n">next</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;too many children&#39;</span>
+                        <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                        <span class="k">return</span>
+<span class="k">                    end if</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                        if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">previous</span><span class="p">,</span><span class="n">element</span><span class="p">%</span><span class="n">previous</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                            </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;previous pointer not properly associated&#39;</span>
+                            <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                            <span class="k">return</span>
+<span class="k">                        end if</span>
+<span class="k">                    end if</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="n">p</span><span class="p">%</span><span class="n">n_children</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
+                        <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">element</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;parent&#39;&#39;s tail pointer not properly associated&#39;</span>
+                        <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                        <span class="k">return</span>
+<span class="k">                    end if</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">p</span><span class="p">%</span><span class="n">n_children</span><span class="p">)</span> <span class="k">then</span>
+                        <span class="c">!setup next case:</span>
+                        <span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">element</span>
+                        <span class="n">element</span> <span class="o">=&gt;</span> <span class="n">element</span><span class="p">%</span><span class="n">next</span>
+                    <span class="k">end if</span>
+<span class="k">                end do</span>
+
+                <span class="c">!now check all the children:</span>
+                <span class="k">call </span><span class="n">check_if_valid</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">require_parent</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+
+            <span class="k">end if</span>
+
+<span class="k">        end if</span>
+
+<span class="k">    end subroutine </span><span class="n">check_if_valid</span>
+
+    <span class="k">end subroutine </span><span class="n">json_value_validate</span>
 </pre></div>
 
     </section>

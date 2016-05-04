@@ -405,6 +405,8 @@
           
           <a class="list-group-item" href="../proc/json_value_to_string.html">json_value_to_string</a>
           
+          <a class="list-group-item" href="../proc/json_value_validate.html">json_value_validate</a>
+          
           <a class="list-group-item" href="../proc/lowercase_character.html">lowercase_character</a>
           
           <a class="list-group-item" href="../proc/lowercase_string.html">lowercase_string</a>
@@ -654,7 +656,7 @@ private function name_equal(json, p, name) result(is_equal)
     
     
     
-	 <h3>Return Value <small><span class="anchor" id="variable-is_equal"></span>logical
+	 <h3>Return Value <small><span class="anchor" id="variable-is_equal"></span>logical(kind=LK)
   </small></h3>
     <p>true if the string are lexically equal</p>
     
@@ -837,7 +839,7 @@ implementation in a submodule of an interface in a parent module.</p>
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>         <span class="kd">::</span> <span class="n">p</span>        <span class="c">!! the json object</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">name</span>     <span class="c">!! the name to check for</span>
-    <span class="kt">logical</span>                             <span class="kd">::</span> <span class="n">is_equal</span> <span class="c">!! true if the string are lexically equal</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>                         <span class="kd">::</span> <span class="n">is_equal</span> <span class="c">!! true if the string are lexically equal</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">name</span><span class="p">))</span> <span class="k">then</span>
 
