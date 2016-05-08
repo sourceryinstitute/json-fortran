@@ -836,8 +836,9 @@ private recursive function pop_char(json, unit, str, eof, skip_ws) result(popped
 
 <span class="k">            if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">pushed_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
 
-                <span class="c">! there is a character pushed back on, most likely from the number parsing</span>
-                <span class="c">! NOTE: this can only occur if reading from a file when use_unformatted_stream=.false.</span>
+                <span class="c">! there is a character pushed back on, most likely</span>
+                <span class="c">! from the number parsing. Note: this can only occur if</span>
+                <span class="c">! reading from a file when use_unformatted_stream=.false.</span>
                 <span class="n">c</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">pushed_char</span><span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">pushed_index</span><span class="p">:</span><span class="n">json</span><span class="p">%</span><span class="n">pushed_index</span><span class="p">)</span>
                 <span class="n">json</span><span class="p">%</span><span class="n">pushed_index</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">pushed_index</span> <span class="o">-</span> <span class="mi">1</span>
 

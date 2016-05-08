@@ -597,7 +597,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine json_value_remove(json, me, destroy)
+private subroutine json_value_remove(json, p, destroy)
     
     
     
@@ -640,12 +640,12 @@ private subroutine json_value_remove(json, me, destroy)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E48"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E15"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>,</td>
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>me</strong></td><td></td>
+  <td><strong>p</strong></td><td></td>
   
 </tr>
 
@@ -797,12 +797,12 @@ private subroutine json_value_remove(json, me, destroy)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_value_remove</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">me</span><span class="p">,</span><span class="n">destroy</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_value_remove</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">destroy</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>        <span class="kd">::</span> <span class="n">me</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>        <span class="kd">::</span> <span class="n">p</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">destroy</span>  <span class="c">!! If destroy is not present, it is also destroyed.</span>
                                                 <span class="c">!! If destroy is present and true, it is destroyed.</span>
                                                 <span class="c">!! If destroy is present and false, it is not destroyed.</span>
@@ -810,7 +810,7 @@ private subroutine json_value_remove(json, me, destroy)
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">parent</span><span class="p">,</span><span class="n">previous</span><span class="p">,</span><span class="n">next</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">destroy_it</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">me</span><span class="p">))</span> <span class="k">then</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
 
         <span class="c">!optional input argument:</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">destroy</span><span class="p">))</span> <span class="k">then</span>
@@ -819,20 +819,20 @@ private subroutine json_value_remove(json, me, destroy)
 <span class="k">            </span><span class="n">destroy_it</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
         <span class="k">end if</span>
 
-<span class="k">        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
 
-<span class="k">            </span><span class="n">parent</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">parent</span>
+<span class="k">            </span><span class="n">parent</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">parent</span>
 
-            <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">next</span><span class="p">))</span> <span class="k">then</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">next</span><span class="p">))</span> <span class="k">then</span>
 
                 <span class="c">!there are later items in the list:</span>
 
-                <span class="n">next</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">next</span>
-                <span class="k">nullify</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">next</span><span class="p">)</span>
+                <span class="n">next</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">next</span>
+                <span class="k">nullify</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">next</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">previous</span><span class="p">))</span> <span class="k">then</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">previous</span><span class="p">))</span> <span class="k">then</span>
                     <span class="c">!there are earlier items in the list</span>
-                    <span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">previous</span>
+                    <span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">previous</span>
                     <span class="n">previous</span><span class="p">%</span><span class="n">next</span> <span class="o">=&gt;</span> <span class="n">next</span>
                     <span class="n">next</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">previous</span>
                 <span class="k">else</span>
@@ -843,9 +843,9 @@ private subroutine json_value_remove(json, me, destroy)
 
 <span class="k">            else</span>
 
-<span class="k">                if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">previous</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">previous</span><span class="p">))</span> <span class="k">then</span>
                     <span class="c">!there are earlier items in the list:</span>
-                    <span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">previous</span>
+                    <span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">previous</span>
                     <span class="k">nullify</span><span class="p">(</span><span class="n">previous</span><span class="p">%</span><span class="n">next</span><span class="p">)</span>
                     <span class="n">parent</span><span class="p">%</span><span class="n">tail</span> <span class="o">=&gt;</span> <span class="n">previous</span>
                 <span class="k">else</span>
@@ -860,7 +860,7 @@ private subroutine json_value_remove(json, me, destroy)
 
         <span class="k">end if</span>
 
-<span class="k">        if</span> <span class="p">(</span><span class="n">destroy_it</span><span class="p">)</span> <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">(</span><span class="n">me</span><span class="p">)</span>
+<span class="k">        if</span> <span class="p">(</span><span class="n">destroy_it</span><span class="p">)</span> <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
     <span class="k">end if</span>
 

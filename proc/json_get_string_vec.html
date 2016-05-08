@@ -646,7 +646,7 @@ private subroutine json_get_string_vec(json, me, vec)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E104"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-me%7E69"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(in),</td>
   <td></td>
   
@@ -821,6 +821,14 @@ subroutine get_chars_from_array(json, element, i, count)
       
     
     
+    
+    <h4>Description</h4>
+       
+       
+
+
+       
+       <p>callback function for chars</p>
         
 
   </div>
@@ -845,15 +853,14 @@ subroutine get_chars_from_array(json, element, i, count)
 
     <span class="n">initialized</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">vec</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
-
     <span class="c">!the callback function is called for each element of the array:</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="n">me</span><span class="p">,</span> <span class="n">array_callback</span><span class="o">=</span><span class="n">get_chars_from_array</span><span class="p">)</span>
 
     <span class="k">contains</span>
 
-        <span class="c">! callback function for chars</span>
-        <span class="k">subroutine </span><span class="n">get_chars_from_array</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">count</span><span class="p">)</span>
+<span class="k">        subroutine </span><span class="n">get_chars_from_array</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">count</span><span class="p">)</span>
+
+        <span class="c">!! callback function for chars</span>
 
         <span class="k">implicit none</span>
 

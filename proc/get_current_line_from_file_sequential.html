@@ -697,7 +697,7 @@ private subroutine get_current_line_from_file_sequential(json, iunit, line)
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>chunk</strong></td><td></td><td></td><td></td>
+  <td><strong>chunk</strong></td><td></td><td></td><td><p>for reading line in chunks</p></td>
   
 </tr>
 
@@ -711,7 +711,7 @@ private subroutine get_current_line_from_file_sequential(json, iunit, line)
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>istat</strong></td><td></td><td></td><td></td>
+  <td><strong>istat</strong></td><td></td><td></td><td><p>iostat flag</p></td>
   
 </tr>
 
@@ -725,7 +725,7 @@ private subroutine get_current_line_from_file_sequential(json, iunit, line)
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>isize</strong></td><td></td><td></td><td></td>
+  <td><strong>isize</strong></td><td></td><td></td><td><p>number of characters read in read statement</p></td>
   
 </tr>
 
@@ -760,8 +760,9 @@ private subroutine get_current_line_from_file_sequential(json, iunit, line)
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>                           <span class="kd">::</span> <span class="n">iunit</span>  <span class="c">!! file unit number</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line</span>   <span class="c">!! current line</span>
 
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="n">seq_chunk_size</span><span class="p">)</span> <span class="kd">::</span> <span class="n">chunk</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">istat</span><span class="p">,</span><span class="n">isize</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="n">seq_chunk_size</span><span class="p">)</span> <span class="kd">::</span> <span class="n">chunk</span> <span class="c">!! for reading line in chunks</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">istat</span>  <span class="c">!! iostat flag</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">isize</span>  <span class="c">!! number of characters read in read statement</span>
 
     <span class="c">!initialize:</span>
     <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>

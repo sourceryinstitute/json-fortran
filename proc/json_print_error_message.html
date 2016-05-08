@@ -681,7 +681,7 @@ private subroutine json_print_error_message(json, io_unit)
   
   <td>public,</td>
   <td>allocatable</td><td>::</td>
-  <td><strong>error_msg</strong></td><td></td><td></td><td></td>
+  <td><strong>error_msg</strong></td><td></td><td></td><td><p>error message</p></td>
   
 </tr>
 
@@ -695,7 +695,7 @@ private subroutine json_print_error_message(json, io_unit)
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>status_ok</strong></td><td></td><td></td><td></td>
+  <td><strong>status_ok</strong></td><td></td><td></td><td><p>false if there were any errors thrown</p></td>
   
 </tr>
 
@@ -729,8 +729,8 @@ private subroutine json_print_error_message(json, io_unit)
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
     <span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span> <span class="k">optional</span>  <span class="kd">::</span> <span class="n">io_unit</span>
 
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">error_msg</span>
-    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">status_ok</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">error_msg</span>  <span class="c">!! error message</span>
+    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">status_ok</span> <span class="c">!! false if there were any errors thrown</span>
 
     <span class="c">!get error message:</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">check_for_errors</span><span class="p">(</span><span class="n">status_ok</span><span class="p">,</span> <span class="n">error_msg</span><span class="p">)</span>

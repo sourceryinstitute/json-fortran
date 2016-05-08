@@ -619,7 +619,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private recursive subroutine json_value_print(json, me, iunit, str, indent, need_comma, colon, is_array_element)
+private recursive subroutine json_value_print(json, p, iunit, str, indent, need_comma, colon, is_array_element)
     
     
     
@@ -662,12 +662,12 @@ private recursive subroutine json_value_print(json, me, iunit, str, indent, need
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E80"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E60"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(in),</td>
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>me</strong></td><td></td>
+  <td><strong>p</strong></td><td></td>
   
 </tr>
 
@@ -1224,12 +1224,13 @@ subroutine write_it(s, advance, comma)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">recursive subroutine </span><span class="n">json_value_print</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">me</span><span class="p">,</span><span class="n">iunit</span><span class="p">,</span><span class="n">str</span><span class="p">,</span><span class="n">indent</span><span class="p">,</span><span class="n">need_comma</span><span class="p">,</span><span class="n">colon</span><span class="p">,</span><span class="n">is_array_element</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">recursive subroutine </span><span class="n">json_value_print</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">iunit</span><span class="p">,</span><span class="n">str</span><span class="p">,</span><span class="n">indent</span><span class="p">,&amp;</span>
+                                          <span class="n">need_comma</span><span class="p">,</span><span class="n">colon</span><span class="p">,</span><span class="n">is_array_element</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>       <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">me</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">p</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>               <span class="kd">::</span> <span class="n">iunit</span>             <span class="c">!! file unit to write to (6=console)</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">indent</span>            <span class="c">!! indention level</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">is_array_element</span>  <span class="c">!! if this is an array element</span>
@@ -1286,11 +1287,11 @@ subroutine write_it(s, advance, comma)
 <span class="k">            </span><span class="n">s</span> <span class="o">=</span> <span class="nb">repeat</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="n">spaces</span><span class="p">)</span>
         <span class="k">end if</span>
 
-<span class="k">        select case</span> <span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">var_type</span><span class="p">)</span>
+<span class="k">        select case</span> <span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">var_type</span><span class="p">)</span>
 
         <span class="k">case</span> <span class="p">(</span><span class="n">json_object</span><span class="p">)</span>
 
-            <span class="nb">count</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="nb">count</span><span class="p">(</span><span class="n">me</span><span class="p">)</span>
+            <span class="nb">count</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="nb">count</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>    <span class="c">!special case for empty object</span>
 
@@ -1307,7 +1308,7 @@ subroutine write_it(s, advance, comma)
                 <span class="k">end if</span>
 
 <span class="k">                nullify</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-                <span class="n">element</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">children</span>
+                <span class="n">element</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">children</span>
                 <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">count</span>
 
 <span class="nb">                    </span><span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">))</span> <span class="k">then</span>
@@ -1346,7 +1347,7 @@ subroutine write_it(s, advance, comma)
 
 <span class="k">        case</span> <span class="p">(</span><span class="n">json_array</span><span class="p">)</span>
 
-            <span class="nb">count</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="nb">count</span><span class="p">(</span><span class="n">me</span><span class="p">)</span>
+            <span class="nb">count</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="nb">count</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>    <span class="c">!special case for empty array</span>
 
@@ -1357,7 +1358,7 @@ subroutine write_it(s, advance, comma)
 <span class="k">                call </span><span class="n">write_it</span><span class="p">(</span> <span class="n">start_array</span> <span class="p">)</span>
 
                 <span class="k">nullify</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-                <span class="n">element</span> <span class="o">=&gt;</span> <span class="n">me</span><span class="p">%</span><span class="n">children</span>
+                <span class="n">element</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">children</span>
                 <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">count</span>
 
 <span class="nb">                    </span><span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">element</span><span class="p">))</span> <span class="k">then</span>
@@ -1388,18 +1389,18 @@ subroutine write_it(s, advance, comma)
 
         <span class="k">case</span> <span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">str_value</span><span class="p">))</span> <span class="k">then</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">str_value</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">                call </span><span class="n">write_it</span><span class="p">(</span> <span class="n">s</span><span class="o">//</span><span class="n">quotation_mark</span><span class="o">//</span> <span class="p">&amp;</span>
-                               <span class="nb">trim</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">str_value</span><span class="p">)</span><span class="o">//</span><span class="n">quotation_mark</span><span class="p">,</span> <span class="n">comma</span><span class="o">=</span><span class="n">print_comma</span> <span class="p">)</span>
+                               <span class="nb">trim</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">str_value</span><span class="p">)</span><span class="o">//</span><span class="n">quotation_mark</span><span class="p">,</span> <span class="n">comma</span><span class="o">=</span><span class="n">print_comma</span> <span class="p">)</span>
             <span class="k">else</span>
 <span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_print:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                          <span class="s1">&#39; me%value_string not allocated&#39;</span><span class="p">)</span>
+                                          <span class="s1">&#39; p%value_string not allocated&#39;</span><span class="p">)</span>
                 <span class="k">return</span>
 <span class="k">            end if</span>
 
 <span class="k">        case</span> <span class="p">(</span><span class="n">json_logical</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">log_value</span><span class="p">)</span> <span class="k">then</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">log_value</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">                call </span><span class="n">write_it</span><span class="p">(</span> <span class="n">s</span><span class="o">//</span><span class="n">true_str</span><span class="p">,</span> <span class="n">comma</span><span class="o">=</span><span class="n">print_comma</span> <span class="p">)</span>
             <span class="k">else</span>
 <span class="k">                call </span><span class="n">write_it</span><span class="p">(</span> <span class="n">s</span><span class="o">//</span><span class="n">false_str</span><span class="p">,</span> <span class="n">comma</span><span class="o">=</span><span class="n">print_comma</span> <span class="p">)</span>
@@ -1407,17 +1408,17 @@ subroutine write_it(s, advance, comma)
 
 <span class="k">        case</span> <span class="p">(</span><span class="n">json_integer</span><span class="p">)</span>
 
-            <span class="k">call </span><span class="n">integer_to_string</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">int_value</span><span class="p">,</span><span class="n">int_fmt</span><span class="p">,</span><span class="n">tmp</span><span class="p">)</span>
+            <span class="k">call </span><span class="n">integer_to_string</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">int_value</span><span class="p">,</span><span class="n">int_fmt</span><span class="p">,</span><span class="n">tmp</span><span class="p">)</span>
 
             <span class="k">call </span><span class="n">write_it</span><span class="p">(</span> <span class="n">s</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">tmp</span><span class="p">),</span> <span class="n">comma</span><span class="o">=</span><span class="n">print_comma</span> <span class="p">)</span>
 
         <span class="k">case</span> <span class="p">(</span><span class="n">json_double</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">real_fmt</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                call </span><span class="n">real_to_string</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">,</span><span class="n">json</span><span class="p">%</span><span class="n">real_fmt</span><span class="p">,</span><span class="n">json</span><span class="p">%</span><span class="n">compact_real</span><span class="p">,</span><span class="n">tmp</span><span class="p">)</span>
+<span class="k">                call </span><span class="n">real_to_string</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">,</span><span class="n">json</span><span class="p">%</span><span class="n">real_fmt</span><span class="p">,</span><span class="n">json</span><span class="p">%</span><span class="n">compact_real</span><span class="p">,</span><span class="n">tmp</span><span class="p">)</span>
             <span class="k">else</span>
                 <span class="c">!use the default format (user has not called initialize() or specified one):</span>
-                <span class="k">call </span><span class="n">real_to_string</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">,</span><span class="n">default_real_fmt</span><span class="p">,</span><span class="n">json</span><span class="p">%</span><span class="n">compact_real</span><span class="p">,</span><span class="n">tmp</span><span class="p">)</span>
+                <span class="k">call </span><span class="n">real_to_string</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">dbl_value</span><span class="p">,</span><span class="n">default_real_fmt</span><span class="p">,</span><span class="n">json</span><span class="p">%</span><span class="n">compact_real</span><span class="p">,</span><span class="n">tmp</span><span class="p">)</span>
             <span class="k">end if</span>
 
 <span class="k">            call </span><span class="n">write_it</span><span class="p">(</span> <span class="n">s</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">tmp</span><span class="p">),</span> <span class="n">comma</span><span class="o">=</span><span class="n">print_comma</span> <span class="p">)</span>

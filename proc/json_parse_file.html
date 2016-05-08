@@ -649,7 +649,7 @@ private subroutine json_parse_file(json, file, p, unit)
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E41"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E69"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>,</td>
   <td></td>
   
@@ -684,9 +684,9 @@ private subroutine json_parse_file(json, file, p, unit)
 <h1 id="inputs">Inputs</h1>
 <p>The inputs can be:</p>
 <ul>
-<li>file and unit : the specified unit is used to read <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> from file.
-                    [note if unit is already open, then the filename is ignored]</li>
-<li>file          : <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> is read from file using internal unit number</li>
+<li><code>file</code> &amp; <code>unit</code> : the specified unit is used to read <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> from file.
+                      [note if unit is already open, then the filename is ignored]</li>
+<li><code>file</code>          : <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> is read from file using internal unit number</li>
 </ul>
 <h1 id="example">Example</h1>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
@@ -699,8 +699,7 @@ private subroutine json_parse_file(json, file, p, unit)
 <ul>
 <li>Jacob Williams : 01/13/2015 : added read from string option.</li>
 <li>Izaak Beekman  : 03/08/2015 : moved read from string to separate
-    subroutine, and error annotation
-    to separate subroutine.</li>
+    subroutine, and error annotation to separate subroutine.</li>
 </ul>
 <p></p><div class="alert alert-info" role="alert"><h4>Note</h4>When calling this routine, any exceptions thrown from previous
       calls will automatically be cleared.</div>
@@ -855,7 +854,7 @@ implementation in a submodule of an interface in a parent module.</p>
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>iunit</strong></td><td></td><td></td><td></td>
+  <td><strong>iunit</strong></td><td></td><td></td><td><p>file unit actually used</p></td>
   
 </tr>
 
@@ -869,7 +868,7 @@ implementation in a submodule of an interface in a parent module.</p>
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>istat</strong></td><td></td><td></td><td></td>
+  <td><strong>istat</strong></td><td></td><td></td><td><p>iostat flag</p></td>
   
 </tr>
 
@@ -883,7 +882,7 @@ implementation in a submodule of an interface in a parent module.</p>
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>is_open</strong></td><td></td><td></td><td></td>
+  <td><strong>is_open</strong></td><td></td><td></td><td><p>if the file is already open</p></td>
   
 </tr>
 
@@ -919,8 +918,9 @@ implementation in a submodule of an interface in a parent module.</p>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>             <span class="kd">::</span> <span class="n">p</span>     <span class="c">!! output structure</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">unit</span>  <span class="c">!! file unit number (/= 0)</span>
 
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">iunit</span><span class="p">,</span> <span class="n">istat</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">is_open</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">iunit</span>   <span class="c">!! file unit actually used</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">istat</span>   <span class="c">!! iostat flag</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">is_open</span> <span class="c">!! if the file is already open</span>
 
     <span class="c">!clear any exceptions and initialize:</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">initialize</span><span class="p">()</span>

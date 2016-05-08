@@ -577,7 +577,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine to_null(me, name)
+private subroutine to_null(p, name)
     
     
     
@@ -605,12 +605,12 @@ private subroutine to_null(me, name)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E129"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E90"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>me</strong></td><td></td>
+  <td><strong>p</strong></td><td></td>
   
 </tr>
 
@@ -919,19 +919,19 @@ implementation in a submodule of an interface in a parent module.</p>
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">to_null</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">to_null</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>               <span class="kd">::</span> <span class="n">me</span>
+<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>               <span class="kd">::</span> <span class="n">p</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">name</span>  <span class="c">!! if the name is also to be changed.</span>
 
     <span class="c">!set type and value:</span>
-    <span class="k">call </span><span class="n">destroy_json_data</span><span class="p">(</span><span class="n">me</span><span class="p">)</span>
-    <span class="n">me</span><span class="p">%</span><span class="n">var_type</span> <span class="o">=</span> <span class="n">json_null</span>
+    <span class="k">call </span><span class="n">destroy_json_data</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">p</span><span class="p">%</span><span class="n">var_type</span> <span class="o">=</span> <span class="n">json_null</span>
 
     <span class="c">!name:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">name</span><span class="p">))</span> <span class="n">me</span><span class="p">%</span><span class="n">name</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">name</span><span class="p">))</span> <span class="n">p</span><span class="p">%</span><span class="n">name</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
     <span class="k">end subroutine </span><span class="n">to_null</span>
 </pre></div>

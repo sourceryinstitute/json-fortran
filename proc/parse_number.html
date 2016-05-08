@@ -976,7 +976,9 @@ implementation in a submodule of an interface in a parent module.</p>
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>ip</strong></td><td></td><td></td><td></td>
+  <td><strong>ip</strong></td><td></td><td></td><td><p>index to put next character
+ [to speed up by reducing the number
+ of character string reallocations]</p></td>
   
 </tr>
 
@@ -1019,9 +1021,9 @@ implementation in a submodule of an interface in a parent module.</p>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ival</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">first</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">is_integer</span>
-
-    <span class="c">!to speed up by reducing the number of character string reallocations:</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ip</span> <span class="c">!index to put next character</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ip</span> <span class="c">!! index to put next character</span>
+                      <span class="c">!! [to speed up by reducing the number</span>
+                      <span class="c">!! of character string reallocations]</span>
 
     <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
 
