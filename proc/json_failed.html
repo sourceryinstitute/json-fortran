@@ -391,6 +391,8 @@
           
           <a class="list-group-item" href="../proc/json_value_get_by_name_chars.html">json_value_get_by_name_chars</a>
           
+          <a class="list-group-item" href="../proc/json_value_get_child.html">json_value_get_child</a>
+          
           <a class="list-group-item" href="../proc/json_value_is_child_of.html">json_value_is_child_of</a>
           
           <a class="list-group-item" href="../proc/json_value_print.html">json_value_print</a>
@@ -628,7 +630,8 @@ private pure function json_failed(json) result(failed)
     
 	 <h3>Return Value <small><span class="anchor" id="variable-failed%7E4"></span>logical(kind=LK)
   </small></h3>
-    
+    <p>will be true if an exception
+ has been thrown.</p>
     
     
     <h3>Description</h3>
@@ -693,7 +696,8 @@ private pure function json_failed(json) result(failed)
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">failed</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>                 <span class="kd">::</span> <span class="n">failed</span>  <span class="c">!! will be true if an exception</span>
+                                           <span class="c">!! has been thrown.</span>
 
     <span class="n">failed</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span>
 

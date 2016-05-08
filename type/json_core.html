@@ -204,6 +204,8 @@
           
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_get_by_name_chars">json_value_get_by_name_chars</a>
           
+          <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_get_child">json_value_get_child</a>
+          
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-add">add</a>
           
           <a class="list-group-item" href="../type/json_core.html#boundprocedure-add%7E2">add</a>
@@ -1118,7 +1120,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
     
 	   
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-get_child"></span><h3>generic, public :: <strong>get_child</strong>  => <a href='../type/json_core.html#boundprocedure-json_value_get_by_index'>json_value_get_by_index</a>, <a href='../type/json_core.html#boundprocedure-json_value_get_by_name_chars'>json_value_get_by_name_chars</a>, <a href='../type/json_core.html#boundprocedure-wrap_json_value_get_by_name_chars'>wrap_json_value_get_by_name_chars</a> 
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-get_child"></span><h3>generic, public :: <strong>get_child</strong>  => <a href='../type/json_core.html#boundprocedure-json_value_get_by_index'>json_value_get_by_index</a>, <a href='../type/json_core.html#boundprocedure-json_value_get_child'>json_value_get_child</a>, <a href='../type/json_core.html#boundprocedure-json_value_get_by_name_chars'>json_value_get_by_name_chars</a>, <a href='../type/json_core.html#boundprocedure-wrap_json_value_get_by_name_chars'>wrap_json_value_get_by_name_chars</a> 
     
   </h3></div>
   
@@ -1223,6 +1225,97 @@ private subroutine <a href='../proc/json_value_get_by_index.html'>json_value_get
 
        
        <p>Returns a child in the object or array given the index.</p>
+        
+
+         
+      
+      </li>
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_value_get_child.html'>json_value_get_child</a>(json, p, child)
+    
+    
+    
+</h3>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>object or array <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>child</strong></td><td><p>pointer to the child</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+    
+    <h4>Description</h4>
+       
+       
+
+
+       
+       <p>Returns pointer to the first child of the object
+  (or null() if it is not associated).</p>
         
 
          
@@ -1779,6 +1872,107 @@ private subroutine <a href='../proc/json_value_get_by_name_chars.html'>json_valu
 
        
        <p>Returns a child in the object or array given the name string.</p>
+        
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_value_get_child"></span><h3>procedure, private :: <strong>json_value_get_child</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_value_get_child.html'>json_value_get_child</a>(json, p, child)
+    
+    
+    
+</h3>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>object or array <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>child</strong></td><td><p>pointer to the child</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+    
+    <h4>Description</h4>
+       
+       
+
+
+       
+       <p>Returns pointer to the first child of the object
+  (or null() if it is not associated).</p>
         
 
       
@@ -22927,7 +23121,7 @@ private pure subroutine <a href='../proc/json_clear_exceptions.html'>json_clear_
          
     
     <h3>
-private pure function <a href='../proc/json_count.html'>json_count</a>(json, p) result(count)
+private function <a href='../proc/json_count.html'>json_count</a>(json, p) result(count)
     
     
     
@@ -22953,7 +23147,7 @@ private pure function <a href='../proc/json_count.html'>json_count</a>(json, p) 
 <tr>
   
   <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
-  <td>intent(in)</td>
+  <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
@@ -23195,7 +23389,8 @@ private pure function <a href='../proc/json_failed.html'>json_failed</a>(json) r
   
      <h4>Return Value <small>logical(kind=LK)
   </small></h4>
-  
+  <p>will be true if an exception
+ has been thrown.</p>
     
     
     <h4>Description</h4>
@@ -23272,7 +23467,7 @@ private subroutine <a href='../proc/json_get_parent.html'>json_get_parent</a>(js
 <tr>
   
   <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
-  <td>intent(in)</td>
+  <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
@@ -23392,7 +23587,7 @@ private subroutine <a href='../proc/json_get_next.html'>json_get_next</a>(json, 
 <tr>
   
   <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
-  <td>intent(in)</td>
+  <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
@@ -23512,7 +23707,7 @@ private subroutine <a href='../proc/json_get_previous.html'>json_get_previous</a
 <tr>
   
   <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
-  <td>intent(in)</td>
+  <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
@@ -23632,7 +23827,7 @@ private subroutine <a href='../proc/json_get_tail.html'>json_get_tail</a>(json, 
 <tr>
   
   <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
-  <td>intent(in)</td>
+  <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
@@ -26488,9 +26683,11 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
 <span class="k">        private</span>
 
 <span class="k">        generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">get_child</span> <span class="o">=&gt;</span> <span class="n">json_value_get_by_index</span><span class="p">,</span> <span class="p">&amp;</span>
+                                       <span class="n">json_value_get_child</span><span class="p">,&amp;</span>
                                        <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_get_by_name_chars</span><span class="p">)</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_get_by_index</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_get_by_name_chars</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_get_child</span>
 
         <span class="c">!&gt;</span>
         <span class="c">!  Add objects to a linked list of [[json_value]]s.</span>
