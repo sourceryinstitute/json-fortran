@@ -200,6 +200,7 @@
 <li><a href="#changes-between-releases">Changes Between Releases</a><ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#500-2016-05-09">5.0.0 (2016-05-09)</a></li>
 <li><a href="#430-2015-12-05">4.3.0 (2015-12-05)</a></li>
 <li><a href="#420-2015-08-03">4.2.0 (2015-08-03)</a></li>
 <li><a href="#411-2015-05-27">4.1.1 (2015-05-27)</a></li>
@@ -222,7 +223,7 @@ of the <code>master</code> branch, please head back to the
 <a href="../../index.html">main page</a>.</p>
 <h2 id="latest-stable-release">Latest Stable Release</h2>
 <p><strong>Documentation:</strong>
-<a href="http://jacobwilliams.github.io/json-fortran/4.3.0/index.html">4.3.0</a></p>
+<a href="http://jacobwilliams.github.io/json-fortran/5.0.0/index.html">5.0.0</a></p>
 <p><strong>Download:</strong>
 <a href="https://github.com/jacobwilliams/json-fortran/releases/latest">https://github.com/jacobwilliams/json-fortran/releases/latest</a></p>
 <h2 id="past-releases">Past Releases</h2>
@@ -231,6 +232,11 @@ documentation from the documentation for official releases other than
 using the browser's back button. Feel free to bookmark this page, or
 the <a href="../../index.html">main project page</a> for convenient navigation.</p>
 <ul>
+<li><a href="http://jacobwilliams.github.io/json-fortran/5.0.0/index.html">5.0.0</a>
+   (<a href="https://github.com/cmacmackin/ford">FORD</a> generated documentation)<ul>
+<li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/5.0.0">Download</a></li>
+</ul>
+</li>
 <li><a href="http://jacobwilliams.github.io/json-fortran/4.3.0/index.html">4.3.0</a>
    (<a href="https://github.com/cmacmackin/ford">FORD</a> generated documentation)<ul>
 <li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/4.3.0">Download</a></li>
@@ -279,7 +285,7 @@ the <a href="../../index.html">main project page</a> for convenient navigation.<
 </ul>
 <h1 id="development-version">Development Version</h1>
 <p>Documentation for the latest development version may be found at
-<a href="https://jacobwilliams.github.io/json-fortran/4.3.0/index.html">https://jacobwilliams.github.io/json-fortran/4.3.0/index.html</a>
+<a href="https://jacobwilliams.github.io/json-fortran/5.0.0/index.html">https://jacobwilliams.github.io/json-fortran/5.0.0/index.html</a>
 or generated locally using the
 <a href="../../page/development-resources/build.sh.html">build.sh</a> build
 script.</p>
@@ -291,6 +297,7 @@ implemented between each release.</p>
 <ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#500-2016-05-09">5.0.0 (2016-05-09)</a></li>
 <li><a href="#430-2015-12-05">4.3.0 (2015-12-05)</a></li>
 <li><a href="#420-2015-08-03">4.2.0 (2015-08-03)</a></li>
 <li><a href="#411-2015-05-27">4.1.1 (2015-05-27)</a></li>
@@ -304,7 +311,38 @@ implemented between each release.</p>
 </li>
 </ul>
 <h3 id="unreleased"><a href="https://github.com/jacobwilliams/json-fortran/tree/HEAD">Unreleased</a></h3>
-<p><a href="https://github.com/jacobwilliams/json-fortran/compare/4.3.0...HEAD">Complete Changeset</a></p>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/5.0.0...HEAD">Complete Changeset</a></p>
+<h3 id="500-2016-05-09"><a href="https://github.com/jacobwilliams/json-fortran/tree/5.0.0">5.0.0</a> (2016-05-09)</h3>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/4.3.0...5.0.0">Complete Changeset</a>
+or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/5.0.0">Download v5.0.0</a></p>
+<p>See also <a href="https://github.com/jacobwilliams/json-fortran/wiki/5.0-Changes">this Wiki page</a> on how to update your code to be compatible with this release.</p>
+<p><strong>Enhancements:</strong></p>
+<ul>
+<li>Split <code>json_module</code> into multiple files. <a href="https://github.com/jacobwilliams/json-fortran/issues/168">#168</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/170">#170</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>The library is now thread safe <a href="https://github.com/jacobwilliams/json-fortran/issues/36">#36</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/170">#170</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added new <code>initialize()</code>, <code>failed()</code>, <code>print_error_message()</code>, <code>check_to_errors()</code>, and <code>clear_exceptions()</code> to the <code>json_file</code> class. <a href="https://github.com/jacobwilliams/json-fortran/pull/170">#170</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>The number of spaces for indenting can now be user specified. <a href="https://github.com/jacobwilliams/json-fortran/pull/170">#170</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Updates for Visual Studio project <a href="https://github.com/jacobwilliams/json-fortran/pull/170">#170</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added a <code>validate()</code> method for validating <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked lists <a href="https://github.com/jacobwilliams/json-fortran/issues/196">#196</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/197">#197</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added some additional error checks for malformed <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked lists <a href="https://github.com/jacobwilliams/json-fortran/pull/182">#182</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added a new routine <code>is_child_of</code> to check if one <code>json_value</code> is a descendant of another <a href="https://github.com/jacobwilliams/json-fortran/pull/182">#182</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added new options for case-insensitive searching of names/paths, as well as the option to consider trailing space significant <a href="https://github.com/jacobwilliams/json-fortran/issues/185">#185</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/192">#192</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added a routine to enable swapping of elements in a <code>json_value</code> linked list <a href="https://github.com/jacobwilliams/json-fortran/issues/177">#177</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/182">#182</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Rename parameters <code>RK</code>, <code>IK</code>, <code>LK</code>, <code>CK</code>, and <code>CDK</code> using less generic names (<code>json_RK</code>, <code>json_IK</code>, <code>json_LK</code>, <code>json_CK</code>, and <code>json_CDK</code>) <a href="https://github.com/jacobwilliams/json-fortran/issues/172">#172</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Calling the <code>initialize()</code> method (which is now in <code>json_core</code> and    <code>json_file</code>) is no longer mandatory <a href="https://github.com/jacobwilliams/json-fortran/issues/171">#171</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added a <code>rename()</code> method for renaming a <code>json_value</code> variable <a href="https://github.com/jacobwilliams/json-fortran/issues/184">#184</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/187">#187</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added some compiler directives so that workarounds for Gfortran bugs are not used for other compilers <a href="https://github.com/jacobwilliams/json-fortran/issues/190">#190</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added option for strict typing for <code>get</code> routines <a href="https://github.com/jacobwilliams/json-fortran/issues/173">#173</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Various cosmetic changes and renaming of some of the dummy arguments in some procedures. <a href="https://github.com/jacobwilliams/json-fortran/pull/198">#198</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added checks to avoid unnecessary looping when traversing arrays if an exception is thrown <a href="https://github.com/jacobwilliams/json-fortran/pull/183">#183</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added a new <code>get_child</code> method to get the first child. [9d4f736] (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added some additional error checks for unassociated pointers [9d4f736] (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Ensure null pointers are returned for some error cases [838f476] (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
+<p><strong>Fixed Issues</strong></p>
+<ul>
+<li>Fixed a bug in the <code>traverse()</code> routine, where the <code>finished</code> output flag was not being correctly checked <a href="https://github.com/jacobwilliams/json-fortran/pull/182">#182</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
 <h3 id="430-2015-12-05"><a href="https://github.com/jacobwilliams/json-fortran/tree/4.3.0">4.3.0</a> (2015-12-05)</h3>
 <p><a href="https://github.com/jacobwilliams/json-fortran/compare/4.2.0...4.3.0">Complete Changeset</a>
 or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/4.3.0">Download v4.3.0</a></p>

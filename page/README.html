@@ -255,11 +255,11 @@ support a single Fortran compiler. Cheers!</p>
 various Fortran 2003 and Fortran 2008 features such as: allocatable
 strings, <code>newunit</code>, <code>generic</code>, <code>class</code>, and <code>abstract interface</code>.
 It has been successfully compiled with the <a href="https://software.intel.com/en-us/articles/non-commercial-software-development">Intel Fortran compiler
-13.1.0</a> (and greater) and the recent <a href="http://gcc.gnu.org/wiki/GFortran/News#GCC4.9">4.9 release of the GNU gfortran
-compiler</a>. It has also
+13.1.0</a> (and greater) and the <a href="http://gcc.gnu.org/wiki/GFortran">GNU gfortran
+compiler</a> [4.9 and greater]. It has also
 been reported that the library can be built (using the CMake build
 script) with the <a href="http://www.nag.com/nagware/NP/NP_desc.asp">NAG Fortran compiler 6.0</a></p>
-<p>Currently, several ways are provided to build the jsonfortran library
+<p>Currently, several ways are provided to build the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>-fortran library
 (libjsonfortran).</p>
 <ul>
 <li>
@@ -289,7 +289,7 @@ linking against those compiled/installed by the first copy:</p>
 <span class="nb">enable_language</span> <span class="p">(</span> <span class="s">Fortran</span> <span class="p">)</span>
 <span class="nb">project</span> <span class="p">(</span> <span class="s">jf_test</span> <span class="s">NONE</span> <span class="p">)</span>
 
-<span class="nb">find_package</span> <span class="p">(</span> <span class="s">jsonfortran-</span><span class="o">${</span><span class="nv">CMAKE_Fortran_COMPILER_ID</span><span class="o">}</span> <span class="s">4.3.0</span> <span class="s">REQUIRED</span> <span class="p">)</span>
+<span class="nb">find_package</span> <span class="p">(</span> <span class="s">jsonfortran-</span><span class="o">${</span><span class="nv">CMAKE_Fortran_COMPILER_ID</span><span class="o">}</span> <span class="s">5.0.0</span> <span class="s">REQUIRED</span> <span class="p">)</span>
 <span class="nb">include_directories</span> <span class="p">(</span> <span class="s2">&quot;${jsonfortran_INCLUDE_DIRS}&quot;</span> <span class="p">)</span>
 
 <span class="nb">file</span> <span class="p">(</span> <span class="s">GLOB</span> <span class="s">JF_TEST_SRCS</span> <span class="s2">&quot;src/tests/jf_test_*.f90&quot;</span> <span class="p">)</span>
