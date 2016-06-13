@@ -207,6 +207,8 @@
           
           <a class="list-group-item" href="../proc/get_current_line_from_file_stream.html">get_current_line_from_file_stream</a>
           
+          <a class="list-group-item" href="../proc/get_json_core_in_file.html">get_json_core_in_file</a>
+          
           <a class="list-group-item" href="../proc/initialize_json_core.html">initialize_json_core</a>
           
           <a class="list-group-item" href="../proc/initialize_json_core_in_file.html">initialize_json_core_in_file</a>
@@ -274,6 +276,8 @@
           <a class="list-group-item" href="../proc/json_file_print_to_console.html">json_file_print_to_console</a>
           
           <a class="list-group-item" href="../proc/json_file_print_to_string.html">json_file_print_to_string</a>
+          
+          <a class="list-group-item" href="../proc/json_file_traverse.html">json_file_traverse</a>
           
           <a class="list-group-item" href="../proc/json_file_update_integer.html">json_file_update_integer</a>
           
@@ -463,6 +467,8 @@
           
           <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
           
+          <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
+          
           <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
           
           <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
@@ -633,7 +639,7 @@ private subroutine json_traverse(json, p, traverse_callback)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E96"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E95"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -663,7 +669,7 @@ private subroutine json_traverse(json, p, traverse_callback)
   
 <tr>
   
-  <td><span class="anchor" id="variable-traverse_callback"></span>procedure(<a href='../interface/traverse_callback_func.html'>traverse_callback_func</a>)</td>
+  <td><span class="anchor" id="variable-traverse_callback%7E2"></span>procedure(<a href='../interface/json_traverse_callback_func.html'>json_traverse_callback_func</a>)</td>
   <td></td>
   <td></td>
   
@@ -680,7 +686,7 @@ private subroutine json_traverse(json, p, traverse_callback)
     
     <h3>Description</h3>
     <p>Traverse a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.
-  This routine calls the user-specified <a href="../interface/traverse_callback_func.html">traverse_callback_func</a>
+  This routine calls the user-specified <a href="../interface/json_traverse_callback_func.html">json_traverse_callback_func</a>
   for each element of the structure.</p>
     
     
@@ -709,13 +715,13 @@ private subroutine json_traverse(json, p, traverse_callback)
 </g>
 <!-- proc~json_traverse&#45;&gt;none~traverse -->
 <g id="edge6" class="edge"><title>proc~json_traverse&#45;&gt;none~traverse</title>
-<path fill="none" stroke="black" d="M77.5618,-13C86.1449,-13 95.2285,-13 103.757,-13"/>
-<polygon fill="black" stroke="black" points="103.815,-16.5001 113.815,-13 103.814,-9.5001 103.815,-16.5001"/>
+<path fill="none" stroke="#ff0000" d="M77.5618,-13C86.1449,-13 95.2285,-13 103.757,-13"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="103.815,-16.5001 113.815,-13 103.814,-9.5001 103.815,-16.5001"/>
 </g>
 <!-- none~traverse&#45;&gt;none~traverse -->
 <g id="edge4" class="edge"><title>none~traverse&#45;&gt;none~traverse</title>
-<path fill="none" stroke="black" d="M123.743,-26.0602C118.513,-35.0996 124.266,-44 141,-44 151.198,-44 157.317,-40.6949 159.359,-36.0674"/>
-<polygon fill="black" stroke="black" points="162.83,-35.6173 158.257,-26.0602 155.872,-36.383 162.83,-35.6173"/>
+<path fill="none" stroke="#ff0000" d="M123.743,-26.0602C118.513,-35.0996 124.266,-44 141,-44 151.198,-44 157.317,-40.6949 159.359,-36.0674"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="162.83,-35.6173 158.257,-26.0602 155.872,-36.383 162.83,-35.6173"/>
 </g>
 <!-- traverse_callback -->
 <g id="node3" class="node"><title>traverse_callback</title>
@@ -724,8 +730,8 @@ private subroutine json_traverse(json, p, traverse_callback)
 </g>
 <!-- none~traverse&#45;&gt;traverse_callback -->
 <g id="edge2" class="edge"><title>none~traverse&#45;&gt;traverse_callback</title>
-<path fill="none" stroke="black" d="M168.154,-13C175.988,-13 184.852,-13 193.81,-13"/>
-<polygon fill="black" stroke="black" points="193.914,-16.5001 203.914,-13 193.914,-9.5001 193.914,-16.5001"/>
+<path fill="none" stroke="#ff0000" d="M168.154,-13C175.988,-13 184.852,-13 193.81,-13"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="193.914,-16.5001 203.914,-13 193.914,-9.5001 193.914,-16.5001"/>
 </g>
 </g>
 </svg>
@@ -800,6 +806,8 @@ Nodes of different colours represent the following:
 </g>
 </svg>
 
+Where possible, edges connecting nodes are given different colours to make them
+easier to distinguish in large graphs.
 <h5>Module Graph</h5>
 <p>Solid arrows point from a parent (sub)module to the submodule which is
 descended from it. Dashed arrows point from a module being used to the
@@ -941,9 +949,9 @@ recursive subroutine traverse(p)
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>
-    <span class="k">procedure</span><span class="p">(</span><span class="n">traverse_callback_func</span><span class="p">)</span>   <span class="kd">::</span> <span class="n">traverse_callback</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>         <span class="kd">::</span> <span class="n">json</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>    <span class="kd">::</span> <span class="n">p</span>
+    <span class="k">procedure</span><span class="p">(</span><span class="n">json_traverse_callback_func</span><span class="p">)</span> <span class="kd">::</span> <span class="n">traverse_callback</span>
 
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">finished</span> <span class="c">!! can be used to stop the process</span>
 
@@ -1002,12 +1010,18 @@ recursive subroutine traverse(p)
 
     <hr>
     <footer>
-        <div class="row">
+      <div class="row">
         <div class="col-md-4">&copy; 2016 </div>
-	<div class="col-md-4"><span class="text-center"> JSON-Fortran was developed by Jacob Williams</span></div>
-        <div class="col-md-4"><span class="pull-right">Documentation generated by <a href="https://github.com/cmacmackin/ford">FORD</a></span></div>
+        <div class="col-md-4"><span class="text-center"> JSON-Fortran was developed by Jacob Williams</span></div>
+        <div class="col-md-4">
+          <span class="pull-right">
+            Documentation generated by 
+            <a href="https://github.com/cmacmackin/ford">FORD</a>
+             on 2016-06-13 15:42  
+          </span>
         </div>
-        <br>
+      </div>
+      <br>
     </footer>
     </div> <!-- /container -->
 
@@ -1035,6 +1049,6 @@ recursive subroutine traverse(p)
         }
       });
     </script>
-    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   </body>
 </html>

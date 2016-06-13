@@ -179,6 +179,8 @@
           
           <a class="list-group-item" href="../proc/get_current_line_from_file_stream.html">get_current_line_from_file_stream</a>
           
+          <a class="list-group-item" href="../proc/get_json_core_in_file.html">get_json_core_in_file</a>
+          
           <a class="list-group-item" href="../proc/initialize_json_core.html">initialize_json_core</a>
           
           <a class="list-group-item" href="../proc/initialize_json_core_in_file.html">initialize_json_core_in_file</a>
@@ -246,6 +248,8 @@
           <a class="list-group-item" href="../proc/json_file_print_to_console.html">json_file_print_to_console</a>
           
           <a class="list-group-item" href="../proc/json_file_print_to_string.html">json_file_print_to_string</a>
+          
+          <a class="list-group-item" href="../proc/json_file_traverse.html">json_file_traverse</a>
           
           <a class="list-group-item" href="../proc/json_file_update_integer.html">json_file_update_integer</a>
           
@@ -435,6 +439,8 @@
           
           <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
           
+          <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
+          
           <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
           
           <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
@@ -605,7 +611,7 @@ private subroutine wrap_json_file_get_double_vec(me, path, vec, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E26"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td><span class="anchor" id="variable-me%7E28"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -696,8 +702,8 @@ private subroutine wrap_json_file_get_double_vec(me, path, vec, found)
 </g>
 <!-- proc~wrap_json_file_get_double_vec&#45;&gt;interface~to_unicode -->
 <g id="edge6" class="edge"><title>proc~wrap_json_file_get_double_vec&#45;&gt;interface~to_unicode</title>
-<path fill="none" stroke="black" d="M163.687,-35C172.775,-35 181.743,-35 190.059,-35"/>
-<polygon fill="black" stroke="black" points="190.203,-38.5001 200.203,-35 190.203,-31.5001 190.203,-38.5001"/>
+<path fill="none" stroke="#ff0000" d="M163.687,-35C172.775,-35 181.743,-35 190.059,-35"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="190.203,-38.5001 200.203,-35 190.203,-31.5001 190.203,-38.5001"/>
 </g>
 <!-- proc~to_uni -->
 <g id="node3" class="node"><title>proc~to_uni</title>
@@ -708,8 +714,8 @@ private subroutine wrap_json_file_get_double_vec(me, path, vec, found)
 </g>
 <!-- interface~to_unicode&#45;&gt;proc~to_uni -->
 <g id="edge2" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M265.513,-42.082C275.547,-44.2677 286.671,-46.6907 296.985,-48.9373"/>
-<polygon fill="black" stroke="black" points="296.443,-52.4012 306.959,-51.1098 297.933,-45.5616 296.443,-52.4012"/>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M265.513,-42.082C275.547,-44.2677 286.671,-46.6907 296.985,-48.9373"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="296.443,-52.4012 306.959,-51.1098 297.933,-45.5616 296.443,-52.4012"/>
 </g>
 <!-- proc~to_uni_vec -->
 <g id="node4" class="node"><title>proc~to_uni_vec</title>
@@ -720,8 +726,8 @@ private subroutine wrap_json_file_get_double_vec(me, path, vec, found)
 </g>
 <!-- interface~to_unicode&#45;&gt;proc~to_uni_vec -->
 <g id="edge4" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M265.513,-27.918C273.977,-26.0744 283.215,-24.062 292.09,-22.129"/>
-<polygon fill="black" stroke="black" points="292.867,-25.5417 301.893,-19.9935 291.378,-18.7021 292.867,-25.5417"/>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M265.513,-27.918C273.977,-26.0744 283.215,-24.062 292.09,-22.129"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="292.867,-25.5417 301.893,-19.9935 291.378,-18.7021 292.867,-25.5417"/>
 </g>
 </g>
 </svg>
@@ -796,6 +802,8 @@ Nodes of different colours represent the following:
 </g>
 </svg>
 
+Where possible, edges connecting nodes are given different colours to make them
+easier to distinguish in large graphs.
 <h5>Module Graph</h5>
 <p>Solid arrows point from a parent (sub)module to the submodule which is
 descended from it. Dashed arrows point from a module being used to the
@@ -860,12 +868,18 @@ implementation in a submodule of an interface in a parent module.</p>
 
     <hr>
     <footer>
-        <div class="row">
+      <div class="row">
         <div class="col-md-4">&copy; 2016 </div>
-	<div class="col-md-4"><span class="text-center"> JSON-Fortran was developed by Jacob Williams</span></div>
-        <div class="col-md-4"><span class="pull-right">Documentation generated by <a href="https://github.com/cmacmackin/ford">FORD</a></span></div>
+        <div class="col-md-4"><span class="text-center"> JSON-Fortran was developed by Jacob Williams</span></div>
+        <div class="col-md-4">
+          <span class="pull-right">
+            Documentation generated by 
+            <a href="https://github.com/cmacmackin/ford">FORD</a>
+             on 2016-06-13 15:42  
+          </span>
         </div>
-        <br>
+      </div>
+      <br>
     </footer>
     </div> <!-- /container -->
 
@@ -893,6 +907,6 @@ implementation in a submodule of an interface in a parent module.</p>
         }
       });
     </script>
-    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   </body>
 </html>
