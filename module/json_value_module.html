@@ -321,6 +321,10 @@
           
           <a class="list-group-item" href="../module/json_value_module.html#proc-wrap_json_value_add_double_vec">wrap_json_value_add_double_vec</a>
           
+          <a class="list-group-item" href="../module/json_value_module.html#proc-json_value_add_null">json_value_add_null</a>
+          
+          <a class="list-group-item" href="../module/json_value_module.html#proc-wrap_json_value_add_null">wrap_json_value_add_null</a>
+          
           <a class="list-group-item" href="../module/json_value_module.html#proc-json_value_add_integer">json_value_add_integer</a>
           
           <a class="list-group-item" href="../module/json_value_module.html#proc-wrap_json_value_add_integer">wrap_json_value_add_integer</a>
@@ -622,7 +626,7 @@
 <polygon fill="#ff0000" stroke="#ff0000" points="508.224,-70.8189 516.335,-64.0026 505.743,-64.273 508.224,-70.8189"/>
 </g>
 <!-- module~json_kinds&#45;&gt;module~json_string_utilities -->
-<g id="edge2" class="edge"><title>module~json_kinds&#45;&gt;module~json_string_utilities</title>
+<g id="edge4" class="edge"><title>module~json_kinds&#45;&gt;module~json_string_utilities</title>
 <path fill="none" stroke="#7fff00" stroke-dasharray="5,2" d="M187.773,-50.9524C210.889,-51.1312 242.924,-51.8199 271,-54"/>
 <path fill="none" stroke="#7fff00" stroke-dasharray="5,2" d="M271,-54C294.816,-55.8493 321.06,-55.7512 344.027,-54.963"/>
 <polygon fill="#7fff00" stroke="#7fff00" points="344.474,-58.4482 354.328,-54.5567 344.198,-51.4536 344.474,-58.4482"/>
@@ -645,7 +649,7 @@
 <polygon fill="#ff0000" stroke="#ff0000" points="489.631,-39.016 500.174,-37.9633 491.276,-32.2119 489.631,-39.016"/>
 </g>
 <!-- module~json_parameters&#45;&gt;module~json_string_utilities -->
-<g id="edge4" class="edge"><title>module~json_parameters&#45;&gt;module~json_string_utilities</title>
+<g id="edge2" class="edge"><title>module~json_parameters&#45;&gt;module~json_string_utilities</title>
 <path fill="none" stroke="#7fff00" stroke-dasharray="5,2" d="M317.459,-26.0774C327.854,-29.0032 338.988,-32.1372 349.731,-35.1613"/>
 <polygon fill="#7fff00" stroke="#7fff00" points="348.881,-38.5579 359.455,-37.8985 350.777,-31.8198 348.881,-38.5579"/>
 </g>
@@ -2007,7 +2011,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
        <tr><td>procedure, private :: <strong>json_value_get_child</strong>  </td>
        <td></td></tr>
       
-       <tr><td>generic, public :: <strong>add</strong>  => json_value_add_member, json_value_add_integer, wrap_json_value_add_integer, json_value_add_integer_vec, wrap_json_value_add_integer_vec, json_value_add_double, wrap_json_value_add_double, json_value_add_double_vec, wrap_json_value_add_double_vec, json_value_add_logical, wrap_json_value_add_logical, json_value_add_logical_vec, wrap_json_value_add_logical_vec, json_value_add_string, wrap_json_value_add_string, json_value_add_string_vec, wrap_json_value_add_string_vec </td>
+       <tr><td>generic, public :: <strong>add</strong>  => json_value_add_member, json_value_add_null, wrap_json_value_add_null, json_value_add_integer, wrap_json_value_add_integer, json_value_add_integer_vec, wrap_json_value_add_integer_vec, json_value_add_double, wrap_json_value_add_double, json_value_add_double_vec, wrap_json_value_add_double_vec, json_value_add_logical, wrap_json_value_add_logical, json_value_add_logical_vec, wrap_json_value_add_logical_vec, json_value_add_string, wrap_json_value_add_string, json_value_add_string_vec, wrap_json_value_add_string_vec </td>
        <td><p>Add objects to a linked list of <a href="../type/json_value.html">json_value</a>s.</p></td></tr>
       
        <tr><td>generic, public :: <strong>add</strong>  => json_value_add_string_name_ascii, json_value_add_string_val_ascii, json_value_add_string_vec_name_ascii, json_value_add_string_vec_val_ascii </td>
@@ -2020,6 +2024,12 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
        <td></td></tr>
       
        <tr><td>procedure, private :: <strong>json_value_add_integer</strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong>wrap_json_value_add_null</strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong>json_value_add_null</strong>  </td>
        <td></td></tr>
       
        <tr><td>procedure, private :: <strong>wrap_json_value_add_integer_vec</strong>  </td>
@@ -5901,7 +5911,7 @@ private subroutine <a href='../proc/json_value_validate.html'>json_value_validat
 <tr>
   
   <td><span class="anchor" ></span>character(kind=CK,len=:),</td>
-  <td>,</td>
+  <td>intent(out),</td>
   <td></td>
   
   <td>allocatable</td><td>::</td>
@@ -7905,6 +7915,184 @@ private subroutine <a href='../proc/wrap_json_value_add_double_vec.html'>wrap_js
 
        
        <p>Alternate version of <a href="../proc/json_value_add_double_vec.html">json_value_add_double_vec</a> where <code>name</code> is kind=CDK.</p>
+        
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-json_value_add_null"></span><h3>
+private subroutine <a href='../proc/json_value_add_null.html'>json_value_add_null</a>(json, p, name)
+    
+    
+    
+</h3></div>
+  <div class="panel-body">
+       
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+    
+    <h4>Description</h4>
+       
+       
+
+
+       
+       <p>Add a NULL value child to the <a href="../type/json_value.html">json_value</a> variable</p>
+        
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-wrap_json_value_add_null"></span><h3>
+private subroutine <a href='../proc/wrap_json_value_add_null.html'>wrap_json_value_add_null</a>(json, p, name)
+    
+    
+    
+</h3></div>
+  <div class="panel-body">
+       
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>,</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td><p>name of the variable</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+    
+    <h4>Description</h4>
+       
+       
+
+
+       
+       <p>Alternate version of <a href="../proc/json_value_add_null.html">json_value_add_null</a> where <code>name</code> is kind=CDK.</p>
         
 
   </div>
@@ -17943,7 +18131,7 @@ private subroutine <a href='../proc/json_print_error_message.html'>json_print_er
           <span class="pull-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-06-26 05:17  
+             on 2016-06-26 15:43  
           </span>
         </div>
       </div>
