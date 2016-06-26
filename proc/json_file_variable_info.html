@@ -132,18 +132,6 @@
   
   
   
-  <div class="panel panel-primary">
-    <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#vars">Variables</a></h3></div>
-    <div id="vars" class="panel-collapse collapse">
-      <div class="list-group">
-        
-        <a class="list-group-item" href="../proc/json_file_variable_info.html#variable-p%7E4">p</a>
-        
-      </div>
-    </div>
-  </div>
-  
-  
   
   
   
@@ -281,6 +269,8 @@
           
           <a class="list-group-item" href="../proc/json_file_variable_info.html">json_file_variable_info</a>
           
+          <a class="list-group-item" href="../proc/json_file_variable_matrix_info.html">json_file_variable_matrix_info</a>
+          
           <a class="list-group-item" href="../proc/json_get_array.html">json_get_array</a>
           
           <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
@@ -329,7 +319,13 @@
           
           <a class="list-group-item" href="../proc/json_info.html">json_info</a>
           
+          <a class="list-group-item" href="../proc/json_info_by_path.html">json_info_by_path</a>
+          
           <a class="list-group-item" href="../proc/json_initialize.html">json_initialize</a>
+          
+          <a class="list-group-item" href="../proc/json_matrix_info.html">json_matrix_info</a>
+          
+          <a class="list-group-item" href="../proc/json_matrix_info_by_path.html">json_matrix_info_by_path</a>
           
           <a class="list-group-item" href="../proc/json_parse_file.html">json_parse_file</a>
           
@@ -521,6 +517,8 @@
           
           <a class="list-group-item" href="../proc/wrap_json_file_variable_info.html">wrap_json_file_variable_info</a>
           
+          <a class="list-group-item" href="../proc/wrap_json_file_variable_matrix_info.html">wrap_json_file_variable_matrix_info</a>
+          
           <a class="list-group-item" href="../proc/wrap_json_get_array_with_path.html">wrap_json_get_array_with_path</a>
           
           <a class="list-group-item" href="../proc/wrap_json_get_by_path.html">wrap_json_get_by_path</a>
@@ -540,6 +538,10 @@
           <a class="list-group-item" href="../proc/wrap_json_get_string_vec_with_path.html">wrap_json_get_string_vec_with_path</a>
           
           <a class="list-group-item" href="../proc/wrap_json_get_string_with_path.html">wrap_json_get_string_with_path</a>
+          
+          <a class="list-group-item" href="../proc/wrap_json_info_by_path.html">wrap_json_info_by_path</a>
+          
+          <a class="list-group-item" href="../proc/wrap_json_matrix_info_by_path.html">wrap_json_matrix_info_by_path</a>
           
           <a class="list-group-item" href="../proc/wrap_json_parse_string.html">wrap_json_parse_string</a>
           
@@ -599,7 +601,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine json_file_variable_info(me, path, found, var_type, n_children)
+private subroutine json_file_variable_info(me, path, found, var_type, n_children, name)
     
     
     
@@ -658,8 +660,8 @@ private subroutine json_file_variable_info(me, path, found, var_type, n_children
 <tr>
   
   <td><span class="anchor" id="variable-found"></span>logical(kind=LK),</td>
-  <td>intent(out)</td>
-  <td></td>
+  <td>intent(out),</td>
+  <td>optional</td>
   
   <td></td><td>::</td>
   <td><strong>found</strong></td><td><p>the variable exists in the structure</p></td>
@@ -673,8 +675,8 @@ private subroutine json_file_variable_info(me, path, found, var_type, n_children
 <tr>
   
   <td><span class="anchor" id="variable-var_type%7E2"></span>integer(kind=IK),</td>
-  <td>intent(out)</td>
-  <td></td>
+  <td>intent(out),</td>
+  <td>optional</td>
   
   <td></td><td>::</td>
   <td><strong>var_type</strong></td><td><p>variable type</p></td>
@@ -688,11 +690,26 @@ private subroutine json_file_variable_info(me, path, found, var_type, n_children
 <tr>
   
   <td><span class="anchor" id="variable-n_children%7E2"></span>integer(kind=IK),</td>
-  <td>intent(out)</td>
-  <td></td>
+  <td>intent(out),</td>
+  <td>optional</td>
   
   <td></td><td>::</td>
   <td><strong>n_children</strong></td><td><p>number of children</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-name%7E2"></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>name</strong></td><td><p>variable name</p></td>
   
 </tr>
 
@@ -704,41 +721,12 @@ private subroutine json_file_variable_info(me, path, found, var_type, n_children
     
     <h3>Description</h3>
     <p>Returns information about a variable in a <a href="../type/json_file.html">json_file</a>.</p>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4>If <code>found</code> is present, no exceptions will be thrown if an
+      error occurs. Otherwise, an exception will be thrown if the
+      variable is not found.</div>
     
     
      
-    <br>
-    
-    <section>
-    <h2>Variables</h2>
-    
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th><th>Visibility</th>
-
-<th>Attributes</th><th></th><th>Name</th><th></th><th>Initial</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-p%7E4"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  
-  <td>public,</td>
-  <td>pointer</td><td>::</td>
-  <td><strong>p</strong></td><td></td><td></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-    </section>
     <br>
     
     
@@ -758,39 +746,18 @@ private subroutine json_file_variable_info(me, path, found, var_type, n_children
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_variable_info</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">found</span><span class="p">,</span><span class="n">var_type</span><span class="p">,</span><span class="n">n_children</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_variable_info</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">found</span><span class="p">,</span><span class="n">var_type</span><span class="p">,</span><span class="n">n_children</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">me</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">path</span>       <span class="c">!! path to the variable</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>             <span class="kd">::</span> <span class="n">found</span>      <span class="c">!! the variable exists in the structure</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>             <span class="kd">::</span> <span class="n">var_type</span>   <span class="c">!! variable type</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>             <span class="kd">::</span> <span class="n">n_children</span> <span class="c">!! number of children</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span>    <span class="kd">::</span> <span class="n">found</span>      <span class="c">!! the variable exists in the structure</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span>    <span class="kd">::</span> <span class="n">var_type</span>   <span class="c">!! variable type</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span>    <span class="kd">::</span> <span class="n">n_children</span> <span class="c">!! number of children</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">name</span> <span class="c">!! variable name</span>
 
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
-
-    <span class="c">!initialize:</span>
-    <span class="k">nullify</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-
-    <span class="c">!get a pointer to the variable (if it is there):</span>
-    <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="k">then</span>
-
-        <span class="c">!get info:</span>
-        <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">info</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">var_type</span><span class="p">,</span><span class="n">n_children</span><span class="p">)</span>
-
-    <span class="k">else</span>
-
-        <span class="c">!set to dummy values:</span>
-        <span class="n">var_type</span> <span class="o">=</span> <span class="n">json_unknown</span>
-        <span class="n">n_children</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="k">end if</span>
-
-    <span class="c">!cleanup:</span>
-    <span class="k">nullify</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">info</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">found</span><span class="p">,</span><span class="n">var_type</span><span class="p">,</span><span class="n">n_children</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
 
     <span class="k">end subroutine </span><span class="n">json_file_variable_info</span>
 </pre></div>
@@ -811,7 +778,7 @@ private subroutine json_file_variable_info(me, path, found, var_type, n_children
           <span class="pull-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-06-13 15:42  
+             on 2016-06-26 05:17  
           </span>
         </div>
       </div>
