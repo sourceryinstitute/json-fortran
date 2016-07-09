@@ -601,7 +601,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine initialize_json_core_in_file(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys)
+private subroutine initialize_json_core_in_file(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace)
     
     
     
@@ -742,7 +742,8 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
   
   <td></td><td>::</td>
   <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
- space to be considered significant.</p></td>
+ space to be considered significant.
+ (default is false)</p></td>
   
 </tr>
 
@@ -758,7 +759,24 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
   
   <td></td><td>::</td>
   <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
- case sensitive.</p></td>
+ case sensitive. (default is true)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-no_whitespace%7E3"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>no_whitespace</strong></td><td><p>if true, printing the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure is
+ done without adding any non-significant
+ spaces or linebreaks (default is false)</p></td>
   
 </tr>
 
@@ -801,7 +819,8 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
                                             <span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">,</span><span class="n">spaces_per_tab</span><span class="p">,&amp;</span>
                                             <span class="n">strict_type_checking</span><span class="p">,&amp;</span>
                                             <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
-                                            <span class="n">case_sensitive_keys</span><span class="p">)</span>
+                                            <span class="n">case_sensitive_keys</span><span class="p">,&amp;</span>
+                                            <span class="n">no_whitespace</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -816,14 +835,19 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
                                                             <span class="c">!! (default is false)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">trailing_spaces_significant</span>  <span class="c">!! for name and path comparisons, is trailing</span>
                                                                     <span class="c">!! space to be considered significant.</span>
+                                                                    <span class="c">!! (default is false)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">case_sensitive_keys</span>  <span class="c">!! for name and path comparisons, are they</span>
-                                                            <span class="c">!! case sensitive.</span>
+                                                            <span class="c">!! case sensitive. (default is true)</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">no_whitespace</span>  <span class="c">!! if true, printing the JSON structure is</span>
+                                                      <span class="c">!! done without adding any non-significant</span>
+                                                      <span class="c">!! spaces or linebreaks (default is false)</span>
 
     <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">initialize</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span><span class="n">compact_reals</span><span class="p">,&amp;</span>
                             <span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">,</span><span class="n">spaces_per_tab</span><span class="p">,&amp;</span>
                             <span class="n">strict_type_checking</span><span class="p">,&amp;</span>
                             <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
-                            <span class="n">case_sensitive_keys</span><span class="p">)</span>
+                            <span class="n">case_sensitive_keys</span><span class="p">,&amp;</span>
+                            <span class="n">no_whitespace</span><span class="p">)</span>
 
     <span class="k">end subroutine </span><span class="n">initialize_json_core_in_file</span>
 </pre></div>
@@ -844,7 +868,7 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
           <span class="pull-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-06-26 16:33  
+             on 2016-07-09 20:52  
           </span>
         </div>
       </div>

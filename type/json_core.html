@@ -161,6 +161,8 @@
         
         <a class="list-group-item" href="../type/json_core.html#variable-case_sensitive_keys">case_sensitive_keys</a>
         
+        <a class="list-group-item" href="../type/json_core.html#variable-no_whitespace">no_whitespace</a>
+        
       </div>
     </div>
   </div>
@@ -909,6 +911,23 @@ implementation in a submodule of an interface in a parent module.</p>
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-no_whitespace"></span>logical(kind=LK),</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>no_whitespace</strong></td><td> =</td><td>.false.</td><td><p>when printing a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> string, don't include
+ non-significant spaces or line breaks.
+ If true, the entire structure will be
+ printed on one line.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -940,7 +959,7 @@ implementation in a submodule of an interface in a parent module.</p>
     
     
     <h3>
-private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys) result(json_core_object)
+private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace) result(json_core_object)
     
     
     
@@ -1063,7 +1082,8 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   
   <td></td><td>::</td>
   <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
- space to be considered significant.</p></td>
+ space to be considered significant.
+ (default is false)</p></td>
   
 </tr>
 
@@ -1079,7 +1099,25 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   
   <td></td><td>::</td>
   <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
- case sensitive.</p></td>
+ case sensitive.
+ (default is true)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>no_whitespace</strong></td><td><p>if true, printing the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure is
+ done without adding any non-significant
+ spaces or linebreaks (default is false)</p></td>
   
 </tr>
 
@@ -17123,7 +17161,8 @@ private subroutine <a href='../proc/json_print_1.html'>json_print_1</a>(json, p,
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>iunit</strong></td><td><p>the file unit (the file must already have been opened, can't be -1).</p></td>
+  <td><strong>iunit</strong></td><td><p>the file unit (the file must
+ already have been opened, can't be -1).</p></td>
   
 </tr>
 
@@ -17225,7 +17264,8 @@ private subroutine <a href='../proc/json_print_2.html'>json_print_2</a>(json, p,
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>filename</strong></td><td><p>the filename to print to (should not already be open)</p></td>
+  <td><strong>filename</strong></td><td><p>the filename to print to
+ (should not already be open)</p></td>
   
 </tr>
 
@@ -17338,7 +17378,8 @@ private subroutine <a href='../proc/json_print_1.html'>json_print_1</a>(json, p,
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>iunit</strong></td><td><p>the file unit (the file must already have been opened, can't be -1).</p></td>
+  <td><strong>iunit</strong></td><td><p>the file unit (the file must
+ already have been opened, can't be -1).</p></td>
   
 </tr>
 
@@ -17450,7 +17491,8 @@ private subroutine <a href='../proc/json_print_2.html'>json_print_2</a>(json, p,
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>filename</strong></td><td><p>the filename to print to (should not already be open)</p></td>
+  <td><strong>filename</strong></td><td><p>the filename to print to
+ (should not already be open)</p></td>
   
 </tr>
 
@@ -26330,7 +26372,7 @@ private subroutine <a href='../proc/json_get_tail.html'>json_get_tail</a>(json, 
          
     
     <h3>
-private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys)
+private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace)
     
     
     
@@ -26468,7 +26510,8 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
   
   <td></td><td>::</td>
   <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
- space to be considered significant.</p></td>
+ space to be considered significant.
+ (default is false)</p></td>
   
 </tr>
 
@@ -26484,7 +26527,24 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
   
   <td></td><td>::</td>
   <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
- case sensitive.</p></td>
+ case sensitive. (default is true)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>no_whitespace</strong></td><td><p>if true, printing the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure is
+ done without adding any non-significant
+ spaces or linebreaks (default is false)</p></td>
   
 </tr>
 
@@ -28937,6 +28997,11 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
         <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">case_sensitive_keys</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>    <span class="c">!! for name and path comparisons, are they</span>
                                                        <span class="c">!! case sensitive.</span>
 
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">no_whitespace</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span> <span class="c">!! when printing a JSON string, don&#39;t include</span>
+                                               <span class="c">!! non-significant spaces or line breaks.</span>
+                                               <span class="c">!! If true, the entire structure will be</span>
+                                               <span class="c">!! printed on one line.</span>
+
         <span class="k">contains</span>
 
 <span class="k">        private</span>
@@ -29298,7 +29363,7 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
           <span class="pull-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-06-26 16:33  
+             on 2016-07-09 20:52  
           </span>
         </div>
       </div>

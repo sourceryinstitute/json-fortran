@@ -629,7 +629,7 @@
     
     <div class="col-lg-9" id='text'>
     <h2>
-private subroutine json_initialize(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys)
+private subroutine json_initialize(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace)
     
     
     
@@ -770,7 +770,8 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
   <td></td><td>::</td>
   <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
- space to be considered significant.</p></td>
+ space to be considered significant.
+ (default is false)</p></td>
   
 </tr>
 
@@ -786,7 +787,24 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
   <td></td><td>::</td>
   <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
- case sensitive.</p></td>
+ case sensitive. (default is true)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-no_whitespace%7E5"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>no_whitespace</strong></td><td><p>if true, printing the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure is
+ done without adding any non-significant
+ spaces or linebreaks (default is false)</p></td>
   
 </tr>
 
@@ -952,7 +970,8 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
                                <span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">,</span><span class="n">spaces_per_tab</span><span class="p">,&amp;</span>
                                <span class="n">strict_type_checking</span><span class="p">,&amp;</span>
                                <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
-                               <span class="n">case_sensitive_keys</span><span class="p">)</span>
+                               <span class="n">case_sensitive_keys</span><span class="p">,&amp;</span>
+                               <span class="n">no_whitespace</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -967,8 +986,12 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
                                                             <span class="c">!! (default is false)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">trailing_spaces_significant</span>  <span class="c">!! for name and path comparisons, is trailing</span>
                                                                     <span class="c">!! space to be considered significant.</span>
+                                                                    <span class="c">!! (default is false)</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">case_sensitive_keys</span>  <span class="c">!! for name and path comparisons, are they</span>
-                                                            <span class="c">!! case sensitive.</span>
+                                                            <span class="c">!! case sensitive. (default is true)</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">no_whitespace</span>  <span class="c">!! if true, printing the JSON structure is</span>
+                                                      <span class="c">!! done without adding any non-significant</span>
+                                                      <span class="c">!! spaces or linebreaks (default is false)</span>
 
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="kd">::</span> <span class="n">w</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">sgn</span><span class="p">,</span> <span class="n">rl_edit_desc</span>
@@ -1002,6 +1025,8 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
         <span class="n">json</span><span class="p">%</span><span class="n">trailing_spaces_significant</span> <span class="o">=</span> <span class="n">trailing_spaces_significant</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">case_sensitive_keys</span><span class="p">))</span> <span class="p">&amp;</span>
         <span class="n">json</span><span class="p">%</span><span class="n">case_sensitive_keys</span> <span class="o">=</span> <span class="n">case_sensitive_keys</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">no_whitespace</span><span class="p">))</span> <span class="p">&amp;</span>
+        <span class="n">json</span><span class="p">%</span><span class="n">no_whitespace</span> <span class="o">=</span> <span class="n">no_whitespace</span>
 
     <span class="c">!Set the format for real numbers:</span>
     <span class="c">! [if not changing it, then it remains the same]</span>
@@ -1077,7 +1102,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
           <span class="pull-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-06-26 16:33  
+             on 2016-07-09 20:52  
           </span>
         </div>
       </div>
