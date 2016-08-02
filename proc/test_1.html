@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 3.3% of total for procedures.">205 statements</a>
+	  title=" 3.5% of total for procedures.">219 statements</a>
      </li> 
      
      
@@ -347,6 +347,8 @@
       
       <a class="list-group-item" href="../proc/json_get_parent.html">json_get_parent</a>
       
+      <a class="list-group-item" href="../proc/json_get_path.html">json_get_path</a>
+      
       <a class="list-group-item" href="../proc/json_get_previous.html">json_get_previous</a>
       
       <a class="list-group-item" href="../proc/json_get_string.html">json_get_string</a>
@@ -495,6 +497,8 @@
       
       <a class="list-group-item" href="../proc/pop_char.html">pop_char</a>
       
+      <a class="list-group-item" href="../proc/print_json_variable.html">print_json_variable</a>
+      
       <a class="list-group-item" href="../proc/push_char.html">push_char</a>
       
       <a class="list-group-item" href="../proc/read_file.html">read_file</a>
@@ -626,6 +630,8 @@
       <a class="list-group-item" href="../proc/wrap_json_get_logical_vec_with_path.html">wrap_json_get_logical_vec_with_path</a>
       
       <a class="list-group-item" href="../proc/wrap_json_get_logical_with_path.html">wrap_json_get_logical_with_path</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_get_path.html">wrap_json_get_path</a>
       
       <a class="list-group-item" href="../proc/wrap_json_get_string_vec_with_path.html">wrap_json_get_string_vec_with_path</a>
       
@@ -943,12 +949,33 @@ implementation in a submodule of an interface in a parent module. Where possible
       <span class="c">! print the parsed data to the console</span>
       <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
       <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing the file...&#39;</span>
-      <span class="c">!write(output_unit,&#39;(A)&#39;) &#39;{ &quot;part a&quot; :&#39; !Wrap 3 outputs to make stdout valid json</span>
       <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
       <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">failed</span><span class="p">())</span> <span class="k">then</span>
 <span class="k">        call </span><span class="n">json</span><span class="p">%</span><span class="n">print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
         <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
       <span class="k">end if</span>
+
+      <span class="c">! -------------------------</span>
+      <span class="c">! print each variable:</span>
+
+      <span class="k">call </span><span class="n">core</span><span class="p">%</span><span class="n">initialize</span><span class="p">()</span>
+      <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="c">! get root</span>
+
+      <span class="n">namelist_style</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing each variable [namelist style]&#39;</span>
+      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+      <span class="k">call </span><span class="n">core</span><span class="p">%</span><span class="n">initialize</span><span class="p">(</span><span class="n">unescape_strings</span><span class="o">=</span><span class="p">.</span><span class="n">false</span><span class="p">.)</span>
+      <span class="k">call </span><span class="n">core</span><span class="p">%</span><span class="n">traverse</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">print_json_variable</span><span class="p">)</span>
+
+      <span class="n">namelist_style</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing each variable [JSON style]&#39;</span>
+      <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
+      <span class="k">call </span><span class="n">core</span><span class="p">%</span><span class="n">initialize</span><span class="p">(</span><span class="n">unescape_strings</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+      <span class="k">call </span><span class="n">core</span><span class="p">%</span><span class="n">traverse</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">print_json_variable</span><span class="p">)</span>
+
+      <span class="c">! -------------------------</span>
 
       <span class="c">! extract data from the parsed value</span>
       <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
@@ -1093,7 +1120,6 @@ implementation in a submodule of an interface in a parent module. Where possible
 
 <span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
       <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing the modified structure...&#39;</span>
-      <span class="c">!write(output_unit,&#39;(A)&#39;) &#39;, &quot;part b&quot; : &#39;</span>
       <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
       <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">failed</span><span class="p">())</span> <span class="k">then</span>
 <span class="k">        call </span><span class="n">json</span><span class="p">%</span><span class="n">print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
@@ -1128,9 +1154,7 @@ implementation in a submodule of an interface in a parent module. Where possible
 
 <span class="k">      write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;&#39;</span>
       <span class="k">write</span><span class="p">(</span><span class="n">error_unit</span><span class="p">,</span><span class="s1">&#39;(A)&#39;</span><span class="p">)</span> <span class="s1">&#39;printing the modified structure...&#39;</span>
-      <span class="c">!write(output_unit,&#39;(A)&#39;) &#39;, &quot;part c&quot; : &#39;</span>
       <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
-      <span class="c">!write(output_unit,&#39;(A)&#39;) &#39;}&#39;</span>
       <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">failed</span><span class="p">())</span> <span class="k">then</span>
 <span class="k">        call </span><span class="n">json</span><span class="p">%</span><span class="n">print_error_message</span><span class="p">(</span><span class="n">error_unit</span><span class="p">)</span>
         <span class="n">error_cnt</span> <span class="o">=</span> <span class="n">error_cnt</span> <span class="o">+</span> <span class="mi">1</span>
@@ -1319,6 +1343,8 @@ implementation in a submodule of an interface in a parent module. Where possible
       
       <a class="list-group-item" href="../proc/json_get_parent.html">json_get_parent</a>
       
+      <a class="list-group-item" href="../proc/json_get_path.html">json_get_path</a>
+      
       <a class="list-group-item" href="../proc/json_get_previous.html">json_get_previous</a>
       
       <a class="list-group-item" href="../proc/json_get_string.html">json_get_string</a>
@@ -1467,6 +1493,8 @@ implementation in a submodule of an interface in a parent module. Where possible
       
       <a class="list-group-item" href="../proc/pop_char.html">pop_char</a>
       
+      <a class="list-group-item" href="../proc/print_json_variable.html">print_json_variable</a>
+      
       <a class="list-group-item" href="../proc/push_char.html">push_char</a>
       
       <a class="list-group-item" href="../proc/read_file.html">read_file</a>
@@ -1599,6 +1627,8 @@ implementation in a submodule of an interface in a parent module. Where possible
       
       <a class="list-group-item" href="../proc/wrap_json_get_logical_with_path.html">wrap_json_get_logical_with_path</a>
       
+      <a class="list-group-item" href="../proc/wrap_json_get_path.html">wrap_json_get_path</a>
+      
       <a class="list-group-item" href="../proc/wrap_json_get_string_vec_with_path.html">wrap_json_get_string_vec_with_path</a>
       
       <a class="list-group-item" href="../proc/wrap_json_get_string_with_path.html">wrap_json_get_string_with_path</a>
@@ -1674,7 +1704,7 @@ implementation in a submodule of an interface in a parent module. Where possible
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-07-29 23:00  
+             on 2016-08-02 04:49  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

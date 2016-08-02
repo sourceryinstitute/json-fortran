@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>67.8% of total for derived types.</p>Including implementation: 4699 statements, 85.6% of total for derived types.">138 statements</a>
+	  title="<p>68.2% of total for derived types.</p>Including implementation: 5006 statements, 86.3% of total for derived types.">141 statements</a>
      </li> 
      
      
@@ -203,6 +203,8 @@
       <a class="list-group-item" href="../type/json_core.html#variable-case_sensitive_keys">case_sensitive_keys</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-no_whitespace">no_whitespace</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#variable-unescaped_strings">unescaped_strings</a>
       
     </div>
   </div>
@@ -486,6 +488,12 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_insert_after_child_by_index">json_value_insert_after_child_by_index</a>
       
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-get_path">get_path</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_get_path">wrap_json_get_path</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_path">json_get_path</a>
+      
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-remove">remove</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-check_for_errors%7E2">check_for_errors</a>
@@ -727,6 +735,8 @@ said component(s). Where possible, edges connecting nodes are given different co
       <a class="list-group-item" href="../type/json_core.html#variable-case_sensitive_keys">case_sensitive_keys</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-no_whitespace">no_whitespace</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#variable-unescaped_strings">unescaped_strings</a>
       
     </div>
   </div>
@@ -1009,6 +1019,12 @@ said component(s). Where possible, edges connecting nodes are given different co
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_insert_after">json_value_insert_after</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_insert_after_child_by_index">json_value_insert_after_child_by_index</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-get_path">get_path</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_get_path">wrap_json_get_path</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_path">json_get_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-remove">remove</a>
       
@@ -1331,6 +1347,23 @@ said component(s). Where possible, edges connecting nodes are given different co
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-unescaped_strings"></span>logical(kind=LK),</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>unescaped_strings</strong></td><td> =</td><td>.true.</td><td><p>If false, then the raw escaped
+ string is returned from <a href="../proc/json_get_string.html">json_get_string</a>
+ and similar routines. If true [default],
+ then the string is returned unescaped.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -1362,7 +1395,7 @@ said component(s). Where possible, edges connecting nodes are given different co
     
     
     <h3>
-private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace) result(json_core_object)
+private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings) result(json_core_object)
     
     
 	 
@@ -1543,6 +1576,24 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   <td><strong>no_whitespace</strong></td><td><p>if true, printing the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure is
  done without adding any non-significant
  spaces or linebreaks (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>unescape_strings</strong></td><td><p>If false, then the raw escaped
+ string is returned from <a href="../proc/json_get_string.html">json_get_string</a>
+ and similar routines. If true [default],
+ then the string is returned unescaped.</p></td>
   
 </tr>
 
@@ -26063,6 +26114,595 @@ private subroutine <a href='../proc/json_value_insert_after_child_by_index.html'
     
 	   
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-get_path"></span><h3>generic, public :: <strong>get_path</strong>  => <a href='../type/json_core.html#boundprocedure-json_get_path'>json_get_path</a>, <a href='../type/json_core.html#boundprocedure-wrap_json_get_path'>wrap_json_get_path</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>get the path to a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> variable in a structure:</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_get_path.html'>json_get_path</a>(json, p, path, found, use_alt_array_tokens, path_sep)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Returns the path to a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> object that is part
+  of a linked list structure.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list object</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td><p>true if there were no problems</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_alt_array_tokens</strong></td><td><p>if true, then '()' are used for array elements
+ otherwise, '[]' are used [default]</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_sep</strong></td><td><p>character to use for path separator
+ (default is '.')</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/wrap_json_get_path.html'>wrap_json_get_path</a>(json, p, path, found, use_alt_array_tokens, path_sep)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Wrapper for <a href="../proc/json_get_path.html">json_get_path</a> where "path" and "path_sep" are kind=CDK.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list object</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=:),</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td><p>true if there were no problems</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_alt_array_tokens</strong></td><td><p>if true, then '()' are used for array elements
+ otherwise, '[]' are used [default]</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_sep</strong></td><td><p>character to use for path separator
+ (default is '.')</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-wrap_json_get_path"></span><h3>procedure, private :: <strong>wrap_json_get_path</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/wrap_json_get_path.html'>wrap_json_get_path</a>(json, p, path, found, use_alt_array_tokens, path_sep)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Wrapper for <a href="../proc/json_get_path.html">json_get_path</a> where "path" and "path_sep" are kind=CDK.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list object</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=:),</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td><p>true if there were no problems</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_alt_array_tokens</strong></td><td><p>if true, then '()' are used for array elements
+ otherwise, '[]' are used [default]</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_sep</strong></td><td><p>character to use for path separator
+ (default is '.')</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_get_path"></span><h3>procedure, private :: <strong>json_get_path</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_get_path.html'>json_get_path</a>(json, p, path, found, use_alt_array_tokens, path_sep)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Returns the path to a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> object that is part
+  of a linked list structure.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list object</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td><p>true if there were no problems</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_alt_array_tokens</strong></td><td><p>if true, then '()' are used for array elements
+ otherwise, '[]' are used [default]</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_sep</strong></td><td><p>character to use for path separator
+ (default is '.')</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-remove"></span><h3>procedure, public :: <strong>remove</strong>  => <a href='../proc/json_value_remove.html'>json_value_remove</a> 
     
   </h3></div>
@@ -27215,7 +27855,7 @@ private subroutine <a href='../proc/json_get_tail.html'>json_get_tail</a>(json, 
          
     
     <h3>
-private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace)
+private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings)
     
     
 	 
@@ -27409,6 +28049,24 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
   <td><strong>no_whitespace</strong></td><td><p>if true, printing the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure is
  done without adding any non-significant
  spaces or linebreaks (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>unescape_strings</strong></td><td><p>If false, then the raw escaped
+ string is returned from <a href="../proc/json_get_string.html">json_get_string</a>
+ and similar routines. If true [default],
+ then the string is returned unescaped.</p></td>
   
 </tr>
 
@@ -29845,6 +30503,11 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
                                                <span class="c">!! If true, the entire structure will be</span>
                                                <span class="c">!! printed on one line.</span>
 
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">unescaped_strings</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>  <span class="c">!! If false, then the raw escaped</span>
+                                                   <span class="c">!! string is returned from [[json_get_string]]</span>
+                                                   <span class="c">!! and similar routines. If true [default],</span>
+                                                   <span class="c">!! then the string is returned unescaped.</span>
+
         <span class="k">contains</span>
 
 <span class="k">        private</span>
@@ -30159,6 +30822,11 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_value_insert_after</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_value_insert_after_child_by_index</span>
 
+        <span class="c">!&gt;</span>
+        <span class="c">!  get the path to a JSON variable in a structure:</span>
+        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">get_path</span> <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_get_path</span><span class="p">)</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_get_path</span><span class="p">)</span>
+
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">remove</span>              <span class="o">=&gt;</span> <span class="n">json_value_remove</span>        <span class="c">!! Remove a [[json_value]] from a linked-list structure.</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">check_for_errors</span>    <span class="o">=&gt;</span> <span class="n">json_check_for_errors</span>    <span class="c">!! check for error and get error message</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">clear_exceptions</span>    <span class="o">=&gt;</span> <span class="n">json_clear_exceptions</span>    <span class="c">!! clear exceptions</span>
@@ -30237,7 +30905,7 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-07-29 23:00  
+             on 2016-08-02 04:49  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

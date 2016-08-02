@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.9% of total for procedures.">53 statements</a>
+	  title=" 0.8% of total for procedures.">53 statements</a>
      </li> 
      
      
@@ -347,6 +347,8 @@
       
       <a class="list-group-item" href="../proc/json_get_parent.html">json_get_parent</a>
       
+      <a class="list-group-item" href="../proc/json_get_path.html">json_get_path</a>
+      
       <a class="list-group-item" href="../proc/json_get_previous.html">json_get_previous</a>
       
       <a class="list-group-item" href="../proc/json_get_string.html">json_get_string</a>
@@ -495,6 +497,8 @@
       
       <a class="list-group-item" href="../proc/pop_char.html">pop_char</a>
       
+      <a class="list-group-item" href="../proc/print_json_variable.html">print_json_variable</a>
+      
       <a class="list-group-item" href="../proc/push_char.html">push_char</a>
       
       <a class="list-group-item" href="../proc/read_file.html">read_file</a>
@@ -627,6 +631,8 @@
       
       <a class="list-group-item" href="../proc/wrap_json_get_logical_with_path.html">wrap_json_get_logical_with_path</a>
       
+      <a class="list-group-item" href="../proc/wrap_json_get_path.html">wrap_json_get_path</a>
+      
       <a class="list-group-item" href="../proc/wrap_json_get_string_vec_with_path.html">wrap_json_get_string_vec_with_path</a>
       
       <a class="list-group-item" href="../proc/wrap_json_get_string_with_path.html">wrap_json_get_string_with_path</a>
@@ -727,7 +733,7 @@ private recursive subroutine parse_value(json, unit, str, value)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E113"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E115"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -805,53 +811,53 @@ private recursive subroutine parse_value(json, unit, str, value)
 <polygon fill="none" stroke="black" points="71,-114 1,-114 1,-88 71,-88 71,-114"/>
 <text text-anchor="middle" x="36" y="-98.55" font-family="Helvetica,sans-Serif" font-size="10.50">parse_value</text>
 </g>
-<!-- proc~to_logical -->
-<g id="node2" class="node"><title>proc~to_logical</title>
-<a xlink:href="../proc/to_logical.html" xlink:title="to_logical">
-<polygon fill="#d9534f" stroke="#d9534f" points="166,-202 108,-202 108,-176 166,-176 166,-202"/>
-<text text-anchor="middle" x="137" y="-186.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_logical</text>
-</a>
-</g>
-<!-- proc~parse_value&#45;&gt;proc~to_logical -->
-<g id="edge12" class="edge"><title>proc~parse_value&#45;&gt;proc~to_logical</title>
-<path fill="none" stroke="#ff0000" d="M49.4629,-114.041C63.6791,-127.644 86.9095,-149.398 108,-167 109.01,-167.843 110.047,-168.694 111.101,-169.546"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="109.286,-172.572 119.313,-175.996 113.61,-167.066 109.286,-172.572"/>
-</g>
-<!-- proc~to_object -->
-<g id="node3" class="node"><title>proc~to_object</title>
-<a xlink:href="../proc/to_object.html" xlink:title="to_object">
-<polygon fill="#d9534f" stroke="#d9534f" points="165,-158 109,-158 109,-132 165,-132 165,-158"/>
-<text text-anchor="middle" x="137" y="-142.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_object</text>
-</a>
-</g>
-<!-- proc~parse_value&#45;&gt;proc~to_object -->
-<g id="edge14" class="edge"><title>proc~parse_value&#45;&gt;proc~to_object</title>
-<path fill="none" stroke="#ff0000" d="M66.0299,-114.082C76.5538,-118.667 88.5055,-123.874 99.5606,-128.69"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="98.4207,-132.011 108.986,-132.796 101.216,-125.593 98.4207,-132.011"/>
-</g>
 <!-- proc~to_string -->
-<g id="node4" class="node"><title>proc~to_string</title>
+<g id="node2" class="node"><title>proc~to_string</title>
 <a xlink:href="../proc/to_string.html" xlink:title="to_string">
-<polygon fill="#d9534f" stroke="#d9534f" points="164,-114 110,-114 110,-88 164,-88 164,-114"/>
-<text text-anchor="middle" x="137" y="-98.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_string</text>
+<polygon fill="#d9534f" stroke="#d9534f" points="164,-202 110,-202 110,-176 164,-176 164,-202"/>
+<text text-anchor="middle" x="137" y="-186.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_string</text>
 </a>
 </g>
 <!-- proc~parse_value&#45;&gt;proc~to_string -->
-<g id="edge16" class="edge"><title>proc~parse_value&#45;&gt;proc~to_string</title>
-<path fill="none" stroke="#ff0000" d="M71.6088,-101C80.7695,-101 90.6482,-101 99.8832,-101"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="99.964,-104.5 109.964,-101 99.9639,-97.5001 99.964,-104.5"/>
+<g id="edge12" class="edge"><title>proc~parse_value&#45;&gt;proc~to_string</title>
+<path fill="none" stroke="#ff0000" d="M49.4629,-114.041C63.6791,-127.644 86.9095,-149.398 108,-167 109.01,-167.843 110.047,-168.694 111.101,-169.546"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="109.286,-172.572 119.313,-175.996 113.61,-167.066 109.286,-172.572"/>
+</g>
+<!-- proc~to_logical -->
+<g id="node3" class="node"><title>proc~to_logical</title>
+<a xlink:href="../proc/to_logical.html" xlink:title="to_logical">
+<polygon fill="#d9534f" stroke="#d9534f" points="166,-158 108,-158 108,-132 166,-132 166,-158"/>
+<text text-anchor="middle" x="137" y="-142.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_logical</text>
+</a>
+</g>
+<!-- proc~parse_value&#45;&gt;proc~to_logical -->
+<g id="edge14" class="edge"><title>proc~parse_value&#45;&gt;proc~to_logical</title>
+<path fill="none" stroke="#ff0000" d="M66.0299,-114.082C76.284,-118.549 87.8936,-123.607 98.7085,-128.319"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="97.3881,-131.561 107.954,-132.346 100.184,-125.144 97.3881,-131.561"/>
 </g>
 <!-- proc~to_null -->
-<g id="node5" class="node"><title>proc~to_null</title>
+<g id="node4" class="node"><title>proc~to_null</title>
 <a xlink:href="../proc/to_null.html" xlink:title="to_null">
-<polygon fill="#d9534f" stroke="#d9534f" points="164,-70 110,-70 110,-44 164,-44 164,-70"/>
-<text text-anchor="middle" x="137" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_null</text>
+<polygon fill="#d9534f" stroke="#d9534f" points="164,-114 110,-114 110,-88 164,-88 164,-114"/>
+<text text-anchor="middle" x="137" y="-98.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_null</text>
 </a>
 </g>
 <!-- proc~parse_value&#45;&gt;proc~to_null -->
-<g id="edge18" class="edge"><title>proc~parse_value&#45;&gt;proc~to_null</title>
-<path fill="none" stroke="#ff0000" d="M66.0299,-87.9177C76.8419,-83.2075 89.1608,-77.8409 100.466,-72.9157"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="101.899,-76.1093 109.669,-68.9066 99.1033,-69.6918 101.899,-76.1093"/>
+<g id="edge16" class="edge"><title>proc~parse_value&#45;&gt;proc~to_null</title>
+<path fill="none" stroke="#ff0000" d="M71.6088,-101C80.7695,-101 90.6482,-101 99.8832,-101"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="99.964,-104.5 109.964,-101 99.9639,-97.5001 99.964,-104.5"/>
+</g>
+<!-- proc~to_object -->
+<g id="node5" class="node"><title>proc~to_object</title>
+<a xlink:href="../proc/to_object.html" xlink:title="to_object">
+<polygon fill="#d9534f" stroke="#d9534f" points="165,-70 109,-70 109,-44 165,-44 165,-70"/>
+<text text-anchor="middle" x="137" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_object</text>
+</a>
+</g>
+<!-- proc~parse_value&#45;&gt;proc~to_object -->
+<g id="edge18" class="edge"><title>proc~parse_value&#45;&gt;proc~to_object</title>
+<path fill="none" stroke="#ff0000" d="M66.0299,-87.9177C76.5538,-83.333 88.5055,-78.1263 99.5606,-73.3102"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="101.216,-76.4066 108.986,-69.204 98.4207,-69.9892 101.216,-76.4066"/>
 </g>
 <!-- proc~to_array -->
 <g id="node6" class="node"><title>proc~to_array</title>
@@ -872,25 +878,25 @@ private recursive subroutine parse_value(json, unit, str, value)
 <text text-anchor="middle" x="252" y="-98.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">destroy_json_data</text>
 </a>
 </g>
-<!-- proc~to_logical&#45;&gt;proc~destroy_json_data -->
-<g id="edge2" class="edge"><title>proc~to_logical&#45;&gt;proc~destroy_json_data</title>
+<!-- proc~to_string&#45;&gt;proc~destroy_json_data -->
+<g id="edge2" class="edge"><title>proc~to_string&#45;&gt;proc~destroy_json_data</title>
 <path fill="none" stroke="#ff0000" d="M154.187,-175.987C158.075,-173.036 162.182,-169.913 166,-167 186.386,-151.445 209.433,-133.752 226.534,-120.603"/>
 <polygon fill="#ff0000" stroke="#ff0000" points="229.096,-123.048 234.889,-114.177 224.828,-117.499 229.096,-123.048"/>
 </g>
-<!-- proc~to_object&#45;&gt;proc~destroy_json_data -->
-<g id="edge4" class="edge"><title>proc~to_object&#45;&gt;proc~destroy_json_data</title>
-<path fill="none" stroke="#cbff00" d="M165.132,-134.236C178.223,-129.228 194.091,-123.157 208.664,-117.581"/>
-<polygon fill="#cbff00" stroke="#cbff00" points="209.923,-120.847 218.012,-114.004 207.421,-114.309 209.923,-120.847"/>
+<!-- proc~to_logical&#45;&gt;proc~destroy_json_data -->
+<g id="edge4" class="edge"><title>proc~to_logical&#45;&gt;proc~destroy_json_data</title>
+<path fill="none" stroke="#cbff00" d="M166.019,-133.897C178.778,-129.015 194.04,-123.176 208.14,-117.781"/>
+<polygon fill="#cbff00" stroke="#cbff00" points="209.582,-120.977 217.671,-114.134 207.081,-114.439 209.582,-120.977"/>
 </g>
-<!-- proc~to_string&#45;&gt;proc~destroy_json_data -->
-<g id="edge6" class="edge"><title>proc~to_string&#45;&gt;proc~destroy_json_data</title>
+<!-- proc~to_null&#45;&gt;proc~destroy_json_data -->
+<g id="edge6" class="edge"><title>proc~to_null&#45;&gt;proc~destroy_json_data</title>
 <path fill="none" stroke="#00ff66" d="M164.253,-101C172.634,-101 182.212,-101 191.89,-101"/>
 <polygon fill="#00ff66" stroke="#00ff66" points="191.964,-104.5 201.964,-101 191.964,-97.5001 191.964,-104.5"/>
 </g>
-<!-- proc~to_null&#45;&gt;proc~destroy_json_data -->
-<g id="edge8" class="edge"><title>proc~to_null&#45;&gt;proc~destroy_json_data</title>
-<path fill="none" stroke="#0066ff" d="M164.253,-67.4274C177.439,-72.4722 193.591,-78.6521 208.426,-84.3284"/>
-<polygon fill="#0066ff" stroke="#0066ff" points="207.351,-87.6642 217.941,-87.9688 209.852,-81.1264 207.351,-87.6642"/>
+<!-- proc~to_object&#45;&gt;proc~destroy_json_data -->
+<g id="edge8" class="edge"><title>proc~to_object&#45;&gt;proc~destroy_json_data</title>
+<path fill="none" stroke="#0066ff" d="M165.132,-67.7636C178.223,-72.7724 194.091,-78.8435 208.664,-84.4193"/>
+<polygon fill="#0066ff" stroke="#0066ff" points="207.421,-87.6911 218.012,-87.9957 209.923,-81.1533 207.421,-87.6911"/>
 </g>
 <!-- proc~to_array&#45;&gt;proc~destroy_json_data -->
 <g id="edge10" class="edge"><title>proc~to_array&#45;&gt;proc~destroy_json_data</title>
@@ -1287,6 +1293,8 @@ implementation in a submodule of an interface in a parent module. Where possible
       
       <a class="list-group-item" href="../proc/json_get_parent.html">json_get_parent</a>
       
+      <a class="list-group-item" href="../proc/json_get_path.html">json_get_path</a>
+      
       <a class="list-group-item" href="../proc/json_get_previous.html">json_get_previous</a>
       
       <a class="list-group-item" href="../proc/json_get_string.html">json_get_string</a>
@@ -1435,6 +1443,8 @@ implementation in a submodule of an interface in a parent module. Where possible
       
       <a class="list-group-item" href="../proc/pop_char.html">pop_char</a>
       
+      <a class="list-group-item" href="../proc/print_json_variable.html">print_json_variable</a>
+      
       <a class="list-group-item" href="../proc/push_char.html">push_char</a>
       
       <a class="list-group-item" href="../proc/read_file.html">read_file</a>
@@ -1567,6 +1577,8 @@ implementation in a submodule of an interface in a parent module. Where possible
       
       <a class="list-group-item" href="../proc/wrap_json_get_logical_with_path.html">wrap_json_get_logical_with_path</a>
       
+      <a class="list-group-item" href="../proc/wrap_json_get_path.html">wrap_json_get_path</a>
+      
       <a class="list-group-item" href="../proc/wrap_json_get_string_vec_with_path.html">wrap_json_get_string_vec_with_path</a>
       
       <a class="list-group-item" href="../proc/wrap_json_get_string_with_path.html">wrap_json_get_string_with_path</a>
@@ -1642,7 +1654,7 @@ implementation in a submodule of an interface in a parent module. Where possible
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-07-29 23:00  
+             on 2016-08-02 04:49  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.2% of total for procedures.">14 statements</a>
+	  title=" 0.2% of total for procedures.">15 statements</a>
      </li> 
      
      
@@ -347,6 +347,8 @@
       
       <a class="list-group-item" href="../proc/json_get_parent.html">json_get_parent</a>
       
+      <a class="list-group-item" href="../proc/json_get_path.html">json_get_path</a>
+      
       <a class="list-group-item" href="../proc/json_get_previous.html">json_get_previous</a>
       
       <a class="list-group-item" href="../proc/json_get_string.html">json_get_string</a>
@@ -495,6 +497,8 @@
       
       <a class="list-group-item" href="../proc/pop_char.html">pop_char</a>
       
+      <a class="list-group-item" href="../proc/print_json_variable.html">print_json_variable</a>
+      
       <a class="list-group-item" href="../proc/push_char.html">push_char</a>
       
       <a class="list-group-item" href="../proc/read_file.html">read_file</a>
@@ -627,6 +631,8 @@
       
       <a class="list-group-item" href="../proc/wrap_json_get_logical_with_path.html">wrap_json_get_logical_with_path</a>
       
+      <a class="list-group-item" href="../proc/wrap_json_get_path.html">wrap_json_get_path</a>
+      
       <a class="list-group-item" href="../proc/wrap_json_get_string_vec_with_path.html">wrap_json_get_string_vec_with_path</a>
       
       <a class="list-group-item" href="../proc/wrap_json_get_string_with_path.html">wrap_json_get_string_with_path</a>
@@ -696,7 +702,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine initialize_json_core_in_file(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace)
+private subroutine initialize_json_core_in_file(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings)
     
     
 	 
@@ -883,6 +889,24 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-unescape_strings%7E2"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>unescape_strings</strong></td><td><p>If false, then the raw escaped
+ string is returned from <a href="../proc/json_get_string.html">json_get_string</a>
+ and similar routines. If true [default],
+ then the string is returned unescaped.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -950,7 +974,8 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
                                             <span class="n">strict_type_checking</span><span class="p">,&amp;</span>
                                             <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
                                             <span class="n">case_sensitive_keys</span><span class="p">,&amp;</span>
-                                            <span class="n">no_whitespace</span><span class="p">)</span>
+                                            <span class="n">no_whitespace</span><span class="p">,&amp;</span>
+                                            <span class="n">unescape_strings</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -971,13 +996,18 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">no_whitespace</span>  <span class="c">!! if true, printing the JSON structure is</span>
                                                       <span class="c">!! done without adding any non-significant</span>
                                                       <span class="c">!! spaces or linebreaks (default is false)</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">unescape_strings</span> <span class="c">!! If false, then the raw escaped</span>
+                                                        <span class="c">!! string is returned from [[json_get_string]]</span>
+                                                        <span class="c">!! and similar routines. If true [default],</span>
+                                                        <span class="c">!! then the string is returned unescaped.</span>
 
     <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">initialize</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span><span class="n">compact_reals</span><span class="p">,&amp;</span>
                             <span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">,</span><span class="n">spaces_per_tab</span><span class="p">,&amp;</span>
                             <span class="n">strict_type_checking</span><span class="p">,&amp;</span>
                             <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
                             <span class="n">case_sensitive_keys</span><span class="p">,&amp;</span>
-                            <span class="n">no_whitespace</span><span class="p">)</span>
+                            <span class="n">no_whitespace</span><span class="p">,&amp;</span>
+                            <span class="n">unescape_strings</span><span class="p">)</span>
 
     <span class="k">end subroutine </span><span class="n">initialize_json_core_in_file</span>
 </pre></div>
@@ -1142,6 +1172,8 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
       
       <a class="list-group-item" href="../proc/json_get_parent.html">json_get_parent</a>
       
+      <a class="list-group-item" href="../proc/json_get_path.html">json_get_path</a>
+      
       <a class="list-group-item" href="../proc/json_get_previous.html">json_get_previous</a>
       
       <a class="list-group-item" href="../proc/json_get_string.html">json_get_string</a>
@@ -1290,6 +1322,8 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
       
       <a class="list-group-item" href="../proc/pop_char.html">pop_char</a>
       
+      <a class="list-group-item" href="../proc/print_json_variable.html">print_json_variable</a>
+      
       <a class="list-group-item" href="../proc/push_char.html">push_char</a>
       
       <a class="list-group-item" href="../proc/read_file.html">read_file</a>
@@ -1422,6 +1456,8 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
       
       <a class="list-group-item" href="../proc/wrap_json_get_logical_with_path.html">wrap_json_get_logical_with_path</a>
       
+      <a class="list-group-item" href="../proc/wrap_json_get_path.html">wrap_json_get_path</a>
+      
       <a class="list-group-item" href="../proc/wrap_json_get_string_vec_with_path.html">wrap_json_get_string_vec_with_path</a>
       
       <a class="list-group-item" href="../proc/wrap_json_get_string_with_path.html">wrap_json_get_string_with_path</a>
@@ -1497,7 +1533,7 @@ private subroutine initialize_json_core_in_file(me, verbose, compact_reals, prin
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-07-29 23:00  
+             on 2016-08-02 04:49  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
