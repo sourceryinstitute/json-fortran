@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 1.9% of total for procedures.">74 statements</a>
+	  title=" 2.0% of total for procedures.">79 statements</a>
      </li> 
      
      
@@ -654,7 +654,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_initialize(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings)
+private subroutine json_initialize(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char)
     
     
 	 
@@ -697,7 +697,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E42"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E41"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -866,6 +866,24 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-comment_char%7E5"></span>character(kind=CK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>comment_char</strong></td><td><p>If present, this character is used
+ to denote comments in the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file,
+ which will be ignored if present.
+ Example: <code>!</code> or <code>#</code>.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -934,7 +952,8 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
                                <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
                                <span class="n">case_sensitive_keys</span><span class="p">,&amp;</span>
                                <span class="n">no_whitespace</span><span class="p">,&amp;</span>
-                               <span class="n">unescape_strings</span><span class="p">)</span>
+                               <span class="n">unescape_strings</span><span class="p">,&amp;</span>
+                               <span class="n">comment_char</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -959,6 +978,10 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
                                                         <span class="c">!! string is returned from [[json_get_string]]</span>
                                                         <span class="c">!! and similar routines. If true [default],</span>
                                                         <span class="c">!! then the string is returned unescaped.</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">comment_char</span>  <span class="c">!! If present, this character is used</span>
+                                                                  <span class="c">!! to denote comments in the JSON file,</span>
+                                                                  <span class="c">!! which will be ignored if present.</span>
+                                                                  <span class="c">!! Example: `!` or `#`.</span>
 
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="kd">::</span> <span class="n">w</span>  <span class="c">!! max string length</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="kd">::</span> <span class="n">d</span>  <span class="c">!! real precision digits</span>
@@ -999,6 +1022,12 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
         <span class="n">json</span><span class="p">%</span><span class="n">no_whitespace</span> <span class="o">=</span> <span class="n">no_whitespace</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">unescape_strings</span><span class="p">))</span> <span class="p">&amp;</span>
         <span class="n">json</span><span class="p">%</span><span class="n">unescaped_strings</span> <span class="o">=</span> <span class="n">unescape_strings</span>
+
+    <span class="c">! if we are allowing comments in the file:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">comment_char</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">        </span><span class="n">json</span><span class="p">%</span><span class="n">allow_comments</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+        <span class="n">json</span><span class="p">%</span><span class="n">comment_char</span> <span class="o">=</span> <span class="n">comment_char</span>
+    <span class="k">end if</span>
 
     <span class="c">!Set the format for real numbers:</span>
     <span class="c">! [if not changing it, then it remains the same]</span>
@@ -1537,7 +1566,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 01:45  
+             on 2016-12-14 03:35  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

@@ -661,6 +661,7 @@ private subroutine parse_for_chars(json, unit, str, chars)
 
     
     <p>Core parsing routine.</p>
+<p>This is used to verify the strings <code>true</code>, <code>false</code>, and <code>null</code> during parsing.</p>
     
 
     <h3>Arguments</h3>
@@ -681,7 +682,7 @@ private subroutine parse_for_chars(json, unit, str, chars)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E93"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E92"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -696,7 +697,7 @@ private subroutine parse_for_chars(json, unit, str, chars)
   
 <tr>
   
-  <td><span class="anchor" id="variable-unit%7E5"></span>integer(kind=IK),</td>
+  <td><span class="anchor" id="variable-unit%7E4"></span>integer(kind=IK),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -711,7 +712,7 @@ private subroutine parse_for_chars(json, unit, str, chars)
   
 <tr>
   
-  <td><span class="anchor" id="variable-str%7E19"></span>character(kind=CK,len=*),</td>
+  <td><span class="anchor" id="variable-str%7E18"></span>character(kind=CK,len=*),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -815,14 +816,15 @@ private subroutine parse_for_chars(json, unit, str, chars)
 <span class="k">        </span><span class="n">length</span> <span class="o">=</span> <span class="nb">len_trim</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span>
 
         <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">length</span>
-            <span class="n">c</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">pop_char</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">str</span><span class="o">=</span><span class="n">str</span><span class="p">,</span> <span class="n">eof</span> <span class="o">=</span> <span class="n">eof</span><span class="p">,</span> <span class="n">skip_ws</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">pop_char</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">str</span><span class="o">=</span><span class="n">str</span><span class="p">,</span> <span class="n">eof</span><span class="o">=</span><span class="n">eof</span><span class="p">,</span> <span class="n">skip_ws</span><span class="o">=</span><span class="p">.</span><span class="n">false</span><span class="p">.,</span> <span class="n">popped</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">eof</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in parse_for_chars:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                     <span class="s1">&#39; Unexpected end of file while parsing array.&#39;</span><span class="p">)</span>
+                                     <span class="s1">&#39; Unexpected end of file while parsing.&#39;</span><span class="p">)</span>
                 <span class="k">return</span>
 <span class="k">            else if</span> <span class="p">(</span><span class="n">c</span> <span class="o">/=</span> <span class="n">chars</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in parse_for_chars:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                     <span class="s1">&#39; Unexpected character.: &quot;&#39;</span><span class="o">//</span><span class="n">c</span><span class="o">//</span><span class="s1">&#39;&quot; &#39;</span><span class="o">//</span><span class="n">chars</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">))</span>
+                                     <span class="s1">&#39; Unexpected character: &quot;&#39;</span><span class="o">//</span><span class="n">c</span><span class="o">//</span><span class="s1">&#39;&quot; (expecting &quot;&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                     <span class="n">chars</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;)&#39;</span><span class="p">)</span>
                 <span class="k">return</span>
 <span class="k">            end if</span>
 <span class="k">        end do</span>
@@ -1305,7 +1307,7 @@ private subroutine parse_for_chars(json, unit, str, chars)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 01:45  
+             on 2016-12-14 03:35  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
