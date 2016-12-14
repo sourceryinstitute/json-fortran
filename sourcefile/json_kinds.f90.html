@@ -471,7 +471,7 @@
 <a name="ln-4"></a><span class="c">!</span>
 <a name="ln-5"></a><span class="c">!  JSON-Fortran kind definitions.</span>
 <a name="ln-6"></a><span class="c">!</span>
-<a name="ln-7"></a><span class="c">!## License</span>
+<a name="ln-7"></a><span class="c">!### License</span>
 <a name="ln-8"></a><span class="c">!  * JSON-Fortran is released under a BSD-style license.</span>
 <a name="ln-9"></a><span class="c">!    See the [LICENSE](https://github.com/jacobwilliams/json-fortran/blob/master/LICENSE)</span>
 <a name="ln-10"></a><span class="c">!    file for details.</span>
@@ -501,65 +501,105 @@
 <a name="ln-34"></a><span class="c">!      character arguments of the default (```CDK```) kind. If you find a procedure which does</span>
 <a name="ln-35"></a><span class="c">!      not accept an ```intent(in)``` literal string argument of default kind, please</span>
 <a name="ln-36"></a><span class="c">!      [file an issue](https://github.com/jacobwilliams/json-fortran/issues/new) on GitHub.</span>
-<a name="ln-37"></a>
-<a name="ln-38"></a>    <span class="k">module </span><span class="n">json_kinds</span>
-<a name="ln-39"></a>
-<a name="ln-40"></a>    <span class="k">use</span><span class="p">,</span><span class="k">intrinsic</span> <span class="kd">::</span> <span class="n">iso_fortran_env</span><span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">real64</span><span class="p">,</span><span class="n">int32</span><span class="p">,</span><span class="n">logical_kinds</span>
-<a name="ln-41"></a>
-<a name="ln-42"></a>    <span class="k">implicit none</span>
-<a name="ln-43"></a>
-<a name="ln-44"></a><span class="k">    private</span>
-<a name="ln-45"></a>
-<a name="ln-46"></a><span class="k">    </span><span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">RK</span> <span class="o">=</span> <span class="n">real64</span>  <span class="c">!! Default real kind [8 bytes]</span>
-<a name="ln-47"></a>
-<a name="ln-48"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">IK</span> <span class="o">=</span> <span class="n">int32</span>   <span class="c">!! Default integer kind [4 bytes].</span>
-<a name="ln-49"></a>
-<a name="ln-50"></a>    <span class="c">!*********************************************************</span>
-<a name="ln-51"></a>    <span class="c">!&gt;</span>
-<a name="ln-52"></a>    <span class="c">!  Processor dependendant &#39;DEFAULT&#39; character kind.</span>
-<a name="ln-53"></a>    <span class="c">!  This is 1 byte for the Intel and Gfortran compilers.</span>
-<a name="ln-54"></a>
-<a name="ln-55"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">CDK</span> <span class="o">=</span> <span class="nb">selected_char_kind</span><span class="p">(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">)</span>
-<a name="ln-56"></a>    <span class="c">!*********************************************************</span>
-<a name="ln-57"></a>
-<a name="ln-58"></a>    <span class="c">!*********************************************************</span>
-<a name="ln-59"></a>    <span class="c">!&gt;</span>
-<a name="ln-60"></a>    <span class="c">!  Default logical kind.</span>
-<a name="ln-61"></a>    <span class="c">!  This is 4 bytes for the Intel and Gfortran compilers</span>
-<a name="ln-62"></a>    <span class="c">!  (and perhaps others).</span>
-<a name="ln-63"></a>    <span class="c">!  The declaration ensures a valid kind</span>
-<a name="ln-64"></a>    <span class="c">!  if the compiler doesn&#39;t have a logical_kinds(3).</span>
-<a name="ln-65"></a>    <span class="c">!</span>
-<a name="ln-66"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">LK</span> <span class="o">=</span> <span class="n">logical_kinds</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="n">logical_kinds</span><span class="p">)))</span>
-<a name="ln-67"></a>    <span class="c">!*********************************************************</span>
+<a name="ln-37"></a><span class="c">!</span>
+<a name="ln-38"></a><span class="c">!@note The default real kind (`RK`) and the default integer kind (`IK`) can be</span>
+<a name="ln-39"></a><span class="c">!      changed using optional preprocessor flags. This library was built with kinds:</span>
+<a name="ln-40"></a><span class="cp">#ifdef REAL32</span>
+<a name="ln-41"></a><span class="c">!      real(kind=real32) [4 bytes]</span>
+<a name="ln-42"></a><span class="cp">#elif REAL64</span>
+<a name="ln-43"></a><span class="c">!      real(kind=real64) [8 bytes]</span>
+<a name="ln-44"></a><span class="cp">#elif REAL128</span>
+<a name="ln-45"></a><span class="c">!      real(kind=real128) [16 bytes]</span>
+<a name="ln-46"></a><span class="cp">#else</span>
+<a name="ln-47"></a><span class="c">!      real(kind=real64) [8 bytes]</span>
+<a name="ln-48"></a><span class="cp">#endif</span>
+<a name="ln-49"></a><span class="c">!      and</span>
+<a name="ln-50"></a><span class="cp">#ifdef INT8</span>
+<a name="ln-51"></a><span class="c">!      integer(kind=int8) [1 byte]</span>
+<a name="ln-52"></a><span class="cp">#elif INT16</span>
+<a name="ln-53"></a><span class="c">!      integer(kind=int16) [2 bytes]</span>
+<a name="ln-54"></a><span class="cp">#elif INT32</span>
+<a name="ln-55"></a><span class="c">!      integer(kind=int32) [4 bytes]</span>
+<a name="ln-56"></a><span class="cp">#elif INT64</span>
+<a name="ln-57"></a><span class="c">!      integer(kind=int64) [8 bytes]</span>
+<a name="ln-58"></a><span class="cp">#else</span>
+<a name="ln-59"></a><span class="c">!      integer(kind=int32) [4 bytes]</span>
+<a name="ln-60"></a><span class="cp">#endif</span>
+<a name="ln-61"></a><span class="c">!      .</span>
+<a name="ln-62"></a>
+<a name="ln-63"></a>    <span class="k">module </span><span class="n">json_kinds</span>
+<a name="ln-64"></a>
+<a name="ln-65"></a>    <span class="k">use</span><span class="p">,</span><span class="k">intrinsic</span> <span class="kd">::</span> <span class="n">iso_fortran_env</span>
+<a name="ln-66"></a>
+<a name="ln-67"></a>    <span class="k">implicit none</span>
 <a name="ln-68"></a>
-<a name="ln-69"></a>    <span class="c">!*********************************************************</span>
-<a name="ln-70"></a>    <span class="c">!&gt;</span>
-<a name="ln-71"></a>    <span class="c">!  String kind preprocessor macro.</span>
-<a name="ln-72"></a>    <span class="c">!</span>
-<a name="ln-73"></a><span class="cp">#if defined __GFORTRAN__ &amp;&amp; defined USE_UCS4</span>
-<a name="ln-74"></a>    <span class="c">! gfortran compiler AND UCS4 support requested:</span>
-<a name="ln-75"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">json_fortran_string_kind</span> <span class="o">=</span> <span class="s1">&#39;ISO_10646&#39;</span>
-<a name="ln-76"></a><span class="cp">#else</span>
-<a name="ln-77"></a>    <span class="c">! this is the string kind to use unless compiling with GFortran AND</span>
-<a name="ln-78"></a>    <span class="c">! UCS4/ISO 10646 support is requested</span>
-<a name="ln-79"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">json_fortran_string_kind</span> <span class="o">=</span> <span class="s1">&#39;DEFAULT&#39;</span>
-<a name="ln-80"></a><span class="cp">#endif</span>
-<a name="ln-81"></a>    <span class="c">!*********************************************************</span>
-<a name="ln-82"></a>
-<a name="ln-83"></a>    <span class="c">!*********************************************************</span>
-<a name="ln-84"></a>    <span class="c">!&gt;</span>
-<a name="ln-85"></a>    <span class="c">!  Default character kind used by JSON-Fortran.</span>
-<a name="ln-86"></a>    <span class="c">!  If ISO 10646 (UCS4) support is available, use that,</span>
-<a name="ln-87"></a>    <span class="c">!  otherwise, gracefully fall back on &#39;DEFAULT&#39; characters.</span>
-<a name="ln-88"></a>    <span class="c">!  Currently only gfortran &gt;= 4.9.2 will correctly support</span>
-<a name="ln-89"></a>    <span class="c">!  UCS4 which is stored in 4 bytes.</span>
-<a name="ln-90"></a>    <span class="c">!  (and perhaps others).</span>
-<a name="ln-91"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">CK</span> <span class="o">=</span> <span class="nb">selected_char_kind</span><span class="p">(</span><span class="n">json_fortran_string_kind</span><span class="p">)</span>
-<a name="ln-92"></a>    <span class="c">!*********************************************************</span>
-<a name="ln-93"></a>
-<a name="ln-94"></a>    <span class="k">end module </span><span class="n">json_kinds</span>
-<a name="ln-95"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-69"></a><span class="k">    private</span>
+<a name="ln-70"></a>
+<a name="ln-71"></a><span class="cp">#ifdef REAL32</span>
+<a name="ln-72"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">RK</span> <span class="o">=</span> <span class="n">real32</span>   <span class="c">!! Default real kind [4 bytes]</span>
+<a name="ln-73"></a><span class="cp">#elif REAL64</span>
+<a name="ln-74"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">RK</span> <span class="o">=</span> <span class="n">real64</span>   <span class="c">!! Default real kind [8 bytes]</span>
+<a name="ln-75"></a><span class="cp">#elif REAL128</span>
+<a name="ln-76"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">RK</span> <span class="o">=</span> <span class="n">real128</span>  <span class="c">!! Default real kind [16 bytes]</span>
+<a name="ln-77"></a><span class="cp">#else</span>
+<a name="ln-78"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">RK</span> <span class="o">=</span> <span class="n">real64</span>   <span class="c">!! Default real kind if not specified [8 bytes]</span>
+<a name="ln-79"></a><span class="cp">#endif</span>
+<a name="ln-80"></a>
+<a name="ln-81"></a><span class="cp">#ifdef INT8</span>
+<a name="ln-82"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">IK</span> <span class="o">=</span> <span class="n">int8</span>     <span class="c">!! Default integer kind [1 byte]</span>
+<a name="ln-83"></a><span class="cp">#elif INT16</span>
+<a name="ln-84"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">IK</span> <span class="o">=</span> <span class="n">int16</span>    <span class="c">!! Default integer kind [2 bytes]</span>
+<a name="ln-85"></a><span class="cp">#elif INT32</span>
+<a name="ln-86"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">IK</span> <span class="o">=</span> <span class="n">int32</span>    <span class="c">!! Default integer kind [4 bytes]</span>
+<a name="ln-87"></a><span class="cp">#elif INT64</span>
+<a name="ln-88"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">IK</span> <span class="o">=</span> <span class="n">int64</span>    <span class="c">!! Default integer kind [8 bytes]</span>
+<a name="ln-89"></a><span class="cp">#else</span>
+<a name="ln-90"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">IK</span> <span class="o">=</span> <span class="n">int32</span>    <span class="c">!! Default integer kind if not specified [4 bytes]</span>
+<a name="ln-91"></a><span class="cp">#endif</span>
+<a name="ln-92"></a>
+<a name="ln-93"></a>    <span class="c">!*********************************************************</span>
+<a name="ln-94"></a>    <span class="c">!&gt;</span>
+<a name="ln-95"></a>    <span class="c">!  Processor dependendant &#39;DEFAULT&#39; character kind.</span>
+<a name="ln-96"></a>    <span class="c">!  This is 1 byte for the Intel and Gfortran compilers.</span>
+<a name="ln-97"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">CDK</span> <span class="o">=</span> <span class="nb">selected_char_kind</span><span class="p">(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">)</span>
+<a name="ln-98"></a>    <span class="c">!*********************************************************</span>
+<a name="ln-99"></a>
+<a name="ln-100"></a>    <span class="c">!*********************************************************</span>
+<a name="ln-101"></a>    <span class="c">!&gt;</span>
+<a name="ln-102"></a>    <span class="c">!  Default logical kind.</span>
+<a name="ln-103"></a>    <span class="c">!  This is 4 bytes for the Intel and Gfortran compilers</span>
+<a name="ln-104"></a>    <span class="c">!  (and perhaps others).</span>
+<a name="ln-105"></a>    <span class="c">!  The declaration ensures a valid kind</span>
+<a name="ln-106"></a>    <span class="c">!  if the compiler doesn&#39;t have a logical_kinds(3).</span>
+<a name="ln-107"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">LK</span> <span class="o">=</span> <span class="n">logical_kinds</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="n">logical_kinds</span><span class="p">)))</span>
+<a name="ln-108"></a>    <span class="c">!*********************************************************</span>
+<a name="ln-109"></a>
+<a name="ln-110"></a>    <span class="c">!*********************************************************</span>
+<a name="ln-111"></a>    <span class="c">!&gt;</span>
+<a name="ln-112"></a>    <span class="c">!  String kind preprocessor macro.</span>
+<a name="ln-113"></a><span class="cp">#if defined __GFORTRAN__ &amp;&amp; defined USE_UCS4</span>
+<a name="ln-114"></a>    <span class="c">! gfortran compiler AND UCS4 support requested:</span>
+<a name="ln-115"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">json_fortran_string_kind</span> <span class="o">=</span> <span class="s1">&#39;ISO_10646&#39;</span>
+<a name="ln-116"></a><span class="cp">#else</span>
+<a name="ln-117"></a>    <span class="c">! this is the string kind to use unless compiling with GFortran AND</span>
+<a name="ln-118"></a>    <span class="c">! UCS4/ISO 10646 support is requested</span>
+<a name="ln-119"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">json_fortran_string_kind</span> <span class="o">=</span> <span class="s1">&#39;DEFAULT&#39;</span>
+<a name="ln-120"></a><span class="cp">#endif</span>
+<a name="ln-121"></a>    <span class="c">!*********************************************************</span>
+<a name="ln-122"></a>
+<a name="ln-123"></a>    <span class="c">!*********************************************************</span>
+<a name="ln-124"></a>    <span class="c">!&gt;</span>
+<a name="ln-125"></a>    <span class="c">!  Default character kind used by JSON-Fortran.</span>
+<a name="ln-126"></a>    <span class="c">!  If ISO 10646 (UCS4) support is available, use that,</span>
+<a name="ln-127"></a>    <span class="c">!  otherwise, gracefully fall back on &#39;DEFAULT&#39; characters.</span>
+<a name="ln-128"></a>    <span class="c">!  Currently only gfortran &gt;= 4.9.2 will correctly support</span>
+<a name="ln-129"></a>    <span class="c">!  UCS4 which is stored in 4 bytes.</span>
+<a name="ln-130"></a>    <span class="c">!  (and perhaps others).</span>
+<a name="ln-131"></a>    <span class="kt">integer</span><span class="p">,</span><span class="k">parameter</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">CK</span> <span class="o">=</span> <span class="nb">selected_char_kind</span><span class="p">(</span><span class="n">json_fortran_string_kind</span><span class="p">)</span>
+<a name="ln-132"></a>    <span class="c">!*********************************************************</span>
+<a name="ln-133"></a>
+<a name="ln-134"></a>    <span class="k">end module </span><span class="n">json_kinds</span>
+<a name="ln-135"></a><span class="c">!*****************************************************************************************</span>
 </pre></div>
 
     </section>
@@ -604,7 +644,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-11-11 06:11  
+             on 2016-12-14 01:45  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

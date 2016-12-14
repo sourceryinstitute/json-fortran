@@ -154,7 +154,8 @@
 <span class="c1">#    build.sh [--compiler {intel|gnu|&lt;other&gt;}] [--cflags &#39;&lt;custom compiler flags here&gt;&#39;]</span>
 <span class="c1">#             [--coverage [{yes|no}]] [--profile [{yes|no}]] [--skip-tests [{yes|no}]]</span>
 <span class="c1">#             [--skip-documentation [{yes|no}]] [--enable-unicode [{yes|no}]] [--help]</span>
-<span class="c1">#             [--clean]</span>
+<span class="c1">#             [--clean] [--real-kind [{REAL32\REAL64\REAL128}]]</span>
+<span class="c1">#             [--int-kind [{INT8\INT16\INT32\INT64}]]</span>
 <span class="c1">#</span>
 <span class="c1">#    By default, if invoked without any flags, this build script will build the</span>
 <span class="c1">#    JSON-Fortran library using gfortran,</span>
@@ -165,6 +166,8 @@
 <span class="c1">#        with :</span>
 <span class="c1">#            unit tests enabled</span>
 <span class="c1">#            documentation (if FORD is installed)</span>
+<span class="c1">#            real(REAL64) kinds</span>
+<span class="c1">#            integer(INT32) kinds</span>
 <span class="c1">#</span>
 <span class="c1">#     More recent (right-most) flags will override preceding flags</span>
 <span class="c1">#     flags:</span>
@@ -289,6 +292,18 @@ print_usage <span class="o">()</span> <span class="o">{</span>
         <span class="c1"># no good way to check that the user didn&#39;t do something questionable</span>
         <span class="nb">shift</span>
         <span class="p">;;</span>
+    --real-kind<span class="o">)</span>
+        <span class="nv">REAL_KIND</span><span class="o">=</span><span class="s2">&quot;-D</span><span class="nv">$2</span><span class="s2">&quot;</span>
+        <span class="c1"># warning: not checking for valid input</span>
+        <span class="c1"># should be one of: REAL32, REAL64 [default], REAL128</span>
+        <span class="nb">shift</span>
+        <span class="p">;;</span>
+    --int-kind<span class="o">)</span>
+        <span class="nv">INT_KIND</span><span class="o">=</span><span class="s2">&quot;-D</span><span class="nv">$2</span><span class="s2">&quot;</span>
+        <span class="c1"># warning: not checking for valid input</span>
+        <span class="c1"># should be one of: INT8, INT16, INT32 [default], INT64</span>
+        <span class="nb">shift</span>
+        <span class="p">;;</span>
     --enable-unicode<span class="o">)</span>
         <span class="k">case</span> <span class="nv">$2</span> in
         yes<span class="p">|</span>Yes<span class="p">|</span>YES<span class="o">)</span>
@@ -321,7 +336,7 @@ print_usage <span class="o">()</span> <span class="o">{</span>
             <span class="p">;;</span>
         <span class="k">esac</span>
         <span class="p">;;</span>
-    --profile<span class="o">)</span> <span class="c1">#nable profiling</span>
+    --profile<span class="o">)</span> <span class="c1">#enable profiling</span>
         <span class="k">case</span> <span class="nv">$2</span> in
         yes<span class="p">|</span>Yes<span class="p">|</span>YES<span class="o">)</span>
             <span class="nv">CODE_PROFILE</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
@@ -415,7 +430,7 @@ print_usage <span class="o">()</span> <span class="o">{</span>
 <span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
 <span class="nb">echo</span> <span class="s2">&quot;Building library...&quot;</span>
 
-FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILER</span><span class="si">}</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CUSTOM</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -cflags <span class="s2">&quot;</span><span class="si">${</span><span class="nv">FCOMPILERFLAGS</span><span class="si">}</span><span class="s2"> </span><span class="si">${</span><span class="nv">DEFINES</span><span class="si">}</span><span class="s2">&quot;</span> <span class="si">${</span><span class="nv">COVERAGE</span><span class="si">}</span> <span class="si">${</span><span class="nv">PROFILING</span><span class="si">}</span> -dbld <span class="si">${</span><span class="nv">LIBDIR</span><span class="si">}</span> -s <span class="si">${</span><span class="nv">SRCDIR</span><span class="si">}</span> -dmod ./ -dobj ./ -t <span class="si">${</span><span class="nv">MODCODE</span><span class="si">}</span> -o <span class="si">${</span><span class="nv">LIBOUT</span><span class="si">}</span> -mklib static -colors
+FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILER</span><span class="si">}</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CUSTOM</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -cflags <span class="s2">&quot;</span><span class="si">${</span><span class="nv">FCOMPILERFLAGS</span><span class="si">}</span><span class="s2"> </span><span class="si">${</span><span class="nv">DEFINES</span><span class="si">}</span><span class="s2"> </span><span class="si">${</span><span class="nv">REAL_KIND</span><span class="si">}</span><span class="s2"> </span><span class="si">${</span><span class="nv">INT_KIND</span><span class="si">}</span><span class="s2">&quot;</span> <span class="si">${</span><span class="nv">COVERAGE</span><span class="si">}</span> <span class="si">${</span><span class="nv">PROFILING</span><span class="si">}</span> -dbld <span class="si">${</span><span class="nv">LIBDIR</span><span class="si">}</span> -s <span class="si">${</span><span class="nv">SRCDIR</span><span class="si">}</span> -dmod ./ -dobj ./ -t <span class="si">${</span><span class="nv">MODCODE</span><span class="si">}</span> -o <span class="si">${</span><span class="nv">LIBOUT</span><span class="si">}</span> -mklib static -colors
 
 <span class="c1">#build the unit tests (uses the above library):</span>
 <span class="k">if</span> <span class="o">[[</span> <span class="nv">$JF_SKIP_TESTS</span> !<span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
@@ -603,7 +618,7 @@ browser's back button to navigate back to
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-11-11 06:11  
+             on 2016-12-14 01:45  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
