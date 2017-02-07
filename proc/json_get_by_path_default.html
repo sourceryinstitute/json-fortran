@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>string_to_double &ndash; JSON-Fortran</title>
+    <title>json_get_by_path_default &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -114,8 +114,8 @@
     
   
   <div class="row">
-    <h1>string_to_double
-      <small>Function</small>
+    <h1>json_get_by_path_default
+      <small>Subroutine</small>
     
     </h1>
     
@@ -124,10 +124,6 @@
 <div class="well well-sm">
   <ul class="list-inline" style="margin-bottom:0px;display:inline">
      
-     <li><i class="fa fa-pencil"></i> Jacob Williams</li>
-     
-     
-    <li><i class="fa fa-calendar-o"></i> 1/19/2014</li>
      
      
      
@@ -136,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.4% of total for procedures.">16 statements</a>
+	  title=" 2.6% of total for procedures.">106 statements</a>
      </li> 
      
      
@@ -149,7 +145,7 @@
   
      <li><a href='../module/json_value_module.html'>json_value_module</a></li>
   
-     <li class="active">string_to_double</li>
+     <li class="active">json_get_by_path_default</li>
   </ol>
 </div>
 </div>
@@ -190,7 +186,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/string_to_double.html#src">string_to_double</a>
+    <a class="list-group-item" href="../proc/json_get_by_path_default.html#src">json_get_by_path_default</a>
   </div>
 </div>
 
@@ -207,6 +203,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -216,6 +214,8 @@
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -316,6 +316,10 @@
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -499,11 +503,17 @@
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -654,7 +664,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private function string_to_double(json, str) result(rval)
+private subroutine json_get_by_path_default(json, me, path, p, found)
     
     
 	 
@@ -664,12 +674,31 @@ private function string_to_double(json, str) result(rval)
 
 
     
-    <p>Convert a string into a double.</p>
-<h1 id="history">History</h1>
+    <p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string.</p>
+<h3 id="example">Example</h3>
+<div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">dat</span><span class="p">,</span><span class="n">p</span>
+    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
+    <span class="c">!...</span>
+    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="s1">&#39;data(2).version&#39;</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="notes">Notes</h3>
+<p>The following special characters are used to denote paths:</p>
+<div class="codehilite"><pre><span></span>  $         - root
+  @         - this
+  .         - child object member
+  [] or ()  - child array element
+</pre></div>
+
+
+<p>Thus, if any of these characters are present in the name key,
+  this routine cannot be used to get the value.
+  In that case, the <code>get_child</code> methods would need to be used.
+  Or, the alternate <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a> could be used.</p>
+<h3 id="see-also">See also</h3>
 <ul>
-<li>Jacob Williams, 10/27/2015 : Now using fmt=*, rather than
-    fmt=real_fmt, since it doesn't work for some unusual cases
-    (e.g., when str='1E-5').</li>
+<li><a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a> - alternate version with different path convention.</li>
 </ul>
     
 
@@ -691,7 +720,7 @@ private function string_to_double(json, str) result(rval)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E7"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E18"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -706,27 +735,64 @@ private function string_to_double(json, str) result(rval)
   
 <tr>
   
-  <td><span class="anchor" id="variable-str%7E11"></span>character(kind=CK,len=*),</td>
+  <td><span class="anchor" id="variable-me%7E54"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-path%7E25"></span>character(kind=CK,len=*),</td>
   <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>str</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-p%7E10"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>pointer to the variable
+ specify by <code>path</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-found%7E35"></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td><p>true if it was found</p></td>
   
 </tr>
 
 </tbody>
 </table>
 
-    
-    
-    
-    
-    
-    
-    
-	 <h3>Return Value <small><span class="anchor" id="variable-rval%7E2"></span>real(kind=RK)
-  </small></h3>
     
     
     
@@ -758,7 +824,7 @@ private function string_to_double(json, str) result(rval)
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/string_to_double.html#src">string_to_double</a>
+    <a class="list-group-item" href="../proc/json_get_by_path_default.html#src">json_get_by_path_default</a>
   </div>
 </div>
 
@@ -786,33 +852,162 @@ private function string_to_double(json, str) result(rval)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">function </span><span class="n">string_to_double</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">rval</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_get_by_path_default</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">me</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">json</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
-    <span class="kt">real</span><span class="p">(</span><span class="n">RK</span><span class="p">)</span>                            <span class="kd">::</span> <span class="n">rval</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>       <span class="kd">::</span> <span class="n">json</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">me</span>     <span class="c">!! a JSON linked list</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">path</span>   <span class="c">!! path to the variable</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>      <span class="c">!! pointer to the variable</span>
+                                                   <span class="c">!! specify by `path`</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span>     <span class="kd">::</span> <span class="n">found</span>  <span class="c">!! true if it was found</span>
 
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ierr</span>  <span class="c">!! read iostat error code</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">i</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">length</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">child_i</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">c</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="k">array</span>
+<span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">tmp</span>
+
+    <span class="k">nullify</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
 
-        <span class="c">!string to double</span>
-        <span class="k">read</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">fmt</span><span class="o">=*</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span> <span class="n">rval</span>
+        <span class="c">! default to assuming relative to this</span>
+        <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">me</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">ierr</span><span class="o">/=</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>    <span class="c">!if there was an error</span>
-            <span class="n">rval</span> <span class="o">=</span> <span class="mf">0.0_RK</span>
-            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in string_to_double: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                      <span class="s1">&#39;string cannot be converted to a double: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                      <span class="nb">trim</span><span class="p">(</span><span class="n">str</span><span class="p">))</span>
+        <span class="n">child_i</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">array</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+
+        <span class="c">!keep trailing space or not:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">trailing_spaces_significant</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">            </span><span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">else</span>
+<span class="k">            </span><span class="n">length</span> <span class="o">=</span> <span class="nb">len_trim</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="k">end if</span>
 
+<span class="k">        do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span>
+
+            <span class="n">c</span> <span class="o">=</span> <span class="n">path</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="k">select case</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="k">case</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+                <span class="c">! root</span>
+                <span class="k">do while</span> <span class="p">(</span><span class="nb">associated</span> <span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span>
+                    <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">parent</span>
+                <span class="k">end do</span>
+<span class="k">                </span><span class="n">child_i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="k">case</span> <span class="p">(</span><span class="n">this</span><span class="p">)</span>
+
+                <span class="c">! this</span>
+                <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">me</span>
+                <span class="n">child_i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="k">case</span> <span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+                <span class="c">! get child member from p</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">child_i</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                    nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get_child</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">path</span><span class="p">(</span><span class="n">child_i</span><span class="p">:</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">tmp</span><span class="p">)</span>
+                    <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">tmp</span>
+                    <span class="k">nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                <span class="k">else</span>
+<span class="k">                    </span><span class="n">child_i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="k">cycle</span>
+<span class="k">                end if</span>
+
+<span class="k">                if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_by_path:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                              <span class="s1">&#39; Error getting child member.&#39;</span><span class="p">)</span>
+                    <span class="k">exit</span>
+<span class="k">                end if</span>
+
+<span class="k">                </span><span class="n">child_i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+
+            <span class="k">case</span> <span class="p">(</span><span class="n">start_array</span><span class="p">,</span><span class="n">start_array_alt</span><span class="p">)</span>
+
+                <span class="c">!....Modified to allow for &#39;var[3]&#39; style syntax</span>
+                <span class="c">!Note: jmozmoz/fson has a slightly different version of this...</span>
+
+                <span class="c">! start looking for the array element index</span>
+                <span class="k">array</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+
+                <span class="c">! get child member from p</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">child_i</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                    nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get_child</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">path</span><span class="p">(</span><span class="n">child_i</span><span class="p">:</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">tmp</span><span class="p">)</span>
+                    <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">tmp</span>
+                    <span class="k">nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                <span class="k">else</span>
+<span class="k">                    </span><span class="n">child_i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="k">cycle</span>
+<span class="k">                end if</span>
+<span class="k">                if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_by_path:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                         <span class="s1">&#39; Error getting array element&#39;</span><span class="p">)</span>
+                    <span class="k">exit</span>
+<span class="k">                end if</span>
+<span class="k">                </span><span class="n">child_i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="k">case</span> <span class="p">(</span><span class="n">end_array</span><span class="p">,</span><span class="n">end_array_alt</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="k">array</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                    call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_by_path: Unexpected ]&#39;</span><span class="p">)</span>
+                    <span class="k">exit</span>
+<span class="k">                end if</span>
+<span class="k">                array</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="n">child_i</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">string_to_int</span><span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="n">child_i</span><span class="p">:</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+                <span class="k">nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get_child</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">child_i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span>
+                <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">tmp</span>
+                <span class="k">nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+
+                <span class="n">child_i</span><span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="k">end select</span>
+
+<span class="k">        end do</span>
+
+<span class="k">        if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
+
+<span class="k">            if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                nullify</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="c">! just in case</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">clear_exceptions</span><span class="p">()</span>
+            <span class="k">end if</span>
+
+<span class="k">        else</span>
+
+            <span class="c">! grab the last child if present in the path</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">child_i</span> <span class="o">&lt;=</span> <span class="n">length</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get_child</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">path</span><span class="p">(</span><span class="n">child_i</span><span class="p">:</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">tmp</span><span class="p">)</span>
+                <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">tmp</span>
+                <span class="k">nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+            <span class="k">end if</span>
+<span class="k">            if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>    <span class="c">!everything seems to be ok</span>
+            <span class="k">else</span>
+<span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_by_path:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                          <span class="s1">&#39; variable not found: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">clear_exceptions</span><span class="p">()</span>
+                <span class="k">end if</span>
+<span class="k">            end if</span>
+
+<span class="k">        end if</span>
+
 <span class="k">    else</span>
-<span class="k">        </span><span class="n">rval</span> <span class="o">=</span> <span class="mf">0.0_RK</span>
+<span class="k">        if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
     <span class="k">end if</span>
 
-<span class="k">    end function </span><span class="n">string_to_double</span>
+<span class="k">    end subroutine </span><span class="n">json_get_by_path_default</span>
 </pre></div>
 
     </section>
@@ -835,6 +1030,8 @@ private function string_to_double(json, str) result(rval)
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -844,6 +1041,8 @@ private function string_to_double(json, str) result(rval)
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -944,6 +1143,10 @@ private function string_to_double(json, str) result(rval)
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -1127,11 +1330,17 @@ private function string_to_double(json, str) result(rval)
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -1283,12 +1492,12 @@ private function string_to_double(json, str) result(rval)
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2016 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 23:06  
+             on 2017-02-07 03:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

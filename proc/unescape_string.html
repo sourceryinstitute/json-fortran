@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 1.7% of total for procedures.">68 statements</a>
+	  title=" 1.7% of total for procedures.">70 statements</a>
      </li> 
      
      
@@ -203,6 +203,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -212,6 +214,8 @@
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -312,6 +316,10 @@
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -495,11 +503,17 @@
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -707,7 +721,7 @@ public subroutine unescape_string(str_in, str_out, error_message)
   
 <tr>
   
-  <td><span class="anchor" id="variable-str_out%7E2"></span>character(kind=CK,len=:),</td>
+  <td><span class="anchor" id="variable-str_out%7E4"></span>character(kind=CK,len=:),</td>
   <td>intent(out),</td>
   <td></td>
   
@@ -1032,6 +1046,10 @@ public subroutine unescape_string(str_in, str_out, error_message)
     <span class="kt">integer</span> <span class="kd">::</span> <span class="n">m</span>   <span class="c">!! length of str_out</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">c</span>  <span class="c">!! for scanning each character in string</span>
 
+<span class="cp">#if defined __GFORTRAN__</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">tmp</span>  <span class="c">!! for GFortran bug workaround</span>
+<span class="cp">#endif</span>
+
     <span class="k">if</span> <span class="p">(</span><span class="nb">scan</span><span class="p">(</span><span class="n">str_in</span><span class="p">,</span><span class="n">backslash</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
 
         <span class="c">!there is at least one escape character, so process this string:</span>
@@ -1123,7 +1141,13 @@ public subroutine unescape_string(str_in, str_out, error_message)
 <span class="k">        end do</span>
 
         <span class="c">!trim trailing space:</span>
+<span class="cp">#if defined __GFORTRAN__</span>
+        <span class="c">! workaround for Gfortran 6.1.0 bug</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">str_out</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">str_out</span> <span class="o">=</span> <span class="n">tmp</span>
+<span class="cp">#else</span>
         <span class="n">str_out</span> <span class="o">=</span> <span class="n">str_out</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">m</span><span class="p">)</span>
+<span class="cp">#endif</span>
 
     <span class="k">else</span>
         <span class="c">!there are no escape characters, so return as is:</span>
@@ -1153,6 +1177,8 @@ public subroutine unescape_string(str_in, str_out, error_message)
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -1162,6 +1188,8 @@ public subroutine unescape_string(str_in, str_out, error_message)
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -1262,6 +1290,10 @@ public subroutine unescape_string(str_in, str_out, error_message)
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -1445,11 +1477,17 @@ public subroutine unescape_string(str_in, str_out, error_message)
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -1601,12 +1639,12 @@ public subroutine unescape_string(str_in, str_out, error_message)
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2016 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 23:06  
+             on 2017-02-07 03:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

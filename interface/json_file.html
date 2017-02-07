@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p> 0.1% of total for procedures.</p>Including implementation: 29 statements,  0.7% of total for procedures.">3 statements</a>
+	  title="<p> 0.1% of total for procedures.</p>Including implementation: 30 statements,  0.7% of total for procedures.">3 statements</a>
      </li> 
      
      
@@ -213,6 +213,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -222,6 +224,8 @@
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -322,6 +326,10 @@
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -505,11 +513,17 @@
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -661,8 +675,8 @@
     <div class="col-md-9" id='text'>
       <h2>public interface json_file</h2>
 	 <p>Structure constructor to initialize a <a href="../type/json_file.html">json_file</a> object
-  with an existing <a href="../type/json_value.html">json_value</a> object, and either the <a href="../interface/json_core.html">json_core</a>
-  settings or a <a href="../interface/json_core.html">json_core</a> instance.</p>
+  with an existing <a href="../type/json_value.html">json_value</a> object, and either the <a href="../type/json_core.html">json_core</a>
+  settings or a <a href="../type/json_core.html">json_core</a> instance.</p>
 <h1 id="example">Example</h1>
 <div class="codehilite"><pre><span></span> <span class="p">...</span>
  <span class="k">type</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">my_file</span>
@@ -696,29 +710,29 @@
 <polygon fill="none" stroke="black" points="54,-48 2.13163e-14,-48 0,-22 54,-22 54,-48"/>
 <text text-anchor="middle" x="27" y="-32.55" font-family="Helvetica,sans-Serif" font-size="10.50">json_file</text>
 </g>
-<!-- proc~initialize_json_file -->
-<g id="node2" class="node"><title>proc~initialize_json_file</title>
-<a xlink:href="../proc/initialize_json_file.html" xlink:title="initialize_json_file">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="193,-70 99,-70 99,-44 193,-44 193,-70"/>
-<text text-anchor="middle" x="146" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">initialize_json_file</text>
-</a>
-</g>
-<!-- interface~json_file&#45;&gt;proc~initialize_json_file -->
-<g id="edge2" class="edge"><title>interface~json_file&#45;&gt;proc~initialize_json_file</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M54.0029,-39.9921C64.1819,-41.874 76.1913,-44.0942 88.1142,-46.2984"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="87.5973,-49.7621 98.067,-48.1384 88.87,-42.8787 87.5973,-49.7621"/>
-</g>
 <!-- proc~initialize_json_file_v2 -->
-<g id="node3" class="node"><title>proc~initialize_json_file_v2</title>
+<g id="node2" class="node"><title>proc~initialize_json_file_v2</title>
 <a xlink:href="../proc/initialize_json_file_v2.html" xlink:title="initialize_json_file_v2">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="202,-26 90,-26 90,-1.24345e-14 202,-3.55271e-15 202,-26"/>
-<text text-anchor="middle" x="146" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">initialize_json_file_v2</text>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="202,-70 90,-70 90,-44 202,-44 202,-70"/>
+<text text-anchor="middle" x="146" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">initialize_json_file_v2</text>
 </a>
 </g>
 <!-- interface~json_file&#45;&gt;proc~initialize_json_file_v2 -->
-<g id="edge4" class="edge"><title>interface~json_file&#45;&gt;proc~initialize_json_file_v2</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M54.0029,-30.0079C61.859,-28.5555 70.8053,-26.9015 79.9607,-25.2089"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="80.7385,-28.6245 89.9356,-23.3648 79.4659,-21.7412 80.7385,-28.6245"/>
+<g id="edge2" class="edge"><title>interface~json_file&#45;&gt;proc~initialize_json_file_v2</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M54.0029,-39.9921C61.859,-41.4445 70.8053,-43.0985 79.9607,-44.7911"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="79.4659,-48.2588 89.9356,-46.6352 80.7385,-41.3755 79.4659,-48.2588"/>
+</g>
+<!-- proc~initialize_json_file -->
+<g id="node3" class="node"><title>proc~initialize_json_file</title>
+<a xlink:href="../proc/initialize_json_file.html" xlink:title="initialize_json_file">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="193,-26 99,-26 99,-1.24345e-14 193,-3.55271e-15 193,-26"/>
+<text text-anchor="middle" x="146" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">initialize_json_file</text>
+</a>
+</g>
+<!-- interface~json_file&#45;&gt;proc~initialize_json_file -->
+<g id="edge4" class="edge"><title>interface~json_file&#45;&gt;proc~initialize_json_file</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M54.0029,-30.0079C64.1819,-28.126 76.1913,-25.9058 88.1142,-23.7016"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="88.87,-27.1213 98.067,-21.8616 87.5973,-20.2379 88.87,-27.1213"/>
 </g>
 </g>
 </svg>
@@ -843,7 +857,7 @@
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-initialize_json_file"></span><h3>
-private function <a href='../proc/initialize_json_file.html'>initialize_json_file</a>(p, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char) result(file_object)
+private function <a href='../proc/initialize_json_file.html'>initialize_json_file</a>(p, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths) result(file_object)
     
     
 	 
@@ -1080,6 +1094,24 @@ private function <a href='../proc/initialize_json_file.html'>initialize_json_fil
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_rfc6901_paths</strong></td><td><p>If true, then path values in the
+ <code>get_by_path</code> routines are interpreted
+ as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths.
+ By default, this is False.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -1130,7 +1162,7 @@ private function <a href='../proc/initialize_json_file_v2.html'>initialize_json_
 
 
 
-<p>Cast a <a href="../type/json_value.html">json_value</a> pointer and a <a href="../interface/json_core.html">json_core</a> object
+<p>Cast a <a href="../type/json_value.html">json_value</a> pointer and a <a href="../type/json_core.html">json_core</a> object
   as a <a href="../type/json_file.html">json_file</a> object.</p>
     
     <h4>Arguments</h4>
@@ -1214,6 +1246,8 @@ private function <a href='../proc/initialize_json_file_v2.html'>initialize_json_
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -1223,6 +1257,8 @@ private function <a href='../proc/initialize_json_file_v2.html'>initialize_json_
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -1323,6 +1359,10 @@ private function <a href='../proc/initialize_json_file_v2.html'>initialize_json_
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -1506,11 +1546,17 @@ private function <a href='../proc/initialize_json_file_v2.html'>initialize_json_
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -1662,12 +1708,12 @@ private function <a href='../proc/initialize_json_file_v2.html'>initialize_json_
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2016 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 23:06  
+             on 2017-02-07 03:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 2.0% of total for procedures.">79 statements</a>
+	  title=" 1.9% of total for procedures.">81 statements</a>
      </li> 
      
      
@@ -207,6 +207,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -216,6 +218,8 @@
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -316,6 +320,10 @@
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -499,11 +507,17 @@
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -654,7 +668,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_initialize(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char)
+private subroutine json_initialize(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths)
     
     
 	 
@@ -664,8 +678,8 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
 
 
     
-    <p>Initialize the <a href="../interface/json_core.html">json_core</a> instance.</p>
-<p>The routine may be called before any of the <a href="../interface/json_core.html">json_core</a> methods are used in
+    <p>Initialize the <a href="../type/json_core.html">json_core</a> instance.</p>
+<p>The routine may be called before any of the <a href="../type/json_core.html">json_core</a> methods are used in
   order to specify certain parameters. If it is not called, then the defaults
   are used. This routine is also called internally by various routines.
   It can also be called to clear exceptions, or to reset some
@@ -697,7 +711,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E41"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E43"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -884,6 +898,24 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-use_rfc6901_paths%7E5"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_rfc6901_paths</strong></td><td><p>If true, then path values in the
+ <code>get_by_path</code> routines are interpreted
+ as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths.
+ By default, this is False.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -953,35 +985,13 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
                                <span class="n">case_sensitive_keys</span><span class="p">,&amp;</span>
                                <span class="n">no_whitespace</span><span class="p">,&amp;</span>
                                <span class="n">unescape_strings</span><span class="p">,&amp;</span>
-                               <span class="n">comment_char</span><span class="p">)</span>
+                               <span class="n">comment_char</span><span class="p">,&amp;</span>
+                               <span class="n">use_rfc6901_paths</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">json</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">verbose</span>       <span class="c">!! mainly useful for debugging (default is false)</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">compact_reals</span> <span class="c">!! to compact the real number strings for output (default is true)</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">print_signs</span>   <span class="c">!! always print numeric sign (default is false)</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">real_format</span> <span class="c">!! Real number format: &#39;E&#39; [default], &#39;*&#39;, &#39;G&#39;, &#39;EN&#39;, or &#39;ES&#39;</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">spaces_per_tab</span> <span class="c">!! number of spaces per tab for indenting (default is 2)</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">strict_type_checking</span> <span class="c">!! if true, no integer, double, or logical type</span>
-                                                            <span class="c">!! conversions are done for the `get` routines</span>
-                                                            <span class="c">!! (default is false)</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">trailing_spaces_significant</span>  <span class="c">!! for name and path comparisons, is trailing</span>
-                                                                    <span class="c">!! space to be considered significant.</span>
-                                                                    <span class="c">!! (default is false)</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">case_sensitive_keys</span>  <span class="c">!! for name and path comparisons, are they</span>
-                                                            <span class="c">!! case sensitive. (default is true)</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">no_whitespace</span>  <span class="c">!! if true, printing the JSON structure is</span>
-                                                      <span class="c">!! done without adding any non-significant</span>
-                                                      <span class="c">!! spaces or linebreaks (default is false)</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">unescape_strings</span> <span class="c">!! If false, then the raw escaped</span>
-                                                        <span class="c">!! string is returned from [[json_get_string]]</span>
-                                                        <span class="c">!! and similar routines. If true [default],</span>
-                                                        <span class="c">!! then the string is returned unescaped.</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">comment_char</span>  <span class="c">!! If present, this character is used</span>
-                                                                  <span class="c">!! to denote comments in the JSON file,</span>
-                                                                  <span class="c">!! which will be ignored if present.</span>
-                                                                  <span class="c">!! Example: `!` or `#`.</span>
+<span class="cp">#include &quot;json_initialize_arguments.inc&quot;</span>
 
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="kd">::</span> <span class="n">w</span>  <span class="c">!! max string length</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="kd">::</span> <span class="n">d</span>  <span class="c">!! real precision digits</span>
@@ -996,7 +1006,7 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
 
     <span class="c">!Just in case, clear these global variables also:</span>
     <span class="n">json</span><span class="p">%</span><span class="n">pushed_index</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">json</span><span class="p">%</span><span class="n">pushed_char</span>  <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">json</span><span class="p">%</span><span class="n">pushed_char</span>  <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;&#39;</span>
     <span class="n">json</span><span class="p">%</span><span class="n">char_count</span>   <span class="o">=</span> <span class="mi">0</span>
     <span class="n">json</span><span class="p">%</span><span class="n">line_count</span>   <span class="o">=</span> <span class="mi">1</span>
     <span class="n">json</span><span class="p">%</span><span class="n">ipos</span>         <span class="o">=</span> <span class="mi">1</span>
@@ -1022,6 +1032,8 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
         <span class="n">json</span><span class="p">%</span><span class="n">no_whitespace</span> <span class="o">=</span> <span class="n">no_whitespace</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">unescape_strings</span><span class="p">))</span> <span class="p">&amp;</span>
         <span class="n">json</span><span class="p">%</span><span class="n">unescaped_strings</span> <span class="o">=</span> <span class="n">unescape_strings</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">use_rfc6901_paths</span><span class="p">))</span> <span class="p">&amp;</span>
+        <span class="n">json</span><span class="p">%</span><span class="n">use_rfc6901_paths</span> <span class="o">=</span> <span class="n">use_rfc6901_paths</span>
 
     <span class="c">! if we are allowing comments in the file:</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">comment_char</span><span class="p">))</span> <span class="k">then</span>
@@ -1113,6 +1125,8 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -1122,6 +1136,8 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -1222,6 +1238,10 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -1405,11 +1425,17 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -1561,12 +1587,12 @@ private subroutine json_initialize(json, verbose, compact_reals, print_signs, re
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2016 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 23:06  
+             on 2017-02-07 03:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

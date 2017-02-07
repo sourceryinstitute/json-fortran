@@ -205,6 +205,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -214,6 +216,8 @@
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -314,6 +318,10 @@
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -497,11 +505,17 @@
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -683,7 +697,7 @@ private subroutine to_logical(p, val, name)
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E67"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E69"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -848,29 +862,29 @@ private subroutine to_logical(p, val, name)
 <polygon fill="none" stroke="black" points="230,-70 172,-70 172,-44 230,-44 230,-70"/>
 <text text-anchor="middle" x="201" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50">to_logical</text>
 </g>
-<!-- proc~json_update_logical -->
-<g id="node2" class="node"><title>proc~json_update_logical</title>
-<a xlink:href="../proc/json_update_logical.html" xlink:title="json_update_logical">
-<polygon fill="#d9534f" stroke="#d9534f" points="121,-114 15,-114 15,-88 121,-88 121,-114"/>
-<text text-anchor="middle" x="68" y="-98.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_update_logical</text>
-</a>
-</g>
-<!-- proc~json_update_logical&#45;&gt;proc~to_logical -->
-<g id="edge2" class="edge"><title>proc~json_update_logical&#45;&gt;proc~to_logical</title>
-<path fill="none" stroke="#ff0000" d="M108.661,-87.9436C117.671,-85.0231 127.165,-81.9241 136,-79 144.546,-76.1714 153.71,-73.0959 162.383,-70.1657"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="163.558,-73.4631 171.907,-66.94 161.312,-66.833 163.558,-73.4631"/>
-</g>
 <!-- proc~json_value_create_logical -->
-<g id="node3" class="node"><title>proc~json_value_create_logical</title>
+<g id="node2" class="node"><title>proc~json_value_create_logical</title>
 <a xlink:href="../proc/json_value_create_logical.html" xlink:title="json_value_create_logical">
-<polygon fill="#d9534f" stroke="#d9534f" points="136,-70 7.10543e-14,-70 0,-44 136,-44 136,-70"/>
-<text text-anchor="middle" x="68" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value_create_logical</text>
+<polygon fill="#d9534f" stroke="#d9534f" points="136,-114 7.10543e-14,-114 0,-88 136,-88 136,-114"/>
+<text text-anchor="middle" x="68" y="-98.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value_create_logical</text>
 </a>
 </g>
 <!-- proc~json_value_create_logical&#45;&gt;proc~to_logical -->
-<g id="edge4" class="edge"><title>proc~json_value_create_logical&#45;&gt;proc~to_logical</title>
-<path fill="none" stroke="#ff0000" d="M136.058,-57C144.857,-57 153.62,-57 161.729,-57"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="161.962,-60.5001 171.962,-57 161.962,-53.5001 161.962,-60.5001"/>
+<g id="edge2" class="edge"><title>proc~json_value_create_logical&#45;&gt;proc~to_logical</title>
+<path fill="none" stroke="#ff0000" d="M108.661,-87.9436C117.671,-85.0231 127.165,-81.9241 136,-79 144.546,-76.1714 153.71,-73.0959 162.383,-70.1657"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="163.558,-73.4631 171.907,-66.94 161.312,-66.833 163.558,-73.4631"/>
+</g>
+<!-- proc~json_update_logical -->
+<g id="node3" class="node"><title>proc~json_update_logical</title>
+<a xlink:href="../proc/json_update_logical.html" xlink:title="json_update_logical">
+<polygon fill="#d9534f" stroke="#d9534f" points="121,-70 15,-70 15,-44 121,-44 121,-70"/>
+<text text-anchor="middle" x="68" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_update_logical</text>
+</a>
+</g>
+<!-- proc~json_update_logical&#45;&gt;proc~to_logical -->
+<g id="edge4" class="edge"><title>proc~json_update_logical&#45;&gt;proc~to_logical</title>
+<path fill="none" stroke="#ff0000" d="M121.713,-57C135.118,-57 149.243,-57 161.798,-57"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="161.924,-60.5001 171.924,-57 161.924,-53.5001 161.924,-60.5001"/>
 </g>
 <!-- proc~parse_value -->
 <g id="node4" class="node"><title>proc~parse_value</title>
@@ -1054,6 +1068,8 @@ private subroutine to_logical(p, val, name)
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -1063,6 +1079,8 @@ private subroutine to_logical(p, val, name)
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -1163,6 +1181,10 @@ private subroutine to_logical(p, val, name)
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -1346,11 +1368,17 @@ private subroutine to_logical(p, val, name)
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -1502,12 +1530,12 @@ private subroutine to_logical(p, val, name)
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2016 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 23:06  
+             on 2017-02-07 03:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

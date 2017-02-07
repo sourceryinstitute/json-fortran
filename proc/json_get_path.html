@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 2.5% of total for procedures.">99 statements</a>
+	  title=" 2.8% of total for procedures.">118 statements</a>
      </li> 
      
      
@@ -203,6 +203,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -212,6 +214,8 @@
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -312,6 +316,10 @@
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -495,11 +503,17 @@
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -668,6 +682,8 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
       <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure) then an exception will be thrown, unless
       <code>found</code> is present, which will be set to <code>false</code>. <code>path</code>
       will be a blank string.</p></div>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>If <code>json%use_rfc6901_paths=.true.</code>, then the
+      <code>use_alt_array_tokens</code> and <code>path_sep</code> inputs are ignored.</p></div>
     
 
     <h3>Arguments</h3>
@@ -688,7 +704,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E32"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E34"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -703,7 +719,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E12"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E14"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(in),</td>
   <td></td>
   
@@ -718,7 +734,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
 <tr>
   
-  <td><span class="anchor" id="variable-path%7E31"></span>character(kind=CK,len=:),</td>
+  <td><span class="anchor" id="variable-path%7E33"></span>character(kind=CK,len=:),</td>
   <td>intent(out),</td>
   <td></td>
   
@@ -733,7 +749,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
 <tr>
   
-  <td><span class="anchor" id="variable-found%7E41"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-found%7E43"></span>logical(kind=LK),</td>
   <td>intent(out),</td>
   <td>optional</td>
   
@@ -1063,7 +1079,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>                                <span class="kd">::</span> <span class="n">parent_is_root</span> <span class="c">!! if the parent is the root</span>
 
     <span class="c">!initialize:</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;&#39;</span>
 
     <span class="c">!optional input:</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">use_alt_array_tokens</span><span class="p">))</span> <span class="k">then</span>
@@ -1112,14 +1128,19 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
                             <span class="k">exit</span>
 <span class="k">                        end if</span>
 <span class="k">                    end do</span>
-<span class="k">                    call </span><span class="n">integer_to_string</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">int_fmt</span><span class="p">,</span><span class="n">istr</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">use_brackets</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">                        call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">parent_name</span><span class="o">//</span><span class="n">start_array</span><span class="o">//</span><span class="p">&amp;</span>
-                                         <span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">istr</span><span class="p">))</span><span class="o">//</span><span class="n">end_array</span><span class="p">,</span><span class="n">path_sep</span><span class="p">)</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">use_rfc6901_paths</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                        call </span><span class="n">integer_to_string</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">int_fmt</span><span class="p">,</span><span class="n">istr</span><span class="p">)</span> <span class="c">! 0-based index</span>
+                        <span class="k">call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">parent_name</span><span class="o">//</span><span class="n">slash</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">istr</span><span class="p">)))</span>
                     <span class="k">else</span>
-<span class="k">                        call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">parent_name</span><span class="o">//</span><span class="n">start_array_alt</span><span class="o">//</span><span class="p">&amp;</span>
-                                         <span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">istr</span><span class="p">))</span><span class="o">//</span><span class="n">end_array_alt</span><span class="p">,</span><span class="n">path_sep</span><span class="p">)</span>
-                    <span class="k">end if</span>
+<span class="k">                        call </span><span class="n">integer_to_string</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">int_fmt</span><span class="p">,</span><span class="n">istr</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">use_brackets</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                            call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">parent_name</span><span class="o">//</span><span class="n">start_array</span><span class="o">//</span><span class="p">&amp;</span>
+                                             <span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">istr</span><span class="p">))</span><span class="o">//</span><span class="n">end_array</span><span class="p">,</span><span class="n">path_sep</span><span class="p">)</span>
+                        <span class="k">else</span>
+<span class="k">                            call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">parent_name</span><span class="o">//</span><span class="n">start_array_alt</span><span class="o">//</span><span class="p">&amp;</span>
+                                             <span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">istr</span><span class="p">))</span><span class="o">//</span><span class="n">end_array_alt</span><span class="p">,</span><span class="n">path_sep</span><span class="p">)</span>
+                        <span class="k">end if</span>
+<span class="k">                    end if</span>
 <span class="k">                    </span><span class="n">tmp</span> <span class="o">=&gt;</span> <span class="n">tmp</span><span class="p">%</span><span class="n">parent</span>  <span class="c">! already added parent name</span>
 
                 <span class="k">case</span> <span class="p">(</span><span class="n">json_object</span><span class="p">)</span>
@@ -1159,7 +1180,14 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
     <span class="k">end if</span>
 
     <span class="c">!for errors, return blank string:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        </span><span class="n">path</span> <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;&#39;</span>
+    <span class="k">else</span>
+<span class="k">        if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">use_rfc6901_paths</span><span class="p">)</span> <span class="k">then</span>
+            <span class="c">! add the root slash:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">slash</span><span class="o">//</span><span class="n">path</span>
+        <span class="k">end if</span>
+<span class="k">    end if</span>
 
     <span class="c">!optional output:</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="k">then</span>
@@ -1177,16 +1205,30 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
         <span class="c">!! prepend the string to the path</span>
         <span class="k">implicit none</span>
 <span class="k">        </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>  <span class="c">!! string to prepend to `path`</span>
-        <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">dot</span>  <span class="c">!! path separator (default is &#39;.&#39;)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="o">==</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">            </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span>
-        <span class="k">else</span>
-<span class="k">            if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">dot</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">dot</span><span class="o">//</span><span class="n">path</span>
+        <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">dot</span>
+            <span class="c">!! path separator (default is &#39;.&#39;).</span>
+            <span class="c">!! (ignored if `json%use_rfc6901_paths=.true.`)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">use_rfc6901_paths</span><span class="p">)</span> <span class="k">then</span>
+            <span class="c">! in this case, the options are ignored</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="o">==</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span>
             <span class="k">else</span>
-<span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">child</span><span class="o">//</span><span class="n">path</span>
+<span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">slash</span><span class="o">//</span><span class="n">path</span>
             <span class="k">end if</span>
+<span class="k">        else</span>
+            <span class="c">! default path format</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="o">==</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span>
+            <span class="k">else</span>
+<span class="k">                if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">dot</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">dot</span><span class="o">//</span><span class="n">path</span>
+                <span class="k">else</span>
+<span class="k">                    </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">child</span><span class="o">//</span><span class="n">path</span>
+                <span class="k">end if</span>
+<span class="k">            end if</span>
 <span class="k">        end if</span>
+
 <span class="k">        end subroutine </span><span class="n">add_to_path</span>
 
     <span class="k">end subroutine </span><span class="n">json_get_path</span>
@@ -1212,6 +1254,8 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -1221,6 +1265,8 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -1321,6 +1367,10 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -1504,11 +1554,17 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -1660,12 +1716,12 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2016 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 23:06  
+             on 2017-02-07 03:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

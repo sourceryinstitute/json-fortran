@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>68.5% of total for derived types.</p>Including implementation: 5035 statements, 86.3% of total for derived types.">143 statements</a>
+	  title="<p>69.0% of total for derived types.</p>Including implementation: 5090 statements, 86.4% of total for derived types.">146 statements</a>
      </li> 
      
      
@@ -205,6 +205,8 @@
       <a class="list-group-item" href="../type/json_core.html#variable-trailing_spaces_significant">trailing_spaces_significant</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-unescaped_strings">unescaped_strings</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#variable-use_rfc6901_paths">use_rfc6901_paths</a>
       
     </div>
   </div>
@@ -305,6 +307,10 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_array_with_path">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path_default">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path_rfc6901">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_double">json_get_double</a>
       
@@ -464,9 +470,9 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-rename">rename</a>
       
-      <a class="list-group-item" href="../type/json_core.html#boundprocedure-string_to_double">string_to_double</a>
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-string_to_dble">string_to_dble</a>
       
-      <a class="list-group-item" href="../type/json_core.html#boundprocedure-string_to_integer">string_to_integer</a>
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-string_to_int">string_to_int</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-swap">swap</a>
       
@@ -742,6 +748,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#variable-unescaped_strings">unescaped_strings</a>
       
+      <a class="list-group-item" href="../type/json_core.html#variable-use_rfc6901_paths">use_rfc6901_paths</a>
+      
     </div>
   </div>
 </div>
@@ -841,6 +849,10 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_array_with_path">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path_default">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path_rfc6901">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_double">json_get_double</a>
       
@@ -1000,9 +1012,9 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-rename">rename</a>
       
-      <a class="list-group-item" href="../type/json_core.html#boundprocedure-string_to_double">string_to_double</a>
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-string_to_dble">string_to_dble</a>
       
-      <a class="list-group-item" href="../type/json_core.html#boundprocedure-string_to_integer">string_to_integer</a>
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-string_to_int">string_to_int</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-swap">swap</a>
       
@@ -1299,7 +1311,7 @@
   
   <td>private</td>
   <td></td><td>::</td>
-  <td><strong>pushed_char</strong></td><td> =</td><td>''</td><td><p>used when parsing
+  <td><strong>pushed_char</strong></td><td> =</td><td>CK_''</td><td><p>used when parsing
  lines in file</p></td>
   
 </tr>
@@ -1400,6 +1412,22 @@
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-use_rfc6901_paths"></span>logical(kind=LK),</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>use_rfc6901_paths</strong></td><td> =</td><td>.false.</td><td><p>use the RFC 6901 standard for
+ <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> paths. Otherwise, the original
+ default method is used</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -1420,7 +1448,7 @@
   <div class="panel-body">
     
     <p>Structure constructor to initialize a
-  <a href="../interface/json_core.html">json_core</a> object</p>
+  <a href="../type/json_core.html">json_core</a> object</p>
   </div>
   
   <ul class="list-group">
@@ -1431,7 +1459,7 @@
     
     
     <h3>
-private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char) result(json_core_object)
+private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths) result(json_core_object)
     
     
 	 
@@ -1456,7 +1484,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
 
 
 
-<p>Function constructor for a <a href="../interface/json_core.html">json_core</a>.
+<p>Function constructor for a <a href="../type/json_core.html">json_core</a>.
   This is just a wrapper for <a href="../proc/json_initialize.html">json_initialize</a>.</p>
     
     <h4>Arguments</h4>
@@ -1593,8 +1621,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   
   <td></td><td>::</td>
   <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
- case sensitive.
- (default is true)</p></td>
+ case sensitive. (default is true)</p></td>
   
 </tr>
 
@@ -1648,6 +1675,24 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
  to denote comments in the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file,
  which will be ignored if present.
  Example: <code>!</code> or <code>#</code>.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_rfc6901_paths</strong></td><td><p>If true, then path values in the
+ <code>get_by_path</code> routines are interpreted
+ as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths.
+ By default, this is False.</p></td>
   
 </tr>
 
@@ -4447,7 +4492,7 @@ private subroutine <a href='../proc/json_check_for_errors.html'>json_check_for_e
 
 
 
-<p>Retrieve error code from the <a href="../interface/json_core.html">json_core</a>.
+<p>Retrieve error code from the <a href="../type/json_core.html">json_core</a>.
   This should be called after <code>parse</code> to check for errors.
   If an error is thrown, before using the class again, <a href="../proc/json_initialize.html">json_initialize</a>
   should be called to clean up before it is used again.</p>
@@ -4569,7 +4614,7 @@ private pure subroutine <a href='../proc/json_clear_exceptions.html'>json_clear_
 
 
 
-<p>Clear exceptions in the <a href="../interface/json_core.html">json_core</a>.</p>
+<p>Clear exceptions in the <a href="../type/json_core.html">json_core</a>.</p>
     
     <h4>Arguments</h4>
     
@@ -6735,7 +6780,7 @@ private subroutine <a href='../proc/destroy_json_core.html'>destroy_json_core</a
 
 
 
-<p>Destructor for the <a href="../interface/json_core.html">json_core</a> type.</p>
+<p>Destructor for the <a href="../type/json_core.html">json_core</a> type.</p>
     
     <h4>Arguments</h4>
     
@@ -6818,7 +6863,7 @@ private subroutine <a href='../proc/destroy_json_core.html'>destroy_json_core</a
 
 
 
-<p>Destructor for the <a href="../interface/json_core.html">json_core</a> type.</p>
+<p>Destructor for the <a href="../type/json_core.html">json_core</a> type.</p>
     
     <h4>Arguments</h4>
     
@@ -6907,7 +6952,7 @@ private pure function <a href='../proc/json_failed.html'>json_failed</a>(json) r
 
 
 
-<p>Logical function to indicate if an exception has been thrown in a <a href="../interface/json_core.html">json_core</a>.</p>
+<p>Logical function to indicate if an exception has been thrown in a <a href="../type/json_core.html">json_core</a>.</p>
     
     <h4>Arguments</h4>
     
@@ -7070,7 +7115,8 @@ private subroutine <a href='../proc/json_get_by_path.html'>json_get_by_path</a>(
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p</strong></td><td><p>pointer to the variable specify by <code>path</code></p></td>
+  <td><strong>p</strong></td><td><p>pointer to the variable
+ specify by <code>path</code></p></td>
   
 </tr>
 
@@ -12124,7 +12170,7 @@ private subroutine <a href='../proc/wrap_json_info_by_path.html'>wrap_json_info_
          
     
     <h3>
-private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char)
+private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths)
     
     
 	 
@@ -12149,7 +12195,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
 
 
 
-<p>Initialize the <a href="../interface/json_core.html">json_core</a> instance.</p>
+<p>Initialize the <a href="../type/json_core.html">json_core</a> instance.</p>
     
     <h4>Arguments</h4>
     
@@ -12354,6 +12400,24 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
  to denote comments in the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file,
  which will be ignored if present.
  Example: <code>!</code> or <code>#</code>.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_rfc6901_paths</strong></td><td><p>If true, then path values in the
+ <code>get_by_path</code> routines are interpreted
+ as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths.
+ By default, this is False.</p></td>
   
 </tr>
 
@@ -13049,7 +13113,284 @@ private subroutine <a href='../proc/json_get_by_path.html'>json_get_by_path</a>(
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p</strong></td><td><p>pointer to the variable specify by <code>path</code></p></td>
+  <td><strong>p</strong></td><td><p>pointer to the variable
+ specify by <code>path</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td><p>true if it was found</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_get_by_path_default"></span><h3>procedure, private :: <strong>json_get_by_path_default</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_get_by_path_default.html'>json_get_by_path_default</a>(json, me, path, p, found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>pointer to the variable
+ specify by <code>path</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td><p>true if it was found</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_get_by_path_rfc6901"></span><h3>procedure, private :: <strong>json_get_by_path_rfc6901</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_get_by_path_rfc6901.html'>json_get_by_path_rfc6901</a>(json, me, path, p, found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>2/4/2017</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string,
+  using the "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" path specification defined by RFC 6901.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable
+ (an RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer")</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>pointer to the variable
+ specify by <code>path</code></p></td>
   
 </tr>
 
@@ -16258,7 +16599,7 @@ private subroutine <a href='../proc/json_throw_exception.html'>json_throw_except
 
 
 
-<p>Throw an exception in the <a href="../interface/json_core.html">json_core</a>.
+<p>Throw an exception in the <a href="../type/json_core.html">json_core</a>.
   This routine sets the error flag, and prevents any subsequent routine
   from doing anything, until <a href="../proc/json_clear_exceptions.html">json_clear_exceptions</a> is called.</p>
     
@@ -23764,7 +24105,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
     
 	   
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-string_to_double"></span><h3>procedure, private :: <strong>string_to_double</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-string_to_dble"></span><h3>procedure, private :: <strong>string_to_dble</strong>  
     
   </h3></div>
   
@@ -23775,7 +24116,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
          
     
     <h3>
-private function <a href='../proc/string_to_double.html'>string_to_double</a>(json, str) result(rval)
+private function <a href='../proc/string_to_dble.html'>string_to_dble</a>(json, str) result(rval)
     
     
 	 
@@ -23785,18 +24126,6 @@ private function <a href='../proc/string_to_double.html'>string_to_double</a>(js
 
 
 
-
-  <dl class="dl-horizontal">
-    
-    <dt>Author</dt><dd>Jacob Williams</dd>
-    
-    
-    <dt>Date</dt><dd>1/19/2014</dd>
-    
-    
-    
-    
-  </dl>
 
 
 
@@ -23870,7 +24199,7 @@ private function <a href='../proc/string_to_double.html'>string_to_double</a>(js
     
 	   
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-string_to_integer"></span><h3>procedure, private :: <strong>string_to_integer</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-string_to_int"></span><h3>procedure, private :: <strong>string_to_int</strong>  
     
   </h3></div>
   
@@ -23881,7 +24210,7 @@ private function <a href='../proc/string_to_double.html'>string_to_double</a>(js
          
     
     <h3>
-private function <a href='../proc/string_to_integer.html'>string_to_integer</a>(json, str) result(ival)
+private function <a href='../proc/string_to_int.html'>string_to_int</a>(json, str) result(ival)
     
     
 	 
@@ -24129,7 +24458,7 @@ private subroutine <a href='../proc/json_throw_exception.html'>json_throw_except
 
 
 
-<p>Throw an exception in the <a href="../interface/json_core.html">json_core</a>.
+<p>Throw an exception in the <a href="../type/json_core.html">json_core</a>.
   This routine sets the error flag, and prevents any subsequent routine
   from doing anything, until <a href="../proc/json_clear_exceptions.html">json_clear_exceptions</a> is called.</p>
     
@@ -30578,8 +30907,8 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">char_count</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c">!! character position in the current line</span>
         <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line_count</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c">!! lines read counter</span>
         <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">pushed_index</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c">!! used when parsing lines in file</span>
-        <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="n">pushed_char_size</span><span class="p">)</span> <span class="kd">::</span> <span class="n">pushed_char</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>  <span class="c">!! used when parsing</span>
-                                                                     <span class="c">!! lines in file</span>
+        <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="n">pushed_char_size</span><span class="p">)</span> <span class="kd">::</span> <span class="n">pushed_char</span> <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;&#39;</span>  <span class="c">!! used when parsing</span>
+                                                                        <span class="c">!! lines in file</span>
 
         <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ipos</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c">!! for allocatable strings: next character to read</span>
 
@@ -30610,6 +30939,10 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">comment_char</span> <span class="o">=</span> <span class="s1">&#39;!&#39;</span>  <span class="c">!! comment token when</span>
                                                        <span class="c">!! `allow_comments` is true.</span>
                                                        <span class="c">!! Examples: &#39;`!`&#39; or &#39;`#`&#39;.</span>
+
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">use_rfc6901_paths</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span> <span class="c">!! use the RFC 6901 standard for</span>
+                                                   <span class="c">!! JSON paths. Otherwise, the original</span>
+                                                   <span class="c">!! default method is used</span>
 
         <span class="k">contains</span>
 
@@ -30723,6 +31056,8 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_get_string_with_path</span><span class="p">)</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_get_string_vec_with_path</span><span class="p">)</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_get_array_with_path</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_get_by_path_default</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_get_by_path_rfc6901</span>
 
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">print_to_string</span> <span class="o">=&gt;</span> <span class="n">json_value_to_string</span> <span class="c">!! Print the [[json_value]] structure to an allocatable string</span>
 
@@ -30953,8 +31288,8 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="c">!other private routines:</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">name_equal</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_value_print</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">string_to_integer</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">string_to_double</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">string_to_int</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">string_to_dble</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">parse_value</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">parse_number</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">parse_string</span>
@@ -31003,12 +31338,12 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2016 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 23:06  
+             on 2017-02-07 03:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

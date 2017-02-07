@@ -203,6 +203,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -212,6 +214,8 @@
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -312,6 +316,10 @@
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -495,11 +503,17 @@
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -688,7 +702,7 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E43"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E45"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -703,7 +717,7 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E18"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E20"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td></td>
   <td></td>
   
@@ -718,7 +732,7 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
   
 <tr>
   
-  <td><span class="anchor" id="variable-path%7E35"></span>character(kind=CK,len=*),</td>
+  <td><span class="anchor" id="variable-path%7E37"></span>character(kind=CK,len=*),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -748,7 +762,7 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
   
 <tr>
   
-  <td><span class="anchor" id="variable-found%7E45"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-found%7E47"></span>logical(kind=LK),</td>
   <td>intent(out),</td>
   <td>optional</td>
   
@@ -914,14 +928,14 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">        </span><span class="n">ok</span> <span class="o">=</span> <span class="n">found</span>
     <span class="k">else</span>
-<span class="k">        </span><span class="n">ok</span> <span class="o">=</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">failed</span><span class="p">()</span>
+<span class="k">        </span><span class="n">ok</span> <span class="o">=</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span>
     <span class="k">end if</span>
 
 <span class="k">    if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">ok</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">        if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">var_type</span><span class="p">))</span> <span class="n">var_type</span> <span class="o">=</span> <span class="n">json_unknown</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">n_sets</span><span class="p">))</span>   <span class="n">n_sets</span>   <span class="o">=</span> <span class="mi">0</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">set_size</span><span class="p">))</span> <span class="n">set_size</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>     <span class="n">name</span>     <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>     <span class="n">name</span>     <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;&#39;</span>
     <span class="k">else</span>
 
         <span class="c">!get info about the variable:</span>
@@ -932,13 +946,13 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
 <span class="k">                </span><span class="n">p_name</span> <span class="o">=</span> <span class="n">p_var</span><span class="p">%</span><span class="n">name</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">p_name</span>
             <span class="k">else</span>
-<span class="k">                </span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="k">                </span><span class="n">name</span> <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;&#39;</span>
             <span class="k">end if</span>
 <span class="k">        end if</span>
 <span class="cp">#else</span>
         <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">matrix_info</span><span class="p">(</span><span class="n">p_var</span><span class="p">,</span><span class="n">is_matrix</span><span class="p">,</span><span class="n">var_type</span><span class="p">,</span><span class="n">n_sets</span><span class="p">,</span><span class="n">set_size</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
 <span class="cp">#endif</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">failed</span><span class="p">()</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="k">then</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">            </span><span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
             <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">clear_exceptions</span><span class="p">()</span>
         <span class="k">end if</span>
@@ -967,6 +981,8 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -976,6 +992,8 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -1076,6 +1094,10 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -1259,11 +1281,17 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -1415,12 +1443,12 @@ private subroutine json_matrix_info_by_path(json, p, path, is_matrix, found, var
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2016 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 23:06  
+             on 2017-02-07 03:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

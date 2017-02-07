@@ -115,7 +115,7 @@
   
   <div class="row">
     <h1>string_to_integer
-      <small>Function</small>
+      <small>Subroutine</small>
     
     </h1>
     
@@ -132,18 +132,18 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.5% of total for procedures.">21 statements</a>
+	  title=" 0.4% of total for procedures.">15 statements</a>
      </li> 
      
      
-    <li><i class="fa fa-code"></i><a href="../src/json_value_module.F90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/json_string_utilities.F90"> Source File</a></li>
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
-     <li><a href='../sourcefile/json_value_module.f90.html'>json_value_module.F90</a></li>
+     <li><a href='../sourcefile/json_string_utilities.f90.html'>json_string_utilities.F90</a></li>
   
-     <li><a href='../module/json_value_module.html'>json_value_module</a></li>
+     <li><a href='../module/json_string_utilities.html'>json_string_utilities</a></li>
   
      <li class="active">string_to_integer</li>
   </ol>
@@ -203,6 +203,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -212,6 +214,8 @@
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -312,6 +316,10 @@
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -495,11 +503,17 @@
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -650,7 +664,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private function string_to_integer(json, str) result(ival)
+public subroutine string_to_integer(str, ival, status_ok)
     
     
 	 
@@ -663,10 +677,11 @@ private function string_to_integer(json, str) result(ival)
     <p>Convert a string into an integer.</p>
 <h1 id="history">History</h1>
 <ul>
-<li>Jacob Williams : 12/10/2013 : Rewrote routine.  Added error checking.</li>
+<li>Jacob Williams : 12/10/2013 : Rewrote original <code>parse_integer</code> routine.
+    Added error checking.</li>
 <li>Modified by Izaak Beekman</li>
+<li>Jacob Williams : 2/4/2017 : moved core logic to this routine.</li>
 </ul>
-<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>Replacement for the parse_integer function in the original code.</p></div>
     
 
     <h3>Arguments</h3>
@@ -687,12 +702,12 @@ private function string_to_integer(json, str) result(ival)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E8"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
-  <td>intent(inout)</td>
+  <td><span class="anchor" id="variable-str%7E14"></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>json</strong></td><td></td>
+  <td><strong>str</strong></td><td><p>the string to conver to an integer</p></td>
   
 </tr>
 
@@ -702,12 +717,27 @@ private function string_to_integer(json, str) result(ival)
   
 <tr>
   
-  <td><span class="anchor" id="variable-str%7E12"></span>character(kind=CK,len=*),</td>
-  <td>intent(in)</td>
+  <td><span class="anchor" id="variable-ival%7E2"></span>integer(kind=IK),</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>str</strong></td><td></td>
+  <td><strong>ival</strong></td><td><p>the integer value</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-status_ok%7E2"></span>logical(kind=LK),</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>status_ok</strong></td><td><p>true if there were no errors</p></td>
   
 </tr>
 
@@ -717,15 +747,119 @@ private function string_to_integer(json, str) result(ival)
     
     
     
+     
+     <h3>Called By</h3>
+     
+                <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: proc~~string_to_integer~~CalledByGraph Pages: 1 -->
+<svg id="procstring_to_integerCalledByGraph" width="278pt" height="78pt"
+ viewBox="0.00 0.00 278.00 78.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~string_to_integer~~CalledByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 74)">
+<title>proc~~string_to_integer~~CalledByGraph</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-74 275,-74 275,5 -4,5"/>
+<!-- proc~string_to_integer -->
+<g id="node1" class="node"><title>proc~string_to_integer</title>
+<polygon fill="none" stroke="black" points="269,-48 177,-48 177,-22 269,-22 269,-48"/>
+<text text-anchor="middle" x="223" y="-32.55" font-family="Helvetica,sans-Serif" font-size="10.50">string_to_integer</text>
+</g>
+<!-- proc~string_to_int -->
+<g id="node2" class="node"><title>proc~string_to_int</title>
+<a xlink:href="../proc/string_to_int.html" xlink:title="string_to_int">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="105,-70 35,-70 35,-44 105,-44 105,-70"/>
+<text text-anchor="middle" x="70" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">string_to_int</text>
+</a>
+</g>
+<!-- proc~string_to_int&#45;&gt;proc~string_to_integer -->
+<g id="edge2" class="edge"><title>proc~string_to_int&#45;&gt;proc~string_to_integer</title>
+<path fill="none" stroke="#ff0000" d="M105.872,-51.842C123.855,-49.2562 146.057,-46.0636 166.28,-43.1558"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="166.93,-46.5984 176.33,-41.7107 165.934,-39.6697 166.93,-46.5984"/>
+</g>
+<!-- proc~json_get_by_path_rfc6901 -->
+<g id="node3" class="node"><title>proc~json_get_by_path_rfc6901</title>
+<a xlink:href="../proc/json_get_by_path_rfc6901.html" xlink:title="json_get_by_path_rfc6901">
+<polygon fill="#d9534f" stroke="#d9534f" points="139,-26 1,-26 1,-1.24345e-14 139,-3.55271e-15 139,-26"/>
+<text text-anchor="middle" x="70" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_get_by_path_rfc6901</text>
+</a>
+</g>
+<!-- proc~json_get_by_path_rfc6901&#45;&gt;proc~string_to_integer -->
+<g id="edge4" class="edge"><title>proc~json_get_by_path_rfc6901&#45;&gt;proc~string_to_integer</title>
+<path fill="none" stroke="#ff0000" d="M139.784,-23.0343C148.621,-24.305 157.578,-25.593 166.18,-26.8297"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="165.688,-30.295 176.085,-28.254 166.684,-23.3663 165.688,-30.295"/>
+</g>
+</g>
+</svg>
+</div>
+                <div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div>
+                <div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                      </div>
+                      <div class="modal-body">
+                        
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="556pt" height="34pt"
+ viewBox="0.00 0.00 556.00 34.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 30)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-30 553,-30 553,5 -4,5"/>
+<!-- Subroutine -->
+<g id="node1" class="node"><title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="64,-26 3.19744e-14,-26 0,-1.24345e-14 64,-3.55271e-15 64,-26"/>
+<text text-anchor="middle" x="32" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node"><title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="136,-26 82,-26 82,-1.24345e-14 136,-3.55271e-15 136,-26"/>
+<text text-anchor="middle" x="109" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node"><title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="208,-26 154,-26 154,-1.24345e-14 208,-3.55271e-15 208,-26"/>
+<text text-anchor="middle" x="181" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node4" class="node"><title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="362,-26 226,-26 226,-1.24345e-14 362,-3.55271e-15 362,-26"/>
+<text text-anchor="middle" x="294" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node"><title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="434,-26 380,-26 380,-1.24345e-14 434,-3.55271e-15 434,-26"/>
+<text text-anchor="middle" x="407" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node"><title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="548,-26 452,-26 452,-1.24345e-14 548,-3.55271e-15 548,-26"/>
+<text text-anchor="middle" x="500" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
     
+    <p>Solid arrows point from a procedure to one which it calls. Dashed 
+    arrows point from an interface to procedures which implement that interface.
+    This could include the module procedures in a generic interface or the
+    implementation in a submodule of an interface in a parent module. Where possible, edges connecting nodes are given different colours to make them easier to distinguish in large graphs.
+    </p>
     
-    
-    
-	 <h3>Return Value <small><span class="anchor" id="variable-ival%7E2"></span>integer(kind=IK)
-  </small></h3>
-    
-    
-    
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
      
     <br>
 
@@ -782,39 +916,30 @@ private function string_to_integer(json, str) result(ival)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">function </span><span class="n">string_to_integer</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">ival</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">string_to_integer</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">ival</span><span class="p">,</span><span class="n">status_ok</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">json</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>                         <span class="kd">::</span> <span class="n">ival</span>
+<span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>        <span class="c">!! the string to conver to an integer</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>             <span class="kd">::</span> <span class="n">ival</span>       <span class="c">!! the integer value</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>             <span class="kd">::</span> <span class="n">status_ok</span>  <span class="c">!! true if there were no errors</span>
 
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="nb">digits</span>
 <span class="nb">    </span><span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ndigits_digits</span><span class="p">,</span><span class="n">ndigits</span><span class="p">,</span><span class="n">ierr</span>
 
-    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
+    <span class="c">! Compute how many digits we need to read</span>
+    <span class="n">ndigits</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">len_trim</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+    <span class="n">ndigits_digits</span> <span class="o">=</span> <span class="nb">floor</span><span class="p">(</span><span class="n">log10</span><span class="p">(</span><span class="kt">real</span><span class="p">(</span><span class="n">ndigits</span><span class="p">)))</span><span class="o">+</span><span class="mi">1</span>
+    <span class="k">allocate</span><span class="p">(</span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="n">ndigits_digits</span><span class="p">)</span> <span class="kd">::</span> <span class="nb">digits</span><span class="p">)</span>
+    <span class="k">write</span><span class="p">(</span><span class="nb">digits</span><span class="p">,</span><span class="s1">&#39;(I0)&#39;</span><span class="p">)</span> <span class="n">ndigits</span> <span class="c">!gfortran will have a runtime error with * edit descriptor here</span>
+    <span class="c">! gfortran bug: &#39;*&#39; edit descriptor for ISO_10646 strings does bad stuff.</span>
+    <span class="k">read</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="s1">&#39;(I&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="nb">digits</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span> <span class="n">ival</span>   <span class="c">!string to integer</span>
 
-        <span class="c">! Compute how many digits we need to read</span>
-        <span class="n">ndigits</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">len_trim</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-        <span class="n">ndigits_digits</span> <span class="o">=</span> <span class="nb">floor</span><span class="p">(</span><span class="n">log10</span><span class="p">(</span><span class="kt">real</span><span class="p">(</span><span class="n">ndigits</span><span class="p">)))</span><span class="o">+</span><span class="mi">1</span>
-        <span class="k">allocate</span><span class="p">(</span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="n">ndigits_digits</span><span class="p">)</span> <span class="kd">::</span> <span class="nb">digits</span><span class="p">)</span>
-        <span class="k">write</span><span class="p">(</span><span class="nb">digits</span><span class="p">,</span><span class="s1">&#39;(I0)&#39;</span><span class="p">)</span> <span class="n">ndigits</span> <span class="c">!gfortran will have a runtime error with * edit descriptor here</span>
-        <span class="c">! gfortran bug: &#39;*&#39; edit descriptor for ISO_10646 strings does bad stuff.</span>
-        <span class="k">read</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="s1">&#39;(I&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="nb">digits</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span> <span class="n">ival</span>   <span class="c">!string to integer</span>
+    <span class="c">! error check:</span>
+    <span class="n">status_ok</span> <span class="o">=</span> <span class="p">(</span><span class="n">ierr</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">status_ok</span><span class="p">)</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">0_IK</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">ierr</span><span class="o">/=</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>    <span class="c">!if there was an error</span>
-            <span class="n">ival</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in string_to_integer: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                      <span class="s1">&#39;string cannot be converted to an integer: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                      <span class="nb">trim</span><span class="p">(</span><span class="n">str</span><span class="p">))</span>
-        <span class="k">end if</span>
-
-<span class="k">    else</span>
-<span class="k">        </span><span class="n">ival</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">end if</span>
-
-<span class="k">    end function </span><span class="n">string_to_integer</span>
+    <span class="k">end subroutine </span><span class="n">string_to_integer</span>
 </pre></div>
 
     </section>
@@ -837,6 +962,8 @@ private function string_to_integer(json, str) result(ival)
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
+      
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
       
       <a class="list-group-item" href="../proc/default_join_ucs4.html">default_join_ucs4</a>
@@ -846,6 +973,8 @@ private function string_to_integer(json, str) result(ival)
       <a class="list-group-item" href="../proc/destroy_json_core.html">destroy_json_core</a>
       
       <a class="list-group-item" href="../proc/destroy_json_data.html">destroy_json_data</a>
+      
+      <a class="list-group-item" href="../proc/encode_rfc6901.html">encode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/escape_string.html">escape_string</a>
       
@@ -946,6 +1075,10 @@ private function string_to_integer(json, str) result(ival)
       <a class="list-group-item" href="../proc/json_get_array_with_path.html">json_get_array_with_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
       <a class="list-group-item" href="../proc/json_get_double.html">json_get_double</a>
       
@@ -1129,11 +1262,17 @@ private function string_to_integer(json, str) result(ival)
       
       <a class="list-group-item" href="../proc/real_to_string.html">real_to_string</a>
       
+      <a class="list-group-item" href="../proc/replace_string.html">replace_string</a>
+      
       <a class="list-group-item" href="../proc/set_json_core_in_file.html">set_json_core_in_file</a>
       
-      <a class="list-group-item" href="../proc/string_to_double.html">string_to_double</a>
+      <a class="list-group-item" href="../proc/string_to_dble.html">string_to_dble</a>
+      
+      <a class="list-group-item" href="../proc/string_to_int.html">string_to_int</a>
       
       <a class="list-group-item" href="../proc/string_to_integer.html">string_to_integer</a>
+      
+      <a class="list-group-item" href="../proc/string_to_real.html">string_to_real</a>
       
       <a class="list-group-item" href="../proc/to_array.html">to_array</a>
       
@@ -1285,12 +1424,12 @@ private function string_to_integer(json, str) result(ival)
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2016 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 23:06  
+             on 2017-02-07 03:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

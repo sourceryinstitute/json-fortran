@@ -211,6 +211,8 @@
 <span class="c1">#    Jacob Williams : 12/27/2014</span>
 <span class="c1">#</span>
 
+<span class="c1">#set -x</span>
+<span class="c1">#set -v</span>
 <span class="nb">set</span> -o errexit
 
 <span class="nv">FORDMD</span><span class="o">=</span><span class="s1">&#39;json-fortran.md&#39;</span>        <span class="c1"># FORD options file for building documentation</span>
@@ -279,8 +281,8 @@ print_usage <span class="o">()</span> <span class="o">{</span>
             <span class="p">;;</span>
         *<span class="o">)</span>
             <span class="nv">FCOMPILER</span><span class="o">=</span><span class="s2">&quot;custom&quot;</span>
-            <span class="nb">echo</span> <span class="s2">&quot;Warning: Trying to build with unsupported compiler, </span><span class="nv">$2</span><span class="s2">.&quot;</span> 1&gt;<span class="p">&amp;</span>2
-            <span class="nb">echo</span> <span class="s2">&quot;Please ensure you set appropriate --cflags and (single) quote them&quot;</span> 1&gt;<span class="p">&amp;</span>2
+            <span class="nb">echo</span> <span class="s2">&quot;Warning: Trying to build with unsupported compiler, </span><span class="nv">$2</span><span class="s2">.&quot;</span> <span class="m">1</span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+            <span class="nb">echo</span> <span class="s2">&quot;Please ensure you set appropriate --cflags and (single) quote them&quot;</span> <span class="m">1</span>&gt;<span class="p">&amp;</span><span class="m">2</span>
             <span class="nv">FC</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
         <span class="nv">FPP</span><span class="o">=</span><span class="s2">&quot;gfortran -E&quot;</span> <span class="c1"># try gfortran to preprocess as a default</span>
             <span class="nb">shift</span>
@@ -384,15 +386,15 @@ print_usage <span class="o">()</span> <span class="o">{</span>
         <span class="p">;;</span>
     --help<span class="o">)</span>
         print_usage
-        <span class="nb">exit</span> 0
+        <span class="nb">exit</span> <span class="m">0</span>
         <span class="p">;;</span>
     --clean<span class="o">)</span>
         rm -r -- src<span class="o">{</span>,/tests<span class="o">}</span>/*.o <span class="nv">$DOCDIR</span>* <span class="nv">$LIBDIR</span>* <span class="nv">$BINDIR</span>* *.gcov*
         <span class="p">;;</span>
     *<span class="o">)</span>
-        <span class="nb">echo</span> <span class="s2">&quot;Unknown flag, \&quot;</span><span class="nv">$1</span><span class="s2">\&quot;, passed to </span><span class="si">${</span><span class="nv">script_name</span><span class="si">}</span><span class="s2">!&quot;</span> 2&gt;<span class="p">&amp;</span>1
+        <span class="nb">echo</span> <span class="s2">&quot;Unknown flag, \&quot;</span><span class="nv">$1</span><span class="s2">\&quot;, passed to </span><span class="si">${</span><span class="nv">script_name</span><span class="si">}</span><span class="s2">!&quot;</span> <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
         print_usage
-        <span class="nb">exit</span> 1
+        <span class="nb">exit</span> <span class="m">1</span>
         <span class="p">;;</span>
     <span class="k">esac</span>
     <span class="nb">shift</span> <span class="c1"># look at next argument</span>
@@ -440,7 +442,7 @@ FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILE
     <span class="c1"># FoBiS.py PR #45 work around</span>
     <span class="o">[</span> -d <span class="s2">&quot;</span><span class="nv">$BINDIR</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> mkdir <span class="s2">&quot;</span><span class="nv">$BINDIR</span><span class="s2">&quot;</span>
 
-    <span class="k">for</span> TEST in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TESTDIR</span><span class="p">%/</span><span class="si">}</span><span class="s2">&quot;</span>/jf_test_*.<span class="o">[</span>fF<span class="o">]</span>90<span class="p">;</span> <span class="k">do</span>
+    <span class="k">for</span> TEST in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TESTDIR</span><span class="p">%/</span><span class="si">}</span><span class="s2">&quot;</span>/jf_test_*.<span class="o">[</span>fF<span class="o">]</span><span class="m">90</span><span class="p">;</span> <span class="k">do</span>
     <span class="nv">THIS_TEST</span><span class="o">=</span><span class="si">${</span><span class="nv">TEST</span><span class="p">##*/</span><span class="si">}</span>
     <span class="nb">echo</span> <span class="s2">&quot;Build </span><span class="si">${</span><span class="nv">THIS_TEST</span><span class="p">%.[fF]90</span><span class="si">}</span><span class="s2">&quot;</span>
     FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILER</span><span class="si">}</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CUSTOM</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -cflags <span class="s2">&quot;</span><span class="si">${</span><span class="nv">FCOMPILERFLAGS</span><span class="si">}</span><span class="s2"> </span><span class="si">${</span><span class="nv">DEFINES</span><span class="si">}</span><span class="s2">&quot;</span> <span class="si">${</span><span class="nv">COVERAGE</span><span class="si">}</span> <span class="si">${</span><span class="nv">PROFILING</span><span class="si">}</span> -dbld <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BINDIR</span><span class="si">}</span><span class="s2">&quot;</span> -s <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TESTDIR</span><span class="si">}</span><span class="s2">&quot;</span> -i <span class="s2">&quot;</span><span class="si">${</span><span class="nv">LIBDIR</span><span class="si">}</span><span class="s2">&quot;</span> -libs <span class="s2">&quot;</span><span class="si">${</span><span class="nv">LIBDIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">LIBOUT</span><span class="si">}</span><span class="s2">&quot;</span> -dmod ./ -dobj ./ -t <span class="s2">&quot;</span><span class="si">${</span><span class="nv">THIS_TEST</span><span class="si">}</span><span class="s2">&quot;</span> -o <span class="s2">&quot;</span><span class="si">${</span><span class="nv">THIS_TEST</span><span class="p">%.[fF]90</span><span class="si">}</span><span class="s2">&quot;</span> -colors
@@ -457,13 +459,19 @@ FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILE
     <span class="c1"># run next commands in subshell to avoid `cd -`</span>
     <span class="o">(</span><span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$BINDIR</span><span class="s2">&quot;</span>
     <span class="nv">GLOBIGNORE</span><span class="o">=</span><span class="s1">&#39;*.*&#39;</span>
-    <span class="c1">#</span>
-    <span class="k">for</span> TEST in jf_test_*<span class="p">;</span> <span class="k">do</span>
+    <span class="c1"># from: http://stackoverflow.com/questions/7992689/bash-how-to-loop-all-files-in-sorted-order</span>
+    ls jf_test_* <span class="p">|</span> sed <span class="s1">&#39;s/^\([^0-9]*\)\([0-9]*\)/\1 \2/&#39;</span> <span class="p">|</span> sort -k2,2n <span class="p">|</span> tr -d <span class="s1">&#39; &#39;</span> <span class="p">|</span>
+    <span class="k">while</span> <span class="nb">read</span> TEST<span class="p">;</span> <span class="k">do</span>
         <span class="c1"># It would be nice to run json output printed to stdout through jsonlint, however,</span>
         <span class="c1"># some tests output more than one json structure and these need to be split</span>
+        <span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
+        <span class="nb">echo</span> <span class="s2">&quot;======================================================&quot;</span>
+        <span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
         <span class="nb">echo</span> <span class="s2">&quot;Running </span><span class="si">${</span><span class="nv">TEST</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="s2">&quot;./</span><span class="si">${</span><span class="nv">TEST</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">done</span><span class="o">)</span>
+    <span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;======================================================&quot;</span>
     <span class="nv">GLOBIGNORE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$OLD_IGNORES</span><span class="s2">&quot;</span>
     <span class="k">if</span> <span class="o">[[</span> <span class="nv">$CODE_COVERAGE</span> <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
         <span class="k">for</span> SRCFILE in json_string_utilities.F90 json_value_module.F90 json_file_module.F90 <span class="p">;</span> <span class="k">do</span>
@@ -480,6 +488,23 @@ FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILE
                 mv <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-no-unicode.gcov
             <span class="k">fi</span>
             <span class="k">if</span> <span class="o">[</span> -f <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-unicode.gcov <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -f <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-no-unicode.gcov <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+
+                <span class="c1">############## for debugging</span>
+                <span class="c1">#echo &quot;&quot;</span>
+                <span class="c1">#echo &quot;-------------------&quot;</span>
+                <span class="c1">#echo &quot;no-unicode file&quot;</span>
+                <span class="c1">#echo &quot;-------------------&quot;</span>
+                <span class="c1">#cat ${SRCFILE}-no-unicode.gcov</span>
+                <span class="c1">#echo &quot;&quot;</span>
+                <span class="c1">#echo &quot;-------------------&quot;</span>
+                <span class="c1">#echo &quot;unicode file&quot;</span>
+                <span class="c1">#echo &quot;-------------------&quot;</span>
+                <span class="c1">#cat ${SRCFILE}-unicode.gcov</span>
+                <span class="c1">#echo &quot;&quot;</span>
+                <span class="c1">#./pages/development-resources/gccr.pl -n -c ${SRCFILE}-no-unicode.gcov no-unicode \</span>
+                <span class="c1">#                  ${SRCFILE}-unicode.gcov unicode</span>
+                <span class="c1">##############</span>
+
                 <span class="c1"># merge them</span>
                 ./pages/development-resources/gccr.pl -n -c <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-no-unicode.gcov no-unicode <span class="se">\</span>
                                   <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>-unicode.gcov unicode &gt; <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov
@@ -493,7 +518,7 @@ FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILE
             sed -i<span class="s2">&quot;bak&quot;</span> -E <span class="s1">&#39;s; \*\*([a-zA-Z]+[a-zA-Z0-9_]*)\*\*; \*\*[[\1]]\*\*;&#39;</span> <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov.md
             sed -i<span class="s2">&quot;bak&quot;</span> -E <span class="s2">&quot;s;, line ([0-9]+);, line [\1](https://github.com/jacobwilliams/json-fortran/blob/master/src/</span><span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span><span class="s2">#L\1);&quot;</span> <span class="si">${</span><span class="nv">SRCFILE</span><span class="si">}</span>.gcov.md
         <span class="k">done</span>
-        gcov -o <span class="nv">$BINDIR</span> <span class="si">${</span><span class="nv">TESTDIR</span><span class="si">}</span>*.<span class="o">[</span>Ff<span class="o">]</span>90
+        gcov -o <span class="nv">$BINDIR</span> <span class="si">${</span><span class="nv">TESTDIR</span><span class="si">}</span>*.<span class="o">[</span>Ff<span class="o">]</span><span class="m">90</span>
     <span class="k">fi</span>
 <span class="k">else</span>
     <span class="nb">echo</span> <span class="s2">&quot;Skip running the unit tests since \$JF_SKIP_TESTS has been set to </span><span class="si">${</span><span class="nv">JF_SKIP_TESTS</span><span class="si">}</span><span class="s2">.&quot;</span>
@@ -502,7 +527,7 @@ FoBiS.py build -ch -compiler <span class="si">${</span><span class="nv">FCOMPILE
 <span class="c1">#build the documentation with ford (if present):</span>
 <span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
 <span class="k">if</span> <span class="o">[[</span> <span class="nv">$JF_SKIP_DOCS</span> !<span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="k">if</span> <span class="nb">hash</span> ford 2&gt;/dev/null<span class="p">;</span> <span class="k">then</span>
+    <span class="k">if</span> <span class="nb">hash</span> ford <span class="m">2</span>&gt;/dev/null<span class="p">;</span> <span class="k">then</span>
     <span class="nb">echo</span> <span class="s2">&quot;Building documentation...&quot;</span>
     <span class="o">[[</span> <span class="nv">$TRY_UNICODE</span> <span class="o">=</span> <span class="o">[</span>yY<span class="o">]</span>* <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">MACRO_FLAG</span><span class="o">=(</span><span class="s2">&quot;-m&quot;</span> <span class="s2">&quot;USE_UCS4&quot;</span><span class="o">)</span>
     <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$FPP</span><span class="s2">&quot;</span> &gt; .PREPROCESSOR <span class="c1"># Override via include in project file, until FORD gets CLI for this</span>
@@ -613,12 +638,12 @@ browser's back button to navigate back to
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2016 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2016-12-14 23:06  
+             on 2017-02-07 03:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
