@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>23.6% of total for derived types.</p>Including implementation: 782 statements, 13.3% of total for derived types.">48 statements</a>
+	  title="<p>23.5% of total for derived types.</p>Including implementation: 784 statements, 13.3% of total for derived types.">48 statements</a>
      </li> 
      
      
@@ -750,7 +750,7 @@
     
     
     <h3>
-private function <a href='../proc/initialize_json_file.html'>initialize_json_file</a>(p, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths) result(file_object)
+private function <a href='../proc/initialize_json_file.html'>initialize_json_file</a>(p, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths, path_separator) result(file_object)
     
     
 	 
@@ -1000,6 +1000,27 @@ private function <a href='../proc/initialize_json_file.html'>initialize_json_fil
  <code>get_by_path</code> routines are interpreted
  as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths.
  By default, this is False.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_separator</strong></td><td><p>The <code>path</code> separator to use
+ in the "default" mode for
+ the paths in the various
+ <code>get_by_path</code> routines.
+ Example: <code>.</code> [default] or <code>%</code>.
+ Note: if <code>use_rfc6901_paths=true</code>
+ then this is ignored.</p></td>
   
 </tr>
 
@@ -3601,7 +3622,7 @@ private subroutine <a href='../proc/get_json_core_in_file.html'>get_json_core_in
 
 
 
-<p>Get a copy of the <a href="../type/json_core.html">json_core</a> in this <a href="../interface/json_file.html">json_file</a>.</p>
+<p>Get a copy of the <a href="../type/json_core.html">json_core</a> in this <a href="../type/json_file.html">json_file</a>.</p>
     
     <h4>Arguments</h4>
     
@@ -3968,7 +3989,7 @@ private subroutine <a href='../proc/wrap_json_file_variable_info.html'>wrap_json
             
     
     <h3>
-private subroutine <a href='../proc/initialize_json_core_in_file.html'>initialize_json_core_in_file</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths)
+private subroutine <a href='../proc/initialize_json_core_in_file.html'>initialize_json_core_in_file</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths, path_separator)
     
     
 	 
@@ -3981,7 +4002,7 @@ private subroutine <a href='../proc/initialize_json_core_in_file.html'>initializ
 
 
 
-<p>Initialize the <a href="../type/json_core.html">json_core</a> for this <a href="../interface/json_file.html">json_file</a>.
+<p>Initialize the <a href="../type/json_core.html">json_core</a> for this <a href="../type/json_file.html">json_file</a>.
   This is just a wrapper for <a href="../proc/json_initialize.html">json_initialize</a>.</p>
     
     <h4>Arguments</h4>
@@ -4208,6 +4229,27 @@ private subroutine <a href='../proc/initialize_json_core_in_file.html'>initializ
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_separator</strong></td><td><p>The <code>path</code> separator to use
+ in the "default" mode for
+ the paths in the various
+ <code>get_by_path</code> routines.
+ Example: <code>.</code> [default] or <code>%</code>.
+ Note: if <code>use_rfc6901_paths=true</code>
+ then this is ignored.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -4238,7 +4280,7 @@ private subroutine <a href='../proc/set_json_core_in_file.html'>set_json_core_in
 
 
 
-<p>Set the <a href="../type/json_core.html">json_core</a> for this <a href="../interface/json_file.html">json_file</a>.</p>
+<p>Set the <a href="../type/json_core.html">json_core</a> for this <a href="../type/json_file.html">json_file</a>.</p>
     
     <h4>Arguments</h4>
     
@@ -4311,7 +4353,7 @@ private subroutine <a href='../proc/set_json_core_in_file.html'>set_json_core_in
          
     
     <h3>
-private subroutine <a href='../proc/initialize_json_core_in_file.html'>initialize_json_core_in_file</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths)
+private subroutine <a href='../proc/initialize_json_core_in_file.html'>initialize_json_core_in_file</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths, path_separator)
     
     
 	 
@@ -4324,7 +4366,7 @@ private subroutine <a href='../proc/initialize_json_core_in_file.html'>initializ
 
 
 
-<p>Initialize the <a href="../type/json_core.html">json_core</a> for this <a href="../interface/json_file.html">json_file</a>.
+<p>Initialize the <a href="../type/json_core.html">json_core</a> for this <a href="../type/json_file.html">json_file</a>.
   This is just a wrapper for <a href="../proc/json_initialize.html">json_initialize</a>.</p>
     
     <h4>Arguments</h4>
@@ -4548,6 +4590,27 @@ private subroutine <a href='../proc/initialize_json_core_in_file.html'>initializ
  <code>get_by_path</code> routines are interpreted
  as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths.
  By default, this is False.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_separator</strong></td><td><p>The <code>path</code> separator to use
+ in the "default" mode for
+ the paths in the various
+ <code>get_by_path</code> routines.
+ Example: <code>.</code> [default] or <code>%</code>.
+ Note: if <code>use_rfc6901_paths=true</code>
+ then this is ignored.</p></td>
   
 </tr>
 
@@ -8487,7 +8550,7 @@ private subroutine <a href='../proc/set_json_core_in_file.html'>set_json_core_in
 
 
 
-<p>Set the <a href="../type/json_core.html">json_core</a> for this <a href="../interface/json_file.html">json_file</a>.</p>
+<p>Set the <a href="../type/json_core.html">json_core</a> for this <a href="../type/json_file.html">json_file</a>.</p>
     
     <h4>Arguments</h4>
     
@@ -11826,7 +11889,7 @@ private subroutine <a href='../proc/wrap_json_file_variable_matrix_info.html'>wr
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-02-08 20:13  
+             on 2017-02-08 21:57  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

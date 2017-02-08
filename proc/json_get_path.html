@@ -786,7 +786,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
   <td></td><td>::</td>
   <td><strong>path_sep</strong></td><td><p>character to use for path separator
- (default is '.')</p></td>
+ (otherwise use <code>json%path_separator</code>)</p></td>
   
 </tr>
 
@@ -1065,7 +1065,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">use_alt_array_tokens</span>   <span class="c">!! if true, then &#39;()&#39; are used for array elements</span>
                                                               <span class="c">!! otherwise, &#39;[]&#39; are used [default]</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">path_sep</span>  <span class="c">!! character to use for path separator</span>
-                                                              <span class="c">!! (default is &#39;.&#39;)</span>
+                                                              <span class="c">!! (otherwise use `json%path_separator`)</span>
 
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>                   <span class="kd">::</span> <span class="n">tmp</span>            <span class="c">!! for traversing the structure</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>                   <span class="kd">::</span> <span class="n">element</span>        <span class="c">!! for traversing the structure</span>
@@ -1201,11 +1201,11 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
 
 <span class="k">    contains</span>
 
-<span class="k">        subroutine </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">dot</span><span class="p">)</span>
+<span class="k">        subroutine </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">path_sep</span><span class="p">)</span>
         <span class="c">!! prepend the string to the path</span>
         <span class="k">implicit none</span>
 <span class="k">        </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>  <span class="c">!! string to prepend to `path`</span>
-        <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">dot</span>
+        <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">path_sep</span>
             <span class="c">!! path separator (default is &#39;.&#39;).</span>
             <span class="c">!! (ignored if `json%use_rfc6901_paths=.true.`)</span>
 
@@ -1221,10 +1221,12 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
             <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="o">==</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span>
             <span class="k">else</span>
-<span class="k">                if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">dot</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                    </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">dot</span><span class="o">//</span><span class="n">path</span>
+<span class="k">                if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">path_sep</span><span class="p">))</span> <span class="k">then</span>
+                    <span class="c">! use user specified:</span>
+                    <span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">path_sep</span><span class="o">//</span><span class="n">path</span>
                 <span class="k">else</span>
-<span class="k">                    </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">child</span><span class="o">//</span><span class="n">path</span>
+                    <span class="c">! use the default:</span>
+                    <span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">json</span><span class="p">%</span><span class="n">path_separator</span><span class="o">//</span><span class="n">path</span>
                 <span class="k">end if</span>
 <span class="k">            end if</span>
 <span class="k">        end if</span>
@@ -1721,7 +1723,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-02-08 20:13  
+             on 2017-02-08 21:57  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
