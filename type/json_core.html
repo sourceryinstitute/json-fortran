@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>69.1% of total for derived types.</p>Including implementation: 5097 statements, 86.4% of total for derived types.">147 statements</a>
+	  title="<p>69.1% of total for derived types.</p>Including implementation: 5110 statements, 86.5% of total for derived types.">147 statements</a>
      </li> 
      
      
@@ -192,6 +192,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#variable-no_whitespace">no_whitespace</a>
       
+      <a class="list-group-item" href="../type/json_core.html#variable-path_mode">path_mode</a>
+      
       <a class="list-group-item" href="../type/json_core.html#variable-path_separator">path_separator</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-pushed_char">pushed_char</a>
@@ -207,8 +209,6 @@
       <a class="list-group-item" href="../type/json_core.html#variable-trailing_spaces_significant">trailing_spaces_significant</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-unescaped_strings">unescaped_strings</a>
-      
-      <a class="list-group-item" href="../type/json_core.html#variable-use_rfc6901_paths">use_rfc6901_paths</a>
       
     </div>
   </div>
@@ -736,6 +736,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#variable-no_whitespace">no_whitespace</a>
       
+      <a class="list-group-item" href="../type/json_core.html#variable-path_mode">path_mode</a>
+      
       <a class="list-group-item" href="../type/json_core.html#variable-path_separator">path_separator</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-pushed_char">pushed_char</a>
@@ -751,8 +753,6 @@
       <a class="list-group-item" href="../type/json_core.html#variable-trailing_spaces_significant">trailing_spaces_significant</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-unescaped_strings">unescaped_strings</a>
-      
-      <a class="list-group-item" href="../type/json_core.html#variable-use_rfc6901_paths">use_rfc6901_paths</a>
       
     </div>
   </div>
@@ -1311,6 +1311,26 @@
   
 <tr>
   
+  <td><span class="anchor" id="variable-path_mode"></span>integer(kind=IK),</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>path_mode</strong></td><td> =</td><td>1_IK</td><td><p>How the path strings are interpreted in the
+ <code>get_by_path</code> routines:</p>
+<ul>
+<li>1 &ndash; Default mode (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)</li>
+<li>2 &ndash; as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths
+   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)</li>
+</ul></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
   <td><span class="anchor" id="variable-path_separator"></span>character(kind=CK,len=1),</td>
   
   <td>private</td>
@@ -1319,7 +1339,7 @@
  in the "default" mode for
  the paths in the various
  <code>get_by_path</code> routines.
- Note: if <code>use_rfc6901_paths=true</code>
+ Note: if <code>path_mode/=1</code>
  then this is ignored.</p></td>
   
 </tr>
@@ -1435,22 +1455,6 @@
   
 </tr>
 
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-use_rfc6901_paths"></span>logical(kind=LK),</td>
-  
-  <td>private</td>
-  <td></td><td>::</td>
-  <td><strong>use_rfc6901_paths</strong></td><td> =</td><td>.false.</td><td><p>use the RFC 6901 standard for
- <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> paths. Otherwise, the original
- default method is used</p></td>
-  
-</tr>
-
 </tbody>
 </table>
 
@@ -1482,7 +1486,7 @@
     
     
     <h3>
-private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths, path_separator) result(json_core_object)
+private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator) result(json_core_object)
     
     
 	 
@@ -1707,15 +1711,13 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   
 <tr>
   
-  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>use_rfc6901_paths</strong></td><td><p>If true, then path values in the
- <code>get_by_path</code> routines are interpreted
- as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths.
- By default, this is False.</p></td>
+  <td><strong>path_mode</strong></td><td><p>How the path strings are interpreted in the
+ <code>get_by_path</code> routines:</p></td>
   
 </tr>
 
@@ -1735,7 +1737,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
  the paths in the various
  <code>get_by_path</code> routines.
  Example: <code>.</code> [default] or <code>%</code>.
- Note: if <code>use_rfc6901_paths=true</code>
+ Note: if <code>path_mode/=1</code>
  then this is ignored.</p></td>
   
 </tr>
@@ -12214,7 +12216,7 @@ private subroutine <a href='../proc/wrap_json_info_by_path.html'>wrap_json_info_
          
     
     <h3>
-private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, use_rfc6901_paths, path_separator)
+private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator)
     
     
 	 
@@ -12453,15 +12455,13 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
   
 <tr>
   
-  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>use_rfc6901_paths</strong></td><td><p>If true, then path values in the
- <code>get_by_path</code> routines are interpreted
- as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths.
- By default, this is False.</p></td>
+  <td><strong>path_mode</strong></td><td><p>How the path strings are interpreted in the
+ <code>get_by_path</code> routines:</p></td>
   
 </tr>
 
@@ -12481,7 +12481,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
  the paths in the various
  <code>get_by_path</code> routines.
  Example: <code>.</code> [default] or <code>%</code>.
- Note: if <code>use_rfc6901_paths=true</code>
+ Note: if <code>path_mode/=1</code>
  then this is ignored.</p></td>
   
 </tr>
@@ -31005,15 +31005,18 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
                                                            <span class="c">!! `allow_comments` is true.</span>
                                                            <span class="c">!! Examples: &#39;`!`&#39; or &#39;`#`&#39;.</span>
 
-        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">use_rfc6901_paths</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span> <span class="c">!! use the RFC 6901 standard for</span>
-                                                   <span class="c">!! JSON paths. Otherwise, the original</span>
-                                                   <span class="c">!! default method is used</span>
+        <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">path_mode</span> <span class="o">=</span> <span class="mi">1_IK</span>  <span class="c">!! How the path strings are interpreted in the</span>
+                                         <span class="c">!! `get_by_path` routines:</span>
+                                         <span class="c">!!</span>
+                                         <span class="c">!! * 1 -- Default mode (see [[json_get_by_path_default]])</span>
+                                         <span class="c">!! * 2 -- as RFC 6901 &quot;JSON Pointer&quot; paths</span>
+                                         <span class="c">!!   (see [[json_get_by_path_rfc6901]])</span>
 
         <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">path_separator</span> <span class="o">=</span> <span class="n">dot</span> <span class="c">!! The `path` separator to use</span>
                                                          <span class="c">!! in the &quot;default&quot; mode for</span>
                                                          <span class="c">!! the paths in the various</span>
                                                          <span class="c">!! `get_by_path` routines.</span>
-                                                         <span class="c">!! Note: if `use_rfc6901_paths=true`</span>
+                                                         <span class="c">!! Note: if `path_mode/=1`</span>
                                                          <span class="c">!! then this is ignored.</span>
 
         <span class="k">contains</span>
@@ -31415,7 +31418,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-02-08 21:57  
+             on 2017-02-13 02:35  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
