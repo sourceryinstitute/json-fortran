@@ -277,6 +277,32 @@
       
       <a class="list-group-item" href="../interface/json_file.html">json_file</a>
       
+      <a class="list-group-item" href="../proc/json_file_add_double.html">json_file_add_double</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_double_vec.html">json_file_add_double_vec</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_integer.html">json_file_add_integer</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_integer_vec.html">json_file_add_integer_vec</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_logical.html">json_file_add_logical</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_logical_vec.html">json_file_add_logical_vec</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_object.html">json_file_add_object</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string.html">json_file_add_string</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string_path_ascii.html">json_file_add_string_path_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string_value_ascii.html">json_file_add_string_value_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string_vec.html">json_file_add_string_vec</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string_vec_path_ascii.html">json_file_add_string_vec_path_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string_vec_vec_ascii.html">json_file_add_string_vec_vec_ascii</a>
+      
       <a class="list-group-item" href="../proc/json_file_check_for_errors.html">json_file_check_for_errors</a>
       
       <a class="list-group-item" href="../proc/json_file_clear_exceptions.html">json_file_clear_exceptions</a>
@@ -603,6 +629,24 @@
       
       <a class="list-group-item" href="../proc/wrap_json_create_by_path.html">wrap_json_create_by_path</a>
       
+      <a class="list-group-item" href="../proc/wrap_json_file_add_double.html">wrap_json_file_add_double</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_double_vec.html">wrap_json_file_add_double_vec</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_integer.html">wrap_json_file_add_integer</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_integer_vec.html">wrap_json_file_add_integer_vec</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_logical.html">wrap_json_file_add_logical</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_logical_vec.html">wrap_json_file_add_logical_vec</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_object.html">wrap_json_file_add_object</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_string.html">wrap_json_file_add_string</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_string_vec.html">wrap_json_file_add_string_vec</a>
+      
       <a class="list-group-item" href="../proc/wrap_json_file_get_alloc_string_vec.html">wrap_json_file_get_alloc_string_vec</a>
       
       <a class="list-group-item" href="../proc/wrap_json_file_get_double.html">wrap_json_file_get_double</a>
@@ -726,7 +770,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine wrap_json_file_update_real(me, name, val, found)
+private subroutine wrap_json_file_update_real(me, path, val, found)
     
     
 	 
@@ -736,7 +780,7 @@ private subroutine wrap_json_file_update_real(me, name, val, found)
 
 
     
-    <p>Alternate version of <a href="../proc/json_file_update_real.html">json_file_update_real</a>, where "name" is kind=CDK.</p>
+    <p>Alternate version of <a href="../proc/json_file_update_real.html">json_file_update_real</a>, where "path" is kind=CDK.</p>
     
 
     <h3>Arguments</h3>
@@ -757,7 +801,7 @@ private subroutine wrap_json_file_update_real(me, name, val, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E48"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td><span class="anchor" id="variable-me%7E70"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -772,12 +816,12 @@ private subroutine wrap_json_file_update_real(me, name, val, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-name%7E12"></span>character(kind=CDK,len=*),</td>
+  <td><span class="anchor" id="variable-path%7E53"></span>character(kind=CDK,len=*),</td>
   <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>name</strong></td><td></td>
+  <td><strong>path</strong></td><td></td>
   
 </tr>
 
@@ -787,7 +831,7 @@ private subroutine wrap_json_file_update_real(me, name, val, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-val%7E17"></span>real(kind=RK),</td>
+  <td><span class="anchor" id="variable-val%7E27"></span>real(kind=RK),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -802,7 +846,7 @@ private subroutine wrap_json_file_update_real(me, name, val, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-found%7E31"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-found%7E53"></span>logical(kind=LK),</td>
   <td>intent(out)</td>
   <td></td>
   
@@ -847,29 +891,29 @@ private subroutine wrap_json_file_update_real(me, name, val, found)
 <path fill="none" stroke="#ff0000" d="M144.152,-35C153.109,-35 162.029,-35 170.336,-35"/>
 <polygon fill="#ff0000" stroke="#ff0000" points="170.486,-38.5001 180.486,-35 170.486,-31.5001 170.486,-38.5001"/>
 </g>
-<!-- proc~to_uni_vec -->
-<g id="node3" class="node"><title>proc~to_uni_vec</title>
-<a xlink:href="../proc/to_uni_vec.html" xlink:title="to_uni_vec">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="346,-70 282,-70 282,-44 346,-44 346,-70"/>
-<text text-anchor="middle" x="314" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni_vec</text>
-</a>
-</g>
-<!-- interface~to_unicode&#45;&gt;proc~to_uni_vec -->
-<g id="edge2" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M245.513,-42.082C253.977,-43.9256 263.215,-45.938 272.09,-47.871"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="271.378,-51.2979 281.893,-50.0065 272.867,-44.4583 271.378,-51.2979"/>
-</g>
 <!-- proc~to_uni -->
-<g id="node4" class="node"><title>proc~to_uni</title>
+<g id="node3" class="node"><title>proc~to_uni</title>
 <a xlink:href="../proc/to_uni.html" xlink:title="to_uni">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="341,-26 287,-26 287,-1.24345e-14 341,-3.55271e-15 341,-26"/>
-<text text-anchor="middle" x="314" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni</text>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="341,-70 287,-70 287,-44 341,-44 341,-70"/>
+<text text-anchor="middle" x="314" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni</text>
 </a>
 </g>
 <!-- interface~to_unicode&#45;&gt;proc~to_uni -->
-<g id="edge4" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M245.513,-27.918C255.547,-25.7323 266.671,-23.3093 276.985,-21.0627"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="277.933,-24.4384 286.959,-18.8902 276.443,-17.5988 277.933,-24.4384"/>
+<g id="edge2" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M245.513,-42.082C255.547,-44.2677 266.671,-46.6907 276.985,-48.9373"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="276.443,-52.4012 286.959,-51.1098 277.933,-45.5616 276.443,-52.4012"/>
+</g>
+<!-- proc~to_uni_vec -->
+<g id="node4" class="node"><title>proc~to_uni_vec</title>
+<a xlink:href="../proc/to_uni_vec.html" xlink:title="to_uni_vec">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="346,-26 282,-26 282,-1.24345e-14 346,-3.55271e-15 346,-26"/>
+<text text-anchor="middle" x="314" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni_vec</text>
+</a>
+</g>
+<!-- interface~to_unicode&#45;&gt;proc~to_uni_vec -->
+<g id="edge4" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M245.513,-27.918C253.977,-26.0744 263.215,-24.062 272.09,-22.129"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="272.867,-25.5417 281.893,-19.9935 271.378,-18.7021 272.867,-25.5417"/>
 </g>
 </g>
 </svg>
@@ -998,16 +1042,16 @@ private subroutine wrap_json_file_update_real(me, name, val, found)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">wrap_json_file_update_real</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">wrap_json_file_update_real</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>       <span class="kd">::</span> <span class="n">me</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">name</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">path</span>
     <span class="kt">real</span><span class="p">(</span><span class="n">RK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>                  <span class="kd">::</span> <span class="n">val</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">found</span>
 
-    <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">update</span><span class="p">(</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">name</span><span class="p">),</span><span class="n">val</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">update</span><span class="p">(</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">path</span><span class="p">),</span><span class="n">val</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
 
     <span class="k">end subroutine </span><span class="n">wrap_json_file_update_real</span>
 </pre></div>
@@ -1105,6 +1149,32 @@ private subroutine wrap_json_file_update_real(me, name, val, found)
       <a class="list-group-item" href="../proc/json_failed.html">json_failed</a>
       
       <a class="list-group-item" href="../interface/json_file.html">json_file</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_double.html">json_file_add_double</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_double_vec.html">json_file_add_double_vec</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_integer.html">json_file_add_integer</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_integer_vec.html">json_file_add_integer_vec</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_logical.html">json_file_add_logical</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_logical_vec.html">json_file_add_logical_vec</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_object.html">json_file_add_object</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string.html">json_file_add_string</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string_path_ascii.html">json_file_add_string_path_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string_value_ascii.html">json_file_add_string_value_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string_vec.html">json_file_add_string_vec</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string_vec_path_ascii.html">json_file_add_string_vec_path_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_file_add_string_vec_vec_ascii.html">json_file_add_string_vec_vec_ascii</a>
       
       <a class="list-group-item" href="../proc/json_file_check_for_errors.html">json_file_check_for_errors</a>
       
@@ -1431,6 +1501,24 @@ private subroutine wrap_json_file_update_real(me, name, val, found)
       <a class="list-group-item" href="../proc/wrap_json_add_string_vec_by_path.html">wrap_json_add_string_vec_by_path</a>
       
       <a class="list-group-item" href="../proc/wrap_json_create_by_path.html">wrap_json_create_by_path</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_double.html">wrap_json_file_add_double</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_double_vec.html">wrap_json_file_add_double_vec</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_integer.html">wrap_json_file_add_integer</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_integer_vec.html">wrap_json_file_add_integer_vec</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_logical.html">wrap_json_file_add_logical</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_logical_vec.html">wrap_json_file_add_logical_vec</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_object.html">wrap_json_file_add_object</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_string.html">wrap_json_file_add_string</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_add_string_vec.html">wrap_json_file_add_string_vec</a>
       
       <a class="list-group-item" href="../proc/wrap_json_file_get_alloc_string_vec.html">wrap_json_file_get_alloc_string_vec</a>
       
@@ -1561,7 +1649,7 @@ private subroutine wrap_json_file_update_real(me, name, val, found)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-03-17 02:33  
+             on 2017-03-20 01:16  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
