@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>67.5% of total for derived types.</p>Including implementation: 6554 statements, 83.7% of total for derived types.">169 statements</a>
+	  title="<p>67.6% of total for derived types.</p>Including implementation: 6610 statements, 83.8% of total for derived types.">170 statements</a>
      </li> 
      
      
@@ -179,6 +179,8 @@
       <a class="list-group-item" href="../type/json_core.html#variable-comment_char">comment_char</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-compact_real">compact_real</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#variable-compress_vectors">compress_vectors</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-err_message">err_message</a>
       
@@ -790,6 +792,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#variable-compact_real">compact_real</a>
       
+      <a class="list-group-item" href="../type/json_core.html#variable-compress_vectors">compress_vectors</a>
+      
       <a class="list-group-item" href="../type/json_core.html#variable-err_message">err_message</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-exception_thrown">exception_thrown</a>
@@ -1352,6 +1356,24 @@
   
 <tr>
   
+  <td><span class="anchor" id="variable-compress_vectors"></span>logical(kind=LK),</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>compress_vectors</strong></td><td> =</td><td>.false.</td><td><p>If true, then arrays of integers,
+ nulls, doubles, &amp; logicals are
+ printed all on one line.
+ [Note: <code>no_whitespace</code> will
+ override this option if necessary]</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
   <td><span class="anchor" id="variable-err_message"></span>character(kind=CK,len=:),</td>
   
   <td>private,</td>
@@ -1618,7 +1640,7 @@
     
     
     <h3>
-private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator) result(json_core_object)
+private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors) result(json_core_object)
     
     
 	 
@@ -1873,6 +1895,26 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
  Example: <code>.</code> [default] or <code>%</code>.
  Note: if <code>path_mode/=1</code>
  then this is ignored.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>compress_vectors</strong></td><td><p>If true, then arrays of integers,
+ nulls, doubles, and logicals are
+ printed all on one line.
+ [Note: <code>no_whitespace</code> will
+ override this option if necessary].
+ (Default is False).</p></td>
   
 </tr>
 
@@ -16213,7 +16255,7 @@ private subroutine <a href='../proc/wrap_json_info_by_path.html'>wrap_json_info_
          
     
     <h3>
-private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator)
+private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors)
     
     
 	 
@@ -16482,6 +16524,26 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
  Example: <code>.</code> [default] or <code>%</code>.
  Note: if <code>path_mode/=1</code>
  then this is ignored.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>compress_vectors</strong></td><td><p>If true, then arrays of integers,
+ nulls, doubles, and logicals are
+ printed all on one line.
+ [Note: <code>no_whitespace</code> will
+ override this option if necessary].
+ (Default is False).</p></td>
   
 </tr>
 
@@ -27442,7 +27504,7 @@ private subroutine <a href='../proc/json_value_insert_after_child_by_index.html'
          
     
     <h3>
-private recursive subroutine <a href='../proc/json_value_print.html'>json_value_print</a>(json, p, iunit, str, indent, need_comma, colon, is_array_element)
+private recursive subroutine <a href='../proc/json_value_print.html'>json_value_print</a>(json, p, iunit, str, indent, need_comma, colon, is_array_element, is_compressed_vector)
     
     
 	 
@@ -27590,6 +27652,23 @@ private recursive subroutine <a href='../proc/json_value_print.html'>json_value_
   
   <td></td><td>::</td>
   <td><strong>is_array_element</strong></td><td><p>if this is an array element</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>is_compressed_vector</strong></td><td><p>if True, this is an element
+ from an array being printed
+ on one line [default is False]</p></td>
   
 </tr>
 
@@ -39551,6 +39630,12 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
                                                          <span class="c">!! Note: if `path_mode/=1`</span>
                                                          <span class="c">!! then this is ignored.</span>
 
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">compress_vectors</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span> <span class="c">!! If true, then arrays of integers,</span>
+                                                  <span class="c">!! nulls, doubles, &amp; logicals are</span>
+                                                  <span class="c">!! printed all on one line.</span>
+                                                  <span class="c">!! [Note: `no_whitespace` will</span>
+                                                  <span class="c">!! override this option if necessary]</span>
+
         <span class="k">contains</span>
 
 <span class="k">        private</span>
@@ -40043,7 +40128,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-03-20 02:20  
+             on 2017-03-26 03:36  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
