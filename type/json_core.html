@@ -1873,7 +1873,11 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   
   <td></td><td>::</td>
   <td><strong>path_mode</strong></td><td><p>How the path strings are interpreted in the
- <code>get_by_path</code> routines:</p></td>
+ <code>get_by_path</code> routines:
+ * 1 &ndash; Default way (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)
+   [Default]
+ * 2 &ndash; as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths
+   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)</p></td>
   
 </tr>
 
@@ -8515,7 +8519,7 @@ private subroutine <a href='../proc/wrap_json_create_by_path.html'>wrap_json_cre
 
     <p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it an array variable.
   The pointer should not already be allocated.</p>
-<h1 id="example">Example</h1>
+<h3 id="example">Example</h3>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">create_array</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;arrayname&#39;</span><span class="p">)</span>
@@ -8743,7 +8747,7 @@ private subroutine <a href='../proc/wrap_json_value_create_array.html'>wrap_json
 
     <p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it a double variable.
   The pointer should not already be allocated.</p>
-<h1 id="example">Example</h1>
+<h3 id="example">Example</h3>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">create_double</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">,</span><span class="mf">1.0_RK</span><span class="p">)</span>
@@ -9001,7 +9005,7 @@ private subroutine <a href='../proc/wrap_json_value_create_double.html'>wrap_jso
 
     <p>Allocate a json_value pointer and make it an integer variable.
   The pointer should not already be allocated.</p>
-<h1 id="example">Example</h1>
+<h3 id="example">Example</h3>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">create_integer</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
@@ -9259,7 +9263,7 @@ private subroutine <a href='../proc/wrap_json_value_create_integer.html'>wrap_js
 
     <p>Allocate a json_value pointer and make it a logical variable.
   The pointer should not already be allocated.</p>
-<h1 id="example">Example</h1>
+<h3 id="example">Example</h3>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">create_logical</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">,.</span><span class="n">true</span><span class="p">.)</span>
@@ -9516,7 +9520,7 @@ private subroutine <a href='../proc/wrap_json_value_create_logical.html'>wrap_js
 
     <p>Allocate a json_value pointer and make it a null variable.
   The pointer should not already be allocated.</p>
-<h1 id="example">Example</h1>
+<h3 id="example">Example</h3>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">create_null</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
@@ -9744,7 +9748,7 @@ private subroutine <a href='../proc/wrap_json_value_create_null.html'>wrap_json_
 
     <p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it an object variable.
   The pointer should not already be allocated.</p>
-<h1 id="example">Example</h1>
+<h3 id="example">Example</h3>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">create_object</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;objectname&#39;</span><span class="p">)</span>
@@ -9976,7 +9980,7 @@ private subroutine <a href='../proc/wrap_json_value_create_object.html'>wrap_jso
 
     <p>Allocate a json_value pointer and make it a string variable.
   The pointer should not already be allocated.</p>
-<h1 id="example">Example</h1>
+<h3 id="example">Example</h3>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">create_string</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">,</span><span class="s1">&#39;foobar&#39;</span><span class="p">)</span>
@@ -10235,7 +10239,7 @@ private subroutine <a href='../proc/wrap_json_value_create_string.html'>wrap_jso
     <p>Destructor routine for a <a href="../type/json_value.html">json_value</a> pointer.
   This must be called explicitly if it is no longer needed,
   before it goes out of scope.  Otherwise, a memory leak will result.</p>
-<h1 id="example">Example</h1>
+<h3 id="example">Example</h3>
 <p>Destroy the <a href="../type/json_value.html">json_value</a> pointer before the variable goes out of scope:</p>
 <div class="codehilite"><pre><span></span>     <span class="k">subroutine </span><span class="n">example1</span><span class="p">()</span>
      <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
@@ -16255,7 +16259,7 @@ private subroutine <a href='../proc/wrap_json_info_by_path.html'>wrap_json_info_
          
     
     <h3>
-private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(json, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors)
+private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors)
     
     
 	 
@@ -16306,7 +16310,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>json</strong></td><td></td>
+  <td><strong>me</strong></td><td></td>
   
 </tr>
 
@@ -16502,7 +16506,11 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(js
   
   <td></td><td>::</td>
   <td><strong>path_mode</strong></td><td><p>How the path strings are interpreted in the
- <code>get_by_path</code> routines:</p></td>
+ <code>get_by_path</code> routines:
+ * 1 &ndash; Default way (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)
+   [Default]
+ * 2 &ndash; as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths
+   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)</p></td>
   
 </tr>
 
@@ -29769,7 +29777,7 @@ private recursive subroutine <a href='../proc/pop_char.html'>pop_char</a>(json, 
 
 
     <p>Print the <a href="../type/json_value.html">json_value</a> to a file.</p>
-<h1 id="example">Example</h1>
+<h3 id="example">Example</h3>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>
     <span class="c">!...</span>
@@ -39847,7 +39855,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="c">!&gt;</span>
         <span class="c">!  Print the [[json_value]] to a file.</span>
         <span class="c">!</span>
-        <span class="c">!# Example</span>
+        <span class="c">!### Example</span>
         <span class="c">!</span>
         <span class="c">!````fortran</span>
         <span class="c">!    type(json_core) :: json</span>
@@ -39864,7 +39872,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="c">!  This must be called explicitly if it is no longer needed,</span>
         <span class="c">!  before it goes out of scope.  Otherwise, a memory leak will result.</span>
         <span class="c">!</span>
-        <span class="c">!# Example</span>
+        <span class="c">!### Example</span>
         <span class="c">!</span>
         <span class="c">!  Destroy the [[json_value]] pointer before the variable goes out of scope:</span>
         <span class="c">!````fortran</span>
@@ -39910,7 +39918,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="c">!  Allocate a [[json_value]] pointer and make it a double variable.</span>
         <span class="c">!  The pointer should not already be allocated.</span>
         <span class="c">!</span>
-        <span class="c">!# Example</span>
+        <span class="c">!### Example</span>
         <span class="c">!</span>
         <span class="c">!````fortran</span>
         <span class="c">!    type(json_core) :: json</span>
@@ -39924,7 +39932,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="c">!  Allocate a [[json_value]] pointer and make it an array variable.</span>
         <span class="c">!  The pointer should not already be allocated.</span>
         <span class="c">!</span>
-        <span class="c">!# Example</span>
+        <span class="c">!### Example</span>
         <span class="c">!</span>
         <span class="c">!````fortran</span>
         <span class="c">!    type(json_core) :: json</span>
@@ -39938,7 +39946,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="c">!  Allocate a [[json_value]] pointer and make it an object variable.</span>
         <span class="c">!  The pointer should not already be allocated.</span>
         <span class="c">!</span>
-        <span class="c">!# Example</span>
+        <span class="c">!### Example</span>
         <span class="c">!</span>
         <span class="c">!````fortran</span>
         <span class="c">!    type(json_core) :: json</span>
@@ -39955,7 +39963,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="c">!  Allocate a json_value pointer and make it a null variable.</span>
         <span class="c">!  The pointer should not already be allocated.</span>
         <span class="c">!</span>
-        <span class="c">!# Example</span>
+        <span class="c">!### Example</span>
         <span class="c">!</span>
         <span class="c">!````fortran</span>
         <span class="c">!    type(json_core) :: json</span>
@@ -39969,7 +39977,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="c">!  Allocate a json_value pointer and make it a string variable.</span>
         <span class="c">!  The pointer should not already be allocated.</span>
         <span class="c">!</span>
-        <span class="c">!# Example</span>
+        <span class="c">!### Example</span>
         <span class="c">!</span>
         <span class="c">!````fortran</span>
         <span class="c">!    type(json_core) :: json</span>
@@ -39983,7 +39991,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="c">!  Allocate a json_value pointer and make it an integer variable.</span>
         <span class="c">!  The pointer should not already be allocated.</span>
         <span class="c">!</span>
-        <span class="c">!# Example</span>
+        <span class="c">!### Example</span>
         <span class="c">!</span>
         <span class="c">!````fortran</span>
         <span class="c">!    type(json_core) :: json</span>
@@ -39997,7 +40005,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="c">!  Allocate a json_value pointer and make it a logical variable.</span>
         <span class="c">!  The pointer should not already be allocated.</span>
         <span class="c">!</span>
-        <span class="c">!# Example</span>
+        <span class="c">!### Example</span>
         <span class="c">!</span>
         <span class="c">!````fortran</span>
         <span class="c">!    type(json_core) :: json</span>
@@ -40132,7 +40140,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-04-02 02:58  
+             on 2017-04-02 03:02  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
