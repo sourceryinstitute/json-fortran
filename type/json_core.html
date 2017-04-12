@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>67.6% of total for derived types.</p>Including implementation: 6683 statements, 83.9% of total for derived types.">170 statements</a>
+	  title="<p>67.7% of total for derived types.</p>Including implementation: 6710 statements, 84.0% of total for derived types.">171 statements</a>
      </li> 
      
      
@@ -515,6 +515,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-rename">rename</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-replace">replace</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-reverse">reverse</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-string_info">string_info</a>
       
@@ -1127,6 +1129,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-rename">rename</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-replace">replace</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-reverse">reverse</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-string_info">string_info</a>
       
@@ -30989,6 +30993,110 @@ private subroutine <a href='../proc/json_value_replace.html'>json_value_replace<
     
 	   
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-reverse"></span><h3>procedure, public :: <strong>reverse</strong>  => <a href='../proc/json_value_reverse.html'>json_value_reverse</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>Reverse the order of the children of an array of object.</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_value_reverse.html'>json_value_reverse</a>(json, p)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>4/11/2017</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Reverse the order of the children of an array or object.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-string_info"></span><h3>generic, public :: <strong>string_info</strong>  => <a href='../type/json_core.html#boundprocedure-json_string_info'>json_string_info</a> 
     
   </h3></div>
@@ -40063,6 +40171,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
 
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">remove</span>              <span class="o">=&gt;</span> <span class="n">json_value_remove</span>        <span class="c">!! Remove a [[json_value]] from a linked-list structure.</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">replace</span>             <span class="o">=&gt;</span> <span class="n">json_value_replace</span>       <span class="c">!! Replace a [[json_value]] in a linked-list structure.</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">reverse</span>             <span class="o">=&gt;</span> <span class="n">json_value_reverse</span>       <span class="c">!! Reverse the order of the children of an array of object.</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">check_for_errors</span>    <span class="o">=&gt;</span> <span class="n">json_check_for_errors</span>    <span class="c">!! check for error and get error message</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">clear_exceptions</span>    <span class="o">=&gt;</span> <span class="n">json_clear_exceptions</span>    <span class="c">!! clear exceptions</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="nb">count</span>               <span class="o">=&gt;</span> <span class="n">json_count</span>               <span class="c">!! count the number of children</span>
@@ -40140,7 +40249,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-04-08 18:08  
+             on 2017-04-12 02:14  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
