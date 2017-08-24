@@ -148,6 +148,7 @@
 <li><a href="#changes-between-releases">Changes Between Releases</a><ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#600-2017-08-24">6.0.0 (2017-08-24)</a></li>
 <li><a href="#530-2017-04-07">5.3.0 (2017-04-07)</a></li>
 <li><a href="#520-2017-03-05">5.2.0 (2017-03-05)</a></li>
 <li><a href="#510-2016-08-14">5.1.0 (2016-08-14)</a></li>
@@ -176,7 +177,7 @@ of the <code>master</code> branch, please head back to the
 <a href="../../index.html">main page</a>.</p>
 <h2 id="latest-stable-release">Latest Stable Release</h2>
 <p><strong>Documentation:</strong>
-<a href="http://jacobwilliams.github.io/json-fortran/5.3.0/index.html">5.3.0</a></p>
+<a href="http://jacobwilliams.github.io/json-fortran/6.0.0/index.html">6.0.0</a></p>
 <p><strong>Download:</strong>
 <a href="https://github.com/jacobwilliams/json-fortran/releases/latest">https://github.com/jacobwilliams/json-fortran/releases/latest</a></p>
 <h2 id="past-releases">Past Releases</h2>
@@ -185,6 +186,11 @@ documentation from the documentation for official releases other than
 using the browser's back button. Feel free to bookmark this page, or
 the <a href="../../index.html">main project page</a> for convenient navigation.</p>
 <ul>
+<li><a href="http://jacobwilliams.github.io/json-fortran/6.0.0/index.html">6.0.0</a>
+   (<a href="https://github.com/cmacmackin/ford">FORD</a> generated documentation)<ul>
+<li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.0.0">Download</a></li>
+</ul>
+</li>
 <li><a href="http://jacobwilliams.github.io/json-fortran/5.3.0/index.html">5.3.0</a>
    (<a href="https://github.com/cmacmackin/ford">FORD</a> generated documentation)<ul>
 <li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/5.3.0">Download</a></li>
@@ -263,7 +269,7 @@ the <a href="../../index.html">main project page</a> for convenient navigation.<
 </ul>
 <h1 id="development-version">Development Version</h1>
 <p>Documentation for the latest development version may be found at
-<a href="https://jacobwilliams.github.io/json-fortran/5.3.0/index.html">https://jacobwilliams.github.io/json-fortran/5.3.0/index.html</a>
+<a href="https://jacobwilliams.github.io/json-fortran/6.0.0/index.html">https://jacobwilliams.github.io/json-fortran/6.0.0/index.html</a>
 or generated locally using the
 <a href="../../page/development-resources/build.sh.html">build.sh</a> build
 script.</p>
@@ -275,6 +281,7 @@ implemented between each release.</p>
 <ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#600-2017-08-24">6.0.0 (2017-08-24)</a></li>
 <li><a href="#530-2017-04-07">5.3.0 (2017-04-07)</a></li>
 <li><a href="#520-2017-03-05">5.2.0 (2017-03-05)</a></li>
 <li><a href="#510-2016-08-14">5.1.0 (2016-08-14)</a></li>
@@ -294,7 +301,19 @@ implemented between each release.</p>
 </li>
 </ul>
 <h3 id="unreleased"><a href="https://github.com/jacobwilliams/json-fortran/tree/HEAD">Unreleased</a></h3>
-<p><a href="https://github.com/jacobwilliams/json-fortran/compare/5.3.0...HEAD">Complete Changeset</a></p>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.0.0...HEAD">Complete Changeset</a></p>
+<h3 id="600-2017-08-24"><a href="https://github.com/jacobwilliams/json-fortran/tree/6.0.0">6.0.0</a> (2017-08-24)</h3>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/5.3.0...6.0.0">Complete Changeset</a>
+or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.0.0">Download v6.0.0</a></p>
+<p><strong>Enhancements:</strong></p>
+<ul>
+<li>Added a routine to reverse an array or object <a href="https://github.com/jacobwilliams/json-fortran/issues/280">#280</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/281">#281</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
+<p><strong>Fixed issues:</strong></p>
+<ul>
+<li>Fixed a bug where using <code>no_whitespace</code> mode could still print line breaks in some cases <a href="https://github.com/jacobwilliams/json-fortran/issues/288">#288</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Strings (name key and value) were not being properly escaped/unescaped in some contexts. This change introduces a small backward incompatibility (formerly, if keys contained escape characters, the user would have to include them when getting their value). Now, the string variables in all user-facing <abbr title="Application Programming Interface: a set of routines, protocols, and tools for building software applications">API</abbr> calls are unescaped (i.e., the user does not have to manually escape the keys to get their associated value). All strings are also now properly returned unescaped, no matter how the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure was constructed. Escaping is now done in all cases if necessary when the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> is printed to a string, file or the console. <a href="https://github.com/jacobwilliams/json-fortran/issues/287">#287</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/289">#289</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
 <h3 id="530-2017-04-07"><a href="https://github.com/jacobwilliams/json-fortran/tree/5.3.0">5.3.0</a> (2017-04-07)</h3>
 <p><a href="https://github.com/jacobwilliams/json-fortran/compare/5.2.0...5.3.0">Complete Changeset</a>
 or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/5.3.0">Download v5.3.0</a></p>
@@ -900,7 +919,7 @@ browser's back button to navigate back to
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-08-24 02:27  
+             on 2017-08-24 20:55  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
