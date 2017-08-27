@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_value_remove_if_present &ndash; JSON-Fortran</title>
+    <title>json_check_children_for_duplicate_keys &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -114,7 +114,7 @@
     
   
   <div class="row">
-    <h1>json_value_remove_if_present
+    <h1>json_check_children_for_duplicate_keys
       <small>Subroutine</small>
     
     </h1>
@@ -127,7 +127,7 @@
      <li><i class="fa fa-pencil"></i> Jacob Williams</li>
      
      
-    <li><i class="fa fa-calendar-o"></i> 12/6/2014</li>
+    <li><i class="fa fa-calendar-o"></i> 8/25/2017</li>
      
      
      
@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.2% of total for procedures.">10 statements</a>
+	  title=" 1.2% of total for procedures.">67 statements</a>
      </li> 
      
      
@@ -149,7 +149,7 @@
   
      <li><a href='../module/json_value_module.html'>json_value_module</a></li>
   
-     <li class="active">json_value_remove_if_present</li>
+     <li class="active">json_check_children_for_duplicate_keys</li>
   </ol>
 </div>
 </div>
@@ -190,7 +190,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_value_remove_if_present.html#src">json_value_remove_if_present</a>
+    <a class="list-group-item" href="../proc/json_check_children_for_duplicate_keys.html#src">json_check_children_for_duplicate_keys</a>
   </div>
 </div>
 
@@ -782,7 +782,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_value_remove_if_present(json, p, name)
+private subroutine json_check_children_for_duplicate_keys(json, p, has_duplicate, name, path)
     
     
 	 
@@ -792,8 +792,10 @@ private subroutine json_value_remove_if_present(json, p, name)
 
 
     
-    <p>Given the path string, remove the variable from
-  the <a href="../type/json_value.html">json_value</a> structure, if it exists.</p>
+    <p>Checks a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> object for duplicate child names.</p>
+<p>It uses the specified settings for name matching (see <a href="../proc/name_strings_equal.html">name_strings_equal</a>).</p>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>This will only check for one duplicate,
+      it will return the first one that it finds.</p></div>
     
 
     <h3>Arguments</h3>
@@ -814,7 +816,7 @@ private subroutine json_value_remove_if_present(json, p, name)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E107"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E27"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -829,12 +831,14 @@ private subroutine json_value_remove_if_present(json, p, name)
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E69"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  <td></td>
+  <td><span class="anchor" id="variable-p%7E13"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p</strong></td><td></td>
+  <td><strong>p</strong></td><td><p>the object to search. If <code>p</code> is
+ not a <code>json_object</code>, then <code>has_duplicate</code>
+ will be false.</p></td>
   
 </tr>
 
@@ -844,12 +848,49 @@ private subroutine json_value_remove_if_present(json, p, name)
   
 <tr>
   
-  <td><span class="anchor" id="variable-name%7E34"></span>character(kind=CK,len=*),</td>
-  <td>intent(in)</td>
+  <td><span class="anchor" id="variable-has_duplicate%7E2"></span>logical(kind=LK),</td>
+  <td>intent(out)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>name</strong></td><td></td>
+  <td><strong>has_duplicate</strong></td><td><p>true if there is at least
+ two children have duplicate
+ <code>name</code> values.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-name%7E8"></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>name</strong></td><td><p>the duplicate name
+ (unallocated if no
+ duplicate was found)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-path%7E71"></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>path</strong></td><td><p>the full path to the
+ duplicate name
+ (unallocated if no
+ duplicate was found)</p></td>
   
 </tr>
 
@@ -887,7 +928,7 @@ private subroutine json_value_remove_if_present(json, p, name)
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_value_remove_if_present.html#src">json_value_remove_if_present</a>
+    <a class="list-group-item" href="../proc/json_check_children_for_duplicate_keys.html#src">json_check_children_for_duplicate_keys</a>
   </div>
 </div>
 
@@ -915,21 +956,115 @@ private subroutine json_value_remove_if_present(json, p, name)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_value_remove_if_present</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_check_children_for_duplicate_keys</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">has_duplicate</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">path</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>            <span class="kd">::</span> <span class="n">p</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">name</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>  <span class="c">!! the object to search. If `p` is</span>
+                                              <span class="c">!! not a `json_object`, then `has_duplicate`</span>
+                                              <span class="c">!! will be false.</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">has_duplicate</span>  <span class="c">!! true if there is at least</span>
+                                              <span class="c">!! two children have duplicate</span>
+                                              <span class="c">!! `name` values.</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">name</span> <span class="c">!! the duplicate name</span>
+                                                                      <span class="c">!! (unallocated if no</span>
+                                                                      <span class="c">!! duplicate was found)</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">path</span> <span class="c">!! the full path to the</span>
+                                                                      <span class="c">!! duplicate name</span>
+                                                                      <span class="c">!! (unallocated if no</span>
+                                                                      <span class="c">!! duplicate was found)</span>
 
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p_var</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">found</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">i</span>           <span class="c">!! counter</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">j</span>           <span class="c">!! counter</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">child</span>       <span class="c">!! pointer to a child of `p`</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">n_children</span>  <span class="c">!! number of children of `p`</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">found</span>       <span class="c">!! flag for `get_child`</span>
 
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">p_var</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">remove</span><span class="p">(</span><span class="n">p_var</span><span class="p">)</span>
+    <span class="k">type</span> <span class="kd">::</span> <span class="n">alloc_str</span>
+        <span class="c">!! so we can have an array of allocatable strings</span>
+        <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">str</span>  <span class="c">!! name string</span>
+    <span class="k">end type </span><span class="n">alloc_str</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">alloc_str</span><span class="p">),</span><span class="k">dimension</span><span class="p">(:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">names</span> <span class="c">!! array of all the</span>
+                                                      <span class="c">!! child name strings</span>
 
-    <span class="k">end subroutine </span><span class="n">json_value_remove_if_present</span>
+    <span class="c">! initialize:</span>
+    <span class="n">has_duplicate</span> <span class="o">=</span><span class="p">.</span><span class="n">false</span><span class="p">.</span>
+
+    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
+
+<span class="k">        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
+
+<span class="k">            if</span> <span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">var_type</span><span class="o">==</span><span class="n">json_object</span><span class="p">)</span> <span class="k">then</span>
+
+                <span class="c">! number of items to check:</span>
+                <span class="n">n_children</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="nb">count</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="k">allocate</span><span class="p">(</span><span class="n">names</span><span class="p">(</span><span class="n">n_children</span><span class="p">))</span>
+
+                <span class="c">! first get a list of all the name keys:</span>
+                <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_children</span>
+                    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get_child</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">child</span><span class="p">,</span><span class="n">found</span><span class="p">)</span> <span class="c">! get by index</span>
+                    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">found</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                            <span class="s1">&#39;Error in json_check_children_for_duplicate_keys: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                            <span class="s1">&#39;Malformed JSON linked list&#39;</span><span class="p">)</span>
+                        <span class="k">exit</span>
+<span class="k">                    end if</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">child</span><span class="p">%</span><span class="n">name</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                        </span><span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">str</span> <span class="o">=</span> <span class="n">child</span><span class="p">%</span><span class="n">name</span>
+                    <span class="k">else</span>
+<span class="k">                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                            <span class="s1">&#39;Error in json_check_children_for_duplicate_keys: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                            <span class="s1">&#39;Object child name is not allocated&#39;</span><span class="p">)</span>
+                        <span class="k">exit</span>
+<span class="k">                    end if</span>
+<span class="k">                end do</span>
+
+<span class="k">                if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
+                    <span class="c">! now check the list for duplicates:</span>
+                    <span class="n">main</span><span class="p">:</span> <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">n_children</span>
+                        <span class="k">do </span><span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">name_strings_equal</span><span class="p">(</span><span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">str</span><span class="p">,</span><span class="n">names</span><span class="p">(</span><span class="n">j</span><span class="p">)%</span><span class="n">str</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                                </span><span class="n">has_duplicate</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+                                <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">name</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                                    </span><span class="n">name</span> <span class="o">=</span> <span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">str</span>
+                                <span class="k">end if</span>
+<span class="k">                                if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                                    call </span><span class="n">json</span><span class="p">%</span><span class="n">get_child</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">str</span><span class="p">,</span><span class="n">child</span><span class="p">,</span><span class="n">found</span><span class="p">)</span> <span class="c">! get by name</span>
+                                    <span class="k">if</span> <span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                                        call </span><span class="n">json</span><span class="p">%</span><span class="n">get_path</span><span class="p">(</span><span class="n">child</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
+                                        <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">found</span><span class="p">)</span> <span class="k">then</span>
+                                            <span class="c">! should never happen since we know it is there</span>
+                                            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                                                    <span class="s1">&#39;Error in json_check_children_for_duplicate_keys: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                                    <span class="s1">&#39;Could not get path&#39;</span><span class="p">)</span>
+                                        <span class="k">end if</span>
+<span class="k">                                    else</span>
+                                        <span class="c">! should never happen since we know it is there</span>
+                                        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                                            <span class="s1">&#39;Error in json_check_children_for_duplicate_keys: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                            <span class="s1">&#39;Could not get child: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">str</span><span class="p">))</span>
+                                    <span class="k">end if</span>
+<span class="k">                                end if</span>
+<span class="k">                                exit </span><span class="n">main</span>
+                            <span class="k">end if</span>
+<span class="k">                        end do</span>
+<span class="k">                    end do </span><span class="n">main</span>
+                <span class="k">end if</span>
+
+                <span class="c">! cleanup</span>
+                <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">n_children</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">str</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">names</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">str</span><span class="p">)</span>
+                <span class="k">end do</span>
+<span class="k">                if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">names</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+
+            <span class="k">end if</span>
+
+<span class="k">        end if</span>
+
+<span class="k">    end if</span>
+
+<span class="k">    end subroutine </span><span class="n">json_check_children_for_duplicate_keys</span>
 </pre></div>
 
     </section>

@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.4% of total for procedures.">21 statements</a>
+	  title=" 0.4% of total for procedures.">22 statements</a>
      </li> 
      
      
@@ -264,6 +264,10 @@
       <a class="list-group-item" href="../proc/json_add_string_vec_by_path_path_ascii.html">json_add_string_vec_by_path_path_ascii</a>
       
       <a class="list-group-item" href="../proc/json_add_string_vec_by_path_value_ascii.html">json_add_string_vec_by_path_value_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_check_all_for_duplicate_keys.html">json_check_all_for_duplicate_keys</a>
+      
+      <a class="list-group-item" href="../proc/json_check_children_for_duplicate_keys.html">json_check_children_for_duplicate_keys</a>
       
       <a class="list-group-item" href="../proc/json_check_for_errors.html">json_check_for_errors</a>
       
@@ -549,6 +553,8 @@
       
       <a class="list-group-item" href="../proc/name_equal.html">name_equal</a>
       
+      <a class="list-group-item" href="../proc/name_strings_equal.html">name_strings_equal</a>
+      
       <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
       
       <a class="list-group-item" href="../interface/operator%28SLASH%3D%29.html">operator(/=)</a>
@@ -776,7 +782,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private function initialize_json_file(p, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors) result(file_object)
+private function initialize_json_file(p, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys) result(file_object)
     
     
 	 
@@ -1062,6 +1068,28 @@ private function initialize_json_file(p, verbose, compact_reals, print_signs, re
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-allow_duplicate_keys%7E2"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>allow_duplicate_keys</strong></td><td><ul>
+<li>If True [default] then no special checks
+   are done to check for duplicate keys.</li>
+<li>If False, then after parsing, if any duplicate
+   keys are found, an error is thrown. A call to
+   <a href="../proc/json_value_validate.html">json_value_validate</a> will also check for
+   duplicates.</li>
+</ul></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -1245,7 +1273,8 @@ private function initialize_json_file(p, verbose, compact_reals, print_signs, re
                                   <span class="n">comment_char</span><span class="p">,&amp;</span>
                                   <span class="n">path_mode</span><span class="p">,&amp;</span>
                                   <span class="n">path_separator</span><span class="p">,&amp;</span>
-                                  <span class="n">compress_vectors</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">file_object</span><span class="p">)</span>
+                                  <span class="n">compress_vectors</span><span class="p">,&amp;</span>
+                                  <span class="n">allow_duplicate_keys</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">file_object</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -1264,7 +1293,8 @@ private function initialize_json_file(p, verbose, compact_reals, print_signs, re
                                 <span class="n">comment_char</span><span class="p">,&amp;</span>
                                 <span class="n">path_mode</span><span class="p">,&amp;</span>
                                 <span class="n">path_separator</span><span class="p">,&amp;</span>
-                                <span class="n">compress_vectors</span><span class="p">)</span>
+                                <span class="n">compress_vectors</span><span class="p">,&amp;</span>
+                                <span class="n">allow_duplicate_keys</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="n">file_object</span><span class="p">%</span><span class="n">p</span> <span class="o">=&gt;</span> <span class="n">p</span>
 
@@ -1348,6 +1378,10 @@ private function initialize_json_file(p, verbose, compact_reals, print_signs, re
       <a class="list-group-item" href="../proc/json_add_string_vec_by_path_path_ascii.html">json_add_string_vec_by_path_path_ascii</a>
       
       <a class="list-group-item" href="../proc/json_add_string_vec_by_path_value_ascii.html">json_add_string_vec_by_path_value_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_check_all_for_duplicate_keys.html">json_check_all_for_duplicate_keys</a>
+      
+      <a class="list-group-item" href="../proc/json_check_children_for_duplicate_keys.html">json_check_children_for_duplicate_keys</a>
       
       <a class="list-group-item" href="../proc/json_check_for_errors.html">json_check_for_errors</a>
       
@@ -1633,6 +1667,8 @@ private function initialize_json_file(p, verbose, compact_reals, print_signs, re
       
       <a class="list-group-item" href="../proc/name_equal.html">name_equal</a>
       
+      <a class="list-group-item" href="../proc/name_strings_equal.html">name_strings_equal</a>
+      
       <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
       
       <a class="list-group-item" href="../interface/operator%28SLASH%3D%29.html">operator(/=)</a>
@@ -1866,7 +1902,7 @@ private function initialize_json_file(p, verbose, compact_reals, print_signs, re
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-08-24 21:29  
+             on 2017-08-27 01:40  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

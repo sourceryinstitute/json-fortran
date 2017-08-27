@@ -261,6 +261,10 @@
       
       <a class="list-group-item" href="../proc/json_add_string_vec_by_path_value_ascii.html">json_add_string_vec_by_path_value_ascii</a>
       
+      <a class="list-group-item" href="../proc/json_check_all_for_duplicate_keys.html">json_check_all_for_duplicate_keys</a>
+      
+      <a class="list-group-item" href="../proc/json_check_children_for_duplicate_keys.html">json_check_children_for_duplicate_keys</a>
+      
       <a class="list-group-item" href="../proc/json_check_for_errors.html">json_check_for_errors</a>
       
       <a class="list-group-item" href="../proc/json_clear_exceptions.html">json_clear_exceptions</a>
@@ -544,6 +548,8 @@
       <a class="list-group-item" href="../proc/lowercase_string.html">lowercase_string</a>
       
       <a class="list-group-item" href="../proc/name_equal.html">name_equal</a>
+      
+      <a class="list-group-item" href="../proc/name_strings_equal.html">name_strings_equal</a>
       
       <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
       
@@ -806,7 +812,7 @@ private subroutine json_value_get_child_by_name(json, p, name, child, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E99"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E102"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -821,7 +827,7 @@ private subroutine json_value_get_child_by_name(json, p, name, child, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E62"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E64"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(in),</td>
   <td></td>
   
@@ -836,7 +842,7 @@ private subroutine json_value_get_child_by_name(json, p, name, child, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-name%7E31"></span>character(kind=CK,len=*),</td>
+  <td><span class="anchor" id="variable-name%7E33"></span>character(kind=CK,len=*),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -972,8 +978,9 @@ private subroutine json_value_get_child_by_name(json, p, name, child, found)
                 <span class="n">child</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">children</span>    <span class="c">!start with first one</span>
                 <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_children</span>
                     <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">child</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_get_child_by_name: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                                  <span class="s1">&#39;Malformed JSON linked list&#39;</span><span class="p">)</span>
+<span class="k">                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                            <span class="s1">&#39;Error in json_value_get_child_by_name: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                            <span class="s1">&#39;Malformed JSON linked list&#39;</span><span class="p">)</span>
                         <span class="k">exit</span>
 <span class="k">                    end if</span>
 <span class="k">                    if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">child</span><span class="p">%</span><span class="n">name</span><span class="p">))</span> <span class="k">then</span>
@@ -989,14 +996,16 @@ private subroutine json_value_get_child_by_name(json, p, name, child, found)
 
 <span class="k">            if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="k">then</span>
                 <span class="c">!did not find anything:</span>
-                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_get_child_by_name: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                     <span class="s1">&#39;child variable &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39; was not found.&#39;</span><span class="p">)</span>
+                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                    <span class="s1">&#39;Error in json_value_get_child_by_name: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                    <span class="s1">&#39;child variable &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39; was not found.&#39;</span><span class="p">)</span>
                 <span class="k">nullify</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
             <span class="k">end if</span>
 
 <span class="k">        else</span>
-<span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_get_child_by_name: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                 <span class="s1">&#39;pointer is not associated.&#39;</span><span class="p">)</span>
+<span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                <span class="s1">&#39;Error in json_value_get_child_by_name: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                <span class="s1">&#39;pointer is not associated.&#39;</span><span class="p">)</span>
         <span class="k">end if</span>
 
         <span class="c">! found output:</span>
@@ -1093,6 +1102,10 @@ private subroutine json_value_get_child_by_name(json, p, name, child, found)
       <a class="list-group-item" href="../proc/json_add_string_vec_by_path_path_ascii.html">json_add_string_vec_by_path_path_ascii</a>
       
       <a class="list-group-item" href="../proc/json_add_string_vec_by_path_value_ascii.html">json_add_string_vec_by_path_value_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_check_all_for_duplicate_keys.html">json_check_all_for_duplicate_keys</a>
+      
+      <a class="list-group-item" href="../proc/json_check_children_for_duplicate_keys.html">json_check_children_for_duplicate_keys</a>
       
       <a class="list-group-item" href="../proc/json_check_for_errors.html">json_check_for_errors</a>
       
@@ -1378,6 +1391,8 @@ private subroutine json_value_get_child_by_name(json, p, name, child, found)
       
       <a class="list-group-item" href="../proc/name_equal.html">name_equal</a>
       
+      <a class="list-group-item" href="../proc/name_strings_equal.html">name_strings_equal</a>
+      
       <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
       
       <a class="list-group-item" href="../interface/operator%28SLASH%3D%29.html">operator(/=)</a>
@@ -1611,7 +1626,7 @@ private subroutine json_value_get_child_by_name(json, p, name, child, found)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-08-24 21:29  
+             on 2017-08-27 01:40  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

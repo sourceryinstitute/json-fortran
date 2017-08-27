@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>67.7% of total for derived types.</p>Including implementation: 6711 statements, 84.0% of total for derived types.">171 statements</a>
+	  title="<p>68.2% of total for derived types.</p>Including implementation: 6909 statements, 84.3% of total for derived types.">175 statements</a>
      </li> 
      
      
@@ -171,6 +171,8 @@
     <div class="list-group">
       
       <a class="list-group-item" href="../type/json_core.html#variable-allow_comments">allow_comments</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#variable-allow_duplicate_keys">allow_duplicate_keys</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-case_sensitive_keys">case_sensitive_keys</a>
       
@@ -255,6 +257,10 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-add_by_path%7E2">add_by_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-annotate_invalid_json">annotate_invalid_json</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-check_children_for_duplicate_keys">check_children_for_duplicate_keys</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-check_for_duplicate_keys">check_for_duplicate_keys</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-check_for_errors%7E2">check_for_errors</a>
       
@@ -483,6 +489,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-matrix_info%7E2">matrix_info</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-name_equal">name_equal</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-name_strings_equal">name_strings_equal</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-parse">parse</a>
       
@@ -787,6 +795,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#variable-allow_comments">allow_comments</a>
       
+      <a class="list-group-item" href="../type/json_core.html#variable-allow_duplicate_keys">allow_duplicate_keys</a>
+      
       <a class="list-group-item" href="../type/json_core.html#variable-case_sensitive_keys">case_sensitive_keys</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-char_count">char_count</a>
@@ -870,6 +880,10 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-add_by_path%7E2">add_by_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-annotate_invalid_json">annotate_invalid_json</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-check_children_for_duplicate_keys">check_children_for_duplicate_keys</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-check_for_duplicate_keys">check_for_duplicate_keys</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-check_for_errors%7E2">check_for_errors</a>
       
@@ -1099,6 +1113,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-name_equal">name_equal</a>
       
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-name_strings_equal">name_strings_equal</a>
+      
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-parse">parse</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-parse_array">parse_array</a>
@@ -1292,6 +1308,24 @@
   <td><strong>allow_comments</strong></td><td> =</td><td>.true.</td><td><p>if true, any comments will be ignored when
  parsing a file. The comment token is defined
  by the <code>comment_char</code> string.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-allow_duplicate_keys"></span>logical(kind=LK),</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>allow_duplicate_keys</strong></td><td> =</td><td>.true.</td><td><p>If False, then after parsing, if any
+ duplicate keys are found, an error is
+ thrown. A call to <a href="../proc/json_value_validate.html">json_value_validate</a>
+ will also check for duplicates. If True
+ [default] then no special checks are done</p></td>
   
 </tr>
 
@@ -1645,7 +1679,7 @@
     
     
     <h3>
-private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors) result(json_core_object)
+private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys) result(json_core_object)
     
     
 	 
@@ -1924,6 +1958,21 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
  [Note: <code>no_whitespace</code> will
  override this option if necessary].
  (Default is False).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>allow_duplicate_keys</strong></td><td></td>
   
 </tr>
 
@@ -7760,6 +7809,327 @@ private subroutine <a href='../proc/annotate_invalid_json.html'>annotate_invalid
   
   <td></td><td>::</td>
   <td><strong>str</strong></td><td><p>string with <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-check_children_for_duplicate_keys"></span><h3>procedure, public :: <strong>check_children_for_duplicate_keys</strong>  => <a href='../proc/json_check_children_for_duplicate_keys.html'>json_check_children_for_duplicate_keys</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>Check a <code>json_value</code> object's
+ children for duplicate keys</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_check_children_for_duplicate_keys.html'>json_check_children_for_duplicate_keys</a>(json, p, has_duplicate, name, path)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>8/25/2017</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Checks a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> object for duplicate child names.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>the object to search. If <code>p</code> is
+ not a <code>json_object</code>, then <code>has_duplicate</code>
+ will be false.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>has_duplicate</strong></td><td><p>true if there is at least
+ two children have duplicate
+ <code>name</code> values.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>name</strong></td><td><p>the duplicate name
+ (unallocated if no
+ duplicate was found)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>path</strong></td><td><p>the full path to the
+ duplicate name
+ (unallocated if no
+ duplicate was found)</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-check_for_duplicate_keys"></span><h3>procedure, public :: <strong>check_for_duplicate_keys</strong>  => <a href='../proc/json_check_all_for_duplicate_keys.html'>json_check_all_for_duplicate_keys</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>Check entire <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure
+ for duplicate keys (recursively)</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_check_all_for_duplicate_keys.html'>json_check_all_for_duplicate_keys</a>(json, p, has_duplicate, name, path)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>8/25/2017</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Checks a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure for duplicate child names.
+  This one recursively traverses the entire structure
+  (calling <a href="../proc/json_check_children_for_duplicate_keys.html">json_check_children_for_duplicate_keys</a>
+  recursively for each element).</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>the object to search. If <code>p</code> is
+ not a <code>json_object</code>, then <code>has_duplicate</code>
+ will be false.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>has_duplicate</strong></td><td><p>true if there is at least
+ one duplicate <code>name</code> key anywhere
+ in the structure.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>name</strong></td><td><p>the duplicate name
+ (unallocated if no
+ duplicates were found)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>path</strong></td><td><p>the full path to the
+ duplicate name
+ (unallocated if no
+ duplicate was found)</p></td>
   
 </tr>
 
@@ -16264,7 +16634,7 @@ private subroutine <a href='../proc/wrap_json_info_by_path.html'>wrap_json_info_
          
     
     <h3>
-private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors)
+private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys)
     
     
 	 
@@ -16557,6 +16927,21 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me
  [Note: <code>no_whitespace</code> will
  override this option if necessary].
  (Default is False).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>allow_duplicate_keys</strong></td><td></td>
   
 </tr>
 
@@ -28508,8 +28893,6 @@ private function <a href='../proc/name_equal.html'>name_equal</a>(json, p, name)
     <dt>Author</dt><dd>Jacob Williams</dd>
     
     
-    <dt>Date</dt><dd>4/30/2016</dd>
-    
     
     
     
@@ -28591,7 +28974,131 @@ private function <a href='../proc/name_equal.html'>name_equal</a>(json, p, name)
   
      <h4>Return Value <small>logical(kind=LK)
   </small></h4>
-  <p>true if the string are lexically equal</p>
+  <p>true if the string are
+ lexically equal</p>
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-name_strings_equal"></span><h3>procedure, private :: <strong>name_strings_equal</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private function <a href='../proc/name_strings_equal.html'>name_strings_equal</a>(json, name1, name2) result(is_equal)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>8/25/2017</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Returns true if the name strings <code>name1</code> is equal to <code>name2</code>, using
+  the specified settings for case sensitivity and trailing whitespace.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name1</strong></td><td><p>the name to check</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name2</strong></td><td><p>the name to check</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical(kind=LK)
+  </small></h4>
+  <p>true if the string are
+ lexically equal</p>
     
 
       
@@ -39765,6 +40272,12 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
                                                   <span class="c">!! [Note: `no_whitespace` will</span>
                                                   <span class="c">!! override this option if necessary]</span>
 
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">allow_duplicate_keys</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span> <span class="c">!! If False, then after parsing, if any</span>
+                                                     <span class="c">!! duplicate keys are found, an error is</span>
+                                                     <span class="c">!! thrown. A call to [[json_value_validate]]</span>
+                                                     <span class="c">!! will also check for duplicates. If True</span>
+                                                     <span class="c">!! [default] then no special checks are done</span>
+
         <span class="k">contains</span>
 
 <span class="k">        private</span>
@@ -40207,9 +40720,16 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
                                                                             <span class="c">!! list is valid (i.e., is properly</span>
                                                                             <span class="c">!! constructed). This may be useful</span>
                                                                             <span class="c">!! if it has been constructed externally.</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">check_for_duplicate_keys</span> <span class="p">&amp;</span>
+                                <span class="o">=&gt;</span> <span class="n">json_check_all_for_duplicate_keys</span>  <span class="c">!! Check entire JSON structure</span>
+                                                                      <span class="c">!! for duplicate keys (recursively)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">check_children_for_duplicate_keys</span> <span class="p">&amp;</span>
+                                <span class="o">=&gt;</span> <span class="n">json_check_children_for_duplicate_keys</span>  <span class="c">!! Check a `json_value` object&#39;s</span>
+                                                                           <span class="c">!! children for duplicate keys</span>
 
         <span class="c">!other private routines:</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">name_equal</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">name_strings_equal</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_value_print</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">string_to_int</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">string_to_dble</span>
@@ -40266,7 +40786,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-08-24 21:29  
+             on 2017-08-27 01:40  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

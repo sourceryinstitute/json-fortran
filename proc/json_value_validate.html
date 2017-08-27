@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 2.8% of total for procedures.">147 statements</a>
+	  title=" 3.2% of total for procedures.">175 statements</a>
      </li> 
      
      
@@ -264,6 +264,10 @@
       <a class="list-group-item" href="../proc/json_add_string_vec_by_path_path_ascii.html">json_add_string_vec_by_path_path_ascii</a>
       
       <a class="list-group-item" href="../proc/json_add_string_vec_by_path_value_ascii.html">json_add_string_vec_by_path_value_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_check_all_for_duplicate_keys.html">json_check_all_for_duplicate_keys</a>
+      
+      <a class="list-group-item" href="../proc/json_check_children_for_duplicate_keys.html">json_check_children_for_duplicate_keys</a>
       
       <a class="list-group-item" href="../proc/json_check_for_errors.html">json_check_for_errors</a>
       
@@ -549,6 +553,8 @@
       
       <a class="list-group-item" href="../proc/name_equal.html">name_equal</a>
       
+      <a class="list-group-item" href="../proc/name_strings_equal.html">name_strings_equal</a>
+      
       <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
       
       <a class="list-group-item" href="../interface/operator%28SLASH%3D%29.html">operator(/=)</a>
@@ -791,7 +797,14 @@ private subroutine json_value_validate(json, p, is_valid, error_msg)
   have the correct number of children, and the correct data is
   allocated for the variable types.</p>
 <p>It recursively traverses the entire structure and checks every element.</p>
-<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>This routine does not check or throw any exceptions.</p></div>
+<h3 id="history">History</h3>
+<ul>
+<li>Jacob Williams, 8/26/2017 : added duplicate key check.</li>
+</ul>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>It will return on the first error it encounters.</p></div>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>This routine does not check or throw any exceptions.
+      If <code>json</code> is currently in a state of exception, it will
+      remain so after calling this routine.</p></div>
     
 
     <h3>Arguments</h3>
@@ -812,7 +825,7 @@ private subroutine json_value_validate(json, p, is_valid, error_msg)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E110"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E113"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -827,7 +840,7 @@ private subroutine json_value_validate(json, p, is_valid, error_msg)
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E71"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E73"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(in),</td>
   <td></td>
   
@@ -933,16 +946,65 @@ private subroutine json_value_validate(json, p, is_valid, error_msg)
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>       <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">p</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">is_valid</span>  <span class="c">!! True if the structure is valid.</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">json</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>             <span class="kd">::</span> <span class="n">is_valid</span>  <span class="c">!! True if the structure is valid.</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">error_msg</span> <span class="c">!! if not valid, this will contain</span>
                                                                   <span class="c">!! a description of the problem</span>
 
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">has_duplicate</span> <span class="c">!! to check for duplicate keys</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">path</span>  <span class="c">!! path to duplicate key</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">status_ok</span> <span class="c">!! to check for existing exception</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">status_ok2</span> <span class="c">!! to check for a new exception</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">exception_msg</span>  <span class="c">!! error message for an existing exception</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">exception_msg2</span>  <span class="c">!! error message for a new exception</span>
+
     <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
+
 <span class="k">        </span><span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
         <span class="k">call </span><span class="n">check_if_valid</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">require_parent</span><span class="o">=</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span>
-    <span class="k">else</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">is_valid</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">allow_duplicate_keys</span><span class="p">)</span> <span class="k">then</span>
+            <span class="c">! if no errors so far, also check the</span>
+            <span class="c">! entire structure for duplicate keys:</span>
+
+            <span class="c">! note: check_for_duplicate_keys does call routines</span>
+            <span class="c">! that check and throw exceptions, so let&#39;s clear any</span>
+            <span class="c">! first. (save message for later)</span>
+            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">check_for_errors</span><span class="p">(</span><span class="n">status_ok</span><span class="p">,</span> <span class="n">exception_msg</span><span class="p">)</span>
+            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">clear_exceptions</span><span class="p">()</span>
+
+            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">check_for_duplicate_keys</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">has_duplicate</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">failed</span><span class="p">())</span> <span class="k">then</span>
+                <span class="c">! if an exception was thrown during this call,</span>
+                <span class="c">! then clear it but make that the error message</span>
+                <span class="c">! returned by this routine. Normally this should</span>
+                <span class="c">! never actually occur since we have already</span>
+                <span class="c">! validated the structure.</span>
+                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">check_for_errors</span><span class="p">(</span><span class="n">is_valid</span><span class="p">,</span> <span class="n">exception_msg2</span><span class="p">)</span>
+                <span class="n">error_msg</span> <span class="o">=</span> <span class="n">exception_msg2</span>
+                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">clear_exceptions</span><span class="p">()</span>
+                <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+            <span class="k">else</span>
+<span class="k">                if</span> <span class="p">(</span><span class="n">has_duplicate</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;duplicate key found: &#39;</span><span class="o">//</span><span class="n">path</span>
+                    <span class="n">is_valid</span>  <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="k">end if</span>
+<span class="k">            end if</span>
+
+<span class="k">            if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">status_ok</span><span class="p">)</span> <span class="k">then</span>
+                <span class="c">! restore any existing exception if necessary</span>
+                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="n">exception_msg</span><span class="p">)</span>
+            <span class="k">end if</span>
+
+            <span class="c">! cleanup:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>           <span class="k">deallocate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">exception_msg</span><span class="p">))</span>  <span class="k">deallocate</span><span class="p">(</span><span class="n">exception_msg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">exception_msg2</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">exception_msg2</span><span class="p">)</span>
+
+        <span class="k">end if</span>
+
+<span class="k">    else</span>
 <span class="k">        </span><span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;The pointer is not associated&#39;</span>
         <span class="n">is_valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
     <span class="k">end if</span>
@@ -1194,6 +1256,10 @@ private subroutine json_value_validate(json, p, is_valid, error_msg)
       
       <a class="list-group-item" href="../proc/json_add_string_vec_by_path_value_ascii.html">json_add_string_vec_by_path_value_ascii</a>
       
+      <a class="list-group-item" href="../proc/json_check_all_for_duplicate_keys.html">json_check_all_for_duplicate_keys</a>
+      
+      <a class="list-group-item" href="../proc/json_check_children_for_duplicate_keys.html">json_check_children_for_duplicate_keys</a>
+      
       <a class="list-group-item" href="../proc/json_check_for_errors.html">json_check_for_errors</a>
       
       <a class="list-group-item" href="../proc/json_clear_exceptions.html">json_clear_exceptions</a>
@@ -1478,6 +1544,8 @@ private subroutine json_value_validate(json, p, is_valid, error_msg)
       
       <a class="list-group-item" href="../proc/name_equal.html">name_equal</a>
       
+      <a class="list-group-item" href="../proc/name_strings_equal.html">name_strings_equal</a>
+      
       <a class="list-group-item" href="../interface/operator%28SLASHSLASH%29.html">operator(//)</a>
       
       <a class="list-group-item" href="../interface/operator%28SLASH%3D%29.html">operator(/=)</a>
@@ -1711,7 +1779,7 @@ private subroutine json_value_validate(json, p, is_valid, error_msg)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-08-24 21:29  
+             on 2017-08-27 01:40  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
