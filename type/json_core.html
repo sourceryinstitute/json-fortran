@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>68.2% of total for derived types.</p>Including implementation: 6909 statements, 84.3% of total for derived types.">175 statements</a>
+	  title="<p>68.4% of total for derived types.</p>Including implementation: 7182 statements, 84.9% of total for derived types.">177 statements</a>
      </li> 
      
      
@@ -268,6 +268,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-clone">clone</a>
       
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-convert">convert</a>
+      
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-count">count</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-create">create</a>
@@ -357,6 +359,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path">json_get_by_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path_default">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path_jsonpath_bracket">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path_rfc6901">json_get_by_path_rfc6901</a>
       
@@ -891,6 +895,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-clone">clone</a>
       
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-convert">convert</a>
+      
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-count">count</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-create">create</a>
@@ -980,6 +986,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path">json_get_by_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path_default">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path_jsonpath_bracket">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_get_by_path_rfc6901">json_get_by_path_rfc6901</a>
       
@@ -1307,7 +1315,7 @@
   <td></td><td>::</td>
   <td><strong>allow_comments</strong></td><td> =</td><td>.true.</td><td><p>if true, any comments will be ignored when
  parsing a file. The comment token is defined
- by the <code>comment_char</code> string.</p></td>
+ by the <code>comment_char</code> character variable.</p></td>
   
 </tr>
 
@@ -1339,8 +1347,8 @@
   
   <td>private</td>
   <td></td><td>::</td>
-  <td><strong>case_sensitive_keys</strong></td><td> =</td><td>.true.</td><td><p>for name and path comparisons, are they
- case sensitive.</p></td>
+  <td><strong>case_sensitive_keys</strong></td><td> =</td><td>.true.</td><td><p>if name and path comparisons
+ are case sensitive.</p></td>
   
 </tr>
 
@@ -1514,6 +1522,8 @@
 <li>1 &ndash; Default mode (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)</li>
 <li>2 &ndash; as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths
    (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)</li>
+<li>3 &ndash; JSONPath "bracket-notation" (currently only
+   used in <a href="../proc/json_get_path.html">json_get_path</a>)</li>
 </ul></td>
   
 </tr>
@@ -1626,8 +1636,8 @@
   
   <td>private</td>
   <td></td><td>::</td>
-  <td><strong>trailing_spaces_significant</strong></td><td> =</td><td>.false.</td><td><p>for name and path comparisons, is trailing
- space to be considered significant.</p></td>
+  <td><strong>trailing_spaces_significant</strong></td><td> =</td><td>.false.</td><td><p>for name and path comparisons, if trailing
+ space is to be considered significant.</p></td>
   
 </tr>
 
@@ -1641,7 +1651,7 @@
   
   <td>private</td>
   <td></td><td>::</td>
-  <td><strong>unescaped_strings</strong></td><td> =</td><td>.true.</td><td><p>If false, then the raw escaped
+  <td><strong>unescaped_strings</strong></td><td> =</td><td>.true.</td><td><p>If false, then the escaped
  string is returned from <a href="../proc/json_get_string.html">json_get_string</a>
  and similar routines. If true [default],
  then the string is returned unescaped.</p></td>
@@ -8461,6 +8471,109 @@ private subroutine <a href='../proc/json_clone.html'>json_clone</a>(json, from, 
   <td>pointer</td><td>::</td>
   <td><strong>to</strong></td><td><p>the clone is put here
  (it must not already be associated)</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-convert"></span><h3>procedure, private :: <strong>convert</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/convert.html'>convert</a>(json, p, var_type)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Convert an existing <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> variable <code>p</code> to a different variable type.
+  The existing variable (and its children) is destroyed. It is replaced
+  in the structure by a new variable of type <code>var_type</code>
+  (which can be a <code>json_null</code>, <code>json_object</code> or <code>json_array</code>).</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>the variable to convert</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>var_type</strong></td><td><p>the variable type to convert <code>p</code> to</p></td>
   
 </tr>
 
@@ -15758,7 +15871,8 @@ private subroutine <a href='../proc/json_get_path.html'>json_get_path</a>(json, 
   
   <td></td><td>::</td>
   <td><strong>use_alt_array_tokens</strong></td><td><p>if true, then '()' are used for array elements
- otherwise, '[]' are used [default]</p></td>
+ otherwise, '[]' are used [default]
+ (only used if <code>path_mode=1</code>)</p></td>
   
 </tr>
 
@@ -15774,7 +15888,8 @@ private subroutine <a href='../proc/json_get_path.html'>json_get_path</a>(json, 
   
   <td></td><td>::</td>
   <td><strong>path_sep</strong></td><td><p>character to use for path separator
- (otherwise use <code>json%path_separator</code>)</p></td>
+ (otherwise use <code>json%path_separator</code>)
+ (only used if <code>path_mode=1</code>)</p></td>
   
 </tr>
 
@@ -20212,6 +20327,190 @@ private subroutine <a href='../proc/json_get_by_path_default.html'>json_get_by_p
     
 	   
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_get_by_path_jsonpath_bracket"></span><h3>procedure, private :: <strong>json_get_by_path_jsonpath_bracket</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_get_by_path_jsonpath_bracket.html'>json_get_by_path_jsonpath_bracket</a>(json, me, path, p, found, create_it, was_created)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>9/2/2017</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string,
+  using the "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" path specification defined by the
+  JSONPath "bracket-notation".</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable
+ (using JSONPath
+ "bracket-notation")</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>pointer to the variable
+ specify by <code>path</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td><p>true if it was found</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>create_it</strong></td><td><p>if a variable is not present
+ in the path, then it is created.
+ the leaf node is returned as
+ a <code>null</code> json type and can be
+ changed by the caller.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>was_created</strong></td><td><p>if <code>create_it</code> is true, this
+ will be true if the variable
+ was actually created. Otherwise
+ it will be false.</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_get_by_path_rfc6901"></span><h3>procedure, private :: <strong>json_get_by_path_rfc6901</strong>  
     
   </h3></div>
@@ -21885,7 +22184,8 @@ private subroutine <a href='../proc/json_get_path.html'>json_get_path</a>(json, 
   
   <td></td><td>::</td>
   <td><strong>use_alt_array_tokens</strong></td><td><p>if true, then '()' are used for array elements
- otherwise, '[]' are used [default]</p></td>
+ otherwise, '[]' are used [default]
+ (only used if <code>path_mode=1</code>)</p></td>
   
 </tr>
 
@@ -21901,7 +22201,8 @@ private subroutine <a href='../proc/json_get_path.html'>json_get_path</a>(json, 
   
   <td></td><td>::</td>
   <td><strong>path_sep</strong></td><td><p>character to use for path separator
- (otherwise use <code>json%path_separator</code>)</p></td>
+ (otherwise use <code>json%path_separator</code>)
+ (only used if <code>path_mode=1</code>)</p></td>
   
 </tr>
 
@@ -22795,7 +23096,8 @@ private subroutine <a href='../proc/json_matrix_info.html'>json_matrix_info</a>(
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td><p>variable type of data in the matrix (if all elements have the same type)</p></td>
+  <td><strong>var_type</strong></td><td><p>variable type of data in the matrix
+ (if all elements have the same type)</p></td>
   
 </tr>
 
@@ -22810,7 +23112,8 @@ private subroutine <a href='../proc/json_matrix_info.html'>json_matrix_info</a>(
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>n_sets</strong></td><td><p>number of data sets (i.e., matrix rows if using row-major order)</p></td>
+  <td><strong>n_sets</strong></td><td><p>number of data sets (i.e., matrix
+ rows if using row-major order)</p></td>
   
 </tr>
 
@@ -22825,7 +23128,8 @@ private subroutine <a href='../proc/json_matrix_info.html'>json_matrix_info</a>(
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>set_size</strong></td><td><p>size of each data set (i.e., matrix cols if using row-major order)</p></td>
+  <td><strong>set_size</strong></td><td><p>size of each data set (i.e., matrix
+ cols if using row-major order)</p></td>
   
 </tr>
 
@@ -28432,7 +28736,8 @@ private subroutine <a href='../proc/json_matrix_info.html'>json_matrix_info</a>(
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td><p>variable type of data in the matrix (if all elements have the same type)</p></td>
+  <td><strong>var_type</strong></td><td><p>variable type of data in the matrix
+ (if all elements have the same type)</p></td>
   
 </tr>
 
@@ -28447,7 +28752,8 @@ private subroutine <a href='../proc/json_matrix_info.html'>json_matrix_info</a>(
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>n_sets</strong></td><td><p>number of data sets (i.e., matrix rows if using row-major order)</p></td>
+  <td><strong>n_sets</strong></td><td><p>number of data sets (i.e., matrix
+ rows if using row-major order)</p></td>
   
 </tr>
 
@@ -28462,7 +28768,8 @@ private subroutine <a href='../proc/json_matrix_info.html'>json_matrix_info</a>(
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>set_size</strong></td><td><p>size of each data set (i.e., matrix cols if using row-major order)</p></td>
+  <td><strong>set_size</strong></td><td><p>size of each data set (i.e., matrix
+ cols if using row-major order)</p></td>
   
 </tr>
 
@@ -40229,25 +40536,25 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
                                                       <span class="c">!! type is different from the return type (for</span>
                                                       <span class="c">!! example, integer to double).</span>
 
-        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">trailing_spaces_significant</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>    <span class="c">!! for name and path comparisons, is trailing</span>
-                                                                <span class="c">!! space to be considered significant.</span>
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">trailing_spaces_significant</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>    <span class="c">!! for name and path comparisons, if trailing</span>
+                                                                <span class="c">!! space is to be considered significant.</span>
 
-        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">case_sensitive_keys</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>    <span class="c">!! for name and path comparisons, are they</span>
-                                                       <span class="c">!! case sensitive.</span>
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">case_sensitive_keys</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>    <span class="c">!! if name and path comparisons</span>
+                                                       <span class="c">!! are case sensitive.</span>
 
         <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">no_whitespace</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span> <span class="c">!! when printing a JSON string, don&#39;t include</span>
                                                <span class="c">!! non-significant spaces or line breaks.</span>
                                                <span class="c">!! If true, the entire structure will be</span>
                                                <span class="c">!! printed on one line.</span>
 
-        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">unescaped_strings</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>  <span class="c">!! If false, then the raw escaped</span>
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">unescaped_strings</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>  <span class="c">!! If false, then the escaped</span>
                                                    <span class="c">!! string is returned from [[json_get_string]]</span>
                                                    <span class="c">!! and similar routines. If true [default],</span>
                                                    <span class="c">!! then the string is returned unescaped.</span>
 
         <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">allow_comments</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>  <span class="c">!! if true, any comments will be ignored when</span>
                                                 <span class="c">!! parsing a file. The comment token is defined</span>
-                                                <span class="c">!! by the `comment_char` string.</span>
+                                                <span class="c">!! by the `comment_char` character variable.</span>
         <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">comment_char</span> <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;!&#39;</span>  <span class="c">!! comment token when</span>
                                                            <span class="c">!! `allow_comments` is true.</span>
                                                            <span class="c">!! Examples: &#39;`!`&#39; or &#39;`#`&#39;.</span>
@@ -40258,6 +40565,8 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
                                          <span class="c">!! * 1 -- Default mode (see [[json_get_by_path_default]])</span>
                                          <span class="c">!! * 2 -- as RFC 6901 &quot;JSON Pointer&quot; paths</span>
                                          <span class="c">!!   (see [[json_get_by_path_rfc6901]])</span>
+                                         <span class="c">!! * 3 -- JSONPath &quot;bracket-notation&quot; (currently only</span>
+                                         <span class="c">!!   used in [[json_get_path]])</span>
 
         <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">path_separator</span> <span class="o">=</span> <span class="n">dot</span> <span class="c">!! The `path` separator to use</span>
                                                          <span class="c">!! in the &quot;default&quot; mode for</span>
@@ -40477,6 +40786,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_get_alloc_string_vec_by_path</span><span class="p">)</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_get_by_path_default</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_get_by_path_rfc6901</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_get_by_path_jsonpath_bracket</span>
 
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">print_to_string</span> <span class="o">=&gt;</span> <span class="n">json_value_to_string</span> <span class="c">!! Print the [[json_value]]</span>
                                                                     <span class="c">!! structure to an allocatable</span>
@@ -40744,6 +41054,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">push_char</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">get_current_line_from_file_stream</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">get_current_line_from_file_sequential</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">convert</span>
 
     <span class="k">end type </span><span class="n">json_core</span>
 </pre></div>
@@ -40786,7 +41097,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-09-13 03:24  
+             on 2017-11-05 13:44  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

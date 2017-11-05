@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 2.3% of total for procedures.">125 statements</a>
+	  title=" 2.6% of total for procedures.">147 statements</a>
      </li> 
      
      
@@ -202,6 +202,8 @@
       <a class="list-group-item" href="../proc/annotate_invalid_json.html">annotate_invalid_json</a>
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
+      
+      <a class="list-group-item" href="../proc/convert.html">convert</a>
       
       <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
       
@@ -382,6 +384,8 @@
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
@@ -796,6 +800,11 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
       will be a blank string.</p></div>
 <p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>If <code>json%path_mode/=1</code>, then the <code>use_alt_array_tokens</code>
       and <code>path_sep</code> inputs are ignored if present.</p></div>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p><a href="JSONPath">http://goessner.net/articles/JsonPath/</a> (<code>path_mode=3</code>)
+      does not specify whether or not the keys should be escaped (this routine
+      assumes not, as does http://jsonpath.com).
+      Also, we are using Fortran-style 1-based array indices,
+      not 0-based, to agree with the assumption in <code>path_mode=1</code></p></div>
     
 
     <h3>Arguments</h3>
@@ -816,7 +825,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E53"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E55"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -831,7 +840,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E20"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E22"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(in),</td>
   <td></td>
   
@@ -846,7 +855,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
 <tr>
   
-  <td><span class="anchor" id="variable-path%7E84"></span>character(kind=CK,len=:),</td>
+  <td><span class="anchor" id="variable-path%7E85"></span>character(kind=CK,len=:),</td>
   <td>intent(out),</td>
   <td></td>
   
@@ -861,7 +870,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
 <tr>
   
-  <td><span class="anchor" id="variable-found%7E82"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-found%7E83"></span>logical(kind=LK),</td>
   <td>intent(out),</td>
   <td>optional</td>
   
@@ -882,7 +891,8 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
   <td></td><td>::</td>
   <td><strong>use_alt_array_tokens</strong></td><td><p>if true, then '()' are used for array elements
- otherwise, '[]' are used [default]</p></td>
+ otherwise, '[]' are used [default]
+ (only used if <code>path_mode=1</code>)</p></td>
   
 </tr>
 
@@ -898,7 +908,8 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
   
   <td></td><td>::</td>
   <td><strong>path_sep</strong></td><td><p>character to use for path separator
- (otherwise use <code>json%path_separator</code>)</p></td>
+ (otherwise use <code>json%path_separator</code>)
+ (only used if <code>path_mode=1</code>)</p></td>
   
 </tr>
 
@@ -1204,15 +1215,18 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span>                 <span class="kd">::</span> <span class="n">found</span> <span class="c">!! true if there were no problems</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">use_alt_array_tokens</span>   <span class="c">!! if true, then &#39;()&#39; are used for array elements</span>
                                                               <span class="c">!! otherwise, &#39;[]&#39; are used [default]</span>
+                                                              <span class="c">!! (only used if `path_mode=1`)</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">path_sep</span>  <span class="c">!! character to use for path separator</span>
                                                               <span class="c">!! (otherwise use `json%path_separator`)</span>
+                                                              <span class="c">!! (only used if `path_mode=1`)</span>
 
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>                   <span class="kd">::</span> <span class="n">tmp</span>            <span class="c">!! for traversing the structure</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>                   <span class="kd">::</span> <span class="n">element</span>        <span class="c">!! for traversing the structure</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>                                <span class="kd">::</span> <span class="n">var_type</span>       <span class="c">!! JSON variable type flag</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span>       <span class="kd">::</span> <span class="n">name</span>           <span class="c">!! variable name</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span>       <span class="kd">::</span> <span class="n">parent_name</span>    <span class="c">!! variable&#39;s parent name</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="n">max_integer_str_len</span><span class="p">)</span> <span class="kd">::</span> <span class="n">istr</span>           <span class="c">!! for integer to string conversion (array indices)</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="n">max_integer_str_len</span><span class="p">)</span> <span class="kd">::</span> <span class="n">istr</span>           <span class="c">!! for integer to string conversion</span>
+                                                                 <span class="c">!! (array indices)</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>                                <span class="kd">::</span> <span class="n">i</span>              <span class="c">!! counter</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>                                <span class="kd">::</span> <span class="n">n_children</span>     <span class="c">!! number of children for parent</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>                                <span class="kd">::</span> <span class="n">use_brackets</span>   <span class="c">!! to use &#39;[]&#39; characters for arrays</span>
@@ -1235,7 +1249,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
 
             <span class="c">!get info about the current variable:</span>
             <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">info</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">path_mode</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span> <span class="k">then</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">path_mode</span><span class="o">==</span><span class="mi">2_IK</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">                </span><span class="n">name</span> <span class="o">=</span> <span class="n">encode_rfc6901</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">end if</span>
 
@@ -1245,7 +1259,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
                 <span class="c">!get info about the parent:</span>
                 <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">info</span><span class="p">(</span><span class="n">tmp</span><span class="p">%</span><span class="n">parent</span><span class="p">,</span><span class="n">var_type</span><span class="o">=</span><span class="n">var_type</span><span class="p">,&amp;</span>
                                <span class="n">n_children</span><span class="o">=</span><span class="n">n_children</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="n">parent_name</span><span class="p">)</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">path_mode</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span> <span class="k">then</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">path_mode</span><span class="o">==</span><span class="mi">2_IK</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">                    </span><span class="n">parent_name</span> <span class="o">=</span> <span class="n">encode_rfc6901</span><span class="p">(</span><span class="n">parent_name</span><span class="p">)</span>
                 <span class="k">end if</span>
 
@@ -1272,10 +1286,20 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
 <span class="k">                        end if</span>
 <span class="k">                    end do</span>
 <span class="k">                    select case</span><span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">path_mode</span><span class="p">)</span>
-                    <span class="k">case</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="k">case</span><span class="p">(</span><span class="mi">3_IK</span><span class="p">)</span>
+                        <span class="c">! JSONPath &quot;bracket-notation&quot;</span>
+                        <span class="c">! example: `$[&#39;key&#39;][1]`</span>
+                        <span class="c">! [note: this uses 1-based indices]</span>
+                        <span class="k">call </span><span class="n">integer_to_string</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">int_fmt</span><span class="p">,</span><span class="n">istr</span><span class="p">)</span>
+                        <span class="k">call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">start_array</span><span class="o">//</span><span class="n">single_quote</span><span class="o">//</span><span class="n">parent_name</span><span class="o">//</span><span class="p">&amp;</span>
+                                         <span class="n">single_quote</span><span class="o">//</span><span class="n">end_array</span><span class="o">//</span><span class="p">&amp;</span>
+                                         <span class="n">start_array</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">istr</span><span class="p">))</span><span class="o">//</span><span class="n">end_array</span><span class="p">,</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="k">case</span><span class="p">(</span><span class="mi">2_IK</span><span class="p">)</span>
+                        <span class="c">! rfc6901</span>
                         <span class="k">call </span><span class="n">integer_to_string</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">int_fmt</span><span class="p">,</span><span class="n">istr</span><span class="p">)</span> <span class="c">! 0-based index</span>
                         <span class="k">call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">parent_name</span><span class="o">//</span><span class="n">slash</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">istr</span><span class="p">)))</span>
-                    <span class="k">case</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">case</span><span class="p">(</span><span class="mi">1_IK</span><span class="p">)</span>
+                        <span class="c">! default</span>
                         <span class="k">call </span><span class="n">integer_to_string</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">int_fmt</span><span class="p">,</span><span class="n">istr</span><span class="p">)</span>
                         <span class="k">if</span> <span class="p">(</span><span class="n">use_brackets</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">                            call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">parent_name</span><span class="o">//</span><span class="n">start_array</span><span class="o">//</span><span class="p">&amp;</span>
@@ -1290,9 +1314,15 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
                 <span class="k">case</span> <span class="p">(</span><span class="n">json_object</span><span class="p">)</span>
 
                     <span class="c">!process parent on the next pass</span>
-                    <span class="k">call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">path_sep</span><span class="p">)</span>
+                    <span class="k">select case</span><span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">path_mode</span><span class="p">)</span>
+                    <span class="k">case</span><span class="p">(</span><span class="mi">3_IK</span><span class="p">)</span>
+                        <span class="k">call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">start_array</span><span class="o">//</span><span class="n">single_quote</span><span class="o">//</span><span class="n">name</span><span class="o">//</span><span class="p">&amp;</span>
+                                         <span class="n">single_quote</span><span class="o">//</span><span class="n">end_array</span><span class="p">,</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="k">case </span><span class="n">default</span>
+                        <span class="k">call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">path_sep</span><span class="p">)</span>
+                    <span class="k">end select</span>
 
-                <span class="k">case </span><span class="n">default</span>
+<span class="k">                case </span><span class="n">default</span>
 
                     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_path: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
                                               <span class="s1">&#39;malformed JSON structure. &#39;</span><span class="o">//</span><span class="p">&amp;</span>
@@ -1304,8 +1334,14 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
 
 <span class="k">            else</span>
                 <span class="c">!the last one:</span>
-                <span class="k">call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">path_sep</span><span class="p">)</span>
-            <span class="k">end if</span>
+                <span class="k">select case</span><span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">path_mode</span><span class="p">)</span>
+                <span class="k">case</span><span class="p">(</span><span class="mi">3_IK</span><span class="p">)</span>
+                    <span class="k">call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">start_array</span><span class="o">//</span><span class="n">single_quote</span><span class="o">//</span><span class="n">name</span><span class="o">//</span><span class="p">&amp;</span>
+                                     <span class="n">single_quote</span><span class="o">//</span><span class="n">end_array</span><span class="p">,</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="k">case </span><span class="n">default</span>
+                    <span class="k">call </span><span class="n">add_to_path</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">path_sep</span><span class="p">)</span>
+                <span class="k">end select</span>
+<span class="k">            end if</span>
 
 <span class="k">            if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">tmp</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span> <span class="k">then</span>
                 <span class="c">!check if the parent is the root:</span>
@@ -1327,10 +1363,14 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
     <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">        </span><span class="n">path</span> <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;&#39;</span>
     <span class="k">else</span>
-<span class="k">        if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">path_mode</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        select case</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">path_mode</span><span class="p">)</span>
+        <span class="k">case</span><span class="p">(</span><span class="mi">3_IK</span><span class="p">)</span>
+            <span class="c">! add the outer level object identifier:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">root</span><span class="o">//</span><span class="n">path</span>
+        <span class="k">case</span><span class="p">(</span><span class="mi">2_IK</span><span class="p">)</span>
             <span class="c">! add the root slash:</span>
             <span class="n">path</span> <span class="o">=</span> <span class="n">slash</span><span class="o">//</span><span class="n">path</span>
-        <span class="k">end if</span>
+        <span class="k">end select</span>
 <span class="k">    end if</span>
 
     <span class="c">!optional output:</span>
@@ -1354,14 +1394,21 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
             <span class="c">!! (ignored if `json%path_mode/=1`)</span>
 
         <span class="k">select case</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">path_mode</span><span class="p">)</span>
-        <span class="k">case</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">case</span><span class="p">(</span><span class="mi">3_IK</span><span class="p">)</span>
+            <span class="c">! in this case, the options are ignored</span>
+            <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span>
+            <span class="k">else</span>
+<span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">path</span>
+            <span class="k">end if</span>
+<span class="k">        case</span><span class="p">(</span><span class="mi">2_IK</span><span class="p">)</span>
             <span class="c">! in this case, the options are ignored</span>
             <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span>
             <span class="k">else</span>
 <span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span><span class="o">//</span><span class="n">slash</span><span class="o">//</span><span class="n">path</span>
             <span class="k">end if</span>
-<span class="k">        case</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">        case</span><span class="p">(</span><span class="mi">1_IK</span><span class="p">)</span>
             <span class="c">! default path format</span>
             <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">allocated</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">                </span><span class="n">path</span> <span class="o">=</span> <span class="n">str</span>
@@ -1400,6 +1447,8 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
       <a class="list-group-item" href="../proc/annotate_invalid_json.html">annotate_invalid_json</a>
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
+      
+      <a class="list-group-item" href="../proc/convert.html">convert</a>
       
       <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
       
@@ -1580,6 +1629,8 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
@@ -1980,7 +2031,7 @@ private subroutine json_get_path(json, p, path, found, use_alt_array_tokens, pat
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-09-13 03:24  
+             on 2017-11-05 13:44  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

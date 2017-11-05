@@ -207,6 +207,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/convert.html">convert</a>
+      
       <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
@@ -386,6 +388,8 @@
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
@@ -800,16 +804,19 @@ private subroutine json_get_by_path_rfc6901(json, me, path, p, found)
 <li><code>case_sensitive_keys</code> = .true.         [this is the default setting]</li>
 </ul>
 <h3 id="example">Example</h3>
-<div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">dat</span><span class="p">,</span><span class="n">p</span>
+<div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">dat</span><span class="p">,</span><span class="n">p</span>
     <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
     <span class="c">!...</span>
+    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">initialize</span><span class="p">(</span><span class="n">path_mode</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="s1">&#39;/data/2/version&#39;</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
 </pre></div>
 
 
 <h3 id="see-also">See also</h3>
 <ul>
-<li><a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a> - alternate version with different path convention.</li>
+<li><a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a></li>
+<li><a href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a></li>
 </ul>
 <h3 id="reference">Reference</h3>
 <ul>
@@ -823,6 +830,8 @@ private subroutine json_get_by_path_rfc6901(json, me, path, p, found)
          (according to the standard, evaluation of non-unique references
          should fail). Like <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>, this one will just return
          the first instance it encounters. This might be changed in the future.</p></div>
+<p></p><div class="alert alert-warning" role="alert"><h4>Warning</h4><p>I think the standard indicates that the input paths should use
+         escaped <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> strings (currently we are assuming they are not escaped).</p></div>
     
 
     <h3>Arguments</h3>
@@ -843,7 +852,7 @@ private subroutine json_get_by_path_rfc6901(json, me, path, p, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E38"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E40"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -858,7 +867,7 @@ private subroutine json_get_by_path_rfc6901(json, me, path, p, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E95"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-me%7E96"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(in),</td>
   <td></td>
   
@@ -873,7 +882,7 @@ private subroutine json_get_by_path_rfc6901(json, me, path, p, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-path%7E77"></span>character(kind=CK,len=*),</td>
+  <td><span class="anchor" id="variable-path%7E78"></span>character(kind=CK,len=*),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -889,7 +898,7 @@ private subroutine json_get_by_path_rfc6901(json, me, path, p, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E17"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E19"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(out),</td>
   <td></td>
   
@@ -905,7 +914,7 @@ private subroutine json_get_by_path_rfc6901(json, me, path, p, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-found%7E75"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-found%7E76"></span>logical(kind=LK),</td>
   <td>intent(out),</td>
   <td>optional</td>
   
@@ -1286,6 +1295,8 @@ private subroutine json_get_by_path_rfc6901(json, me, path, p, found)
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/convert.html">convert</a>
+      
       <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
@@ -1465,6 +1476,8 @@ private subroutine json_get_by_path_rfc6901(json, me, path, p, found)
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
@@ -1865,7 +1878,7 @@ private subroutine json_get_by_path_rfc6901(json, me, path, p, found)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-09-13 03:24  
+             on 2017-11-05 13:44  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

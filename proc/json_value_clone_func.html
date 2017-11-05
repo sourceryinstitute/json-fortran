@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.7% of total for procedures.">36 statements</a>
+	  title=" 0.6% of total for procedures.">36 statements</a>
      </li> 
      
      
@@ -206,6 +206,8 @@
       <a class="list-group-item" href="../proc/annotate_invalid_json.html">annotate_invalid_json</a>
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
+      
+      <a class="list-group-item" href="../proc/convert.html">convert</a>
       
       <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
       
@@ -386,6 +388,8 @@
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
@@ -833,8 +837,8 @@ private recursive subroutine json_value_clone_func(from, to, parent, previous, n
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>to</strong></td><td><p>the clone is put here
- (it must not already be associated)</p></td>
+  <td><strong>to</strong></td><td><p>the clone is put here (it
+ must not already be associated)</p></td>
   
 </tr>
 
@@ -909,7 +913,8 @@ private recursive subroutine json_value_clone_func(from, to, parent, previous, n
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>tail</strong></td><td><p>if "to" is the tail of its parent's children</p></td>
+  <td><strong>tail</strong></td><td><p>if "to" is the tail of
+ its parent's children</p></td>
   
 </tr>
 
@@ -1087,13 +1092,14 @@ private recursive subroutine json_value_clone_func(from, to, parent, previous, n
     <span class="k">implicit none</span>
 
 <span class="k">    type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>          <span class="kd">::</span> <span class="n">from</span>     <span class="c">!! this is the structure to clone</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>          <span class="kd">::</span> <span class="n">to</span>       <span class="c">!! the clone is put here</span>
-                                                  <span class="c">!! (it must not already be associated)</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>          <span class="kd">::</span> <span class="n">to</span>       <span class="c">!! the clone is put here (it</span>
+                                                  <span class="c">!! must not already be associated)</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">parent</span>   <span class="c">!! to%parent</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">previous</span> <span class="c">!! to%previous</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">next</span>     <span class="c">!! to%next</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">children</span> <span class="c">!! to%children</span>
-    <span class="kt">logical</span><span class="p">,</span><span class="k">optional</span>                  <span class="kd">::</span> <span class="n">tail</span>     <span class="c">!! if &quot;to&quot; is the tail of its parent&#39;s children</span>
+    <span class="kt">logical</span><span class="p">,</span><span class="k">optional</span>                  <span class="kd">::</span> <span class="n">tail</span>     <span class="c">!! if &quot;to&quot; is the tail of</span>
+                                                  <span class="c">!! its parent&#39;s children</span>
 
     <span class="k">nullify</span><span class="p">(</span><span class="n">to</span><span class="p">)</span>
 
@@ -1163,6 +1169,8 @@ private recursive subroutine json_value_clone_func(from, to, parent, previous, n
       <a class="list-group-item" href="../proc/annotate_invalid_json.html">annotate_invalid_json</a>
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
+      
+      <a class="list-group-item" href="../proc/convert.html">convert</a>
       
       <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
       
@@ -1343,6 +1351,8 @@ private recursive subroutine json_value_clone_func(from, to, parent, previous, n
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
@@ -1743,7 +1753,7 @@ private recursive subroutine json_value_clone_func(from, to, parent, previous, n
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-09-13 03:24  
+             on 2017-11-05 13:44  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

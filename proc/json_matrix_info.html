@@ -207,6 +207,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/convert.html">convert</a>
+      
       <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
@@ -386,6 +388,8 @@
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
@@ -801,7 +805,8 @@ private subroutine json_matrix_info(json, p, is_matrix, var_type, n_sets, set_si
 <p>The idea here is that if it is a valid matrix, it can be interoperable with
   a Fortran rank 2 array of the same type.</p>
 <h3 id="example">Example</h3>
-<p>The following example is an array with <code>var_type=json_integer</code>, <code>n_sets=3</code>, and <code>set_size=4</code></p>
+<p>The following example is an array with <code>var_type=json_integer</code>,
+  <code>n_sets=3</code>, and <code>set_size=4</code></p>
 <div class="codehilite"><pre><span></span>    <span class="p">{</span>
         <span class="nt">&quot;matrix&quot;</span><span class="p">:</span> <span class="p">[</span>
             <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
@@ -830,7 +835,7 @@ private subroutine json_matrix_info(json, p, is_matrix, var_type, n_sets, set_si
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E62"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E64"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -845,7 +850,7 @@ private subroutine json_matrix_info(json, p, is_matrix, var_type, n_sets, set_si
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E25"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E27"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td></td>
   <td></td>
   
@@ -875,12 +880,13 @@ private subroutine json_matrix_info(json, p, is_matrix, var_type, n_sets, set_si
   
 <tr>
   
-  <td><span class="anchor" id="variable-var_type%7E8"></span>integer(kind=IK),</td>
+  <td><span class="anchor" id="variable-var_type%7E9"></span>integer(kind=IK),</td>
   <td>intent(out),</td>
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td><p>variable type of data in the matrix (if all elements have the same type)</p></td>
+  <td><strong>var_type</strong></td><td><p>variable type of data in the matrix
+ (if all elements have the same type)</p></td>
   
 </tr>
 
@@ -895,7 +901,8 @@ private subroutine json_matrix_info(json, p, is_matrix, var_type, n_sets, set_si
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>n_sets</strong></td><td><p>number of data sets (i.e., matrix rows if using row-major order)</p></td>
+  <td><strong>n_sets</strong></td><td><p>number of data sets (i.e., matrix
+ rows if using row-major order)</p></td>
   
 </tr>
 
@@ -910,7 +917,8 @@ private subroutine json_matrix_info(json, p, is_matrix, var_type, n_sets, set_si
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>set_size</strong></td><td><p>size of each data set (i.e., matrix cols if using row-major order)</p></td>
+  <td><strong>set_size</strong></td><td><p>size of each data set (i.e., matrix
+ cols if using row-major order)</p></td>
   
 </tr>
 
@@ -998,9 +1006,12 @@ private subroutine json_matrix_info(json, p, is_matrix, var_type, n_sets, set_si
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>   <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>         <span class="kd">::</span> <span class="n">p</span>          <span class="c">!! a JSON linked list</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>          <span class="kd">::</span> <span class="n">is_matrix</span>  <span class="c">!! true if it is a valid matrix</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">var_type</span>   <span class="c">!! variable type of data in the matrix (if all elements have the same type)</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">n_sets</span>     <span class="c">!! number of data sets (i.e., matrix rows if using row-major order)</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">set_size</span>   <span class="c">!! size of each data set (i.e., matrix cols if using row-major order)</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">var_type</span>   <span class="c">!! variable type of data in the matrix</span>
+                                                   <span class="c">!! (if all elements have the same type)</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">n_sets</span>     <span class="c">!! number of data sets (i.e., matrix</span>
+                                                   <span class="c">!! rows if using row-major order)</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">set_size</span>   <span class="c">!! size of each data set (i.e., matrix</span>
+                                                   <span class="c">!! cols if using row-major order)</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">name</span> <span class="c">!! variable name</span>
 
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p_row</span>       <span class="c">!! for getting a set</span>
@@ -1115,6 +1126,8 @@ private subroutine json_matrix_info(json, p, is_matrix, var_type, n_sets, set_si
       <a class="list-group-item" href="../proc/annotate_invalid_json.html">annotate_invalid_json</a>
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
+      
+      <a class="list-group-item" href="../proc/convert.html">convert</a>
       
       <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
       
@@ -1295,6 +1308,8 @@ private subroutine json_matrix_info(json, p, is_matrix, var_type, n_sets, set_si
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
@@ -1695,7 +1710,7 @@ private subroutine json_matrix_info(json, p, is_matrix, var_type, n_sets, set_si
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-09-13 03:24  
+             on 2017-11-05 13:44  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

@@ -207,6 +207,8 @@
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
       
+      <a class="list-group-item" href="../proc/convert.html">convert</a>
+      
       <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
       
       <a class="list-group-item" href="../proc/default_comp_ucs4.html">default_comp_ucs4</a>
@@ -386,6 +388,8 @@
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
@@ -823,7 +827,7 @@ private subroutine json_initialize(me, verbose, compact_reals, print_signs, real
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E112"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-me%7E113"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -1180,7 +1184,8 @@ private subroutine json_initialize(me, verbose, compact_reals, print_signs, real
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="kd">::</span> <span class="n">e</span>            <span class="c">!! real exponent digits</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">sgn</span>          <span class="c">!! sign flag: `ss` or `sp`</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">rl_edit_desc</span> <span class="c">!! `G`, `E`, `EN`, or `ES`</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">istat</span>        <span class="c">!! `iostat` flag for write statements</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">istat</span>        <span class="c">!! `iostat` flag for</span>
+                                               <span class="c">!! write statements</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">sgn_prnt</span>     <span class="c">!! print sign flag</span>
 
     <span class="c">!reset exception to false:</span>
@@ -1215,7 +1220,7 @@ private subroutine json_initialize(me, verbose, compact_reals, print_signs, real
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">unescape_strings</span><span class="p">))</span> <span class="p">&amp;</span>
         <span class="n">me</span><span class="p">%</span><span class="n">unescaped_strings</span> <span class="o">=</span> <span class="n">unescape_strings</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">path_mode</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">        if</span> <span class="p">(</span><span class="n">path_mode</span><span class="o">==</span><span class="mi">1_IK</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">path_mode</span><span class="o">==</span><span class="mi">2_IK</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        if</span> <span class="p">(</span><span class="n">path_mode</span><span class="o">==</span><span class="mi">1_IK</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">path_mode</span><span class="o">==</span><span class="mi">2_IK</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">path_mode</span><span class="o">==</span><span class="mi">3_IK</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">            </span><span class="n">me</span><span class="p">%</span><span class="n">path_mode</span> <span class="o">=</span> <span class="n">path_mode</span>
         <span class="k">else</span>
 <span class="k">            </span><span class="n">me</span><span class="p">%</span><span class="n">path_mode</span> <span class="o">=</span> <span class="mi">1_IK</span>  <span class="c">! just to have a valid value</span>
@@ -1328,6 +1333,8 @@ private subroutine json_initialize(me, verbose, compact_reals, print_signs, real
       <a class="list-group-item" href="../proc/annotate_invalid_json.html">annotate_invalid_json</a>
       
       <a class="list-group-item" href="../proc/compact_real_string.html">compact_real_string</a>
+      
+      <a class="list-group-item" href="../proc/convert.html">convert</a>
       
       <a class="list-group-item" href="../proc/decode_rfc6901.html">decode_rfc6901</a>
       
@@ -1508,6 +1515,8 @@ private subroutine json_initialize(me, verbose, compact_reals, print_signs, real
       <a class="list-group-item" href="../proc/json_get_by_path.html">json_get_by_path</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>
+      
+      <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>
       
       <a class="list-group-item" href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>
       
@@ -1908,7 +1917,7 @@ private subroutine json_initialize(me, verbose, compact_reals, print_signs, real
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-09-13 03:24  
+             on 2017-11-05 13:44  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

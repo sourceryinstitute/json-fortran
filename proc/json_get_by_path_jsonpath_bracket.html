@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_parse_file &ndash; JSON-Fortran</title>
+    <title>json_get_by_path_jsonpath_bracket &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -114,7 +114,7 @@
     
   
   <div class="row">
-    <h1>json_parse_file
+    <h1>json_get_by_path_jsonpath_bracket
       <small>Subroutine</small>
     
     </h1>
@@ -124,6 +124,10 @@
 <div class="well well-sm">
   <ul class="list-inline" style="margin-bottom:0px;display:inline">
      
+     <li><i class="fa fa-pencil"></i> Jacob Williams</li>
+     
+     
+    <li><i class="fa fa-calendar-o"></i> 9/2/2017</li>
      
      
      
@@ -132,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.8% of total for procedures.">48 statements</a>
+	  title=" 2.9% of total for procedures.">168 statements</a>
      </li> 
      
      
@@ -145,7 +149,7 @@
   
      <li><a href='../module/json_value_module.html'>json_value_module</a></li>
   
-     <li class="active">json_parse_file</li>
+     <li class="active">json_get_by_path_jsonpath_bracket</li>
   </ol>
 </div>
 </div>
@@ -186,7 +190,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_parse_file.html#src">json_parse_file</a>
+    <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html#src">json_get_by_path_jsonpath_bracket</a>
   </div>
 </div>
 
@@ -780,7 +784,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_parse_file(json, file, p, unit)
+private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, create_it, was_created)
     
     
 	 
@@ -790,29 +794,45 @@ private subroutine json_parse_file(json, file, p, unit)
 
 
     
-    <p>Parse the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file and populate the <a href="../type/json_value.html">json_value</a> tree.</p>
-<h3 id="inputs">Inputs</h3>
-<p>The inputs can be:</p>
-<ul>
-<li><code>file</code> &amp; <code>unit</code> : the specified unit is used to read <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> from file.
-                      [note if unit is already open, then the filename is ignored]</li>
-<li><code>file</code>          : <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> is read from file using internal unit number</li>
-</ul>
+    <p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string,
+  using the "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" path specification defined by the
+  JSONPath "bracket-notation".</p>
+<p>The first character <code>$</code> is optional, and signifies the root
+  of the structure. If it is not present, then the first key
+  is taken to be in the <code>me</code> object.</p>
+<p>Single or double quotes may be used</p>
 <h3 id="example">Example</h3>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">parse</span><span class="p">(</span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;myfile.json&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">dat</span><span class="p">,</span><span class="n">p</span>
+    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
+    <span class="c">!...</span>
+    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">initialize</span><span class="p">(</span><span class="n">path_mode</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="s2">&quot;$[&#39;store&#39;][&#39;book&#39;][1][&#39;title&#39;]&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
 </pre></div>
 
 
-<h3 id="history">History</h3>
+<h3 id="see-also">See also</h3>
 <ul>
-<li>Jacob Williams : 01/13/2015 : added read from string option.</li>
-<li>Izaak Beekman  : 03/08/2015 : moved read from string to separate
-    subroutine, and error annotation to separate subroutine.</li>
+<li><a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a></li>
+<li><a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a></li>
 </ul>
-<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>When calling this routine, any exceptions thrown from previous
-      calls will automatically be cleared.</p></div>
+<h3 id="reference">Reference</h3>
+<ul>
+<li><a href="http://goessner.net/articles/JsonPath/">JSONPath</a></li>
+</ul>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>Uses 1-based array indices (same as <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>,
+      but unlike <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a> which uses 0-based indices).</p></div>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>When <code>create_it=True</code>, if the variable already exists and is a type
+      that is not compatible with the usage in the <code>path</code>, then it is
+      destroyed and replaced with what is specified in the <code>path</code>. Note that
+      this applies the all variables in the path as it is created. Currently,
+      this behavior is different from <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>.</p></div>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p><abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> <code>null</code> values are used here for unknown variables
+      when <code>create_it</code> is True.</p></div>
+<p></p><div class="alert alert-warning" role="alert"><h4>Warning</h4><p>Note that if using single quotes, this routine cannot parse
+         a key containing <code>']</code>. If using double quotes, this routine
+         cannot parse a key containing <code>"]</code>. If the key contains both
+         <code>']</code> and <code>"]</code>, there is no way to parse it using this routine.</p></div>
     
 
     <h3>Arguments</h3>
@@ -833,7 +853,7 @@ private subroutine json_parse_file(json, file, p, unit)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E66"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E39"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -848,12 +868,29 @@ private subroutine json_parse_file(json, file, p, unit)
   
 <tr>
   
-  <td><span class="anchor" id="variable-file"></span>character(kind=CDK,len=*),</td>
+  <td><span class="anchor" id="variable-me%7E95"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-path%7E77"></span>character(kind=CK,len=*),</td>
   <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>file</strong></td><td><p><abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file name</p></td>
+  <td><strong>path</strong></td><td><p>path to the variable
+ (using JSONPath
+ "bracket-notation")</p></td>
   
 </tr>
 
@@ -863,12 +900,13 @@ private subroutine json_parse_file(json, file, p, unit)
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E29"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  <td></td>
+  <td><span class="anchor" id="variable-p%7E18"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(out),</td>
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p</strong></td><td><p>output structure</p></td>
+  <td><strong>p</strong></td><td><p>pointer to the variable
+ specify by <code>path</code></p></td>
   
 </tr>
 
@@ -878,12 +916,49 @@ private subroutine json_parse_file(json, file, p, unit)
   
 <tr>
   
-  <td><span class="anchor" id="variable-unit%7E2"></span>integer(kind=IK),</td>
+  <td><span class="anchor" id="variable-found%7E75"></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td><p>true if it was found</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-create_it%7E2"></span>logical(kind=LK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>unit</strong></td><td><p>file unit number (/= 0)</p></td>
+  <td><strong>create_it</strong></td><td><p>if a variable is not present
+ in the path, then it is created.
+ the leaf node is returned as
+ a <code>null</code> json type and can be
+ changed by the caller.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-was_created%7E38"></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>was_created</strong></td><td><p>if <code>create_it</code> is true, this
+ will be true if the variable
+ was actually created. Otherwise
+ it will be false.</p></td>
   
 </tr>
 
@@ -900,29 +975,68 @@ private subroutine json_parse_file(json, file, p, unit)
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generated by graphviz version 2.36.0 (20140111.2315)
  -->
-<!-- Title: proc~~json_parse_file~~CallsGraph Pages: 1 -->
-<svg id="procjson_parse_fileCallsGraph" width="230pt" height="32pt"
- viewBox="0.00 0.00 230.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="proc~~json_parse_file~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
-<title>proc~~json_parse_file~~CallsGraph</title>
-<polygon fill="white" stroke="none" points="-4,4 -4,-28 226,-28 226,4 -4,4"/>
-<!-- proc~json_parse_file -->
-<g id="proc~~json_parse_file~~CallsGraph_node1" class="node"><title>proc~json_parse_file</title>
-<polygon fill="none" stroke="black" points="85.5,-24 0.5,-24 0.5,-0 85.5,-0 85.5,-24"/>
-<text text-anchor="middle" x="43" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50">json_parse_file</text>
+<!-- Title: proc~~json_get_by_path_jsonpath_bracket~~CallsGraph Pages: 1 -->
+<svg id="procjson_get_by_path_jsonpath_bracketCallsGraph" width="466pt" height="116pt"
+ viewBox="0.00 0.00 466.00 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<title>proc~~json_get_by_path_jsonpath_bracket~~CallsGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-112 462,-112 462,4 -4,4"/>
+<!-- proc~json_get_by_path_jsonpath_bracket -->
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node1" class="node"><title>proc~json_get_by_path_jsonpath_bracket</title>
+<polygon fill="none" stroke="black" points="185.5,-66 0.5,-66 0.5,-42 185.5,-42 185.5,-66"/>
+<text text-anchor="middle" x="93" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50">json_get_by_path_jsonpath_bracket</text>
 </g>
 <!-- proc~json_value_create -->
-<g id="proc~~json_parse_file~~CallsGraph_node2" class="node"><title>proc~json_value_create</title>
-<g id="a_proc~~json_parse_file~~CallsGraph_node2"><a xlink:href="../proc/json_value_create.html" xlink:title="json_value_create">
-<polygon fill="#d9534f" stroke="#d9534f" points="222,-24 122,-24 122,-0 222,-0 222,-24"/>
-<text text-anchor="middle" x="172" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value_create</text>
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node2" class="node"><title>proc~json_value_create</title>
+<g id="a_proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node2"><a xlink:href="../proc/json_value_create.html" xlink:title="json_value_create">
+<polygon fill="#d9534f" stroke="#d9534f" points="322,-108 222,-108 222,-84 322,-84 322,-108"/>
+<text text-anchor="middle" x="272" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value_create</text>
 </a>
 </g>
 </g>
-<!-- proc~json_parse_file&#45;&gt;proc~json_value_create -->
-<g id="proc~~json_parse_file~~CallsGraph_edge1" class="edge"><title>proc~json_parse_file&#45;&gt;proc~json_value_create</title>
-<path fill="none" stroke="#ff0000" d="M85.5845,-12C93.9038,-12 102.795,-12 111.582,-12"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="111.808,-15.5001 121.808,-12 111.808,-8.5001 111.808,-15.5001"/>
+<!-- proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~json_value_create -->
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_edge2" class="edge"><title>proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~json_value_create</title>
+<path fill="none" stroke="#ff0000" d="M144.721,-66.0355C165.716,-71.0174 190.204,-76.828 211.996,-81.9992"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="211.26,-85.4214 221.798,-84.3249 212.876,-78.6106 211.26,-85.4214"/>
+</g>
+<!-- proc~string_to_integer -->
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node3" class="node"><title>proc~string_to_integer</title>
+<g id="a_proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node3"><a xlink:href="../proc/string_to_integer.html" xlink:title="string_to_integer">
+<polygon fill="#d9534f" stroke="#d9534f" points="318.5,-66 225.5,-66 225.5,-42 318.5,-42 318.5,-66"/>
+<text text-anchor="middle" x="272" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">string_to_integer</text>
+</a>
+</g>
+</g>
+<!-- proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~string_to_integer -->
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_edge3" class="edge"><title>proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~string_to_integer</title>
+<path fill="none" stroke="#ff0000" d="M185.611,-54C195.77,-54 205.875,-54 215.388,-54"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="215.454,-57.5001 225.454,-54 215.454,-50.5001 215.454,-57.5001"/>
+</g>
+<!-- proc~to_null -->
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node4" class="node"><title>proc~to_null</title>
+<g id="a_proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node4"><a xlink:href="../proc/to_null.html" xlink:title="to_null">
+<polygon fill="#d9534f" stroke="#d9534f" points="299,-24 245,-24 245,-0 299,-0 299,-24"/>
+<text text-anchor="middle" x="272" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_null</text>
+</a>
+</g>
+</g>
+<!-- proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~to_null -->
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_edge4" class="edge"><title>proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~to_null</title>
+<path fill="none" stroke="#ff0000" d="M144.721,-41.9645C173.58,-35.1167 209.036,-26.7032 235.024,-20.5366"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="235.914,-23.9228 244.835,-18.2085 234.298,-17.1119 235.914,-23.9228"/>
+</g>
+<!-- proc~destroy_json_data -->
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node5" class="node"><title>proc~destroy_json_data</title>
+<g id="a_proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node5"><a xlink:href="../proc/destroy_json_data.html" xlink:title="destroy_json_data">
+<polygon fill="#d9534f" stroke="#d9534f" points="458,-24 358,-24 358,-0 458,-0 458,-24"/>
+<text text-anchor="middle" x="408" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">destroy_json_data</text>
+</a>
+</g>
+</g>
+<!-- proc~to_null&#45;&gt;proc~destroy_json_data -->
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_edge1" class="edge"><title>proc~to_null&#45;&gt;proc~destroy_json_data</title>
+<path fill="none" stroke="#0000ff" d="M299.155,-12C312.968,-12 330.527,-12 347.444,-12"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="347.856,-15.5001 357.856,-12 347.856,-8.5001 347.856,-15.5001"/>
 </g>
 </g>
 </svg>
@@ -1023,7 +1137,7 @@ private subroutine json_parse_file(json, file, p, unit)
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_parse_file.html#src">json_parse_file</a>
+    <a class="list-group-item" href="../proc/json_get_by_path_jsonpath_bracket.html#src">json_get_by_path_jsonpath_bracket</a>
   </div>
 </div>
 
@@ -1051,103 +1165,326 @@ private subroutine json_parse_file(json, file, p, unit)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_parse_file</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="k">file</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_get_by_path_jsonpath_bracket</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">me</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">found</span><span class="p">,</span><span class="n">create_it</span><span class="p">,</span><span class="n">was_created</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>       <span class="kd">::</span> <span class="n">json</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="k">file</span>  <span class="c">!! JSON file name</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>             <span class="kd">::</span> <span class="n">p</span>     <span class="c">!! output structure</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">unit</span>  <span class="c">!! file unit number (/= 0)</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">me</span>          <span class="c">!! a JSON linked list</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">path</span>        <span class="c">!! path to the variable</span>
+                                                        <span class="c">!! (using JSONPath</span>
+                                                        <span class="c">!! &quot;bracket-notation&quot;)</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">p</span>           <span class="c">!! pointer to the variable</span>
+                                                        <span class="c">!! specify by `path`</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span>     <span class="kd">::</span> <span class="n">found</span>       <span class="c">!! true if it was found</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">create_it</span>   <span class="c">!! if a variable is not present</span>
+                                                        <span class="c">!! in the path, then it is created.</span>
+                                                        <span class="c">!! the leaf node is returned as</span>
+                                                        <span class="c">!! a `null` json type and can be</span>
+                                                        <span class="c">!! changed by the caller.</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span>     <span class="kd">::</span> <span class="n">was_created</span> <span class="c">!! if `create_it` is true, this</span>
+                                                        <span class="c">!! will be true if the variable</span>
+                                                        <span class="c">!! was actually created. Otherwise</span>
+                                                        <span class="c">!! it will be false.</span>
 
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">iunit</span>   <span class="c">!! file unit actually used</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">istat</span>   <span class="c">!! iostat flag</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">is_open</span> <span class="c">!! if the file is already open</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">has_duplicate</span>  <span class="c">!! if checking for duplicate keys</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">path</span> <span class="c">!! path to any duplicate key</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">token</span>  <span class="c">!! a token in the path</span>
+                                                   <span class="c">!! (between the `[&#39;&#39;]` or</span>
+                                                   <span class="c">!! `[]` characters)</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">istart</span>             <span class="c">!! location of current &#39;[&#39;</span>
+                                                   <span class="c">!! character in the path</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">iend</span>               <span class="c">!! location of current &#39;]&#39;</span>
+                                                   <span class="c">!! character in the path</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">ival</span>               <span class="c">!! integer array index value</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">status_ok</span>          <span class="c">!! error flag</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">tmp</span>                <span class="c">!! temporary variable for</span>
+                                                   <span class="c">!! traversing the structure</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">i</span>                  <span class="c">!! counter</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">ilen</span>               <span class="c">!! length of `path` string</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">double_quotes</span>      <span class="c">!! if the keys are enclosed in `&quot;`,</span>
+                                                   <span class="c">!! rather than `&#39;` tokens.</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">create</span>             <span class="c">!! if the object is to be created</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">created</span>            <span class="c">!! if `create` is true, then this will be</span>
+                                                   <span class="c">!! true if the leaf object had to be created</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">j</span>                  <span class="c">!! counter of children when creating object</span>
 
-    <span class="c">!clear any exceptions and initialize:</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">initialize</span><span class="p">()</span>
+    <span class="c">!TODO instead of reallocating `token` all the time, just</span>
+    <span class="c">!     allocate a big size and keep track of the length,</span>
+    <span class="c">!     then just reallocate only if necessary.</span>
+    <span class="c">!     [would probably be inefficient if there was a very large token,</span>
+    <span class="c">!     and then a bunch of small ones... but for similarly-sized ones</span>
+    <span class="c">!     it should be way more efficient since it would avoid most</span>
+    <span class="c">!     reallocations.]</span>
 
-    <span class="k">if</span> <span class="p">(</span> <span class="nb">present</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+    <span class="k">nullify</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
-<span class="k">        if</span> <span class="p">(</span><span class="n">unit</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_parse_file: unit number must not be 0.&#39;</span><span class="p">)</span>
-            <span class="k">return</span>
-<span class="k">        end if</span>
+    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
 
-<span class="k">        </span><span class="n">iunit</span> <span class="o">=</span> <span class="n">unit</span>
-
-        <span class="c">!check to see if the file is already open</span>
-        <span class="c">! if it is, then use it, otherwise open the file with the name given.</span>
-        <span class="k">inquire</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="n">is_open</span><span class="p">,</span> <span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">istat</span><span class="o">==</span><span class="mi">0</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">is_open</span><span class="p">)</span> <span class="k">then</span>
-           <span class="c">! open the file</span>
-            <span class="k">open</span> <span class="p">(</span>  <span class="n">unit</span>        <span class="o">=</span> <span class="n">iunit</span><span class="p">,</span> <span class="p">&amp;</span>
-                    <span class="k">file</span>        <span class="o">=</span> <span class="k">file</span><span class="p">,</span> <span class="p">&amp;</span>
-                    <span class="n">status</span>      <span class="o">=</span> <span class="s1">&#39;OLD&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-                    <span class="n">action</span>      <span class="o">=</span> <span class="s1">&#39;READ&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-                    <span class="n">form</span>        <span class="o">=</span> <span class="n">form_spec</span><span class="p">,</span> <span class="p">&amp;</span>
-                    <span class="nb">access</span>      <span class="o">=</span> <span class="n">access_spec</span><span class="p">,</span> <span class="p">&amp;</span>
-                    <span class="n">iostat</span>      <span class="o">=</span> <span class="n">istat</span> <span class="p">&amp;</span>
-                    <span class="n">FILE_ENCODING</span> <span class="p">)</span>
+<span class="k">        if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">create_it</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            </span><span class="n">create</span> <span class="o">=</span> <span class="n">create_it</span>
         <span class="k">else</span>
-            <span class="c">!if the file is already open, then we need to make sure</span>
-            <span class="c">! that it is open with the correct form/access/etc...</span>
+<span class="k">            </span><span class="n">create</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
         <span class="k">end if</span>
 
-<span class="k">    else</span>
+<span class="k">        </span><span class="n">p</span> <span class="o">=&gt;</span> <span class="n">me</span> <span class="c">! initialize</span>
+        <span class="n">created</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
 
-        <span class="c">! open the file with a new unit number:</span>
-        <span class="k">open</span> <span class="p">(</span>  <span class="n">newunit</span>     <span class="o">=</span> <span class="n">iunit</span><span class="p">,</span> <span class="p">&amp;</span>
-                <span class="k">file</span>        <span class="o">=</span> <span class="k">file</span><span class="p">,</span> <span class="p">&amp;</span>
-                <span class="n">status</span>      <span class="o">=</span> <span class="s1">&#39;OLD&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-                <span class="n">action</span>      <span class="o">=</span> <span class="s1">&#39;READ&#39;</span><span class="p">,</span> <span class="p">&amp;</span>
-                <span class="n">form</span>        <span class="o">=</span> <span class="n">form_spec</span><span class="p">,</span> <span class="p">&amp;</span>
-                <span class="nb">access</span>      <span class="o">=</span> <span class="n">access_spec</span><span class="p">,</span> <span class="p">&amp;</span>
-                <span class="n">iostat</span>      <span class="o">=</span> <span class="n">istat</span> <span class="p">&amp;</span>
-                <span class="n">FILE_ENCODING</span> <span class="p">)</span>
-
-    <span class="k">end if</span>
-
-<span class="k">    if</span> <span class="p">(</span><span class="n">istat</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
-
-        <span class="c">! create the value and associate the pointer</span>
-        <span class="k">call </span><span class="n">json_value_create</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-
-        <span class="c">! Note: the name of the root json_value doesn&#39;t really matter,</span>
-        <span class="c">!  but we&#39;ll allocate something here just in case.</span>
-        <span class="n">p</span><span class="p">%</span><span class="n">name</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="k">file</span><span class="p">)</span>  <span class="c">!use the file name</span>
-
-        <span class="c">! parse as a value</span>
-        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">parse_value</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,</span> <span class="n">str</span><span class="o">=</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="k">value</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
-
-        <span class="c">! close the file if necessary</span>
-        <span class="k">close</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,</span> <span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span>
-
-        <span class="c">! check for errors:</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">annotate_invalid_json</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="o">==</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_by_path_jsonpath_bracket: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                      <span class="s1">&#39;invalid path specification: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
         <span class="k">else</span>
-<span class="k">            if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">allow_duplicate_keys</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">check_for_duplicate_keys</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">has_duplicate</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
-                <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">                    if</span> <span class="p">(</span><span class="n">has_duplicate</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_parse_file: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                                  <span class="s1">&#39;Duplicate key found: &#39;</span><span class="o">//</span><span class="n">path</span><span class="p">)</span>
-                    <span class="k">end if</span>
+
+<span class="k">            if</span> <span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="n">root</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">path</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="n">start_array</span><span class="p">)</span> <span class="k">then</span> <span class="c">! the first character must be</span>
+                                                                  <span class="c">! a `$` (root) or a `[`</span>
+                                                                  <span class="c">! (element of `me`)</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="n">root</span><span class="p">)</span> <span class="k">then</span>
+                    <span class="c">! go to the root</span>
+                    <span class="k">do while</span> <span class="p">(</span><span class="nb">associated</span> <span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span>
+                        <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">parent</span>
+                    <span class="k">end do</span>
+<span class="k">                    if</span> <span class="p">(</span><span class="n">create</span><span class="p">)</span> <span class="n">created</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span> <span class="c">! should always exist</span>
+                <span class="k">end if</span>
+
+                <span class="c">!path length (don&#39;t need trailing spaces:)</span>
+                <span class="n">ilen</span> <span class="o">=</span> <span class="nb">len_trim</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">ilen</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
+
+<span class="k">                    </span><span class="n">istart</span> <span class="o">=</span> <span class="mi">2</span>   <span class="c">! initialize first &#39;[&#39; location index</span>
+
+                    <span class="k">do</span>
+
+<span class="k">                        if</span> <span class="p">(</span><span class="n">istart</span><span class="o">&gt;</span><span class="n">ilen</span><span class="p">)</span> <span class="k">exit</span>  <span class="c">! finished</span>
+
+                        <span class="c">! must be the next start bracket:</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="p">:</span><span class="n">istart</span><span class="p">)</span> <span class="o">/=</span> <span class="n">start_array</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                                    <span class="s1">&#39;Error in json_get_by_path_jsonpath_bracket: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                    <span class="s1">&#39;expecting &quot;[&quot;, found: &quot;&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="p">:</span><span class="n">istart</span><span class="p">))</span><span class="o">//</span><span class="p">&amp;</span>
+                                    <span class="s1">&#39;&quot; in path: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                            <span class="k">exit</span>
+<span class="k">                        end if</span>
+
+                        <span class="c">! get the next token by checking:</span>
+                        <span class="c">!</span>
+                        <span class="c">! * [&#39;&#39;] -- is the token after istart a quote?</span>
+                        <span class="c">!           if so, then search for the next `&#39;]`</span>
+                        <span class="c">!</span>
+                        <span class="c">! * [1] -- if not, then maybe it is a number,</span>
+                        <span class="c">!          so search for the next `]`</span>
+
+                        <span class="c">! verify length of remaining string</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">2</span><span class="o">&lt;=</span><span class="n">ilen</span><span class="p">)</span> <span class="k">then</span>
+
+<span class="k">                            </span><span class="n">double_quotes</span> <span class="o">=</span> <span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">quotation_mark</span>   <span class="c">! [&quot;</span>
+
+                            <span class="k">if</span> <span class="p">(</span><span class="n">double_quotes</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="n">single_quote</span><span class="p">)</span> <span class="k">then</span>  <span class="c">! [&#39;</span>
+
+                                <span class="c">! it might be a key value: [&#39;abc&#39;]</span>
+
+                                <span class="n">istart</span> <span class="o">=</span> <span class="n">istart</span> <span class="o">+</span> <span class="mi">1</span> <span class="c">! move counter to &#39; index</span>
+                                <span class="k">if</span> <span class="p">(</span><span class="n">double_quotes</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                                    </span><span class="n">iend</span> <span class="o">=</span> <span class="n">istart</span> <span class="o">+</span> <span class="nb">index</span><span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">ilen</span><span class="p">),&amp;</span>
+                                           <span class="n">quotation_mark</span><span class="o">//</span><span class="n">end_array</span><span class="p">)</span>  <span class="c">! &quot;]</span>
+                                <span class="k">else</span>
+<span class="k">                                    </span><span class="n">iend</span> <span class="o">=</span> <span class="n">istart</span> <span class="o">+</span> <span class="nb">index</span><span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">ilen</span><span class="p">),&amp;</span>
+                                           <span class="n">single_quote</span><span class="o">//</span><span class="n">end_array</span><span class="p">)</span>  <span class="c">! &#39;]</span>
+                                <span class="k">end if</span>
+<span class="k">                                if</span> <span class="p">(</span><span class="n">iend</span><span class="o">&gt;</span><span class="n">istart</span><span class="p">)</span> <span class="k">then</span>
+
+                                    <span class="c">!     istart  iend</span>
+                                    <span class="c">!       |       |</span>
+                                    <span class="c">! [&#39;p&#39;][&#39;abcdefg&#39;]</span>
+
+                                    <span class="k">if</span> <span class="p">(</span><span class="n">iend</span><span class="o">&gt;</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                                        </span><span class="n">token</span> <span class="o">=</span> <span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">iend</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                                    <span class="k">else</span>
+<span class="k">                                        </span><span class="n">token</span> <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;&#39;</span>  <span class="c">! blank string</span>
+                                    <span class="k">end if</span>
+                                    <span class="c">! remove trailing spaces in</span>
+                                    <span class="c">! the token here if necessary:</span>
+                                    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">trailing_spaces_significant</span><span class="p">)</span> <span class="p">&amp;</span>
+                                        <span class="n">token</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+                                    <span class="k">if</span> <span class="p">(</span><span class="n">create</span><span class="p">)</span> <span class="k">then</span>
+                                        <span class="c">! have a token, create it if necessary</span>
+
+                                        <span class="c">! we need to convert it into an object here</span>
+                                        <span class="c">! (e.g., if p was also just created)</span>
+                                        <span class="c">! and destroy its data to prevent a memory leak</span>
+                                        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">convert</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">json_object</span><span class="p">)</span>
+
+                                        <span class="c">! don&#39;t want to throw exceptions in this case</span>
+                                        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get_child</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">token</span><span class="p">,</span><span class="n">tmp</span><span class="p">,</span><span class="n">status_ok</span><span class="p">)</span>
+                                        <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">status_ok</span><span class="p">)</span> <span class="k">then</span>
+                                            <span class="c">! have to create this child</span>
+                                            <span class="c">! [make it a null since we don&#39;t</span>
+                                            <span class="c">! know what it is yet]</span>
+                                            <span class="k">call </span><span class="n">json_value_create</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                                            <span class="k">call </span><span class="n">to_null</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span><span class="n">token</span><span class="p">)</span>
+                                            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">tmp</span><span class="p">)</span>
+                                            <span class="n">status_ok</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+                                            <span class="n">created</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+                                        <span class="k">else</span>
+                                            <span class="c">! it was already there.</span>
+                                            <span class="n">created</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                                        <span class="k">end if</span>
+<span class="k">                                    else</span>
+                                        <span class="c">! have a token, see if it is valid:</span>
+                                        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get_child</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">token</span><span class="p">,</span><span class="n">tmp</span><span class="p">,</span><span class="n">status_ok</span><span class="p">)</span>
+                                    <span class="k">end if</span>
+
+<span class="k">                                    if</span> <span class="p">(</span><span class="n">status_ok</span><span class="p">)</span> <span class="k">then</span>
+                                        <span class="c">! it was found</span>
+                                        <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">tmp</span>
+                                    <span class="k">else</span>
+<span class="k">                                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                                                <span class="s1">&#39;Error in json_get_by_path_jsonpath_bracket: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                                <span class="s1">&#39;invalid token found: &quot;&#39;</span><span class="o">//</span><span class="n">token</span><span class="o">//</span><span class="p">&amp;</span>
+                                                <span class="s1">&#39;&quot; in path: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                                        <span class="k">exit</span>
+<span class="k">                                    end if</span>
+<span class="k">                                    </span><span class="n">iend</span> <span class="o">=</span> <span class="n">iend</span> <span class="o">+</span> <span class="mi">1</span> <span class="c">! move counter to ] index</span>
+                                <span class="k">else</span>
+<span class="k">                                    call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                                            <span class="s1">&#39;Error in json_get_by_path_jsonpath_bracket: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                            <span class="s1">&#39;invalid path: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                                    <span class="k">exit</span>
+<span class="k">                                end if</span>
+
+<span class="k">                            else</span>
+
+                                <span class="c">! it might be an integer value: [123]</span>
+
+                                <span class="n">iend</span> <span class="o">=</span> <span class="n">istart</span> <span class="o">+</span> <span class="nb">index</span><span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">ilen</span><span class="p">),</span><span class="n">end_array</span><span class="p">)</span>   <span class="c">! ]</span>
+                                <span class="k">if</span> <span class="p">(</span><span class="n">iend</span><span class="o">&gt;</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
+
+                                    <span class="c">! this should be an integer:</span>
+                                    <span class="n">token</span> <span class="o">=</span> <span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">iend</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+                                    <span class="c">! verify that there are no spaces or other</span>
+                                    <span class="c">! characters in the string:</span>
+                                    <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+                                        <span class="c">! It must only contain (0..9) characters</span>
+                                        <span class="c">! (it must be unsigned)</span>
+                                        <span class="k">if</span> <span class="p">(</span><span class="nb">scan</span><span class="p">(</span><span class="n">token</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">),</span><span class="n">CK_</span><span class="s1">&#39;0123456789&#39;</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                                            </span><span class="n">status_ok</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                                            <span class="k">exit</span>
+<span class="k">                                        end if</span>
+<span class="k">                                    end do</span>
+<span class="k">                                    if</span> <span class="p">(</span><span class="n">status_ok</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                                        call </span><span class="n">string_to_integer</span><span class="p">(</span><span class="n">token</span><span class="p">,</span><span class="n">ival</span><span class="p">,</span><span class="n">status_ok</span><span class="p">)</span>
+                                        <span class="k">if</span> <span class="p">(</span><span class="n">status_ok</span><span class="p">)</span> <span class="n">status_ok</span> <span class="o">=</span> <span class="n">ival</span><span class="o">&gt;</span><span class="mi">0</span>  <span class="c">! assuming 1-based array indices</span>
+                                    <span class="k">end if</span>
+
+<span class="k">                                    if</span> <span class="p">(</span><span class="n">status_ok</span><span class="p">)</span> <span class="k">then</span>
+
+                                        <span class="c">! have a valid integer to use as an index</span>
+                                        <span class="c">! see if this element is really there:</span>
+                                        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get_child</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">ival</span><span class="p">,</span><span class="n">tmp</span><span class="p">,</span><span class="n">status_ok</span><span class="p">)</span>
+
+                                        <span class="k">if</span> <span class="p">(</span><span class="n">create</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">status_ok</span><span class="p">)</span> <span class="k">then</span>
+
+                                            <span class="c">! have to create it:</span>
+
+                                            <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.(</span><span class="n">p</span><span class="p">%</span><span class="n">var_type</span><span class="o">==</span><span class="n">json_object</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">p</span><span class="p">%</span><span class="n">var_type</span><span class="o">==</span><span class="n">json_array</span><span class="p">))</span> <span class="k">then</span>
+                                                <span class="c">! we need to convert it into an array here</span>
+                                                <span class="c">! (e.g., if p was also just created)</span>
+                                                <span class="c">! and destroy its data to prevent a memory leak</span>
+                                                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">convert</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">json_array</span><span class="p">)</span>
+                                            <span class="k">end if</span>
+
+                                            <span class="c">! have to create this element</span>
+                                            <span class="c">! [make it a null]</span>
+                                            <span class="c">! (and any missing ones before it)</span>
+                                            <span class="k">do </span><span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ival</span>
+                                                <span class="k">nullify</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                                                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get_child</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">tmp</span><span class="p">,</span> <span class="n">status_ok</span><span class="p">)</span>
+                                                <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">status_ok</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                                                    call </span><span class="n">json_value_create</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                                                    <span class="k">call </span><span class="n">to_null</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>  <span class="c">! array element doesn&#39;t need a name</span>
+                                                    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">tmp</span><span class="p">)</span>
+                                                    <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">==</span><span class="n">ival</span><span class="p">)</span> <span class="n">created</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+                                                <span class="k">else</span>
+<span class="k">                                                    if</span> <span class="p">(</span><span class="n">j</span><span class="o">==</span><span class="n">ival</span><span class="p">)</span> <span class="n">created</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                                                <span class="k">end if</span>
+<span class="k">                                            end do</span>
+<span class="k">                                            </span><span class="n">status_ok</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+
+                                        <span class="k">else</span>
+<span class="k">                                            </span><span class="n">created</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                                        <span class="k">end if</span>
+
+<span class="k">                                        if</span> <span class="p">(</span><span class="n">status_ok</span><span class="p">)</span> <span class="k">then</span>
+                                            <span class="c">! found it</span>
+                                            <span class="n">p</span> <span class="o">=&gt;</span> <span class="n">tmp</span>
+                                        <span class="k">else</span>
+                                            <span class="c">! not found</span>
+                                            <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                                                    <span class="s1">&#39;Error in json_get_by_path_jsonpath_bracket: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                                    <span class="s1">&#39;invalid array index found: &quot;&#39;</span><span class="o">//</span><span class="n">token</span><span class="o">//</span><span class="p">&amp;</span>
+                                                    <span class="s1">&#39;&quot; in path: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                                            <span class="k">exit</span>
+<span class="k">                                        end if</span>
+<span class="k">                                    else</span>
+<span class="k">                                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                                                <span class="s1">&#39;Error in json_get_by_path_jsonpath_bracket: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                                <span class="s1">&#39;invalid token: &quot;&#39;</span><span class="o">//</span><span class="n">token</span><span class="o">//</span><span class="p">&amp;</span>
+                                                <span class="s1">&#39;&quot; in path: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                                        <span class="k">exit</span>
+<span class="k">                                    end if</span>
+
+<span class="k">                                else</span>
+<span class="k">                                    call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                                            <span class="s1">&#39;Error in json_get_by_path_jsonpath_bracket: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                            <span class="s1">&#39;invalid path: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                                    <span class="k">exit</span>
+<span class="k">                                end if</span>
+
+<span class="k">                            end if</span>
+
+<span class="k">                        else</span>
+<span class="k">                            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                                    <span class="s1">&#39;Error in json_get_by_path_jsonpath_bracket: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                    <span class="s1">&#39;invalid path: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                            <span class="k">exit</span>
+<span class="k">                        end if</span>
+
+                        <span class="c">! set up for next token:</span>
+                        <span class="n">istart</span> <span class="o">=</span> <span class="n">iend</span> <span class="o">+</span> <span class="mi">1</span>
+
+                    <span class="k">end do</span>
+
 <span class="k">                end if</span>
-<span class="k">            end if</span>
+
+<span class="k">            else</span>
+<span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(&amp;</span>
+                        <span class="s1">&#39;Error in json_get_by_path_jsonpath_bracket: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                        <span class="s1">&#39;expecting &quot;&#39;</span><span class="o">//</span><span class="n">root</span><span class="o">//</span><span class="s1">&#39;&quot;, found: &quot;&#39;</span><span class="o">//</span><span class="n">path</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="p">&amp;</span>
+                        <span class="s1">&#39;&quot; in path: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+            <span class="k">end if</span>
+
 <span class="k">        end if</span>
 
-<span class="k">    else</span>
+<span class="k">        if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">            nullify</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                </span><span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">clear_exceptions</span><span class="p">()</span>
+            <span class="k">end if</span>
+<span class="k">        else</span>
+<span class="k">            if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+        <span class="k">end if</span>
 
-<span class="k">        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_parse_file: Error opening file: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="k">file</span><span class="p">))</span>
-        <span class="k">nullify</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="c">! if it had to be created:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">was_created</span><span class="p">))</span> <span class="n">was_created</span> <span class="o">=</span> <span class="n">created</span>
 
+    <span class="k">else</span>
+<span class="k">        if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">was_created</span><span class="p">))</span> <span class="n">was_created</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
     <span class="k">end if</span>
 
-<span class="k">    end subroutine </span><span class="n">json_parse_file</span>
+<span class="k">    end subroutine </span><span class="n">json_get_by_path_jsonpath_bracket</span>
 </pre></div>
 
     </section>
