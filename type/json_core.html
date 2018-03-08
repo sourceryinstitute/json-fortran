@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>68.4% of total for derived types.</p>Including implementation: 7182 statements, 84.9% of total for derived types.">177 statements</a>
+	  title="<p>68.6% of total for derived types.</p>Including implementation: 7186 statements, 84.8% of total for derived types.">178 statements</a>
      </li> 
      
      
@@ -185,6 +185,8 @@
       <a class="list-group-item" href="../type/json_core.html#variable-compress_vectors">compress_vectors</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-err_message">err_message</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#variable-escape_solidus">escape_solidus</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-exception_thrown">exception_thrown</a>
       
@@ -813,6 +815,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#variable-err_message">err_message</a>
       
+      <a class="list-group-item" href="../type/json_core.html#variable-escape_solidus">escape_solidus</a>
+      
       <a class="list-group-item" href="../type/json_core.html#variable-exception_thrown">exception_thrown</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-ipos">ipos</a>
@@ -1435,6 +1439,25 @@
   
 <tr>
   
+  <td><span class="anchor" id="variable-escape_solidus"></span>logical(kind=LK),</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>escape_solidus</strong></td><td> =</td><td>.false.</td><td><p>If True then the solidus "<code>/</code>" is always escaped
+ ("<code>\/</code>") when serializing <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>.
+ If False [default], then it is not escaped.
+ Note that this option does not affect parsing
+ (both escaped and unescaped versions are still
+ valid in all cases).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
   <td><span class="anchor" id="variable-exception_thrown"></span>logical(kind=LK),</td>
   
   <td>private</td>
@@ -1689,7 +1712,7 @@
     
     
     <h3>
-private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys) result(json_core_object)
+private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus) result(json_core_object)
     
     
 	 
@@ -1983,6 +2006,21 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   
   <td></td><td>::</td>
   <td><strong>allow_duplicate_keys</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>escape_solidus</strong></td><td></td>
   
 </tr>
 
@@ -16749,7 +16787,7 @@ private subroutine <a href='../proc/wrap_json_info_by_path.html'>wrap_json_info_
          
     
     <h3>
-private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys)
+private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus)
     
     
 	 
@@ -17057,6 +17095,21 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me
   
   <td></td><td>::</td>
   <td><strong>allow_duplicate_keys</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>escape_solidus</strong></td><td></td>
   
 </tr>
 
@@ -40587,6 +40640,13 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
                                                      <span class="c">!! will also check for duplicates. If True</span>
                                                      <span class="c">!! [default] then no special checks are done</span>
 
+        <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">escape_solidus</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>   <span class="c">!! If True then the solidus &quot;`/`&quot; is always escaped</span>
+                                                  <span class="c">!! (&quot;`\/`&quot;) when serializing JSON.</span>
+                                                  <span class="c">!! If False [default], then it is not escaped.</span>
+                                                  <span class="c">!! Note that this option does not affect parsing</span>
+                                                  <span class="c">!! (both escaped and unescaped versions are still</span>
+                                                  <span class="c">!! valid in all cases).</span>
+
         <span class="k">contains</span>
 
 <span class="k">        private</span>
@@ -41092,12 +41152,12 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2018 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-11-05 15:30  
+             on 2018-03-08 19:27  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 1.1% of total for procedures.">61 statements</a>
+	  title=" 1.3% of total for procedures.">74 statements</a>
      </li> 
      
      
@@ -784,7 +784,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-public subroutine escape_string(str_in, str_out)
+public subroutine escape_string(str_in, str_out, escape_solidus)
     
     
 	 
@@ -836,6 +836,22 @@ public subroutine escape_string(str_in, str_out)
   
   <td>allocatable</td><td>::</td>
   <td><strong>str_out</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-escape_solidus%7E4"></span>logical(kind=LK),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>escape_solidus</strong></td><td><p>if the solidus (forward slash)
+ is also to be escaped</p></td>
   
 </tr>
 
@@ -1118,12 +1134,14 @@ public subroutine escape_string(str_in, str_out)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">escape_string</span><span class="p">(</span><span class="n">str_in</span><span class="p">,</span> <span class="n">str_out</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">escape_string</span><span class="p">(</span><span class="n">str_in</span><span class="p">,</span> <span class="n">str_out</span><span class="p">,</span> <span class="n">escape_solidus</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
 <span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">str_in</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str_out</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">escape_solidus</span>  <span class="c">!! if the solidus (forward slash)</span>
+                                              <span class="c">!! is also to be escaped</span>
 
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">i</span>    <span class="c">!! counter</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ipos</span> <span class="c">!! accumulated string size</span>
@@ -1133,20 +1151,29 @@ public subroutine escape_string(str_in, str_out)
 <span class="cp">#if defined __GFORTRAN__</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">tmp</span> <span class="c">!! workaround for bug in gfortran 6.1</span>
 <span class="cp">#endif</span>
+    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">to_be_escaped</span> <span class="c">!! if there are characters to be escaped</span>
 
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">specials</span> <span class="o">=</span> <span class="n">quotation_mark</span><span class="o">//</span><span class="p">&amp;</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">specials_no_slash</span> <span class="o">=</span> <span class="n">quotation_mark</span><span class="o">//</span><span class="p">&amp;</span>
                                                      <span class="n">backslash</span><span class="o">//</span><span class="p">&amp;</span>
-                                                     <span class="n">slash</span><span class="o">//</span><span class="p">&amp;</span>
                                                      <span class="n">bspace</span><span class="o">//</span><span class="p">&amp;</span>
                                                      <span class="n">formfeed</span><span class="o">//</span><span class="p">&amp;</span>
                                                      <span class="n">newline</span><span class="o">//</span><span class="p">&amp;</span>
                                                      <span class="n">carriage_return</span><span class="o">//</span><span class="p">&amp;</span>
                                                      <span class="n">horizontal_tab</span>
 
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">specials</span> <span class="o">=</span> <span class="n">specials_no_slash</span><span class="o">//</span><span class="n">slash</span>
+
+
     <span class="c">!Do a quick scan for the special characters,</span>
     <span class="c">! if any are present, then process the string,</span>
     <span class="c">! otherwise, return the string as is.</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">scan</span><span class="p">(</span><span class="n">str_in</span><span class="p">,</span><span class="n">specials</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">escape_solidus</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        </span><span class="n">to_be_escaped</span> <span class="o">=</span> <span class="nb">scan</span><span class="p">(</span><span class="n">str_in</span><span class="p">,</span><span class="n">specials</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span>
+    <span class="k">else</span>
+<span class="k">        </span><span class="n">to_be_escaped</span> <span class="o">=</span> <span class="nb">scan</span><span class="p">(</span><span class="n">str_in</span><span class="p">,</span><span class="n">specials_no_slash</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span>
+    <span class="k">end if</span>
+
+<span class="k">    if</span> <span class="p">(</span><span class="n">to_be_escaped</span><span class="p">)</span> <span class="k">then</span>
 
 <span class="k">        </span><span class="n">str_out</span> <span class="o">=</span> <span class="nb">repeat</span><span class="p">(</span><span class="n">space</span><span class="p">,</span><span class="n">chunk_size</span><span class="p">)</span>
         <span class="n">ipos</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1176,10 +1203,15 @@ public subroutine escape_string(str_in, str_out)
 <span class="k">                </span><span class="n">str_out</span><span class="p">(</span><span class="n">ipos</span><span class="p">:</span><span class="n">ipos</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">backslash</span><span class="o">//</span><span class="n">c</span>
                 <span class="n">ipos</span> <span class="o">=</span> <span class="n">ipos</span> <span class="o">+</span> <span class="mi">2</span>
 
-            <span class="k">case</span><span class="p">(</span><span class="n">quotation_mark</span><span class="p">,</span><span class="n">slash</span><span class="p">)</span>
+            <span class="k">case</span><span class="p">(</span><span class="n">quotation_mark</span><span class="p">)</span>
                 <span class="n">str_out</span><span class="p">(</span><span class="n">ipos</span><span class="p">:</span><span class="n">ipos</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">backslash</span><span class="o">//</span><span class="n">c</span>
                 <span class="n">ipos</span> <span class="o">=</span> <span class="n">ipos</span> <span class="o">+</span> <span class="mi">2</span>
-            <span class="k">case</span><span class="p">(</span><span class="n">bspace</span><span class="p">)</span>
+            <span class="k">case</span><span class="p">(</span><span class="n">slash</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">escape_solidus</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">str_out</span><span class="p">(</span><span class="n">ipos</span><span class="p">:</span><span class="n">ipos</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">backslash</span><span class="o">//</span><span class="n">c</span>
+                    <span class="n">ipos</span> <span class="o">=</span> <span class="n">ipos</span> <span class="o">+</span> <span class="mi">2</span>
+                <span class="k">end if</span>
+<span class="k">            case</span><span class="p">(</span><span class="n">bspace</span><span class="p">)</span>
                 <span class="n">str_out</span><span class="p">(</span><span class="n">ipos</span><span class="p">:</span><span class="n">ipos</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;\b&#39;</span>
                 <span class="n">ipos</span> <span class="o">=</span> <span class="n">ipos</span> <span class="o">+</span> <span class="mi">2</span>
             <span class="k">case</span><span class="p">(</span><span class="n">formfeed</span><span class="p">)</span>
@@ -1822,12 +1854,12 @@ public subroutine escape_string(str_in, str_out)
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2017 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2018 </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2017-11-05 15:30  
+             on 2018-03-08 19:27  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
