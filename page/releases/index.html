@@ -148,6 +148,7 @@
 <li><a href="#changes-between-releases">Changes Between Releases</a><ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#620-2018-03-10">6.2.0 (2018-03-10)</a></li>
 <li><a href="#610-2017-11-05">6.1.0 (2017-11-05)</a></li>
 <li><a href="#600-2017-08-24">6.0.0 (2017-08-24)</a></li>
 <li><a href="#530-2017-04-07">5.3.0 (2017-04-07)</a></li>
@@ -178,7 +179,7 @@ of the <code>master</code> branch, please head back to the
 <a href="../../index.html">main page</a>.</p>
 <h2 id="latest-stable-release">Latest Stable Release</h2>
 <p><strong>Documentation:</strong>
-<a href="http://jacobwilliams.github.io/json-fortran/6.1.0/index.html">6.1.0</a></p>
+<a href="http://jacobwilliams.github.io/json-fortran/6.2.0/index.html">6.2.0</a></p>
 <p><strong>Download:</strong>
 <a href="https://github.com/jacobwilliams/json-fortran/releases/latest">https://github.com/jacobwilliams/json-fortran/releases/latest</a></p>
 <h2 id="past-releases">Past Releases</h2>
@@ -187,6 +188,11 @@ documentation from the documentation for official releases other than
 using the browser's back button. Feel free to bookmark this page, or
 the <a href="../../index.html">main project page</a> for convenient navigation.</p>
 <ul>
+<li><a href="http://jacobwilliams.github.io/json-fortran/6.2.0/index.html">6.2.0</a>
+   (<a href="https://github.com/cmacmackin/ford">FORD</a> generated documentation)<ul>
+<li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.2.0">Download</a></li>
+</ul>
+</li>
 <li><a href="http://jacobwilliams.github.io/json-fortran/6.1.0/index.html">6.1.0</a>
    (<a href="https://github.com/cmacmackin/ford">FORD</a> generated documentation)<ul>
 <li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.1.0">Download</a></li>
@@ -275,7 +281,7 @@ the <a href="../../index.html">main project page</a> for convenient navigation.<
 </ul>
 <h1 id="development-version">Development Version</h1>
 <p>Documentation for the latest development version may be found at
-<a href="https://jacobwilliams.github.io/json-fortran/6.1.0/index.html">https://jacobwilliams.github.io/json-fortran/6.1.0/index.html</a>
+<a href="https://jacobwilliams.github.io/json-fortran/6.2.0/index.html">https://jacobwilliams.github.io/json-fortran/6.2.0/index.html</a>
 or generated locally using the
 <a href="../../page/development-resources/build.sh.html">build.sh</a> build
 script.</p>
@@ -287,6 +293,7 @@ implemented between each release.</p>
 <ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#620-2018-03-10">6.2.0 (2018-03-10)</a></li>
 <li><a href="#610-2017-11-05">6.1.0 (2017-11-05)</a></li>
 <li><a href="#600-2017-08-24">6.0.0 (2017-08-24)</a></li>
 <li><a href="#530-2017-04-07">5.3.0 (2017-04-07)</a></li>
@@ -308,7 +315,20 @@ implemented between each release.</p>
 </li>
 </ul>
 <h3 id="unreleased"><a href="https://github.com/jacobwilliams/json-fortran/tree/HEAD">Unreleased</a></h3>
-<p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.1.0...HEAD">Complete Changeset</a></p>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.2.0...HEAD">Complete Changeset</a></p>
+<h3 id="620-2018-03-10"><a href="https://github.com/jacobwilliams/json-fortran/tree/6.2.0">6.2.0</a> (2018-03-10)</h3>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.1.0...6.2.0">Complete Changeset</a>
+or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.2.0">Download v6.2.0</a></p>
+<p><strong>Enhancements:</strong></p>
+<ul>
+<li>Allow the unit tests to be run from within the Visual Studio solution <a href="https://github.com/jacobwilliams/json-fortran/issues/295">#295</a> (<a href="https://github.com/Hugh-walsh">Hugh-walsh</a>, <a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Compiling now works for the CMake-produced Visual Studio solution on Windows (note that the CMake-produced solution is a bit different from the other one provided). <a href="https://github.com/jacobwilliams/json-fortran/issues/70">#70</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/309">#309</a> (<a href="https://github.com/handrake0724">handrake0724</a>, <a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added a new option <code>escape_solidus</code> to specify if the forward slash ("<code>/</code>") is to be escaped when serializing <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>. By default, it is no longer escaped (this changes the behavior introduced in 6.0.0) <a href="https://github.com/jacobwilliams/json-fortran/issues/304">#304</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/305">#305</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
+<p><strong>Fixed issues:</strong></p>
+<ul>
+<li>Fixed an issue causing a problem with the NAG compiler <a href="https://github.com/jacobwilliams/json-fortran/issues/303">#303</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
 <h3 id="610-2017-11-05"><a href="https://github.com/jacobwilliams/json-fortran/tree/6.1.0">6.1.0</a> (2017-11-05)</h3>
 <p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.0.0...6.1.0">Complete Changeset</a>
 or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.1.0">Download v6.1.0</a></p>
@@ -939,7 +959,7 @@ browser's back button to navigate back to
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-03-08 20:22  
+             on 2018-03-10 19:53  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
