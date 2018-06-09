@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>67.8% of total for derived types.</p>Including implementation: 7302 statements, 84.4% of total for derived types.">182 statements</a>
+	  title="<p>67.0% of total for derived types.</p>Including implementation: 7338 statements, 83.8% of total for derived types.">184 statements</a>
      </li> 
      
      
@@ -438,6 +438,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_update_string_val_ascii">json_update_string_val_ascii</a>
       
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_valid_path">json_valid_path</a>
+      
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_add_double">json_value_add_double</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_add_double_vec">json_value_add_double_vec</a>
@@ -556,6 +558,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-update%7E4">update</a>
       
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-valid_path%7E2">valid_path</a>
+      
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-validate">validate</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_add_double_by_path">wrap_json_add_double_by_path</a>
@@ -619,6 +623,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_update_logical">wrap_json_update_logical</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_update_string">wrap_json_update_string</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_valid_path">wrap_json_valid_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_value_add_double">wrap_json_value_add_double</a>
       
@@ -1077,6 +1083,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_update_string_val_ascii">json_update_string_val_ascii</a>
       
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_valid_path">json_valid_path</a>
+      
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_add_double">json_value_add_double</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_add_double_vec">json_value_add_double_vec</a>
@@ -1195,6 +1203,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-update%7E4">update</a>
       
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-valid_path%7E2">valid_path</a>
+      
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-validate">validate</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_add_double_by_path">wrap_json_add_double_by_path</a>
@@ -1258,6 +1268,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_update_logical">wrap_json_update_logical</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_update_string">wrap_json_update_string</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_valid_path">wrap_json_valid_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_value_add_double">wrap_json_value_add_double</a>
       
@@ -11290,7 +11302,7 @@ private subroutine <a href='../proc/json_get_by_path.html'>json_get_by_path</a>(
   
   <td>pointer</td><td>::</td>
   <td><strong>p</strong></td><td><p>pointer to the variable
- specify by <code>path</code></p></td>
+ specified by <code>path</code></p></td>
   
 </tr>
 
@@ -20197,7 +20209,7 @@ private subroutine <a href='../proc/json_get_by_path.html'>json_get_by_path</a>(
   
   <td>pointer</td><td>::</td>
   <td><strong>p</strong></td><td><p>pointer to the variable
- specify by <code>path</code></p></td>
+ specified by <code>path</code></p></td>
   
 </tr>
 
@@ -25340,6 +25352,115 @@ private subroutine <a href='../proc/json_update_string_val_ascii.html'>json_upda
 
       
     
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_valid_path"></span><h3>procedure, private :: <strong>json_valid_path</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private function <a href='../proc/json_valid_path.html'>json_valid_path</a>(json, p, path) result(found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Returns true if the <code>path</code> is present in the <code>p</code> <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical(kind=LK)
+  </small></h4>
+  <p>true if it was found</p>
     
 
       
@@ -34951,6 +35072,224 @@ private subroutine <a href='../proc/json_update_string_val_ascii.html'>json_upda
     
 	   
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-valid_path%7E2"></span><h3>generic, public :: <strong>valid_path</strong>  => <a href='../type/json_core.html#boundprocedure-json_valid_path'>json_valid_path</a>, <a href='../type/json_core.html#boundprocedure-wrap_json_valid_path'>wrap_json_valid_path</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>verify if a path is valid
+  (i.e., a variable with this path exists in the file).</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private function <a href='../proc/json_valid_path.html'>json_valid_path</a>(json, p, path) result(found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Returns true if the <code>path</code> is present in the <code>p</code> <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical(kind=LK)
+  </small></h4>
+  <p>true if it was found</p>
+    
+
+         
+      
+      </li>
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private function <a href='../proc/wrap_json_valid_path.html'>wrap_json_valid_path</a>(json, p, path) result(found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/json_valid_path.html">json_valid_path</a> where "path" is kind=CDK.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical(kind=LK)
+  </small></h4>
+  <p>true if it was found</p>
+    
+
+         
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-validate"></span><h3>procedure, public :: <strong>validate</strong>  => <a href='../proc/json_value_validate.html'>json_value_validate</a> 
     
   </h3></div>
@@ -39346,6 +39685,115 @@ private subroutine <a href='../proc/wrap_json_update_string.html'>wrap_json_upda
     
 	   
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-wrap_json_valid_path"></span><h3>procedure, private :: <strong>wrap_json_valid_path</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private function <a href='../proc/wrap_json_valid_path.html'>wrap_json_valid_path</a>(json, p, path) result(found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/json_valid_path.html">json_valid_path</a> where "path" is kind=CDK.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> linked list</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td><p>path to the variable</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical(kind=LK)
+  </small></h4>
+  <p>true if it was found</p>
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-wrap_json_value_add_double"></span><h3>procedure, private :: <strong>wrap_json_value_add_double</strong>  
     
   </h3></div>
@@ -42101,6 +42549,12 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
         <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">get_path</span> <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_get_path</span><span class="p">)</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_get_path</span><span class="p">)</span>
 
+        <span class="c">!&gt;</span>
+        <span class="c">!  verify if a path is valid</span>
+        <span class="c">!  (i.e., a variable with this path exists in the file).</span>
+        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">valid_path</span> <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_valid_path</span><span class="p">)</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_valid_path</span><span class="p">)</span>
+
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">remove</span>              <span class="o">=&gt;</span> <span class="n">json_value_remove</span>        <span class="c">!! Remove a [[json_value]] from a</span>
                                                                             <span class="c">!! linked-list structure.</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">replace</span>             <span class="o">=&gt;</span> <span class="n">json_value_replace</span>       <span class="c">!! Replace a [[json_value]] in a</span>
@@ -42197,7 +42651,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-06-09 18:27  
+             on 2018-06-09 20:28  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

@@ -375,6 +375,10 @@
       
       <a class="list-group-item" href="../proc/json_file_update_string_val_ascii.html">json_file_update_string_val_ascii</a>
       
+      <a class="list-group-item" href="../proc/json_file_valid_path.html">json_file_valid_path</a>
+      
+      <a class="list-group-item" href="../proc/json_file_valid_path_op.html">json_file_valid_path_op</a>
+      
       <a class="list-group-item" href="../proc/json_file_variable_info.html">json_file_variable_info</a>
       
       <a class="list-group-item" href="../proc/json_file_variable_matrix_info.html">json_file_variable_matrix_info</a>
@@ -480,6 +484,8 @@
       <a class="list-group-item" href="../proc/json_update_string_name_ascii.html">json_update_string_name_ascii</a>
       
       <a class="list-group-item" href="../proc/json_update_string_val_ascii.html">json_update_string_val_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_valid_path.html">json_valid_path</a>
       
       <a class="list-group-item" href="../proc/json_value_add_double.html">json_value_add_double</a>
       
@@ -701,6 +707,10 @@
       
       <a class="list-group-item" href="../proc/wrap_json_file_update_string.html">wrap_json_file_update_string</a>
       
+      <a class="list-group-item" href="../proc/wrap_json_file_valid_path.html">wrap_json_file_valid_path</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_valid_path_op.html">wrap_json_file_valid_path_op</a>
+      
       <a class="list-group-item" href="../proc/wrap_json_file_variable_info.html">wrap_json_file_variable_info</a>
       
       <a class="list-group-item" href="../proc/wrap_json_file_variable_matrix_info.html">wrap_json_file_variable_matrix_info</a>
@@ -746,6 +756,8 @@
       <a class="list-group-item" href="../proc/wrap_json_update_logical.html">wrap_json_update_logical</a>
       
       <a class="list-group-item" href="../proc/wrap_json_update_string.html">wrap_json_update_string</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_valid_path.html">wrap_json_valid_path</a>
       
       <a class="list-group-item" href="../proc/wrap_json_value_add_double.html">wrap_json_value_add_double</a>
       
@@ -837,8 +849,8 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
 <li><a href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a></li>
 </ul>
 <p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>The syntax is inherited from FSON, and is basically a subset
-      of JSONPath "dot-notation", with the addition allowance of () for
-      array elements.</p></div>
+      of JSONPath "dot-notation", with the additional allowance of
+      () for array elements.</p></div>
 <p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p><abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> <code>null</code> values are used here for unknown variables when <code>create_it</code> is True.
       So, it is possible that an existing null variable can be converted to another
       type (object or array) if a child is specified in the path. Doing it this way
@@ -867,7 +879,7 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E38"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E40"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -882,7 +894,7 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E98"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-me%7E102"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(in),</td>
   <td></td>
   
@@ -897,7 +909,7 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
   
 <tr>
   
-  <td><span class="anchor" id="variable-path%7E80"></span>character(kind=CK,len=*),</td>
+  <td><span class="anchor" id="variable-path%7E86"></span>character(kind=CK,len=*),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -912,7 +924,7 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E17"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-p%7E19"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(out),</td>
   <td></td>
   
@@ -928,7 +940,7 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
   
 <tr>
   
-  <td><span class="anchor" id="variable-found%7E78"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-found%7E84"></span>logical(kind=LK),</td>
   <td>intent(out),</td>
   <td>optional</td>
   
@@ -998,80 +1010,80 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
 <polygon fill="none" stroke="black" points="136,-87 0,-87 0,-63 136,-63 136,-87"/>
 <text text-anchor="middle" x="68" y="-72.6" font-family="Helvetica,sans-Serif" font-size="10.50">json_get_by_path_default</text>
 </g>
-<!-- proc~to_null -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_node2" class="node"><title>proc~to_null</title>
-<g id="a_proc~~json_get_by_path_default~~CallsGraph_node2"><a xlink:href="../proc/to_null.html" xlink:title="to_null">
-<polygon fill="#d9534f" stroke="#d9534f" points="249,-150 195,-150 195,-126 249,-126 249,-150"/>
-<text text-anchor="middle" x="222" y="-135.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_null</text>
-</a>
-</g>
-</g>
-<!-- proc~json_get_by_path_default&#45;&gt;proc~to_null -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_edge4" class="edge"><title>proc~json_get_by_path_default&#45;&gt;proc~to_null</title>
-<path fill="none" stroke="#ff0000" d="M98.3071,-87.147C123.201,-97.4649 159.007,-112.306 185.518,-123.294"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="184.249,-126.556 194.827,-127.152 186.929,-120.09 184.249,-126.556"/>
-</g>
-<!-- proc~json_value_create -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_node3" class="node"><title>proc~json_value_create</title>
-<g id="a_proc~~json_get_by_path_default~~CallsGraph_node3"><a xlink:href="../proc/json_value_create.html" xlink:title="json_value_create">
-<polygon fill="#d9534f" stroke="#d9534f" points="272,-108 172,-108 172,-84 272,-84 272,-108"/>
-<text text-anchor="middle" x="222" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value_create</text>
-</a>
-</g>
-</g>
-<!-- proc~json_get_by_path_default&#45;&gt;proc~json_value_create -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_edge5" class="edge"><title>proc~json_get_by_path_default&#45;&gt;proc~json_value_create</title>
-<path fill="none" stroke="#ff0000" d="M136.112,-84.272C144.593,-85.4438 153.224,-86.6361 161.574,-87.7898"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="161.206,-91.2721 171.591,-89.1737 162.164,-84.338 161.206,-91.2721"/>
-</g>
 <!-- proc~to_object -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_node4" class="node"><title>proc~to_object</title>
-<g id="a_proc~~json_get_by_path_default~~CallsGraph_node4"><a xlink:href="../proc/to_object.html" xlink:title="to_object">
-<polygon fill="#d9534f" stroke="#d9534f" points="250,-66 194,-66 194,-42 250,-42 250,-66"/>
-<text text-anchor="middle" x="222" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_object</text>
+<g id="proc~~json_get_by_path_default~~CallsGraph_node2" class="node"><title>proc~to_object</title>
+<g id="a_proc~~json_get_by_path_default~~CallsGraph_node2"><a xlink:href="../proc/to_object.html" xlink:title="to_object">
+<polygon fill="#d9534f" stroke="#d9534f" points="250,-150 194,-150 194,-126 250,-126 250,-150"/>
+<text text-anchor="middle" x="222" y="-135.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_object</text>
 </a>
 </g>
 </g>
 <!-- proc~json_get_by_path_default&#45;&gt;proc~to_object -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_edge6" class="edge"><title>proc~json_get_by_path_default&#45;&gt;proc~to_object</title>
-<path fill="none" stroke="#ff0000" d="M136.112,-65.728C152.495,-63.4645 169.436,-61.1239 183.835,-59.1347"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="184.399,-62.5901 193.825,-57.7544 183.441,-55.656 184.399,-62.5901"/>
+<g id="proc~~json_get_by_path_default~~CallsGraph_edge4" class="edge"><title>proc~json_get_by_path_default&#45;&gt;proc~to_object</title>
+<path fill="none" stroke="#ff0000" d="M98.3071,-87.147C122.894,-97.3375 158.125,-111.94 184.532,-122.885"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="183.247,-126.141 193.825,-126.737 185.928,-119.675 183.247,-126.141"/>
 </g>
 <!-- proc~to_array -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_node5" class="node"><title>proc~to_array</title>
-<g id="a_proc~~json_get_by_path_default~~CallsGraph_node5"><a xlink:href="../proc/to_array.html" xlink:title="to_array">
-<polygon fill="#d9534f" stroke="#d9534f" points="249,-24 195,-24 195,-0 249,-0 249,-24"/>
-<text text-anchor="middle" x="222" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_array</text>
+<g id="proc~~json_get_by_path_default~~CallsGraph_node3" class="node"><title>proc~to_array</title>
+<g id="a_proc~~json_get_by_path_default~~CallsGraph_node3"><a xlink:href="../proc/to_array.html" xlink:title="to_array">
+<polygon fill="#d9534f" stroke="#d9534f" points="249,-108 195,-108 195,-84 249,-84 249,-108"/>
+<text text-anchor="middle" x="222" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_array</text>
 </a>
 </g>
 </g>
 <!-- proc~json_get_by_path_default&#45;&gt;proc~to_array -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_edge7" class="edge"><title>proc~json_get_by_path_default&#45;&gt;proc~to_array</title>
-<path fill="none" stroke="#ff0000" d="M98.3071,-62.853C123.201,-52.5351 159.007,-37.6944 185.518,-26.7064"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="186.929,-29.9102 194.827,-22.848 184.249,-23.4437 186.929,-29.9102"/>
+<g id="proc~~json_get_by_path_default~~CallsGraph_edge5" class="edge"><title>proc~json_get_by_path_default&#45;&gt;proc~to_array</title>
+<path fill="none" stroke="#ff0000" d="M136.112,-84.272C152.879,-86.5885 170.231,-88.9858 184.843,-91.0046"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="184.566,-94.4996 194.951,-92.4012 185.524,-87.5654 184.566,-94.4996"/>
+</g>
+<!-- proc~to_null -->
+<g id="proc~~json_get_by_path_default~~CallsGraph_node4" class="node"><title>proc~to_null</title>
+<g id="a_proc~~json_get_by_path_default~~CallsGraph_node4"><a xlink:href="../proc/to_null.html" xlink:title="to_null">
+<polygon fill="#d9534f" stroke="#d9534f" points="249,-66 195,-66 195,-42 249,-42 249,-66"/>
+<text text-anchor="middle" x="222" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_null</text>
+</a>
+</g>
+</g>
+<!-- proc~json_get_by_path_default&#45;&gt;proc~to_null -->
+<g id="proc~~json_get_by_path_default~~CallsGraph_edge6" class="edge"><title>proc~json_get_by_path_default&#45;&gt;proc~to_null</title>
+<path fill="none" stroke="#ff0000" d="M136.112,-65.728C152.879,-63.4115 170.231,-61.0142 184.843,-58.9954"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="185.524,-62.4346 194.951,-57.5988 184.566,-55.5004 185.524,-62.4346"/>
+</g>
+<!-- proc~json_value_create -->
+<g id="proc~~json_get_by_path_default~~CallsGraph_node5" class="node"><title>proc~json_value_create</title>
+<g id="a_proc~~json_get_by_path_default~~CallsGraph_node5"><a xlink:href="../proc/json_value_create.html" xlink:title="json_value_create">
+<polygon fill="#d9534f" stroke="#d9534f" points="272,-24 172,-24 172,-0 272,-0 272,-24"/>
+<text text-anchor="middle" x="222" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value_create</text>
+</a>
+</g>
+</g>
+<!-- proc~json_get_by_path_default&#45;&gt;proc~json_value_create -->
+<g id="proc~~json_get_by_path_default~~CallsGraph_edge7" class="edge"><title>proc~json_get_by_path_default&#45;&gt;proc~json_value_create</title>
+<path fill="none" stroke="#ff0000" d="M98.3071,-62.853C122.356,-52.8854 156.588,-38.6969 182.786,-27.8385"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="184.143,-31.065 192.041,-24.0028 181.463,-24.5984 184.143,-31.065"/>
 </g>
 <!-- proc~destroy_json_data -->
 <g id="proc~~json_get_by_path_default~~CallsGraph_node6" class="node"><title>proc~destroy_json_data</title>
 <g id="a_proc~~json_get_by_path_default~~CallsGraph_node6"><a xlink:href="../proc/destroy_json_data.html" xlink:title="destroy_json_data">
-<polygon fill="#d9534f" stroke="#d9534f" points="408,-66 308,-66 308,-42 408,-42 408,-66"/>
-<text text-anchor="middle" x="358" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">destroy_json_data</text>
+<polygon fill="#d9534f" stroke="#d9534f" points="408,-108 308,-108 308,-84 408,-84 408,-108"/>
+<text text-anchor="middle" x="358" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">destroy_json_data</text>
 </a>
 </g>
 </g>
-<!-- proc~to_null&#45;&gt;proc~destroy_json_data -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_edge1" class="edge"><title>proc~to_null&#45;&gt;proc~destroy_json_data</title>
-<path fill="none" stroke="#ff0000" d="M249.232,-128.087C256.758,-124.891 264.857,-121.103 272,-117 294.651,-103.99 318.367,-85.9928 334.974,-72.5644"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="337.455,-75.0568 342.968,-66.0093 333.016,-69.6441 337.455,-75.0568"/>
-</g>
 <!-- proc~to_object&#45;&gt;proc~destroy_json_data -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_edge2" class="edge"><title>proc~to_object&#45;&gt;proc~destroy_json_data</title>
-<path fill="none" stroke="#00ffff" d="M250.117,-54C263.86,-54 281.122,-54 297.741,-54"/>
-<polygon fill="#00ffff" stroke="#00ffff" points="297.968,-57.5001 307.968,-54 297.968,-50.5001 297.968,-57.5001"/>
+<g id="proc~~json_get_by_path_default~~CallsGraph_edge1" class="edge"><title>proc~to_object&#45;&gt;proc~destroy_json_data</title>
+<path fill="none" stroke="#ff0000" d="M250.117,-129.501C266.93,-124.231 289.012,-117.31 308.738,-111.127"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="310.002,-114.399 318.497,-108.068 307.908,-107.719 310.002,-114.399"/>
 </g>
 <!-- proc~to_array&#45;&gt;proc~destroy_json_data -->
-<g id="proc~~json_get_by_path_default~~CallsGraph_edge3" class="edge"><title>proc~to_array&#45;&gt;proc~destroy_json_data</title>
-<path fill="none" stroke="#7f00ff" d="M249.155,-20.1977C266.107,-25.5112 288.702,-32.593 308.829,-38.9015"/>
-<polygon fill="#7f00ff" stroke="#7f00ff" points="307.886,-42.274 318.475,-41.9251 309.98,-35.5944 307.886,-42.274"/>
+<g id="proc~~json_get_by_path_default~~CallsGraph_edge2" class="edge"><title>proc~to_array&#45;&gt;proc~destroy_json_data</title>
+<path fill="none" stroke="#7fff00" d="M249.155,-96C262.968,-96 280.527,-96 297.444,-96"/>
+<polygon fill="#7fff00" stroke="#7fff00" points="297.856,-99.5001 307.856,-96 297.856,-92.5001 297.856,-99.5001"/>
+</g>
+<!-- proc~to_null&#45;&gt;proc~destroy_json_data -->
+<g id="proc~~json_get_by_path_default~~CallsGraph_edge3" class="edge"><title>proc~to_null&#45;&gt;proc~destroy_json_data</title>
+<path fill="none" stroke="#00ffff" d="M249.155,-62.1977C266.107,-67.5112 288.702,-74.593 308.829,-80.9015"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="307.886,-84.274 318.475,-83.9251 309.98,-77.5944 307.886,-84.274"/>
 </g>
 </g>
 </svg>
@@ -1690,6 +1702,10 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
       
       <a class="list-group-item" href="../proc/json_file_update_string_val_ascii.html">json_file_update_string_val_ascii</a>
       
+      <a class="list-group-item" href="../proc/json_file_valid_path.html">json_file_valid_path</a>
+      
+      <a class="list-group-item" href="../proc/json_file_valid_path_op.html">json_file_valid_path_op</a>
+      
       <a class="list-group-item" href="../proc/json_file_variable_info.html">json_file_variable_info</a>
       
       <a class="list-group-item" href="../proc/json_file_variable_matrix_info.html">json_file_variable_matrix_info</a>
@@ -1795,6 +1811,8 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
       <a class="list-group-item" href="../proc/json_update_string_name_ascii.html">json_update_string_name_ascii</a>
       
       <a class="list-group-item" href="../proc/json_update_string_val_ascii.html">json_update_string_val_ascii</a>
+      
+      <a class="list-group-item" href="../proc/json_valid_path.html">json_valid_path</a>
       
       <a class="list-group-item" href="../proc/json_value_add_double.html">json_value_add_double</a>
       
@@ -2016,6 +2034,10 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
       
       <a class="list-group-item" href="../proc/wrap_json_file_update_string.html">wrap_json_file_update_string</a>
       
+      <a class="list-group-item" href="../proc/wrap_json_file_valid_path.html">wrap_json_file_valid_path</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_file_valid_path_op.html">wrap_json_file_valid_path_op</a>
+      
       <a class="list-group-item" href="../proc/wrap_json_file_variable_info.html">wrap_json_file_variable_info</a>
       
       <a class="list-group-item" href="../proc/wrap_json_file_variable_matrix_info.html">wrap_json_file_variable_matrix_info</a>
@@ -2061,6 +2083,8 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
       <a class="list-group-item" href="../proc/wrap_json_update_logical.html">wrap_json_update_logical</a>
       
       <a class="list-group-item" href="../proc/wrap_json_update_string.html">wrap_json_update_string</a>
+      
+      <a class="list-group-item" href="../proc/wrap_json_valid_path.html">wrap_json_valid_path</a>
       
       <a class="list-group-item" href="../proc/wrap_json_value_add_double.html">wrap_json_value_add_double</a>
       
@@ -2117,7 +2141,7 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-06-09 18:27  
+             on 2018-06-09 20:28  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
