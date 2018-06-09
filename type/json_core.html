@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>68.6% of total for derived types.</p>Including implementation: 7186 statements, 84.8% of total for derived types.">178 statements</a>
+	  title="<p>67.8% of total for derived types.</p>Including implementation: 7302 statements, 84.4% of total for derived types.">182 statements</a>
      </li> 
      
      
@@ -416,6 +416,12 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_print_2">json_print_2</a>
       
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_rename_by_path">json_rename_by_path</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_rename_by_path_name_ascii">json_rename_by_path_name_ascii</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_rename_by_path_path_ascii">json_rename_by_path_path_ascii</a>
+      
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_string_info">json_string_info</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_throw_exception">json_throw_exception</a>
@@ -526,7 +532,9 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-remove_if_present">remove_if_present</a>
       
-      <a class="list-group-item" href="../type/json_core.html#boundprocedure-rename">rename</a>
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-rename%7E3">rename</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-rename%7E4">rename</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-replace">replace</a>
       
@@ -599,6 +607,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_matrix_info_by_path">wrap_json_matrix_info_by_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_parse_string">wrap_json_parse_string</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_rename_by_path">wrap_json_rename_by_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_throw_exception">wrap_json_throw_exception</a>
       
@@ -1045,6 +1055,12 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_print_2">json_print_2</a>
       
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_rename_by_path">json_rename_by_path</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_rename_by_path_name_ascii">json_rename_by_path_name_ascii</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_rename_by_path_path_ascii">json_rename_by_path_path_ascii</a>
+      
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_string_info">json_string_info</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_throw_exception">json_throw_exception</a>
@@ -1155,7 +1171,9 @@
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-remove_if_present">remove_if_present</a>
       
-      <a class="list-group-item" href="../type/json_core.html#boundprocedure-rename">rename</a>
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-rename%7E3">rename</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-rename%7E4">rename</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-replace">replace</a>
       
@@ -1228,6 +1246,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_matrix_info_by_path">wrap_json_matrix_info_by_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_parse_string">wrap_json_parse_string</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_rename_by_path">wrap_json_rename_by_path</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-wrap_json_throw_exception">wrap_json_throw_exception</a>
       
@@ -23852,6 +23872,396 @@ private subroutine <a href='../proc/json_print_2.html'>json_print_2</a>(json, p,
     
 	   
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_rename_by_path"></span><h3>procedure, private :: <strong>json_rename_by_path</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_rename_by_path.html'>json_rename_by_path</a>(json, me, path, name, found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Rename a <a href="../type/json_value.html">json_value</a>, given the path.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td><p>the new name</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_rename_by_path_name_ascii"></span><h3>procedure, private :: <strong>json_rename_by_path_name_ascii</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_rename_by_path_name_ascii.html'>json_rename_by_path_name_ascii</a>(json, me, path, name, found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/json_rename_by_path.html">json_rename_by_path</a>, where "name" is kind=CDK</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_rename_by_path_path_ascii"></span><h3>procedure, private :: <strong>json_rename_by_path_path_ascii</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/json_rename_by_path_path_ascii.html'>json_rename_by_path_path_ascii</a>(json, me, path, name, found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/json_rename_by_path.html">json_rename_by_path</a>, where "path" is kind=CDK</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_string_info"></span><h3>procedure, private :: <strong>json_string_info</strong>  
     
   </h3></div>
@@ -31516,7 +31926,7 @@ private subroutine <a href='../proc/wrap_json_value_remove_if_present.html'>wrap
     
 	   
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-rename"></span><h3>generic, public :: <strong>rename</strong>  => <a href='../type/json_core.html#boundprocedure-json_value_rename'>json_value_rename</a>, <a href='../type/json_core.html#boundprocedure-wrap_json_value_rename'>wrap_json_value_rename</a> 
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-rename%7E3"></span><h3>generic, public :: <strong>rename</strong>  => <a href='../type/json_core.html#boundprocedure-json_value_rename'>json_value_rename</a>, <a href='../type/json_core.html#boundprocedure-wrap_json_value_rename'>wrap_json_value_rename</a>, <a href='../type/json_core.html#boundprocedure-json_rename_by_path'>json_rename_by_path</a>, <a href='../type/json_core.html#boundprocedure-wrap_json_rename_by_path'>wrap_json_rename_by_path</a> 
     
   </h3></div>
   
@@ -31719,6 +32129,498 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
   
   <td></td><td>::</td>
   <td><strong>name</strong></td><td><p>new variable name</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_rename_by_path.html'>json_rename_by_path</a>(json, me, path, name, found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Rename a <a href="../type/json_value.html">json_value</a>, given the path.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td><p>the new name</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/wrap_json_rename_by_path.html'>wrap_json_rename_by_path</a>(json, me, path, name, found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/json_rename_by_path.html">json_rename_by_path</a>, where "path" and "name" are kind=CDK</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-rename%7E4"></span><h3>generic, public :: <strong>rename</strong>  => <a href='../type/json_core.html#boundprocedure-json_rename_by_path_name_ascii'>json_rename_by_path_name_ascii</a>, <a href='../type/json_core.html#boundprocedure-json_rename_by_path_path_ascii'>json_rename_by_path_path_ascii</a> 
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_rename_by_path_name_ascii.html'>json_rename_by_path_name_ascii</a>(json, me, path, name, found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/json_rename_by_path.html">json_rename_by_path</a>, where "name" is kind=CDK</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_rename_by_path_path_ascii.html'>json_rename_by_path_path_ascii</a>(json, me, path, name, found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/json_rename_by_path.html">json_rename_by_path</a>, where "path" is kind=CDK</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td></td>
   
 </tr>
 
@@ -37709,6 +38611,136 @@ private subroutine <a href='../proc/wrap_json_parse_string.html'>wrap_json_parse
     
 	   
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-wrap_json_rename_by_path"></span><h3>procedure, private :: <strong>wrap_json_rename_by_path</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine <a href='../proc/wrap_json_rename_by_path.html'>wrap_json_rename_by_path</a>(json, me, path, name, found)
+    
+    
+	 
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/json_rename_by_path.html">json_rename_by_path</a>, where "path" and "name" are kind=CDK</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>path</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>name</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-wrap_json_throw_exception"></span><h3>procedure, private :: <strong>wrap_json_throw_exception</strong>  
     
   </h3></div>
@@ -40681,21 +41713,21 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
                                  <span class="n">json_value_add_string_vec_val_ascii</span>
 <span class="cp">#endif</span>
 
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_add_member</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_integer</span><span class="p">)</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_null</span><span class="p">)</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_integer_vec</span><span class="p">)</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_double</span><span class="p">)</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_double_vec</span><span class="p">)</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_logical</span><span class="p">)</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_logical_vec</span><span class="p">)</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_string</span><span class="p">)</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_string_vec</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_add_member</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_integer</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_null</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_integer_vec</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_double</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_double_vec</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_logical</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_logical_vec</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_string</span><span class="p">)</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_add_string_vec</span><span class="p">)</span>
 <span class="cp">#ifdef USE_UCS4</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_add_string_name_ascii</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_add_string_val_ascii</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_add_string_vec_name_ascii</span>
-    <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_add_string_vec_val_ascii</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_add_string_name_ascii</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_add_string_val_ascii</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_add_string_vec_name_ascii</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">private</span> <span class="kd">::</span> <span class="n">json_value_add_string_vec_val_ascii</span>
 <span class="cp">#endif</span>
 
         <span class="c">!&gt;</span>
@@ -41028,8 +42060,16 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
 
         <span class="c">!&gt;</span>
         <span class="c">!  Rename a [[json_value]] variable.</span>
-        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="nb">rename</span> <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_rename</span><span class="p">)</span>
+        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="nb">rename</span> <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_rename</span><span class="p">),&amp;</span>
+                                    <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_rename_by_path</span><span class="p">)</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_value_rename</span><span class="p">)</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_rename_by_path</span><span class="p">)</span>
+<span class="cp">#ifdef USE_UCS4</span>
+        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="nb">rename</span> <span class="o">=&gt;</span> <span class="n">json_rename_by_path_name_ascii</span><span class="p">,&amp;</span>
+                                    <span class="n">json_rename_by_path_path_ascii</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_rename_by_path_name_ascii</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_rename_by_path_path_ascii</span>
+<span class="cp">#endif</span>
 
         <span class="c">!&gt;</span>
         <span class="c">!  get info about a [[json_value]]</span>
@@ -41157,7 +42197,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-04-21 01:49  
+             on 2018-06-09 18:27  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
