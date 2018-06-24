@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="79.0% of total for modules and submodules.">4963 statements</a>
+	  title="78.9% of total for modules and submodules.">5023 statements</a>
      </li> 
      
      
@@ -1780,10 +1780,11 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   <td></td><td>::</td>
   <td><strong>path_mode</strong></td><td><p>How the path strings are interpreted in the
  <code>get_by_path</code> routines:
- * 1 &ndash; Default way (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)
-   [Default]
+ * 1 &ndash; Default mode (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)
  * 2 &ndash; as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths
-   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)</p></td>
+   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)
+ * 3 &ndash; JSONPath "bracket-notation"
+   see <a href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>)</p></td>
   
 </tr>
 
@@ -3033,6 +3034,27 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-throw_exception'>throw_exception</a></strong>  => json_throw_exception, wrap_json_throw_exception </td>
        <td><p>Throw an exception.</p></td></tr>
       
+       <tr><td>procedure, private :: <strong><a href='../type/json_core.html#boundprocedure-to_array'>to_array</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/json_core.html#boundprocedure-to_double'>to_double</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/json_core.html#boundprocedure-to_integer'>to_integer</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/json_core.html#boundprocedure-to_logical'>to_logical</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/json_core.html#boundprocedure-to_null'>to_null</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/json_core.html#boundprocedure-to_object'>to_object</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/json_core.html#boundprocedure-to_string'>to_string</a></strong>  </td>
+       <td></td></tr>
+      
        <tr><td>procedure, public :: <strong><a href='../type/json_core.html#boundprocedure-traverse%7E2'>traverse</a></strong>  => json_traverse </td>
        <td><p>to traverse all elements of a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>
  structure</p></td></tr>
@@ -3668,10 +3690,11 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   <td></td><td>::</td>
   <td><strong>path_mode</strong></td><td><p>How the path strings are interpreted in the
  <code>get_by_path</code> routines:
- * 1 &ndash; Default way (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)
-   [Default]
+ * 1 &ndash; Default mode (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)
  * 2 &ndash; as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths
-   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)</p></td>
+   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)
+ * 3 &ndash; JSONPath "bracket-notation"
+   see <a href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>)</p></td>
   
 </tr>
 
@@ -6114,7 +6137,7 @@ private subroutine <a href='../proc/json_add_member_by_path.html'>json_add_membe
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_add_string_by_path"></span><h3>
-private subroutine <a href='../proc/json_add_string_by_path.html'>json_add_string_by_path</a>(json, me, path, value, found, was_created)
+private subroutine <a href='../proc/json_add_string_by_path.html'>json_add_string_by_path</a>(json, me, path, value, found, was_created, trim_str, adjustl_str)
     
     
 	 
@@ -6234,6 +6257,36 @@ private subroutine <a href='../proc/json_add_string_by_path.html'>json_add_strin
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for each element</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for each element</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -6248,7 +6301,7 @@ private subroutine <a href='../proc/json_add_string_by_path.html'>json_add_strin
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_add_string_by_path_path_ascii"></span><h3>
-private subroutine <a href='../proc/json_add_string_by_path_path_ascii.html'>json_add_string_by_path_path_ascii</a>(json, me, path, value, found, was_created)
+private subroutine <a href='../proc/json_add_string_by_path_path_ascii.html'>json_add_string_by_path_path_ascii</a>(json, me, path, value, found, was_created, trim_str, adjustl_str)
     
     
 	 
@@ -6368,6 +6421,36 @@ private subroutine <a href='../proc/json_add_string_by_path_path_ascii.html'>jso
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for each element</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for each element</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -6382,7 +6465,7 @@ private subroutine <a href='../proc/json_add_string_by_path_path_ascii.html'>jso
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_add_string_by_path_value_ascii"></span><h3>
-private subroutine <a href='../proc/json_add_string_by_path_value_ascii.html'>json_add_string_by_path_value_ascii</a>(json, me, path, value, found, was_created)
+private subroutine <a href='../proc/json_add_string_by_path_value_ascii.html'>json_add_string_by_path_value_ascii</a>(json, me, path, value, found, was_created, trim_str, adjustl_str)
     
     
 	 
@@ -6502,6 +6585,36 @@ private subroutine <a href='../proc/json_add_string_by_path_value_ascii.html'>js
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for each element</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for each element</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -6516,7 +6629,7 @@ private subroutine <a href='../proc/json_add_string_by_path_value_ascii.html'>js
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_add_string_vec_by_path"></span><h3>
-private subroutine <a href='../proc/json_add_string_vec_by_path.html'>json_add_string_vec_by_path</a>(json, me, path, value, found, was_created, ilen)
+private subroutine <a href='../proc/json_add_string_vec_by_path.html'>json_add_string_vec_by_path</a>(json, me, path, value, found, was_created, ilen, trim_str, adjustl_str)
     
     
 	 
@@ -6654,6 +6767,36 @@ private subroutine <a href='../proc/json_add_string_vec_by_path.html'>json_add_s
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for each element</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for each element</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -6668,7 +6811,7 @@ private subroutine <a href='../proc/json_add_string_vec_by_path.html'>json_add_s
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_add_string_vec_by_path_path_ascii"></span><h3>
-private subroutine <a href='../proc/json_add_string_vec_by_path_path_ascii.html'>json_add_string_vec_by_path_path_ascii</a>(json, me, path, value, found, was_created, ilen)
+private subroutine <a href='../proc/json_add_string_vec_by_path_path_ascii.html'>json_add_string_vec_by_path_path_ascii</a>(json, me, path, value, found, was_created, ilen, trim_str, adjustl_str)
     
     
 	 
@@ -6806,6 +6949,36 @@ private subroutine <a href='../proc/json_add_string_vec_by_path_path_ascii.html'
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for each element</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for each element</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -6820,7 +6993,7 @@ private subroutine <a href='../proc/json_add_string_vec_by_path_path_ascii.html'
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_add_string_vec_by_path_value_ascii"></span><h3>
-private subroutine <a href='../proc/json_add_string_vec_by_path_value_ascii.html'>json_add_string_vec_by_path_value_ascii</a>(json, me, path, value, found, was_created, ilen)
+private subroutine <a href='../proc/json_add_string_vec_by_path_value_ascii.html'>json_add_string_vec_by_path_value_ascii</a>(json, me, path, value, found, was_created, ilen, trim_str, adjustl_str)
     
     
 	 
@@ -6955,6 +7128,36 @@ private subroutine <a href='../proc/json_add_string_vec_by_path_value_ascii.html
  element in <code>value</code>. If not present,
  the full <code>len(value)</code> string is added
  for each element.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for each element</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for each element</p></td>
   
 </tr>
 
@@ -11504,10 +11707,11 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me
   <td></td><td>::</td>
   <td><strong>path_mode</strong></td><td><p>How the path strings are interpreted in the
  <code>get_by_path</code> routines:
- * 1 &ndash; Default way (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)
-   [Default]
+ * 1 &ndash; Default mode (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)
  * 2 &ndash; as RFC 6901 "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" paths
-   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)</p></td>
+   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)
+ * 3 &ndash; JSONPath "bracket-notation"
+   see <a href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>)</p></td>
   
 </tr>
 
@@ -13531,7 +13735,7 @@ private subroutine <a href='../proc/json_update_logical.html'>json_update_logica
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_update_string"></span><h3>
-private subroutine <a href='../proc/json_update_string.html'>json_update_string</a>(json, p, path, val, found)
+private subroutine <a href='../proc/json_update_string.html'>json_update_string</a>(json, p, path, val, found, trim_str, adjustl_str)
     
     
 	 
@@ -13650,6 +13854,39 @@ private subroutine <a href='../proc/json_update_string.html'>json_update_string<
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code>
+ (only used if <code>val</code> is present)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code>
+ (only used if <code>val</code> is present)
+ (note that ADJUSTL is done before TRIM)</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -13664,7 +13901,7 @@ private subroutine <a href='../proc/json_update_string.html'>json_update_string<
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_update_string_name_ascii"></span><h3>
-private subroutine <a href='../proc/json_update_string_name_ascii.html'>json_update_string_name_ascii</a>(json, p, path, val, found)
+private subroutine <a href='../proc/json_update_string_name_ascii.html'>json_update_string_name_ascii</a>(json, p, path, val, found, trim_str, adjustl_str)
     
     
 	 
@@ -13769,6 +14006,39 @@ private subroutine <a href='../proc/json_update_string_name_ascii.html'>json_upd
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code>
+ (only used if <code>val</code> is present)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code>
+ (only used if <code>val</code> is present)
+ (note that ADJUSTL is done before TRIM)</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -13783,7 +14053,7 @@ private subroutine <a href='../proc/json_update_string_name_ascii.html'>json_upd
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_update_string_val_ascii"></span><h3>
-private subroutine <a href='../proc/json_update_string_val_ascii.html'>json_update_string_val_ascii</a>(json, p, path, val, found)
+private subroutine <a href='../proc/json_update_string_val_ascii.html'>json_update_string_val_ascii</a>(json, p, path, val, found, trim_str, adjustl_str)
     
     
 	 
@@ -13885,6 +14155,39 @@ private subroutine <a href='../proc/json_update_string_val_ascii.html'>json_upda
   
   <td></td><td>::</td>
   <td><strong>found</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code>
+ (only used if <code>val</code> is present)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code>
+ (only used if <code>val</code> is present)
+ (note that ADJUSTL is done before TRIM)</p></td>
   
 </tr>
 
@@ -14777,7 +15080,7 @@ private subroutine <a href='../proc/json_value_add_null.html'>json_value_add_nul
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_value_add_string"></span><h3>
-private subroutine <a href='../proc/json_value_add_string.html'>json_value_add_string</a>(json, p, name, val)
+private subroutine <a href='../proc/json_value_add_string.html'>json_value_add_string</a>(json, p, name, val, trim_str, adjustl_str)
     
     
 	 
@@ -14879,6 +15182,36 @@ private subroutine <a href='../proc/json_value_add_string.html'>json_value_add_s
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code></p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -14893,7 +15226,7 @@ private subroutine <a href='../proc/json_value_add_string.html'>json_value_add_s
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_value_add_string_name_ascii"></span><h3>
-private subroutine <a href='../proc/json_value_add_string_name_ascii.html'>json_value_add_string_name_ascii</a>(json, p, name, val)
+private subroutine <a href='../proc/json_value_add_string_name_ascii.html'>json_value_add_string_name_ascii</a>(json, p, name, val, trim_str, adjustl_str)
     
     
 	 
@@ -14983,6 +15316,36 @@ private subroutine <a href='../proc/json_value_add_string_name_ascii.html'>json_
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code></p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -14997,7 +15360,7 @@ private subroutine <a href='../proc/json_value_add_string_name_ascii.html'>json_
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_value_add_string_val_ascii"></span><h3>
-private subroutine <a href='../proc/json_value_add_string_val_ascii.html'>json_value_add_string_val_ascii</a>(json, p, name, val)
+private subroutine <a href='../proc/json_value_add_string_val_ascii.html'>json_value_add_string_val_ascii</a>(json, p, name, val, trim_str, adjustl_str)
     
     
 	 
@@ -15084,6 +15447,36 @@ private subroutine <a href='../proc/json_value_add_string_val_ascii.html'>json_v
   
   <td></td><td>::</td>
   <td><strong>val</strong></td><td><p>value</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code></p></td>
   
 </tr>
 
@@ -16383,7 +16776,7 @@ private subroutine <a href='../proc/json_value_create_object.html'>json_value_cr
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_value_create_string"></span><h3>
-private subroutine <a href='../proc/json_value_create_string.html'>json_value_create_string</a>(json, p, val, name)
+private subroutine <a href='../proc/json_value_create_string.html'>json_value_create_string</a>(json, p, val, name, trim_str, adjustl_str)
     
     
 	 
@@ -16481,6 +16874,36 @@ private subroutine <a href='../proc/json_value_create_string.html'>json_value_cr
   
   <td></td><td>::</td>
   <td><strong>name</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code></p></td>
   
 </tr>
 
@@ -19011,7 +19434,7 @@ private subroutine <a href='../proc/push_char.html'>push_char</a>(json, c)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-to_array"></span><h3>
-private subroutine <a href='../proc/to_array.html'>to_array</a>(p, name)
+private subroutine <a href='../proc/to_array.html'>to_array</a>(json, p, name)
     
     
 	 
@@ -19057,11 +19480,26 @@ private subroutine <a href='../proc/to_array.html'>to_array</a>(p, name)
   
 <tr>
   
-  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
   <td><strong>p</strong></td><td></td>
   
 </tr>
@@ -19095,7 +19533,7 @@ private subroutine <a href='../proc/to_array.html'>to_array</a>(p, name)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-to_double"></span><h3>
-private subroutine <a href='../proc/to_double.html'>to_double</a>(p, val, name)
+private subroutine <a href='../proc/to_double.html'>to_double</a>(json, p, val, name)
     
     
 	 
@@ -19141,11 +19579,26 @@ private subroutine <a href='../proc/to_double.html'>to_double</a>(p, val, name)
   
 <tr>
   
-  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
   <td><strong>p</strong></td><td></td>
   
 </tr>
@@ -19195,7 +19648,7 @@ private subroutine <a href='../proc/to_double.html'>to_double</a>(p, val, name)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-to_integer"></span><h3>
-private subroutine <a href='../proc/to_integer.html'>to_integer</a>(p, val, name)
+private subroutine <a href='../proc/to_integer.html'>to_integer</a>(json, p, val, name)
     
     
 	 
@@ -19241,11 +19694,26 @@ private subroutine <a href='../proc/to_integer.html'>to_integer</a>(p, val, name
   
 <tr>
   
-  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
   <td><strong>p</strong></td><td></td>
   
 </tr>
@@ -19295,7 +19763,7 @@ private subroutine <a href='../proc/to_integer.html'>to_integer</a>(p, val, name
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-to_logical"></span><h3>
-private subroutine <a href='../proc/to_logical.html'>to_logical</a>(p, val, name)
+private subroutine <a href='../proc/to_logical.html'>to_logical</a>(json, p, val, name)
     
     
 	 
@@ -19341,11 +19809,26 @@ private subroutine <a href='../proc/to_logical.html'>to_logical</a>(p, val, name
   
 <tr>
   
-  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
   <td><strong>p</strong></td><td></td>
   
 </tr>
@@ -19395,7 +19878,7 @@ private subroutine <a href='../proc/to_logical.html'>to_logical</a>(p, val, name
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-to_null"></span><h3>
-private subroutine <a href='../proc/to_null.html'>to_null</a>(p, name)
+private subroutine <a href='../proc/to_null.html'>to_null</a>(json, p, name)
     
     
 	 
@@ -19441,11 +19924,26 @@ private subroutine <a href='../proc/to_null.html'>to_null</a>(p, name)
   
 <tr>
   
-  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
   <td><strong>p</strong></td><td></td>
   
 </tr>
@@ -19479,7 +19977,7 @@ private subroutine <a href='../proc/to_null.html'>to_null</a>(p, name)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-to_object"></span><h3>
-private subroutine <a href='../proc/to_object.html'>to_object</a>(p, name)
+private subroutine <a href='../proc/to_object.html'>to_object</a>(json, p, name)
     
     
 	 
@@ -19525,11 +20023,26 @@ private subroutine <a href='../proc/to_object.html'>to_object</a>(p, name)
   
 <tr>
   
-  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
   <td><strong>p</strong></td><td></td>
   
 </tr>
@@ -19563,7 +20076,7 @@ private subroutine <a href='../proc/to_object.html'>to_object</a>(p, name)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-to_string"></span><h3>
-private subroutine <a href='../proc/to_string.html'>to_string</a>(p, val, name)
+private subroutine <a href='../proc/to_string.html'>to_string</a>(json, p, val, name, trim_str, adjustl_str)
     
     
 	 
@@ -19609,11 +20122,26 @@ private subroutine <a href='../proc/to_string.html'>to_string</a>(p, val, name)
   
 <tr>
   
-  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
+  <td><strong>json</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
   <td><strong>p</strong></td><td></td>
   
 </tr>
@@ -19646,6 +20174,39 @@ private subroutine <a href='../proc/to_string.html'>to_string</a>(p, val, name)
   
   <td></td><td>::</td>
   <td><strong>name</strong></td><td><p>if the name is also to be changed.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code>
+ (only used if <code>val</code> is present)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code>
+ (only used if <code>val</code> is present)
+ (note that ADJUSTL is done before TRIM)</p></td>
   
 </tr>
 
@@ -20601,7 +21162,7 @@ private subroutine <a href='../proc/wrap_json_add_member_by_path.html'>wrap_json
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-wrap_json_add_string_by_path"></span><h3>
-private subroutine <a href='../proc/wrap_json_add_string_by_path.html'>wrap_json_add_string_by_path</a>(json, me, path, value, found, was_created)
+private subroutine <a href='../proc/wrap_json_add_string_by_path.html'>wrap_json_add_string_by_path</a>(json, me, path, value, found, was_created, trim_str, adjustl_str)
     
     
 	 
@@ -20721,6 +21282,36 @@ private subroutine <a href='../proc/wrap_json_add_string_by_path.html'>wrap_json
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for each element</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for each element</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -20735,7 +21326,7 @@ private subroutine <a href='../proc/wrap_json_add_string_by_path.html'>wrap_json
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-wrap_json_add_string_vec_by_path"></span><h3>
-private subroutine <a href='../proc/wrap_json_add_string_vec_by_path.html'>wrap_json_add_string_vec_by_path</a>(json, me, path, value, found, was_created, ilen)
+private subroutine <a href='../proc/wrap_json_add_string_vec_by_path.html'>wrap_json_add_string_vec_by_path</a>(json, me, path, value, found, was_created, ilen, trim_str, adjustl_str)
     
     
 	 
@@ -20870,6 +21461,36 @@ private subroutine <a href='../proc/wrap_json_add_string_vec_by_path.html'>wrap_
  element in <code>value</code>. If not present,
  the full <code>len(value)</code> string is added
  for each element.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for each element</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for each element</p></td>
   
 </tr>
 
@@ -23457,7 +24078,7 @@ private subroutine <a href='../proc/wrap_json_update_logical.html'>wrap_json_upd
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-wrap_json_update_string"></span><h3>
-private subroutine <a href='../proc/wrap_json_update_string.html'>wrap_json_update_string</a>(json, p, path, val, found)
+private subroutine <a href='../proc/wrap_json_update_string.html'>wrap_json_update_string</a>(json, p, path, val, found, trim_str, adjustl_str)
     
     
 	 
@@ -23559,6 +24180,39 @@ private subroutine <a href='../proc/wrap_json_update_string.html'>wrap_json_upda
   
   <td></td><td>::</td>
   <td><strong>found</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code>
+ (only used if <code>val</code> is present)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code>
+ (only used if <code>val</code> is present)
+ (note that ADJUSTL is done before TRIM)</p></td>
   
 </tr>
 
@@ -24289,7 +24943,7 @@ private subroutine <a href='../proc/wrap_json_value_add_null.html'>wrap_json_val
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-wrap_json_value_add_string"></span><h3>
-private subroutine <a href='../proc/wrap_json_value_add_string.html'>wrap_json_value_add_string</a>(json, p, name, val)
+private subroutine <a href='../proc/wrap_json_value_add_string.html'>wrap_json_value_add_string</a>(json, p, name, val, trim_str, adjustl_str)
     
     
 	 
@@ -24376,6 +25030,36 @@ private subroutine <a href='../proc/wrap_json_value_add_string.html'>wrap_json_v
   
   <td></td><td>::</td>
   <td><strong>val</strong></td><td><p>value</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code></p></td>
   
 </tr>
 
@@ -25177,7 +25861,7 @@ private subroutine <a href='../proc/wrap_json_value_create_object.html'>wrap_jso
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-wrap_json_value_create_string"></span><h3>
-private subroutine <a href='../proc/wrap_json_value_create_string.html'>wrap_json_value_create_string</a>(json, p, val, name)
+private subroutine <a href='../proc/wrap_json_value_create_string.html'>wrap_json_value_create_string</a>(json, p, val, name, trim_str, adjustl_str)
     
     
 	 
@@ -25276,6 +25960,36 @@ private subroutine <a href='../proc/wrap_json_value_create_string.html'>wrap_jso
   
   <td></td><td>::</td>
   <td><strong>name</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code></p></td>
   
 </tr>
 
@@ -25645,7 +26359,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-06-10 14:28  
+             on 2018-06-24 01:19  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

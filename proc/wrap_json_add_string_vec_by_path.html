@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.2% of total for procedures.">11 statements</a>
+	  title=" 0.2% of total for procedures.">13 statements</a>
      </li> 
      
      
@@ -808,7 +808,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine wrap_json_add_string_vec_by_path(json, me, path, value, found, was_created, ilen)
+private subroutine wrap_json_add_string_vec_by_path(json, me, path, value, found, was_created, ilen, trim_str, adjustl_str)
     
     
 	 
@@ -839,7 +839,7 @@ private subroutine wrap_json_add_string_vec_by_path(json, me, path, value, found
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E137"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E144"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -941,6 +941,36 @@ private subroutine wrap_json_add_string_vec_by_path(json, me, path, value, found
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-trim_str%7E31"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for each element</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-adjustl_str%7E31"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for each element</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -978,31 +1008,31 @@ private subroutine wrap_json_add_string_vec_by_path(json, me, path, value, found
 <path fill="none" stroke="#ff0000" d="M184.108,-33C193.082,-33 201.854,-33 209.954,-33"/>
 <polygon fill="#ff0000" stroke="#ff0000" points="210.175,-36.5001 220.175,-33 210.175,-29.5001 210.175,-36.5001"/>
 </g>
-<!-- proc~to_uni_vec -->
-<g id="proc~~wrap_json_add_string_vec_by_path~~CallsGraph_node3" class="node"><title>proc~to_uni_vec</title>
-<g id="a_proc~~wrap_json_add_string_vec_by_path~~CallsGraph_node3"><a xlink:href="../proc/to_uni_vec.html" xlink:title="to_uni_vec">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="386,-66 322,-66 322,-42 386,-42 386,-66"/>
-<text text-anchor="middle" x="354" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni_vec</text>
-</a>
-</g>
-</g>
-<!-- interface~to_unicode&#45;&gt;proc~to_uni_vec -->
-<g id="proc~~wrap_json_add_string_vec_by_path~~CallsGraph_edge1" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M285.596,-39.7023C293.894,-41.4623 302.966,-43.3868 311.69,-45.2373"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="311.195,-48.71 321.703,-47.3613 312.647,-41.8624 311.195,-48.71"/>
-</g>
 <!-- proc~to_uni -->
-<g id="proc~~wrap_json_add_string_vec_by_path~~CallsGraph_node4" class="node"><title>proc~to_uni</title>
-<g id="a_proc~~wrap_json_add_string_vec_by_path~~CallsGraph_node4"><a xlink:href="../proc/to_uni.html" xlink:title="to_uni">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="381,-24 327,-24 327,-0 381,-0 381,-24"/>
-<text text-anchor="middle" x="354" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni</text>
+<g id="proc~~wrap_json_add_string_vec_by_path~~CallsGraph_node3" class="node"><title>proc~to_uni</title>
+<g id="a_proc~~wrap_json_add_string_vec_by_path~~CallsGraph_node3"><a xlink:href="../proc/to_uni.html" xlink:title="to_uni">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="381,-66 327,-66 327,-42 381,-42 381,-66"/>
+<text text-anchor="middle" x="354" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni</text>
 </a>
 </g>
 </g>
 <!-- interface~to_unicode&#45;&gt;proc~to_uni -->
-<g id="proc~~wrap_json_add_string_vec_by_path~~CallsGraph_edge2" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M285.596,-26.2977C295.612,-24.1731 306.759,-21.8087 317.057,-19.6243"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="317.943,-23.0143 326.999,-17.5154 316.49,-16.1667 317.943,-23.0143"/>
+<g id="proc~~wrap_json_add_string_vec_by_path~~CallsGraph_edge1" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M285.596,-39.7023C295.612,-41.8269 306.759,-44.1913 317.057,-46.3757"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="316.49,-49.8333 326.999,-48.4846 317.943,-42.9857 316.49,-49.8333"/>
+</g>
+<!-- proc~to_uni_vec -->
+<g id="proc~~wrap_json_add_string_vec_by_path~~CallsGraph_node4" class="node"><title>proc~to_uni_vec</title>
+<g id="a_proc~~wrap_json_add_string_vec_by_path~~CallsGraph_node4"><a xlink:href="../proc/to_uni_vec.html" xlink:title="to_uni_vec">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="386,-24 322,-24 322,-0 386,-0 386,-24"/>
+<text text-anchor="middle" x="354" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni_vec</text>
+</a>
+</g>
+</g>
+<!-- interface~to_unicode&#45;&gt;proc~to_uni_vec -->
+<g id="proc~~wrap_json_add_string_vec_by_path~~CallsGraph_edge2" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M285.596,-26.2977C293.894,-24.5377 302.966,-22.6132 311.69,-20.7627"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="312.647,-24.1376 321.703,-18.6387 311.195,-17.29 312.647,-24.1376"/>
 </g>
 </g>
 </svg>
@@ -1132,7 +1162,8 @@ private subroutine wrap_json_add_string_vec_by_path(json, me, path, value, found
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
     <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">wrap_json_add_string_vec_by_path</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">me</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="k">value</span><span class="p">,&amp;</span>
-                                                <span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">,</span><span class="n">ilen</span><span class="p">)</span>
+                                                <span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">,</span><span class="n">ilen</span><span class="p">,&amp;</span>
+                                                <span class="n">trim_str</span><span class="p">,</span><span class="n">adjustl_str</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -1146,9 +1177,11 @@ private subroutine wrap_json_add_string_vec_by_path(json, me, path, value, found
                                                          <span class="c">!! element in `value`. If not present,</span>
                                                          <span class="c">!! the full `len(value)` string is added</span>
                                                          <span class="c">!! for each element.</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>  <span class="kd">::</span> <span class="n">trim_str</span>         <span class="c">!! if TRIM() should be called for each element</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>  <span class="kd">::</span> <span class="n">adjustl_str</span>      <span class="c">!! if ADJUSTL() should be called for each element</span>
 
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">json_add_string_vec_by_path</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">path</span><span class="p">),</span><span class="n">to_unicode</span><span class="p">(</span><span class="k">value</span><span class="p">),&amp;</span>
-                                            <span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">,</span><span class="n">ilen</span><span class="p">)</span>
+                                            <span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">,</span><span class="n">ilen</span><span class="p">,</span><span class="n">trim_str</span><span class="p">,</span><span class="n">adjustl_str</span><span class="p">)</span>
 
     <span class="k">end subroutine </span><span class="n">wrap_json_add_string_vec_by_path</span>
 </pre></div>
@@ -1784,7 +1817,7 @@ private subroutine wrap_json_add_string_vec_by_path(json, me, path, value, found
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-06-10 14:28  
+             on 2018-06-24 01:19  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

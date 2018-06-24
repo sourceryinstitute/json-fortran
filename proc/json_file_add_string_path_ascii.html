@@ -134,7 +134,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.2% of total for procedures.">10 statements</a>
+	  title=" 0.2% of total for procedures.">12 statements</a>
      </li> 
      
      
@@ -810,7 +810,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_file_add_string_path_ascii(me, path, val, found, was_created)
+private subroutine json_file_add_string_path_ascii(me, path, val, found, was_created, trim_str, adjustl_str)
     
     
 	 
@@ -910,6 +910,37 @@ private subroutine json_file_add_string_path_ascii(me, path, val, found, was_cre
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-trim_str%7E2"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-adjustl_str%7E2"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code>
+ (note that ADJUSTL is done before TRIM)</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -947,31 +978,31 @@ private subroutine json_file_add_string_path_ascii(me, path, val, found, was_cre
 <path fill="none" stroke="#ff0000" d="M162.064,-33C171.067,-33 179.95,-33 188.174,-33"/>
 <polygon fill="#ff0000" stroke="#ff0000" points="188.199,-36.5001 198.199,-33 188.199,-29.5001 188.199,-36.5001"/>
 </g>
-<!-- proc~to_uni_vec -->
-<g id="proc~~json_file_add_string_path_ascii~~CallsGraph_node3" class="node"><title>proc~to_uni_vec</title>
-<g id="a_proc~~json_file_add_string_path_ascii~~CallsGraph_node3"><a xlink:href="../proc/to_uni_vec.html" xlink:title="to_uni_vec">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="364,-66 300,-66 300,-42 364,-42 364,-66"/>
-<text text-anchor="middle" x="332" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni_vec</text>
-</a>
-</g>
-</g>
-<!-- interface~to_unicode&#45;&gt;proc~to_uni_vec -->
-<g id="proc~~json_file_add_string_path_ascii~~CallsGraph_edge1" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M263.596,-39.7023C271.894,-41.4623 280.966,-43.3868 289.69,-45.2373"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="289.195,-48.71 299.703,-47.3613 290.647,-41.8624 289.195,-48.71"/>
-</g>
 <!-- proc~to_uni -->
-<g id="proc~~json_file_add_string_path_ascii~~CallsGraph_node4" class="node"><title>proc~to_uni</title>
-<g id="a_proc~~json_file_add_string_path_ascii~~CallsGraph_node4"><a xlink:href="../proc/to_uni.html" xlink:title="to_uni">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="359,-24 305,-24 305,-0 359,-0 359,-24"/>
-<text text-anchor="middle" x="332" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni</text>
+<g id="proc~~json_file_add_string_path_ascii~~CallsGraph_node3" class="node"><title>proc~to_uni</title>
+<g id="a_proc~~json_file_add_string_path_ascii~~CallsGraph_node3"><a xlink:href="../proc/to_uni.html" xlink:title="to_uni">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="359,-66 305,-66 305,-42 359,-42 359,-66"/>
+<text text-anchor="middle" x="332" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni</text>
 </a>
 </g>
 </g>
 <!-- interface~to_unicode&#45;&gt;proc~to_uni -->
-<g id="proc~~json_file_add_string_path_ascii~~CallsGraph_edge2" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M263.596,-26.2977C273.612,-24.1731 284.759,-21.8087 295.057,-19.6243"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="295.943,-23.0143 304.999,-17.5154 294.49,-16.1667 295.943,-23.0143"/>
+<g id="proc~~json_file_add_string_path_ascii~~CallsGraph_edge1" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M263.596,-39.7023C273.612,-41.8269 284.759,-44.1913 295.057,-46.3757"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="294.49,-49.8333 304.999,-48.4846 295.943,-42.9857 294.49,-49.8333"/>
+</g>
+<!-- proc~to_uni_vec -->
+<g id="proc~~json_file_add_string_path_ascii~~CallsGraph_node4" class="node"><title>proc~to_uni_vec</title>
+<g id="a_proc~~json_file_add_string_path_ascii~~CallsGraph_node4"><a xlink:href="../proc/to_uni_vec.html" xlink:title="to_uni_vec">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="364,-24 300,-24 300,-0 364,-0 364,-24"/>
+<text text-anchor="middle" x="332" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni_vec</text>
+</a>
+</g>
+</g>
+<!-- interface~to_unicode&#45;&gt;proc~to_uni_vec -->
+<g id="proc~~json_file_add_string_path_ascii~~CallsGraph_edge2" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M263.596,-26.2977C271.894,-24.5377 280.966,-22.6132 289.69,-20.7627"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="290.647,-24.1376 299.703,-18.6387 289.195,-17.29 290.647,-24.1376"/>
 </g>
 </g>
 </svg>
@@ -1100,7 +1131,8 @@ private subroutine json_file_add_string_path_ascii(me, path, val, found, was_cre
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_add_string_path_ascii</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_add_string_path_ascii</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">found</span><span class="p">,&amp;</span>
+                                                    <span class="n">was_created</span><span class="p">,</span><span class="n">trim_str</span><span class="p">,</span><span class="n">adjustl_str</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -1109,10 +1141,14 @@ private subroutine json_file_add_string_path_ascii(me, path, val, found, was_cre
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">val</span>          <span class="c">!! value</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span>     <span class="kd">::</span> <span class="n">found</span>        <span class="c">!! if the variable was found</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span>     <span class="kd">::</span> <span class="n">was_created</span>  <span class="c">!! if the variable had to be created</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">trim_str</span>     <span class="c">!! if TRIM() should be called for the `val`</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">adjustl_str</span>  <span class="c">!! if ADJUSTL() should be called for the `val`</span>
+                                                         <span class="c">!! (note that ADJUSTL is done before TRIM)</span>
 
     <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">))</span> <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">create_object</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">,</span><span class="n">ck_</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="c">! create root</span>
 
-    <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">json_file_add_string</span><span class="p">(</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">path</span><span class="p">),</span><span class="n">val</span><span class="p">,</span><span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">json_file_add_string</span><span class="p">(</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">path</span><span class="p">),</span><span class="n">val</span><span class="p">,</span><span class="n">found</span><span class="p">,&amp;</span>
+                                    <span class="n">was_created</span><span class="p">,</span><span class="n">trim_str</span><span class="p">,</span><span class="n">adjustl_str</span><span class="p">)</span>
 
     <span class="k">end subroutine </span><span class="n">json_file_add_string_path_ascii</span>
 </pre></div>
@@ -1748,7 +1784,7 @@ private subroutine json_file_add_string_path_ascii(me, path, val, found, was_cre
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-06-10 14:28  
+             on 2018-06-24 01:19  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
