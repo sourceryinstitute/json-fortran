@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	 
-	 <meta name="description" content="JSON-Fortran – A Fortran 2008 JSON API">
+   
+   <meta name="description" content="JSON-Fortran – A Fortran 2008 JSON API">
     
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
@@ -17,6 +17,9 @@
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/local.css" rel="stylesheet">
     
+    <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,13 +29,6 @@
     
     <script src="../js/jquery-2.1.3.min.js"></script>
     <script src="../js/svg-pan-zoom.min.js"></script>
-
-    
-    <script src="../tipuesearch/tipuesearch_content.js"></script>
-    <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
-    <script src="../tipuesearch/tipuesearch_set.js"></script>
-    <script src="../tipuesearch/tipuesearch.js"></script>
-    
 
   </head>
 
@@ -52,35 +48,39 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-				
+        
             <li><a href='../page/index.html'>Other Docs</a></li>
-	    
+      
             <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
               <a href="#" class="dropdown-toggle"
               data-toggle="dropdown" role="button"
               aria-haspopup="true"
-		 aria-expanded="false">Contents <span class="caret"></span></a>
-	      <ul class="dropdown-menu">
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
               
             <li><a href="../lists/files.html">Source Files</a></li>
-				
-				
+        
+        
+        
             <li><a href="../lists/modules.html">Modules</a></li>
-				
+        
             
                                 
             <li><a href="../lists/procedures.html">Procedures</a></li>
-				
-				
+        
+        
             <li><a href="../lists/absint.html">Abstract Interfaces</a></li>
-								
+               
             <li><a href="../lists/types.html">Derived Types</a></li>
-				
-				
+        
+        
             </ul>
             </li>
 
+
 <li class="visible-xs hidden-sm visible-lg"><a href="../lists/files.html">Source Files</a></li>
+
 
 
 <li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
@@ -135,17 +135,21 @@
     
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
-	  data-placement="bottom" data-html="true"
-	  title="78.9% of total for modules and submodules.">5023 statements</a>
+    data-placement="bottom" data-html="true"
+    title="79.0% of total for modules and submodules.">5060 statements</a>
      </li> 
+     
      
      
     <li><i class="fa fa-code"></i><a href="../src/json_value_module.F90"> Source File</a></li>
      
+     
   </ul>
   <ol class="breadcrumb in-well text-right">
   
+    
      <li><a href='../sourcefile/json_value_module.f90.html'>json_value_module.F90</a></li>
+    
   
      <li class="active">json_value_module</li>
   </ol>
@@ -165,6 +169,9 @@
     
 <div id="sidebar">
   
+<h3>Contents</h3>
+ 
+
 
 
 <div class="panel panel-primary">
@@ -189,6 +196,7 @@
 
 
 
+
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#inters-0">Interfaces</a></h3></div>
   <div id="inters-0" class="panel-collapse collapse">
@@ -199,6 +207,7 @@
     </div>
   </div>
 </div>
+
 
 
 <div class="panel panel-primary">
@@ -215,6 +224,7 @@
 </div>
 
 
+
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#types-0">Derived Types</a></h3></div>
   <div id="types-0" class="panel-collapse collapse">
@@ -227,6 +237,7 @@
     </div>
   </div>
 </div>
+
 
 
 <div class="panel panel-primary">
@@ -257,6 +268,7 @@
     </div>
   </div>
 </div>
+
 
 
 <div class="panel panel-primary">
@@ -634,53 +646,49 @@
 
 
 
-  <hr>
-  
 
-<div class="panel panel-default">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#allmods-0">All Modules</a></h3></div>
-  <div id="allmods-0" class="panel-collapse collapse">
-    <div class="list-group">
-      
-      <a class="list-group-item" href="../module/json_file_module.html">json_file_module</a>
-      
-      <a class="list-group-item" href="../module/json_kinds.html">json_kinds</a>
-      
-      <a class="list-group-item" href="../module/json_module.html">json_module</a>
-      
-      <a class="list-group-item" href="../module/json_parameters.html">json_parameters</a>
-      
-      <a class="list-group-item" href="../module/json_string_utilities.html">json_string_utilities</a>
-      
-      <a class="list-group-item" href="../module/json_value_module.html">json_value_module</a>
-      
-    </div>
-  </div>
 </div>
-
-
-</div>  
 
     </div>
     
     <div class="col-md-9" id='text'>
-      
+    <p>This module provides a low-level interface for manipulation of <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data.
+  The two public entities are <a href="../type/json_value.html">json_value</a>, and <a href="../type/json_core.html">json_core</a>.
+  The <a href="../module/json_file_module.html">json_file_module</a> provides a higher-level interface to some
+  of these routines.</p>
+<h3 id="license">License</h3>
+<ul>
+<li><abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>-Fortran is released under a BSD-style license.
+    See the <a href="https://github.com/jacobwilliams/json-fortran/blob/master/LICENSE">LICENSE</a>
+    file for details.</li>
+</ul>
+      <br>
     
   
-    <ul class="list-inline">
-      <li><h4>Uses:</h4></li>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Uses</h3>
+      </div>
+      <ul class="list-group">
       
-      <li><a href="https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fFORTRAN_005fENV.html">iso_fortran_env</a></li>
-      
-      <li><a href='../module/json_kinds.html'>json_kinds</a></li>
-      
-      <li><a href='../module/json_parameters.html'>json_parameters</a></li>
-      
-      <li><a href='../module/json_string_utilities.html'>json_string_utilities</a></li>
-      
-    </ul>
+      <li class="list-group-item">
+  <ul class="list-inline">
     
-                <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <li><a href="https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fFORTRAN_005fENV.html">iso_fortran_env</a></li>
+    
+    <li><a href='../module/json_kinds.html'>json_kinds</a></li>
+    
+    <li><a href='../module/json_parameters.html'>json_parameters</a></li>
+    
+    <li><a href='../module/json_string_utilities.html'>json_string_utilities</a></li>
+    
+  </ul>
+      </li>
+      
+      
+      
+      <li class="list-group-item">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generated by graphviz version 2.36.0 (20140111.2315)
@@ -696,91 +704,83 @@
 <polygon fill="none" stroke="black" points="599.5,-57.3941 494.5,-57.3941 494.5,-33.3941 599.5,-33.3941 599.5,-57.3941"/>
 <text text-anchor="middle" x="547" y="-42.9941" font-family="Helvetica,sans-Serif" font-size="10.50">json_value_module</text>
 </g>
-<!-- module~json_parameters -->
-<g id="module~~json_value_module~~UsesGraph_node2" class="node"><title>module~json_parameters</title>
-<g id="a_module~~json_value_module~~UsesGraph_node2"><a xlink:href="../module/json_parameters.html" xlink:title="json_parameters">
-<polygon fill="#337ab7" stroke="#337ab7" points="317.5,-37.3941 224.5,-37.3941 224.5,-13.3941 317.5,-13.3941 317.5,-37.3941"/>
-<text text-anchor="middle" x="271" y="-22.9941" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_parameters</text>
-</a>
-</g>
-</g>
-<!-- module~json_parameters&#45;&gt;module~json_value_module -->
-<g id="module~~json_value_module~~UsesGraph_edge5" class="edge"><title>module~json_parameters&#45;&gt;module~json_value_module</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M296.828,-37.564C323.054,-49.2875 365.939,-65.2736 405,-65.3941"/>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M407,-65.3941C432.493,-65.4728 460.35,-62.1507 484.387,-58.1927"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="485.174,-61.6088 494.437,-56.4655 483.988,-54.7099 485.174,-61.6088"/>
-</g>
-<!-- module~json_string_utilities -->
-<g id="module~~json_value_module~~UsesGraph_node4" class="node"><title>module~json_string_utilities</title>
-<g id="a_module~~json_value_module~~UsesGraph_node4"><a xlink:href="../module/json_string_utilities.html" xlink:title="json_string_utilities">
-<polygon fill="#337ab7" stroke="#337ab7" points="457.5,-37.3941 354.5,-37.3941 354.5,-13.3941 457.5,-13.3941 457.5,-37.3941"/>
-<text text-anchor="middle" x="406" y="-22.9941" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_string_utilities</text>
-</a>
-</g>
-</g>
-<!-- module~json_parameters&#45;&gt;module~json_string_utilities -->
-<g id="module~~json_value_module~~UsesGraph_edge2" class="edge"><title>module~json_parameters&#45;&gt;module~json_string_utilities</title>
-<path fill="none" stroke="#00ffff" stroke-dasharray="5,2" d="M317.771,-25.3941C326.196,-25.3941 335.115,-25.3941 343.906,-25.3941"/>
-<polygon fill="#00ffff" stroke="#00ffff" points="344.131,-28.8942 354.131,-25.3941 344.131,-21.8942 344.131,-28.8942"/>
-</g>
 <!-- iso_fortran_env -->
-<g id="module~~json_value_module~~UsesGraph_node3" class="node"><title>iso_fortran_env</title>
-<g id="a_module~~json_value_module~~UsesGraph_node3"><a xlink:href="https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fFORTRAN_005fENV.html" xlink:title="iso_fortran_env">
+<g id="module~~json_value_module~~UsesGraph_node2" class="node"><title>iso_fortran_env</title>
+<g id="a_module~~json_value_module~~UsesGraph_node2"><a xlink:href="https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fFORTRAN_005fENV.html" xlink:title="iso_fortran_env">
 <polygon fill="#337ab7" stroke="#337ab7" points="87.5,-57.3941 0.5,-57.3941 0.5,-33.3941 87.5,-33.3941 87.5,-57.3941"/>
 <text text-anchor="middle" x="44" y="-42.9941" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">iso_fortran_env</text>
 </a>
 </g>
 </g>
-<!-- iso_fortran_env&#45;&gt;module~json_value_module -->
-<g id="module~~json_value_module~~UsesGraph_edge6" class="edge"><title>iso_fortran_env&#45;&gt;module~json_value_module</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M87.7097,-49.2561C132.963,-53.3328 206.509,-59.9143 270,-65.3941"/>
+<!-- module~json_value_module&#45;&gt;iso_fortran_env -->
+<g id="module~~json_value_module~~UsesGraph_edge1" class="edge"><title>module~json_value_module&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M270,-65.3941C211.097,-60.3103 143.54,-54.2783 97.9493,-50.1778"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="97.9833,-46.6668 87.7097,-49.2561 97.3557,-53.6386 97.9833,-46.6668"/>
 </g>
 <!-- module~json_kinds -->
-<g id="module~~json_value_module~~UsesGraph_node5" class="node"><title>module~json_kinds</title>
-<g id="a_module~~json_value_module~~UsesGraph_node5"><a xlink:href="../module/json_kinds.html" xlink:title="json_kinds">
+<g id="module~~json_value_module~~UsesGraph_node3" class="node"><title>module~json_kinds</title>
+<g id="a_module~~json_value_module~~UsesGraph_node3"><a xlink:href=".././module/json_kinds.html" xlink:title="json_kinds">
 <polygon fill="#337ab7" stroke="#337ab7" points="187.5,-37.3941 124.5,-37.3941 124.5,-13.3941 187.5,-13.3941 187.5,-37.3941"/>
 <text text-anchor="middle" x="156" y="-22.9941" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_kinds</text>
 </a>
 </g>
 </g>
-<!-- iso_fortran_env&#45;&gt;module~json_kinds -->
-<g id="module~~json_value_module~~UsesGraph_edge4" class="edge"><title>iso_fortran_env&#45;&gt;module~json_kinds</title>
-<path fill="none" stroke="#7f00ff" stroke-dasharray="5,2" d="M87.5289,-37.6616C96.3065,-36.0657 105.531,-34.3884 114.244,-32.8043"/>
-<polygon fill="#7f00ff" stroke="#7f00ff" points="114.967,-36.2304 124.179,-30.9979 113.715,-29.3433 114.967,-36.2304"/>
+<!-- module~json_value_module&#45;&gt;module~json_kinds -->
+<g id="module~~json_value_module~~UsesGraph_edge2" class="edge"><title>module~json_value_module&#45;&gt;module~json_kinds</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M405,-65.3941C345.889,-65.2117 330.892,-70.4771 272,-65.3941"/>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M270,-65.3941C241.644,-62.9468 211.335,-51.6984 189.253,-41.751"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="190.566,-38.5015 180.023,-37.4531 187.611,-44.8473 190.566,-38.5015"/>
 </g>
-<!-- module~json_string_utilities&#45;&gt;module~json_value_module -->
-<g id="module~~json_value_module~~UsesGraph_edge7" class="edge"><title>module~json_string_utilities&#45;&gt;module~json_value_module</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M457.575,-32.6712C466.261,-33.9209 475.373,-35.232 484.311,-36.518"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="483.899,-39.9947 494.296,-37.9547 484.896,-33.0661 483.899,-39.9947"/>
+<!-- module~json_parameters -->
+<g id="module~~json_value_module~~UsesGraph_node4" class="node"><title>module~json_parameters</title>
+<g id="a_module~~json_value_module~~UsesGraph_node4"><a xlink:href=".././module/json_parameters.html" xlink:title="json_parameters">
+<polygon fill="#337ab7" stroke="#337ab7" points="317.5,-37.3941 224.5,-37.3941 224.5,-13.3941 317.5,-13.3941 317.5,-37.3941"/>
+<text text-anchor="middle" x="271" y="-22.9941" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_parameters</text>
+</a>
 </g>
-<!-- module~json_kinds&#45;&gt;module~json_value_module -->
-<g id="module~~json_value_module~~UsesGraph_edge8" class="edge"><title>module~json_kinds&#45;&gt;module~json_value_module</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M180.023,-37.4531C202.322,-48.1766 237.448,-62.5846 270,-65.3941"/>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M272,-65.3941C330.892,-70.4771 345.889,-65.2117 405,-65.3941"/>
 </g>
-<!-- module~json_kinds&#45;&gt;module~json_parameters -->
-<g id="module~~json_value_module~~UsesGraph_edge1" class="edge"><title>module~json_kinds&#45;&gt;module~json_parameters</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M187.579,-25.3941C195.748,-25.3941 204.839,-25.3941 213.915,-25.3941"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="214.107,-28.8942 224.107,-25.3941 214.107,-21.8942 214.107,-28.8942"/>
+<!-- module~json_value_module&#45;&gt;module~json_parameters -->
+<g id="module~~json_value_module~~UsesGraph_edge3" class="edge"><title>module~json_value_module&#45;&gt;module~json_parameters</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M494.437,-56.4655C468.357,-61.1321 436.135,-65.4841 407,-65.3941"/>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M405,-65.3941C370.364,-65.2872 332.721,-52.7058 306.352,-41.683"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="307.395,-38.321 296.828,-37.564 304.617,-44.7459 307.395,-38.321"/>
 </g>
-<!-- module~json_kinds&#45;&gt;module~json_string_utilities -->
-<g id="module~~json_value_module~~UsesGraph_edge3" class="edge"><title>module~json_kinds&#45;&gt;module~json_string_utilities</title>
-<path fill="none" stroke="#00ffff" stroke-dasharray="5,2" d="M187.558,-13.6696C198.834,-9.91837 211.83,-6.25673 224,-4.39415 265.297,1.92617 276.515,0.541806 318,-4.39415 329.695,-5.78561 342.091,-8.19404 353.748,-10.8953"/>
-<polygon fill="#00ffff" stroke="#00ffff" points="353.223,-14.3692 363.766,-13.3262 354.874,-7.56666 353.223,-14.3692"/>
+<!-- module~json_string_utilities -->
+<g id="module~~json_value_module~~UsesGraph_node5" class="node"><title>module~json_string_utilities</title>
+<g id="a_module~~json_value_module~~UsesGraph_node5"><a xlink:href=".././module/json_string_utilities.html" xlink:title="json_string_utilities">
+<polygon fill="#337ab7" stroke="#337ab7" points="457.5,-37.3941 354.5,-37.3941 354.5,-13.3941 457.5,-13.3941 457.5,-37.3941"/>
+<text text-anchor="middle" x="406" y="-22.9941" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_string_utilities</text>
+</a>
+</g>
+</g>
+<!-- module~json_value_module&#45;&gt;module~json_string_utilities -->
+<g id="module~~json_value_module~~UsesGraph_edge4" class="edge"><title>module~json_value_module&#45;&gt;module~json_string_utilities</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M494.242,-37.9469C485.698,-36.7176 476.771,-35.4331 468.026,-34.1748"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="468.273,-30.6745 457.877,-32.7146 467.276,-37.6031 468.273,-30.6745"/>
+</g>
+<!-- module~json_kinds&#45;&gt;iso_fortran_env -->
+<g id="module~~json_value_module~~UsesGraph_edge5" class="edge"><title>module~json_kinds&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#7fff00" stroke-dasharray="5,2" d="M124.359,-30.9653C116.049,-32.4761 106.809,-34.1561 97.6566,-35.8202"/>
+<polygon fill="#7fff00" stroke="#7fff00" points="97.0195,-32.3786 87.8069,-37.6111 98.2717,-39.2657 97.0195,-32.3786"/>
+</g>
+<!-- module~json_parameters&#45;&gt;module~json_kinds -->
+<g id="module~~json_value_module~~UsesGraph_edge6" class="edge"><title>module~json_parameters&#45;&gt;module~json_kinds</title>
+<path fill="none" stroke="#00ffff" stroke-dasharray="5,2" d="M224.364,-25.3941C215.568,-25.3941 206.406,-25.3941 197.776,-25.3941"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="197.574,-21.8942 187.574,-25.3941 197.574,-28.8942 197.574,-21.8942"/>
+</g>
+<!-- module~json_string_utilities&#45;&gt;module~json_kinds -->
+<g id="module~~json_value_module~~UsesGraph_edge7" class="edge"><title>module~json_string_utilities&#45;&gt;module~json_kinds</title>
+<path fill="none" stroke="#7f00ff" stroke-dasharray="5,2" d="M363.766,-13.3262C349.414,-9.69231 333.121,-6.1932 318,-4.39415 276.515,0.541806 265.297,1.92617 224,-4.39415 215.158,-5.74743 205.879,-8.05042 197.142,-10.6475"/>
+<polygon fill="#7f00ff" stroke="#7f00ff" points="196.042,-7.32408 187.558,-13.6696 198.148,-14 196.042,-7.32408"/>
+</g>
+<!-- module~json_string_utilities&#45;&gt;module~json_parameters -->
+<g id="module~~json_value_module~~UsesGraph_edge8" class="edge"><title>module~json_string_utilities&#45;&gt;module~json_parameters</title>
+<path fill="none" stroke="#7f00ff" stroke-dasharray="5,2" d="M354.339,-25.3941C345.686,-25.3941 336.653,-25.3941 327.873,-25.3941"/>
+<polygon fill="#7f00ff" stroke="#7f00ff" points="327.722,-21.8942 317.722,-25.3941 327.722,-28.8942 327.722,-21.8942"/>
 </g>
 </g>
 </svg>
-</div>
-                <div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div>
-                <div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
-                      </div>
-                      <div class="modal-body">
-                        
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
     <p>Nodes of different colours represent the following: </p>
     <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
@@ -827,34 +827,28 @@
 </svg>
 
     
-    <p>Solid arrows point from a parent (sub)module to the submodule which is
-    descended from it. Dashed arrows point from a module being used to the
-    module or program unit using it. Where possible, edges connecting nodes are given different colours to make them easier to distinguish in large graphs.
+    <p>Solid arrows point from a submodule to the (sub)module which it is
+    descended from. Dashed arrows point from a module or program unit to 
+    modules which it uses. Where possible, edges connecting nodes are given different colours to make them easier to distinguish in large graphs.
     </p>
-    
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
+    </div></div></div></div>
+      </li>
+      
+      </ul>
+    </div>
     
 
     
-    <p>This module provides a low-level interface for manipulation of <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data.
-  The two public entities are <a href="../type/json_value.html">json_value</a>, and <a href="../type/json_core.html">json_core</a>.
-  The <a href="../module/json_file_module.html">json_file_module</a> provides a higher-level interface to some
-  of these routines.</p>
-<h2 id="license">License</h2>
-<ul>
-<li><abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>-Fortran is released under a BSD-style license.
-    See the <a href="https://github.com/jacobwilliams/json-fortran/blob/master/LICENSE">LICENSE</a>
-    file for details.</li>
-</ul>
     
-    
-    <h3>Used By</h3>
-    
-                <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Used by</h3>
+      </div>
+      <ul class="list-group">
+  
+  
+  <li class="list-group-item">
+    <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Generated by graphviz version 2.36.0 (20140111.2315)
@@ -867,53 +861,43 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-48 350,-48 350,4 -4,4"/>
 <!-- module~json_value_module -->
 <g id="module~~json_value_module~~UsedByGraph_node1" class="node"><title>module~json_value_module</title>
-<polygon fill="none" stroke="black" points="105.5,-24 0.5,-24 0.5,-0 105.5,-0 105.5,-24"/>
-<text text-anchor="middle" x="53" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50">json_value_module</text>
-</g>
-<!-- module~json_file_module -->
-<g id="module~~json_value_module~~UsedByGraph_node2" class="node"><title>module~json_file_module</title>
-<g id="a_module~~json_value_module~~UsedByGraph_node2"><a xlink:href="../module/json_file_module.html" xlink:title="json_file_module">
-<polygon fill="#337ab7" stroke="#337ab7" points="235.5,-44 142.5,-44 142.5,-20 235.5,-20 235.5,-44"/>
-<text text-anchor="middle" x="189" y="-29.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_file_module</text>
-</a>
-</g>
-</g>
-<!-- module~json_value_module&#45;&gt;module~json_file_module -->
-<g id="module~~json_value_module~~UsedByGraph_edge2" class="edge"><title>module~json_value_module&#45;&gt;module~json_file_module</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M105.808,-19.7325C114.489,-21.0282 123.53,-22.3775 132.304,-23.6871"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="132.037,-27.186 142.444,-25.2006 133.07,-20.2626 132.037,-27.186"/>
+<polygon fill="none" stroke="black" points="105.5,-44 0.5,-44 0.5,-20 105.5,-20 105.5,-44"/>
+<text text-anchor="middle" x="53" y="-29.6" font-family="Helvetica,sans-Serif" font-size="10.50">json_value_module</text>
 </g>
 <!-- module~json_module -->
-<g id="module~~json_value_module~~UsedByGraph_node3" class="node"><title>module~json_module</title>
-<g id="a_module~~json_value_module~~UsedByGraph_node3"><a xlink:href="../module/json_module.html" xlink:title="json_module">
-<polygon fill="#337ab7" stroke="#337ab7" points="345.5,-24 272.5,-24 272.5,-0 345.5,-0 345.5,-24"/>
-<text text-anchor="middle" x="309" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_module</text>
+<g id="module~~json_value_module~~UsedByGraph_node2" class="node"><title>module~json_module</title>
+<g id="a_module~~json_value_module~~UsedByGraph_node2"><a xlink:href=".././module/json_module.html" xlink:title="json_module">
+<polygon fill="#337ab7" stroke="#337ab7" points="345.5,-44 272.5,-44 272.5,-20 345.5,-20 345.5,-44"/>
+<text text-anchor="middle" x="309" y="-29.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_module</text>
 </a>
 </g>
 </g>
-<!-- module~json_value_module&#45;&gt;module~json_module -->
-<g id="module~~json_value_module~~UsedByGraph_edge3" class="edge"><title>module~json_value_module&#45;&gt;module~json_module</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M105.65,-11.315C117.587,-11.1839 130.236,-11.0668 142,-11 183.777,-10.7626 194.223,-10.7099 236,-11 244.536,-11.0593 253.64,-11.1581 262.403,-11.2711"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="262.431,-14.7717 272.478,-11.4088 262.527,-7.77235 262.431,-14.7717"/>
+<!-- module~json_module&#45;&gt;module~json_value_module -->
+<g id="module~~json_value_module~~UsedByGraph_edge1" class="edge"><title>module~json_module&#45;&gt;module~json_value_module</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M272.478,-32.5912C260.853,-32.7586 247.876,-32.9175 236,-33 194.223,-33.2901 183.777,-33.2374 142,-33 133.544,-32.952 124.632,-32.878 115.855,-32.7915"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="115.686,-29.2896 105.65,-32.685 115.613,-36.2892 115.686,-29.2896"/>
 </g>
-<!-- module~json_file_module&#45;&gt;module~json_module -->
-<g id="module~~json_value_module~~UsedByGraph_edge1" class="edge"><title>module~json_file_module&#45;&gt;module~json_module</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M235.622,-24.2675C244.385,-22.7822 253.564,-21.2264 262.329,-19.7408"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="263.104,-23.1595 272.379,-18.0375 261.934,-16.2579 263.104,-23.1595"/>
+<!-- module~json_file_module -->
+<g id="module~~json_value_module~~UsedByGraph_node3" class="node"><title>module~json_file_module</title>
+<g id="a_module~~json_value_module~~UsedByGraph_node3"><a xlink:href=".././module/json_file_module.html" xlink:title="json_file_module">
+<polygon fill="#337ab7" stroke="#337ab7" points="235.5,-24 142.5,-24 142.5,-0 235.5,-0 235.5,-24"/>
+<text text-anchor="middle" x="189" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_file_module</text>
+</a>
+</g>
+</g>
+<!-- module~json_module&#45;&gt;module~json_file_module -->
+<g id="module~~json_value_module~~UsedByGraph_edge3" class="edge"><title>module~json_module&#45;&gt;module~json_file_module</title>
+<path fill="none" stroke="#00ffff" stroke-dasharray="5,2" d="M272.276,-25.9451C263.897,-24.525 254.773,-22.9785 245.751,-21.4493"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="246.097,-17.958 235.652,-19.7377 244.927,-24.8596 246.097,-17.958"/>
+</g>
+<!-- module~json_file_module&#45;&gt;module~json_value_module -->
+<g id="module~~json_value_module~~UsedByGraph_edge2" class="edge"><title>module~json_file_module&#45;&gt;module~json_value_module</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M142.26,-18.8269C133.666,-20.1095 124.552,-21.4698 115.569,-22.8106"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="114.891,-19.3729 105.517,-24.3108 115.925,-26.2962 114.891,-19.3729"/>
 </g>
 </g>
 </svg>
-</div>
-                <div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div>
-                <div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
-                      </div>
-                      <div class="modal-body">
-                        
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
     <p>Nodes of different colours represent the following: </p>
     <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
@@ -960,21 +944,24 @@
 </svg>
 
     
-    <p>Solid arrows point from a parent (sub)module to the submodule which is
-    descended from it. Dashed arrows point from a module being used to the
-    module or program unit using it. Where possible, edges connecting nodes are given different colours to make them easier to distinguish in large graphs.
+    <p>Solid arrows point from a submodule to the (sub)module which it is
+    descended from. Dashed arrows point from a module or program unit to 
+    modules which it uses. Where possible, edges connecting nodes are given different colours to make them easier to distinguish in large graphs.
     </p>
+    </div></div></div></div>
+  </li>
+  
+      </ul>
+    </div>
     
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
+
     <br>
-    
 
     <section class="visible-xs visible-sm hidden-md">
       
+<h3>Contents</h3>
+ 
+
 
 
 <div class="panel panel-primary">
@@ -999,6 +986,7 @@
 
 
 
+
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#inters-1">Interfaces</a></h3></div>
   <div id="inters-1" class="panel-collapse collapse">
@@ -1009,6 +997,7 @@
     </div>
   </div>
 </div>
+
 
 
 <div class="panel panel-primary">
@@ -1025,6 +1014,7 @@
 </div>
 
 
+
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#types-1">Derived Types</a></h3></div>
   <div id="types-1" class="panel-collapse collapse">
@@ -1037,6 +1027,7 @@
     </div>
   </div>
 </div>
+
 
 
 <div class="panel panel-primary">
@@ -1067,6 +1058,7 @@
     </div>
   </div>
 </div>
+
 
 
 <div class="panel panel-primary">
@@ -1444,6 +1436,7 @@
 
 
 
+
     </section>
     <br class="visible-xs visible-sm hidden-md">
 
@@ -1524,9 +1517,9 @@
     
     
     <section>
-	 <h2>Interfaces</h2>
-	 
-	   
+   <h2>Interfaces</h2>
+   
+     
 <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="interface-json_core"></span><h3>public interface <a href='../interface/json_core.html'>json_core</a>
     
@@ -1535,7 +1528,7 @@
   <div class="panel-body">
     
     <p>Structure constructor to initialize a
-  <a href="../type/json_core.html">json_core</a> object</p>
+  <a href="../type/json_core.html">json_core</a> object</p><a href="../interface/json_core.html" class="pull-right"><emph>Read more&hellip;</emph></a>
   </div>
   
   <ul class="list-group">
@@ -1549,7 +1542,7 @@
 private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error) result(json_core_object)
     
     
-	 
+   
 </h3>
     
 
@@ -1572,7 +1565,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
 
 
 <p>Function constructor for a <a href="../type/json_core.html">json_core</a>.
-  This is just a wrapper for <a href="../proc/json_initialize.html">json_initialize</a>.</p>
+  This is just a wrapper for <a href="../proc/json_initialize.html">json_initialize</a>.</p><a href="../proc/initialize_json_core.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -1840,7 +1833,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>allow_duplicate_keys</strong></td><td></td>
+  <td><strong>allow_duplicate_keys</strong></td><td><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
   
 </tr>
 
@@ -1855,7 +1848,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>escape_solidus</strong></td><td></td>
+  <td><strong>escape_solidus</strong></td><td><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
   
 </tr>
 
@@ -1899,14 +1892,14 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
 
     
     </section>
-	<br>
+  <br>
     
 
     
     <section>
      <h2>Abstract Interfaces</h2>
-	 
-	   
+   
+     
 <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="interface-json_array_callback_func"></span><h3>abstract interface
     
@@ -1917,16 +1910,12 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
     
     
     <h3>
-public subroutine <a href='../interface/json_array_callback_func.html'>json_array_callback_func</a>(json, element, i, count)
+public subroutine json_array_callback_func(json, element, i, count)
     
     
-	 
+   
 </h3>
     
-
-
-
-
 
 
 
@@ -2017,7 +2006,7 @@ public subroutine <a href='../interface/json_array_callback_func.html'>json_arra
 </div>
 
     
-	   
+     
 <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="interface-json_traverse_callback_func"></span><h3>abstract interface
     
@@ -2028,16 +2017,12 @@ public subroutine <a href='../interface/json_array_callback_func.html'>json_arra
     
     
     <h3>
-public subroutine <a href='../interface/json_traverse_callback_func.html'>json_traverse_callback_func</a>(json, p, finished)
+public subroutine json_traverse_callback_func(json, p, finished)
     
     
-	 
+   
 </h3>
     
-
-
-
-
 
 
 
@@ -2114,14 +2099,14 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
 
     
     </section>
-	<br>
+  <br>
     
     
     
     <section>
      <h2>Derived Types</h2>
-	 
-	   
+   
+     
 <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="type-json_core"></span><h3>type, public :: <a href='../type/json_core.html'>json_core</a>
     
@@ -2131,7 +2116,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
     
     <p>To access the core routines for manipulation
   of <a href="../type/json_value.html">json_value</a> pointer variables. This class allows
-  for thread safe use of the module.</p>
+  for thread safe use of the module.</p><a href="../type/json_core.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
      
      <h4>Components</h4>
@@ -2378,7 +2363,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
   <td>private</td>
   <td></td><td>::</td>
   <td><strong>path_mode</strong></td><td> =</td><td>1_IK</td><td><p>How the path strings are interpreted in the
- <code>get_by_path</code> routines:</p></td>
+ <code>get_by_path</code> routines:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
   
 </tr>
 
@@ -2536,7 +2521,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
      <h4>Constructor</h4>
        
          <p>Structure constructor to initialize a
-  <a href="../type/json_core.html">json_core</a> object</p>
+  <a href="../type/json_core.html">json_core</a> object</p><a href="../interface/json_core.html" class="pull-right"><emph>Read more&hellip;</emph></a>
        
        <table class="table table-striped varlist">
       <tbody>
@@ -2545,7 +2530,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
              
              
              <tr><td>private  function <strong><a href='../proc/initialize_json_core.html'>initialize_json_core</a></strong>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error)</td><td><p>Function constructor for a <a href="../type/json_core.html">json_core</a>.
-  This is just a wrapper for <a href="../proc/json_initialize.html">json_initialize</a>.</p></td></tr>
+  This is just a wrapper for <a href="../proc/json_initialize.html">json_initialize</a>.</p><a href="../proc/initialize_json_core.html" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
              
         
        </tbody>
@@ -2557,15 +2542,15 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
       <table class="table table-striped varlist">
       <tbody>
       
-       <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-add%7E3'>add</a></strong>  => json_value_add_member, json_value_add_null, wrap_json_value_add_null, json_value_add_integer, wrap_json_value_add_integer, json_value_add_integer_vec, wrap_json_value_add_integer_vec, json_value_add_double, wrap_json_value_add_double, json_value_add_double_vec, wrap_json_value_add_double_vec, json_value_add_logical, wrap_json_value_add_logical, json_value_add_logical_vec, wrap_json_value_add_logical_vec, json_value_add_string, wrap_json_value_add_string, json_value_add_string_vec, wrap_json_value_add_string_vec </td>
-       <td><p>Add objects to a linked list of <a href="../type/json_value.html">json_value</a>s.</p></td></tr>
+       <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-add%7E2'>add</a></strong>  => json_value_add_member, json_value_add_null, wrap_json_value_add_null, json_value_add_integer, wrap_json_value_add_integer, json_value_add_integer_vec, wrap_json_value_add_integer_vec, json_value_add_double, wrap_json_value_add_double, json_value_add_double_vec, wrap_json_value_add_double_vec, json_value_add_logical, wrap_json_value_add_logical, json_value_add_logical_vec, wrap_json_value_add_logical_vec, json_value_add_string, wrap_json_value_add_string, json_value_add_string_vec, wrap_json_value_add_string_vec </td>
+       <td><p>Add objects to a linked list of <a href="../type/json_value.html">json_value</a>s.</p><a href="../type/json_core.html#boundprocedure-add%7E2" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-add%7E4'>add</a></strong>  => json_value_add_string_name_ascii, json_value_add_string_val_ascii, json_value_add_string_vec_name_ascii, json_value_add_string_vec_val_ascii </td>
        <td></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-add_by_path'>add_by_path</a></strong>  => json_add_member_by_path, wrap_json_add_member_by_path, json_add_integer_by_path, wrap_json_add_integer_by_path, json_add_double_by_path, wrap_json_add_double_by_path, json_add_logical_by_path, wrap_json_add_logical_by_path, json_add_string_by_path, wrap_json_add_string_by_path, json_add_integer_vec_by_path, wrap_json_add_integer_vec_by_path, json_add_double_vec_by_path, wrap_json_add_double_vec_by_path, json_add_logical_vec_by_path, wrap_json_add_logical_vec_by_path, json_add_string_vec_by_path, wrap_json_add_string_vec_by_path </td>
        <td><p>Add variables to a <a href="../type/json_value.html">json_value</a> linked list
-  by specifying their paths.</p></td></tr>
+  by specifying their paths.</p><a href="../type/json_core.html#boundprocedure-add_by_path" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-add_by_path%7E2'>add_by_path</a></strong>  => json_add_string_by_path_value_ascii, json_add_string_by_path_path_ascii, json_add_string_vec_by_path_value_ascii, json_add_string_vec_by_path_path_ascii </td>
        <td></td></tr>
@@ -2599,40 +2584,40 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-create'>create</a></strong>  => json_create_by_path, wrap_json_create_by_path </td>
        <td><p>Create a <a href="../type/json_value.html">json_value</a> linked list using the
   path to the variables. Optionally return a
-  pointer to the variable.</p></td></tr>
+  pointer to the variable.</p><a href="../type/json_core.html#boundprocedure-create" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-create_array'>create_array</a></strong>  => json_value_create_array, wrap_json_value_create_array </td>
        <td><p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it an array variable.
-  The pointer should not already be allocated.</p></td></tr>
+  The pointer should not already be allocated.</p><a href="../type/json_core.html#boundprocedure-create_array" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-create_double'>create_double</a></strong>  => json_value_create_double, wrap_json_value_create_double </td>
        <td><p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it a double variable.
-  The pointer should not already be allocated.</p></td></tr>
+  The pointer should not already be allocated.</p><a href="../type/json_core.html#boundprocedure-create_double" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-create_integer'>create_integer</a></strong>  => json_value_create_integer, wrap_json_value_create_integer </td>
        <td><p>Allocate a json_value pointer and make it an integer variable.
-  The pointer should not already be allocated.</p></td></tr>
+  The pointer should not already be allocated.</p><a href="../type/json_core.html#boundprocedure-create_integer" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-create_logical'>create_logical</a></strong>  => json_value_create_logical, wrap_json_value_create_logical </td>
        <td><p>Allocate a json_value pointer and make it a logical variable.
-  The pointer should not already be allocated.</p></td></tr>
+  The pointer should not already be allocated.</p><a href="../type/json_core.html#boundprocedure-create_logical" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-create_null'>create_null</a></strong>  => json_value_create_null, wrap_json_value_create_null </td>
        <td><p>Allocate a json_value pointer and make it a null variable.
-  The pointer should not already be allocated.</p></td></tr>
+  The pointer should not already be allocated.</p><a href="../type/json_core.html#boundprocedure-create_null" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-create_object'>create_object</a></strong>  => json_value_create_object, wrap_json_value_create_object </td>
        <td><p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it an object variable.
-  The pointer should not already be allocated.</p></td></tr>
+  The pointer should not already be allocated.</p><a href="../type/json_core.html#boundprocedure-create_object" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-create_string'>create_string</a></strong>  => json_value_create_string, wrap_json_value_create_string </td>
        <td><p>Allocate a json_value pointer and make it a string variable.
-  The pointer should not already be allocated.</p></td></tr>
+  The pointer should not already be allocated.</p><a href="../type/json_core.html#boundprocedure-create_string" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
-       <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-destroy%7E2'>destroy</a></strong>  => json_value_destroy, destroy_json_core </td>
+       <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-destroy'>destroy</a></strong>  => json_value_destroy, destroy_json_core </td>
        <td><p>Destructor routine for a <a href="../type/json_value.html">json_value</a> pointer.
   This must be called explicitly if it is no longer needed,
-  before it goes out of scope.  Otherwise, a memory leak will result.</p></td></tr>
+  before it goes out of scope.  Otherwise, a memory leak will result.</p><a href="../type/json_core.html#boundprocedure-destroy" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>procedure, private :: <strong><a href='../type/json_core.html#boundprocedure-destroy_json_core'>destroy_json_core</a></strong>  </td>
        <td></td></tr>
@@ -2640,8 +2625,8 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
        <tr><td>procedure, public :: <strong><a href='../type/json_core.html#boundprocedure-failed%7E2'>failed</a></strong>  => json_failed </td>
        <td><p>check for error</p></td></tr>
       
-       <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-get%7E2'>get</a></strong>  => json_get_by_path, wrap_json_get_by_path, json_get_integer, json_get_integer_by_path, wrap_json_get_integer_by_path, json_get_integer_vec, json_get_integer_vec_by_path, wrap_json_get_integer_vec_by_path, json_get_double, json_get_double_by_path, wrap_json_get_double_by_path, json_get_double_vec, json_get_double_vec_by_path, wrap_json_get_double_vec_by_path, json_get_logical, json_get_logical_by_path, wrap_json_get_logical_by_path, json_get_logical_vec, json_get_logical_vec_by_path, wrap_json_get_logical_vec_by_path, json_get_string, json_get_string_by_path, wrap_json_get_string_by_path, json_get_string_vec, json_get_string_vec_by_path, wrap_json_get_string_vec_by_path, json_get_alloc_string_vec, json_get_alloc_string_vec_by_path, wrap_json_get_alloc_string_vec_by_path, json_get_array, json_get_array_by_path, wrap_json_get_array_by_path </td>
-       <td><p>Get data from a <a href="../type/json_value.html">json_value</a> linked list.</p></td></tr>
+       <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-get'>get</a></strong>  => json_get_by_path, wrap_json_get_by_path, json_get_integer, json_get_integer_by_path, wrap_json_get_integer_by_path, json_get_integer_vec, json_get_integer_vec_by_path, wrap_json_get_integer_vec_by_path, json_get_double, json_get_double_by_path, wrap_json_get_double_by_path, json_get_double_vec, json_get_double_vec_by_path, wrap_json_get_double_vec_by_path, json_get_logical, json_get_logical_by_path, wrap_json_get_logical_by_path, json_get_logical_vec, json_get_logical_vec_by_path, wrap_json_get_logical_vec_by_path, json_get_string, json_get_string_by_path, wrap_json_get_string_by_path, json_get_string_vec, json_get_string_vec_by_path, wrap_json_get_string_vec_by_path, json_get_alloc_string_vec, json_get_alloc_string_vec_by_path, wrap_json_get_alloc_string_vec_by_path, json_get_array, json_get_array_by_path, wrap_json_get_array_by_path </td>
+       <td><p>Get data from a <a href="../type/json_value.html">json_value</a> linked list.</p><a href="../type/json_core.html#boundprocedure-get" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-get_child'>get_child</a></strong>  => json_value_get_child_by_index, json_value_get_child, json_value_get_child_by_name, wrap_json_value_get_child_by_name </td>
        <td><p>Return a child of a <a href="../type/json_value.html">json_value</a> structure.</p></td></tr>
@@ -2982,7 +2967,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
        <td></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-print'>print</a></strong>  => json_print_1, json_print_2 </td>
-       <td><p>Print the <a href="../type/json_value.html">json_value</a> to a file.</p></td></tr>
+       <td><p>Print the <a href="../type/json_value.html">json_value</a> to a file.</p><a href="../type/json_core.html#boundprocedure-print" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>procedure, public :: <strong><a href='../type/json_core.html#boundprocedure-print_error_message%7E2'>print_error_message</a></strong>  => json_print_error_message </td>
        <td><p>simply routine to print error
@@ -3059,12 +3044,12 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
        <td><p>to traverse all elements of a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>
  structure</p></td></tr>
       
-       <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-update%7E3'>update</a></strong>  => json_update_logical, wrap_json_update_logical, json_update_double, wrap_json_update_double, json_update_integer, wrap_json_update_integer, json_update_string, wrap_json_update_string </td>
+       <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-update%7E2'>update</a></strong>  => json_update_logical, wrap_json_update_logical, json_update_double, wrap_json_update_double, json_update_integer, wrap_json_update_integer, json_update_string, wrap_json_update_string </td>
        <td><p>These are like the <code>add</code> methods, except if a variable with the
   same path is already present, then its value is simply updated.
   Note that currently, these only work for scalar variables.
   These routines can also change the variable's type (but an error will be
-  thrown if the existing variable is not a scalar).</p></td></tr>
+  thrown if the existing variable is not a scalar).</p><a href="../type/json_core.html#boundprocedure-update%7E2" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
       
        <tr><td>generic, public :: <strong><a href='../type/json_core.html#boundprocedure-update%7E4'>update</a></strong>  => json_update_string_name_ascii, json_update_string_val_ascii </td>
        <td></td></tr>
@@ -3239,7 +3224,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
 </div>
 
      
-	   
+     
 <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="type-json_value"></span><h3>type, public, sequence  :: <a href='../type/json_value.html'>json_value</a>
     
@@ -3249,7 +3234,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
     
     <p>Type used to construct the linked-list <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.
   Normally, this should always be a pointer variable.
-  This type should only be used by an instance of <a href="../type/json_core.html">json_core</a>.</p>
+  This type should only be used by an instance of <a href="../type/json_core.html">json_core</a>.</p><a href="../type/json_value.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
      
      <h4>Components</h4>
@@ -3428,7 +3413,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
   
   <td>private</td>
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td> =</td><td>json_unknown</td><td><p>variable type</p></td>
+  <td><strong>var_type</strong></td><td> =</td><td>json_unknown</td><td><p><abbr title="json_unknown, json_null, json_object, json_array, json_logical, json_integer, json_double, json_string">variable type</abbr></p></td>
   
 </tr>
 
@@ -3444,7 +3429,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
 
      
     </section>
-	<br>
+  <br>
     
     
      
@@ -3457,7 +3442,7 @@ public subroutine <a href='../interface/json_traverse_callback_func.html'>json_t
 private function <a href='../proc/initialize_json_core.html'>initialize_json_core</a>(verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error) result(json_core_object)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -3482,7 +3467,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
 
 
 <p>Function constructor for a <a href="../type/json_core.html">json_core</a>.
-  This is just a wrapper for <a href="../proc/json_initialize.html">json_initialize</a>.</p>
+  This is just a wrapper for <a href="../proc/json_initialize.html">json_initialize</a>.</p><a href="../proc/initialize_json_core.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -3750,7 +3735,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>allow_duplicate_keys</strong></td><td></td>
+  <td><strong>allow_duplicate_keys</strong></td><td><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
   
 </tr>
 
@@ -3765,7 +3750,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>escape_solidus</strong></td><td></td>
+  <td><strong>escape_solidus</strong></td><td><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
   
 </tr>
 
@@ -3811,7 +3796,7 @@ private function <a href='../proc/initialize_json_core.html'>initialize_json_cor
 private function <a href='../proc/json_count.html'>json_count</a>(json, p) result(count)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -3823,7 +3808,7 @@ private function <a href='../proc/json_count.html'>json_count</a>(json, p) resul
 
 
 
-<p>Count the number of children.</p>
+<p>Count the number of children in the object or array.</p><a href="../proc/json_count.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -3864,7 +3849,9 @@ private function <a href='../proc/json_count.html'>json_count</a>(json, p) resul
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p</strong></td><td></td>
+  <td><strong>p</strong></td><td><p>this should normally be a <code>json_object</code>
+ or a <code>json_array</code>. For any other
+ <abbr title="json_unknown, json_null, json_object, json_array, json_logical, json_integer, json_double, json_string">variable type</abbr> this will return 0.</p></td>
   
 </tr>
 
@@ -3881,7 +3868,7 @@ private function <a href='../proc/json_count.html'>json_count</a>(json, p) resul
   
      <h4>Return Value <small>integer(kind=IK)
   </small></h4>
-  <p>number of children</p>
+  <p>number of children in <code>p</code>.</p>
     
 
   </div>
@@ -3894,7 +3881,7 @@ private function <a href='../proc/json_count.html'>json_count</a>(json, p) resul
 private pure function <a href='../proc/json_failed.html'>json_failed</a>(json) result(failed)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -3918,7 +3905,7 @@ private pure function <a href='../proc/json_failed.html'>json_failed</a>(json) r
 
 
 
-<p>Logical function to indicate if an exception has been thrown in a <a href="../type/json_core.html">json_core</a>.</p>
+<p>Logical function to indicate if an exception has been thrown in a <a href="../type/json_core.html">json_core</a>.</p><a href="../proc/json_failed.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -3975,7 +3962,7 @@ private pure function <a href='../proc/json_failed.html'>json_failed</a>(json) r
 private function <a href='../proc/json_valid_path.html'>json_valid_path</a>(json, p, path) result(found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -3987,7 +3974,7 @@ private function <a href='../proc/json_valid_path.html'>json_valid_path</a>(json
 
 
 
-<p>Returns true if the <code>path</code> is present in the <code>p</code> <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.</p>
+<p>Returns true if the <code>path</code> is present in the <code>p</code> <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.</p><a href="../proc/json_valid_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4073,7 +4060,7 @@ private function <a href='../proc/json_valid_path.html'>json_valid_path</a>(json
 private function <a href='../proc/json_value_is_child_of.html'>json_value_is_child_of</a>(json, p1, p2) result(is_child_of)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -4184,7 +4171,7 @@ private function <a href='../proc/json_value_is_child_of.html'>json_value_is_chi
 private function <a href='../proc/name_equal.html'>name_equal</a>(json, p, name) result(is_equal)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -4207,7 +4194,7 @@ private function <a href='../proc/name_equal.html'>name_equal</a>(json, p, name)
 
 
 <p>Returns true if <code>name</code> is equal to <code>p%name</code>, using the specified
-  settings for case sensitivity and trailing whitespace.</p>
+  settings for case sensitivity and trailing whitespace.</p><a href="../proc/name_equal.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4294,7 +4281,7 @@ private function <a href='../proc/name_equal.html'>name_equal</a>(json, p, name)
 private function <a href='../proc/name_strings_equal.html'>name_strings_equal</a>(json, name1, name2) result(is_equal)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -4406,7 +4393,7 @@ private function <a href='../proc/name_strings_equal.html'>name_strings_equal</a
 private function <a href='../proc/string_to_dble.html'>string_to_dble</a>(json, str) result(rval)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -4459,7 +4446,7 @@ private function <a href='../proc/string_to_dble.html'>string_to_dble</a>(json, 
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>str</strong></td><td></td>
+  <td><strong>str</strong></td><td><p>a string</p></td>
   
 </tr>
 
@@ -4476,7 +4463,7 @@ private function <a href='../proc/string_to_dble.html'>string_to_dble</a>(json, 
   
      <h4>Return Value <small>real(kind=RK)
   </small></h4>
-  
+  <p><code>str</code> converted to a double</p>
     
 
   </div>
@@ -4489,7 +4476,7 @@ private function <a href='../proc/string_to_dble.html'>string_to_dble</a>(json, 
 private function <a href='../proc/string_to_int.html'>string_to_int</a>(json, str) result(ival)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -4501,7 +4488,7 @@ private function <a href='../proc/string_to_int.html'>string_to_int</a>(json, st
 
 
 
-<p>Convert a string into an integer.</p>
+<p>Convert a string into an integer.</p><a href="../proc/string_to_int.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4542,7 +4529,7 @@ private function <a href='../proc/string_to_int.html'>string_to_int</a>(json, st
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>str</strong></td><td></td>
+  <td><strong>str</strong></td><td><p>a string</p></td>
   
 </tr>
 
@@ -4559,7 +4546,7 @@ private function <a href='../proc/string_to_int.html'>string_to_int</a>(json, st
   
      <h4>Return Value <small>integer(kind=IK)
   </small></h4>
-  
+  <p><code>str</code> converted to an integer</p>
     
 
   </div>
@@ -4572,7 +4559,7 @@ private function <a href='../proc/string_to_int.html'>string_to_int</a>(json, st
 private function <a href='../proc/wrap_json_valid_path.html'>wrap_json_valid_path</a>(json, p, path) result(found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -4678,7 +4665,7 @@ private function <a href='../proc/wrap_json_valid_path.html'>wrap_json_valid_pat
 private subroutine <a href='../proc/annotate_invalid_json.html'>annotate_invalid_json</a>(json, iunit, str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -4768,7 +4755,7 @@ private subroutine <a href='../proc/annotate_invalid_json.html'>annotate_invalid
 private subroutine <a href='../proc/convert.html'>convert</a>(json, p, var_type)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -4780,10 +4767,10 @@ private subroutine <a href='../proc/convert.html'>convert</a>(json, p, var_type)
 
 
 
-<p>Convert an existing <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> variable <code>p</code> to a different variable type.
+<p>Convert an existing <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> variable <code>p</code> to a different <abbr title="json_unknown, json_null, json_object, json_array, json_logical, json_integer, json_double, json_string">variable type</abbr>.
   The existing variable (and its children) is destroyed. It is replaced
   in the structure by a new variable of type <code>var_type</code>
-  (which can be a <code>json_null</code>, <code>json_object</code> or <code>json_array</code>).</p>
+  (which can be a <code>json_null</code>, <code>json_object</code> or <code>json_array</code>).</p><a href="../proc/convert.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -4839,7 +4826,7 @@ private subroutine <a href='../proc/convert.html'>convert</a>(json, p, var_type)
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td><p>the variable type to convert <code>p</code> to</p></td>
+  <td><strong>var_type</strong></td><td><p>the <abbr title="json_unknown, json_null, json_object, json_array, json_logical, json_integer, json_double, json_string">variable type</abbr> to convert <code>p</code> to</p></td>
   
 </tr>
 
@@ -4860,7 +4847,7 @@ private subroutine <a href='../proc/convert.html'>convert</a>(json, p, var_type)
 private subroutine <a href='../proc/destroy_json_core.html'>destroy_json_core</a>(me)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -4931,7 +4918,7 @@ private subroutine <a href='../proc/destroy_json_core.html'>destroy_json_core</a
 private subroutine <a href='../proc/destroy_json_data.html'>destroy_json_data</a>(d)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -5000,7 +4987,7 @@ private subroutine <a href='../proc/destroy_json_data.html'>destroy_json_data</a
 private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>get_current_line_from_file_sequential</a>(json, iunit, line)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -5101,7 +5088,7 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
 private subroutine <a href='../proc/get_current_line_from_file_stream.html'>get_current_line_from_file_stream</a>(json, iunit, line)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -5202,7 +5189,7 @@ private subroutine <a href='../proc/get_current_line_from_file_stream.html'>get_
 private subroutine <a href='../proc/json_add_double_by_path.html'>json_add_double_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -5214,7 +5201,7 @@ private subroutine <a href='../proc/json_add_double_by_path.html'>json_add_doubl
 
 
 
-<p>Add an double value to a <a href="../type/json_value.html">json_value</a>, given the path.</p>
+<p>Add an double value to a <a href="../type/json_value.html">json_value</a>, given the path.</p><a href="../proc/json_add_double_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5336,7 +5323,7 @@ private subroutine <a href='../proc/json_add_double_by_path.html'>json_add_doubl
 private subroutine <a href='../proc/json_add_double_vec_by_path.html'>json_add_double_vec_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -5470,7 +5457,7 @@ private subroutine <a href='../proc/json_add_double_vec_by_path.html'>json_add_d
 private subroutine <a href='../proc/json_add_integer_by_path.html'>json_add_integer_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -5482,7 +5469,7 @@ private subroutine <a href='../proc/json_add_integer_by_path.html'>json_add_inte
 
 
 
-<p>Add an integer value to a <a href="../type/json_value.html">json_value</a>, given the path.</p>
+<p>Add an integer value to a <a href="../type/json_value.html">json_value</a>, given the path.</p><a href="../proc/json_add_integer_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5604,7 +5591,7 @@ private subroutine <a href='../proc/json_add_integer_by_path.html'>json_add_inte
 private subroutine <a href='../proc/json_add_integer_vec_by_path.html'>json_add_integer_vec_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -5738,7 +5725,7 @@ private subroutine <a href='../proc/json_add_integer_vec_by_path.html'>json_add_
 private subroutine <a href='../proc/json_add_logical_by_path.html'>json_add_logical_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -5750,7 +5737,7 @@ private subroutine <a href='../proc/json_add_logical_by_path.html'>json_add_logi
 
 
 
-<p>Add a logical value to a <a href="../type/json_value.html">json_value</a>, given the path.</p>
+<p>Add a logical value to a <a href="../type/json_value.html">json_value</a>, given the path.</p><a href="../proc/json_add_logical_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -5872,7 +5859,7 @@ private subroutine <a href='../proc/json_add_logical_by_path.html'>json_add_logi
 private subroutine <a href='../proc/json_add_logical_vec_by_path.html'>json_add_logical_vec_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -6006,7 +5993,7 @@ private subroutine <a href='../proc/json_add_logical_vec_by_path.html'>json_add_
 private subroutine <a href='../proc/json_add_member_by_path.html'>json_add_member_by_path</a>(json, me, path, p, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -6018,7 +6005,7 @@ private subroutine <a href='../proc/json_add_member_by_path.html'>json_add_membe
 
 
 
-<p>Add a new member (<code>json_value</code> pointer) to a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure, given the path.</p>
+<p>Add a new member (<code>json_value</code> pointer) to a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure, given the path.</p><a href="../proc/json_add_member_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -6140,7 +6127,7 @@ private subroutine <a href='../proc/json_add_member_by_path.html'>json_add_membe
 private subroutine <a href='../proc/json_add_string_by_path.html'>json_add_string_by_path</a>(json, me, path, value, found, was_created, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -6152,7 +6139,7 @@ private subroutine <a href='../proc/json_add_string_by_path.html'>json_add_strin
 
 
 
-<p>Add a string value to a <a href="../type/json_value.html">json_value</a>, given the path.</p>
+<p>Add a string value to a <a href="../type/json_value.html">json_value</a>, given the path.</p><a href="../proc/json_add_string_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -6304,7 +6291,7 @@ private subroutine <a href='../proc/json_add_string_by_path.html'>json_add_strin
 private subroutine <a href='../proc/json_add_string_by_path_path_ascii.html'>json_add_string_by_path_path_ascii</a>(json, me, path, value, found, was_created, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -6468,7 +6455,7 @@ private subroutine <a href='../proc/json_add_string_by_path_path_ascii.html'>jso
 private subroutine <a href='../proc/json_add_string_by_path_value_ascii.html'>json_add_string_by_path_value_ascii</a>(json, me, path, value, found, was_created, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -6632,7 +6619,7 @@ private subroutine <a href='../proc/json_add_string_by_path_value_ascii.html'>js
 private subroutine <a href='../proc/json_add_string_vec_by_path.html'>json_add_string_vec_by_path</a>(json, me, path, value, found, was_created, ilen, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -6644,7 +6631,7 @@ private subroutine <a href='../proc/json_add_string_vec_by_path.html'>json_add_s
 
 
 
-<p>Wrapper to <a href="../proc/json_add_string_by_path.html">json_add_string_by_path</a> for adding a string vector by path.</p>
+<p>Wrapper to <a href="../proc/json_add_string_by_path.html">json_add_string_by_path</a> for adding a string vector by path.</p><a href="../proc/json_add_string_vec_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -6814,7 +6801,7 @@ private subroutine <a href='../proc/json_add_string_vec_by_path.html'>json_add_s
 private subroutine <a href='../proc/json_add_string_vec_by_path_path_ascii.html'>json_add_string_vec_by_path_path_ascii</a>(json, me, path, value, found, was_created, ilen, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -6996,7 +6983,7 @@ private subroutine <a href='../proc/json_add_string_vec_by_path_path_ascii.html'
 private subroutine <a href='../proc/json_add_string_vec_by_path_value_ascii.html'>json_add_string_vec_by_path_value_ascii</a>(json, me, path, value, found, was_created, ilen, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -7178,7 +7165,7 @@ private subroutine <a href='../proc/json_add_string_vec_by_path_value_ascii.html
 private subroutine <a href='../proc/json_check_all_for_duplicate_keys.html'>json_check_all_for_duplicate_keys</a>(json, p, has_duplicate, name, path)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -7205,7 +7192,7 @@ private subroutine <a href='../proc/json_check_all_for_duplicate_keys.html'>json
 <p>Checks a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure for duplicate child names.
   This one recursively traverses the entire structure
   (calling <a href="../proc/json_check_children_for_duplicate_keys.html">json_check_children_for_duplicate_keys</a>
-  recursively for each element).</p>
+  recursively for each element).</p><a href="../proc/json_check_all_for_duplicate_keys.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -7321,7 +7308,7 @@ private subroutine <a href='../proc/json_check_all_for_duplicate_keys.html'>json
 private subroutine <a href='../proc/json_check_children_for_duplicate_keys.html'>json_check_children_for_duplicate_keys</a>(json, p, has_duplicate, name, path)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -7345,7 +7332,7 @@ private subroutine <a href='../proc/json_check_children_for_duplicate_keys.html'
 
 
 
-<p>Checks a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> object for duplicate child names.</p>
+<p>Checks a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> object for duplicate child names.</p><a href="../proc/json_check_children_for_duplicate_keys.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -7461,7 +7448,7 @@ private subroutine <a href='../proc/json_check_children_for_duplicate_keys.html'
 private subroutine <a href='../proc/json_check_for_errors.html'>json_check_for_errors</a>(json, status_ok, error_msg)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -7488,7 +7475,7 @@ private subroutine <a href='../proc/json_check_for_errors.html'>json_check_for_e
 <p>Retrieve error code from the <a href="../type/json_core.html">json_core</a>.
   This should be called after <code>parse</code> to check for errors.
   If an error is thrown, before using the class again, <a href="../proc/json_initialize.html">json_initialize</a>
-  should be called to clean up before it is used again.</p>
+  should be called to clean up before it is used again.</p><a href="../proc/json_check_for_errors.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -7565,7 +7552,7 @@ private subroutine <a href='../proc/json_check_for_errors.html'>json_check_for_e
 private pure subroutine <a href='../proc/json_clear_exceptions.html'>json_clear_exceptions</a>(json)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -7636,7 +7623,7 @@ private pure subroutine <a href='../proc/json_clear_exceptions.html'>json_clear_
 private subroutine <a href='../proc/json_clone.html'>json_clone</a>(json, from, to)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -7660,7 +7647,7 @@ private subroutine <a href='../proc/json_clone.html'>json_clone</a>(json, from, 
 
 
 
-<p>Create a deep copy of a <a href="../type/json_value.html">json_value</a> linked-list structure.</p>
+<p>Create a deep copy of a <a href="../type/json_value.html">json_value</a> linked-list structure.</p><a href="../proc/json_clone.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -7738,7 +7725,7 @@ private subroutine <a href='../proc/json_clone.html'>json_clone</a>(json, from, 
 private subroutine <a href='../proc/json_create_by_path.html'>json_create_by_path</a>(json, me, path, p, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -7751,7 +7738,7 @@ private subroutine <a href='../proc/json_create_by_path.html'>json_create_by_pat
 
 
 <p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string,
-  If necessary, by creating the variables as needed.</p>
+  If necessary, by creating the variables as needed.</p><a href="../proc/json_create_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -7876,7 +7863,7 @@ private subroutine <a href='../proc/json_create_by_path.html'>json_create_by_pat
 private subroutine <a href='../proc/json_get_alloc_string_vec.html'>json_get_alloc_string_vec</a>(json, me, vec, ilen)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -7904,7 +7891,7 @@ private subroutine <a href='../proc/json_get_alloc_string_vec.html'>json_get_all
   version of <a href="../proc/json_get_string_vec.html">json_get_string_vec</a>. This one returns an allocatable
   length character (where the string length is the maximum length of
   any element in the array). It also returns an integer array of the
-  actual sizes of the strings in the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.</p>
+  actual sizes of the strings in the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.</p><a href="../proc/json_get_alloc_string_vec.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -7998,7 +7985,7 @@ private subroutine <a href='../proc/json_get_alloc_string_vec.html'>json_get_all
 private subroutine <a href='../proc/json_get_alloc_string_vec_by_path.html'>json_get_alloc_string_vec_by_path</a>(json, me, path, vec, ilen, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -8010,7 +7997,7 @@ private subroutine <a href='../proc/json_get_alloc_string_vec_by_path.html'>json
 
 
 
-<p>Alternate version of <a href="../proc/json_get_alloc_string_vec.html">json_get_alloc_string_vec</a> where input is the path.</p>
+<p>Alternate version of <a href="../proc/json_get_alloc_string_vec.html">json_get_alloc_string_vec</a> where input is the path.</p><a href="../proc/json_get_alloc_string_vec_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -8134,7 +8121,7 @@ private subroutine <a href='../proc/json_get_alloc_string_vec_by_path.html'>json
 private subroutine <a href='../proc/json_get_array.html'>json_get_array</a>(json, me, array_callback)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -8147,7 +8134,7 @@ private subroutine <a href='../proc/json_get_array.html'>json_get_array</a>(json
 
 
 <p>This routine calls the user-supplied <a href="../interface/json_array_callback_func.html">json_array_callback_func</a>
-  subroutine for each element in the array.</p>
+  subroutine for each element in the array.</p><a href="../proc/json_get_array.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -8224,7 +8211,7 @@ private subroutine <a href='../proc/json_get_array.html'>json_get_array</a>(json
 private subroutine <a href='../proc/json_get_array_by_path.html'>json_get_array_by_path</a>(json, me, path, array_callback, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -8344,7 +8331,7 @@ private subroutine <a href='../proc/json_get_array_by_path.html'>json_get_array_
 private subroutine <a href='../proc/json_get_by_path.html'>json_get_by_path</a>(json, me, path, p, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -8356,7 +8343,7 @@ private subroutine <a href='../proc/json_get_by_path.html'>json_get_by_path</a>(
 
 
 
-<p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string.</p>
+<p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string.</p><a href="../proc/json_get_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -8464,7 +8451,7 @@ private subroutine <a href='../proc/json_get_by_path.html'>json_get_by_path</a>(
 private subroutine <a href='../proc/json_get_by_path_default.html'>json_get_by_path_default</a>(json, me, path, p, found, create_it, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -8476,7 +8463,7 @@ private subroutine <a href='../proc/json_get_by_path_default.html'>json_get_by_p
 
 
 
-<p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string.</p>
+<p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string.</p><a href="../proc/json_get_by_path_default.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -8621,7 +8608,7 @@ private subroutine <a href='../proc/json_get_by_path_default.html'>json_get_by_p
 private subroutine <a href='../proc/json_get_by_path_jsonpath_bracket.html'>json_get_by_path_jsonpath_bracket</a>(json, me, path, p, found, create_it, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -8647,7 +8634,7 @@ private subroutine <a href='../proc/json_get_by_path_jsonpath_bracket.html'>json
 
 <p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string,
   using the "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" path specification defined by the
-  JSONPath "bracket-notation".</p>
+  JSONPath "bracket-notation".</p><a href="../proc/json_get_by_path_jsonpath_bracket.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -8794,7 +8781,7 @@ private subroutine <a href='../proc/json_get_by_path_jsonpath_bracket.html'>json
 private subroutine <a href='../proc/json_get_by_path_rfc6901.html'>json_get_by_path_rfc6901</a>(json, me, path, p, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -8819,7 +8806,7 @@ private subroutine <a href='../proc/json_get_by_path_rfc6901.html'>json_get_by_p
 
 
 <p>Returns the <a href="../type/json_value.html">json_value</a> pointer given the path string,
-  using the "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" path specification defined by RFC 6901.</p>
+  using the "<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer" path specification defined by RFC 6901.</p><a href="../proc/json_get_by_path_rfc6901.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -8928,7 +8915,7 @@ private subroutine <a href='../proc/json_get_by_path_rfc6901.html'>json_get_by_p
 private subroutine <a href='../proc/json_get_double.html'>json_get_double</a>(json, me, value)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -9017,7 +9004,7 @@ private subroutine <a href='../proc/json_get_double.html'>json_get_double</a>(js
 private subroutine <a href='../proc/json_get_double_by_path.html'>json_get_double_by_path</a>(json, me, path, value, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -9136,7 +9123,7 @@ private subroutine <a href='../proc/json_get_double_by_path.html'>json_get_doubl
 private subroutine <a href='../proc/json_get_double_vec.html'>json_get_double_vec</a>(json, me, vec)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -9237,7 +9224,7 @@ private subroutine <a href='../proc/json_get_double_vec.html'>json_get_double_ve
 private subroutine <a href='../proc/json_get_double_vec_by_path.html'>json_get_double_vec_by_path</a>(json, me, path, vec, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -9356,7 +9343,7 @@ private subroutine <a href='../proc/json_get_double_vec_by_path.html'>json_get_d
 private subroutine <a href='../proc/json_get_integer.html'>json_get_integer</a>(json, me, value)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -9424,7 +9411,7 @@ private subroutine <a href='../proc/json_get_integer.html'>json_get_integer</a>(
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>value</strong></td><td></td>
+  <td><strong>value</strong></td><td><p>the integer value</p></td>
   
 </tr>
 
@@ -9445,7 +9432,7 @@ private subroutine <a href='../proc/json_get_integer.html'>json_get_integer</a>(
 private subroutine <a href='../proc/json_get_integer_by_path.html'>json_get_integer_by_path</a>(json, me, path, value, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -9564,7 +9551,7 @@ private subroutine <a href='../proc/json_get_integer_by_path.html'>json_get_inte
 private subroutine <a href='../proc/json_get_integer_vec.html'>json_get_integer_vec</a>(json, me, vec)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -9665,7 +9652,7 @@ private subroutine <a href='../proc/json_get_integer_vec.html'>json_get_integer_
 private subroutine <a href='../proc/json_get_integer_vec_by_path.html'>json_get_integer_vec_by_path</a>(json, me, path, vec, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -9784,7 +9771,7 @@ private subroutine <a href='../proc/json_get_integer_vec_by_path.html'>json_get_
 private subroutine <a href='../proc/json_get_logical.html'>json_get_logical</a>(json, me, value)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -9796,7 +9783,7 @@ private subroutine <a href='../proc/json_get_logical.html'>json_get_logical</a>(
 
 
 
-<p>Get a logical value from a <a href="../type/json_value.html">json_value</a>.</p>
+<p>Get a logical value from a <a href="../type/json_value.html">json_value</a>.</p><a href="../proc/json_get_logical.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -9873,7 +9860,7 @@ private subroutine <a href='../proc/json_get_logical.html'>json_get_logical</a>(
 private subroutine <a href='../proc/json_get_logical_by_path.html'>json_get_logical_by_path</a>(json, me, path, value, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -9992,7 +9979,7 @@ private subroutine <a href='../proc/json_get_logical_by_path.html'>json_get_logi
 private subroutine <a href='../proc/json_get_logical_vec.html'>json_get_logical_vec</a>(json, me, vec)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -10093,7 +10080,7 @@ private subroutine <a href='../proc/json_get_logical_vec.html'>json_get_logical_
 private subroutine <a href='../proc/json_get_logical_vec_by_path.html'>json_get_logical_vec_by_path</a>(json, me, path, vec, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -10212,7 +10199,7 @@ private subroutine <a href='../proc/json_get_logical_vec_by_path.html'>json_get_
 private subroutine <a href='../proc/json_get_next.html'>json_get_next</a>(json, p, next)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -10314,7 +10301,7 @@ private subroutine <a href='../proc/json_get_next.html'>json_get_next</a>(json, 
 private subroutine <a href='../proc/json_get_parent.html'>json_get_parent</a>(json, p, parent)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -10416,7 +10403,7 @@ private subroutine <a href='../proc/json_get_parent.html'>json_get_parent</a>(js
 private subroutine <a href='../proc/json_get_path.html'>json_get_path</a>(json, p, path, found, use_alt_array_tokens, path_sep)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -10429,7 +10416,7 @@ private subroutine <a href='../proc/json_get_path.html'>json_get_path</a>(json, 
 
 
 <p>Returns the path to a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> object that is part
-  of a linked list structure.</p>
+  of a linked list structure.</p><a href="../proc/json_get_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -10555,7 +10542,7 @@ private subroutine <a href='../proc/json_get_path.html'>json_get_path</a>(json, 
 private subroutine <a href='../proc/json_get_previous.html'>json_get_previous</a>(json, p, previous)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -10657,7 +10644,7 @@ private subroutine <a href='../proc/json_get_previous.html'>json_get_previous</a
 private subroutine <a href='../proc/json_get_string.html'>json_get_string</a>(json, me, value)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -10746,7 +10733,7 @@ private subroutine <a href='../proc/json_get_string.html'>json_get_string</a>(js
 private subroutine <a href='../proc/json_get_string_by_path.html'>json_get_string_by_path</a>(json, me, path, value, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -10865,7 +10852,7 @@ private subroutine <a href='../proc/json_get_string_by_path.html'>json_get_strin
 private subroutine <a href='../proc/json_get_string_vec.html'>json_get_string_vec</a>(json, me, vec)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -10966,7 +10953,7 @@ private subroutine <a href='../proc/json_get_string_vec.html'>json_get_string_ve
 private subroutine <a href='../proc/json_get_string_vec_by_path.html'>json_get_string_vec_by_path</a>(json, me, path, vec, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -11085,7 +11072,7 @@ private subroutine <a href='../proc/json_get_string_vec_by_path.html'>json_get_s
 private subroutine <a href='../proc/json_get_tail.html'>json_get_tail</a>(json, p, tail)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -11188,7 +11175,7 @@ private subroutine <a href='../proc/json_get_tail.html'>json_get_tail</a>(json, 
 private subroutine <a href='../proc/json_info.html'>json_info</a>(json, p, var_type, n_children, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -11268,7 +11255,7 @@ private subroutine <a href='../proc/json_info.html'>json_info</a>(json, p, var_t
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td><p>variable type</p></td>
+  <td><strong>var_type</strong></td><td><p><abbr title="json_unknown, json_null, json_object, json_array, json_logical, json_integer, json_double, json_string">variable type</abbr></p></td>
   
 </tr>
 
@@ -11319,7 +11306,7 @@ private subroutine <a href='../proc/json_info.html'>json_info</a>(json, p, var_t
 private subroutine <a href='../proc/json_info_by_path.html'>json_info_by_path</a>(json, p, path, found, var_type, n_children, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -11409,7 +11396,7 @@ private subroutine <a href='../proc/json_info_by_path.html'>json_info_by_path</a
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td><p>variable type</p></td>
+  <td><strong>var_type</strong></td><td><p><abbr title="json_unknown, json_null, json_object, json_array, json_logical, json_integer, json_double, json_string">variable type</abbr></p></td>
   
 </tr>
 
@@ -11460,7 +11447,7 @@ private subroutine <a href='../proc/json_info_by_path.html'>json_info_by_path</a
 private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -11484,7 +11471,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me
 
 
 
-<p>Initialize the <a href="../type/json_core.html">json_core</a> instance.</p>
+<p>Initialize the <a href="../type/json_core.html">json_core</a> instance.</p><a href="../proc/json_initialize.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -11767,7 +11754,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>allow_duplicate_keys</strong></td><td></td>
+  <td><strong>allow_duplicate_keys</strong></td><td><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
   
 </tr>
 
@@ -11782,7 +11769,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>escape_solidus</strong></td><td></td>
+  <td><strong>escape_solidus</strong></td><td><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
   
 </tr>
 
@@ -11819,7 +11806,7 @@ private subroutine <a href='../proc/json_initialize.html'>json_initialize</a>(me
 private subroutine <a href='../proc/json_matrix_info.html'>json_matrix_info</a>(json, p, is_matrix, var_type, n_sets, set_size, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -11844,7 +11831,7 @@ private subroutine <a href='../proc/json_matrix_info.html'>json_matrix_info</a>(
 
 
 <p>Alternate version of <a href="../proc/json_info.html">json_info</a> that returns matrix
-  information about a <a href="../type/json_value.html">json_value</a>.</p>
+  information about a <a href="../type/json_value.html">json_value</a>.</p><a href="../proc/json_matrix_info.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -11915,7 +11902,7 @@ private subroutine <a href='../proc/json_matrix_info.html'>json_matrix_info</a>(
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td><p>variable type of data in the matrix
+  <td><strong>var_type</strong></td><td><p><abbr title="json_unknown, json_null, json_object, json_array, json_logical, json_integer, json_double, json_string">variable type</abbr> of data in the matrix
  (if all elements have the same type)</p></td>
   
 </tr>
@@ -11984,7 +11971,7 @@ private subroutine <a href='../proc/json_matrix_info.html'>json_matrix_info</a>(
 private subroutine <a href='../proc/json_matrix_info_by_path.html'>json_matrix_info_by_path</a>(json, p, path, is_matrix, found, var_type, n_sets, set_size, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -11996,7 +11983,7 @@ private subroutine <a href='../proc/json_matrix_info_by_path.html'>json_matrix_i
 
 
 
-<p>Returns matrix information about a <a href="../type/json_value.html">json_value</a>, given the path.</p>
+<p>Returns matrix information about a <a href="../type/json_value.html">json_value</a>, given the path.</p><a href="../proc/json_matrix_info_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -12097,7 +12084,7 @@ private subroutine <a href='../proc/json_matrix_info_by_path.html'>json_matrix_i
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td><p>variable type of data in
+  <td><strong>var_type</strong></td><td><p><abbr title="json_unknown, json_null, json_object, json_array, json_logical, json_integer, json_double, json_string">variable type</abbr> of data in
  the matrix (if all elements have
  the same type)</p></td>
   
@@ -12167,7 +12154,7 @@ private subroutine <a href='../proc/json_matrix_info_by_path.html'>json_matrix_i
 private subroutine <a href='../proc/json_parse_file.html'>json_parse_file</a>(json, file, p, unit)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -12179,7 +12166,7 @@ private subroutine <a href='../proc/json_parse_file.html'>json_parse_file</a>(js
 
 
 
-<p>Parse the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file and populate the <a href="../type/json_value.html">json_value</a> tree.</p>
+<p>Parse the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file and populate the <a href="../type/json_value.html">json_value</a> tree.</p><a href="../proc/json_parse_file.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -12271,7 +12258,7 @@ private subroutine <a href='../proc/json_parse_file.html'>json_parse_file</a>(js
 private subroutine <a href='../proc/json_parse_string.html'>json_parse_string</a>(json, p, str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -12283,7 +12270,7 @@ private subroutine <a href='../proc/json_parse_string.html'>json_parse_string</a
 
 
 
-<p>Parse the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> string and populate the <a href="../type/json_value.html">json_value</a> tree.</p>
+<p>Parse the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> string and populate the <a href="../type/json_value.html">json_value</a> tree.</p><a href="../proc/json_parse_string.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -12360,7 +12347,7 @@ private subroutine <a href='../proc/json_parse_string.html'>json_parse_string</a
 private subroutine <a href='../proc/json_print_1.html'>json_print_1</a>(json, p, iunit)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -12462,7 +12449,7 @@ private subroutine <a href='../proc/json_print_1.html'>json_print_1</a>(json, p,
 private subroutine <a href='../proc/json_print_2.html'>json_print_2</a>(json, p, filename)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -12564,7 +12551,7 @@ private subroutine <a href='../proc/json_print_2.html'>json_print_2</a>(json, p,
 private subroutine <a href='../proc/json_print_error_message.html'>json_print_error_message</a>(json, io_unit)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -12586,7 +12573,7 @@ private subroutine <a href='../proc/json_print_error_message.html'>json_print_er
 
 
 
-<p>Print any error message, and then clear the exceptions.</p>
+<p>Print any error message, and then clear the exceptions.</p><a href="../proc/json_print_error_message.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -12627,7 +12614,8 @@ private subroutine <a href='../proc/json_print_error_message.html'>json_print_er
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>io_unit</strong></td><td></td>
+  <td><strong>io_unit</strong></td><td><p>unit number for
+ printing error message</p></td>
   
 </tr>
 
@@ -12648,7 +12636,7 @@ private subroutine <a href='../proc/json_print_error_message.html'>json_print_er
 private subroutine <a href='../proc/json_rename_by_path.html'>json_rename_by_path</a>(json, me, path, name, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -12660,7 +12648,7 @@ private subroutine <a href='../proc/json_rename_by_path.html'>json_rename_by_pat
 
 
 
-<p>Rename a <a href="../type/json_value.html">json_value</a>, given the path.</p>
+<p>Rename a <a href="../type/json_value.html">json_value</a>, given the path.</p><a href="../proc/json_rename_by_path.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -12716,7 +12704,7 @@ private subroutine <a href='../proc/json_rename_by_path.html'>json_rename_by_pat
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable to rename</p></td>
   
 </tr>
 
@@ -12746,7 +12734,7 @@ private subroutine <a href='../proc/json_rename_by_path.html'>json_rename_by_pat
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if there were no errors</p></td>
   
 </tr>
 
@@ -12767,7 +12755,7 @@ private subroutine <a href='../proc/json_rename_by_path.html'>json_rename_by_pat
 private subroutine <a href='../proc/json_rename_by_path_name_ascii.html'>json_rename_by_path_name_ascii</a>(json, me, path, name, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -12886,7 +12874,7 @@ private subroutine <a href='../proc/json_rename_by_path_name_ascii.html'>json_re
 private subroutine <a href='../proc/json_rename_by_path_path_ascii.html'>json_rename_by_path_path_ascii</a>(json, me, path, name, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -13005,7 +12993,7 @@ private subroutine <a href='../proc/json_rename_by_path_path_ascii.html'>json_re
 private subroutine <a href='../proc/json_string_info.html'>json_string_info</a>(json, p, ilen, max_str_len, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -13148,7 +13136,7 @@ private subroutine <a href='../proc/json_string_info.html'>json_string_info</a>(
 private subroutine <a href='../proc/json_throw_exception.html'>json_throw_exception</a>(json, msg)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -13174,7 +13162,7 @@ private subroutine <a href='../proc/json_throw_exception.html'>json_throw_except
 
 <p>Throw an exception in the <a href="../type/json_core.html">json_core</a>.
   This routine sets the error flag, and prevents any subsequent routine
-  from doing anything, until <a href="../proc/json_clear_exceptions.html">json_clear_exceptions</a> is called.</p>
+  from doing anything, until <a href="../proc/json_clear_exceptions.html">json_clear_exceptions</a> is called.</p><a href="../proc/json_throw_exception.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -13236,7 +13224,7 @@ private subroutine <a href='../proc/json_throw_exception.html'>json_throw_except
 private subroutine <a href='../proc/json_traverse.html'>json_traverse</a>(json, p, traverse_callback)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -13339,7 +13327,7 @@ private subroutine <a href='../proc/json_traverse.html'>json_traverse</a>(json, 
 private subroutine <a href='../proc/json_update_double.html'>json_update_double</a>(json, p, path, val, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -13365,7 +13353,7 @@ private subroutine <a href='../proc/json_update_double.html'>json_update_double<
 
 <p>Given the path string, if the variable is present,
   and is a scalar, then update its value.
-  If it is not present, then create it and set its value.</p>
+  If it is not present, then create it and set its value.</p><a href="../proc/json_update_double.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -13421,7 +13409,7 @@ private subroutine <a href='../proc/json_update_double.html'>json_update_double<
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable in the structure</p></td>
   
 </tr>
 
@@ -13436,7 +13424,7 @@ private subroutine <a href='../proc/json_update_double.html'>json_update_double<
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
+  <td><strong>val</strong></td><td><p>the new value</p></td>
   
 </tr>
 
@@ -13451,7 +13439,7 @@ private subroutine <a href='../proc/json_update_double.html'>json_update_double<
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if the variable was found and was a scalar.</p></td>
   
 </tr>
 
@@ -13472,7 +13460,7 @@ private subroutine <a href='../proc/json_update_double.html'>json_update_double<
 private subroutine <a href='../proc/json_update_integer.html'>json_update_integer</a>(json, p, path, val, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -13498,7 +13486,7 @@ private subroutine <a href='../proc/json_update_integer.html'>json_update_intege
 
 <p>Given the path string, if the variable is present,
   and is a scalar, then update its value.
-  If it is not present, then create it and set its value.</p>
+  If it is not present, then create it and set its value.</p><a href="../proc/json_update_integer.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -13554,7 +13542,7 @@ private subroutine <a href='../proc/json_update_integer.html'>json_update_intege
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable in the structure</p></td>
   
 </tr>
 
@@ -13569,7 +13557,7 @@ private subroutine <a href='../proc/json_update_integer.html'>json_update_intege
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
+  <td><strong>val</strong></td><td><p>the new value</p></td>
   
 </tr>
 
@@ -13584,7 +13572,7 @@ private subroutine <a href='../proc/json_update_integer.html'>json_update_intege
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if the variable was found and was a scalar.</p></td>
   
 </tr>
 
@@ -13605,7 +13593,7 @@ private subroutine <a href='../proc/json_update_integer.html'>json_update_intege
 private subroutine <a href='../proc/json_update_logical.html'>json_update_logical</a>(json, p, path, val, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -13631,7 +13619,7 @@ private subroutine <a href='../proc/json_update_logical.html'>json_update_logica
 
 <p>Given the path string, if the variable is present,
   and is a scalar, then update its value.
-  If it is not present, then create it and set its value.</p>
+  If it is not present, then create it and set its value.</p><a href="../proc/json_update_logical.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -13687,7 +13675,7 @@ private subroutine <a href='../proc/json_update_logical.html'>json_update_logica
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable in the structure</p></td>
   
 </tr>
 
@@ -13702,7 +13690,7 @@ private subroutine <a href='../proc/json_update_logical.html'>json_update_logica
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
+  <td><strong>val</strong></td><td><p>the new value</p></td>
   
 </tr>
 
@@ -13717,7 +13705,7 @@ private subroutine <a href='../proc/json_update_logical.html'>json_update_logica
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if the variable was found and was a scalar.</p></td>
   
 </tr>
 
@@ -13738,7 +13726,7 @@ private subroutine <a href='../proc/json_update_logical.html'>json_update_logica
 private subroutine <a href='../proc/json_update_string.html'>json_update_string</a>(json, p, path, val, found, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -13764,7 +13752,7 @@ private subroutine <a href='../proc/json_update_string.html'>json_update_string<
 
 <p>Given the path string, if the variable is present,
   and is a scalar, then update its value.
-  If it is not present, then create it and set its value.</p>
+  If it is not present, then create it and set its value.</p><a href="../proc/json_update_string.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -13820,7 +13808,7 @@ private subroutine <a href='../proc/json_update_string.html'>json_update_string<
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable in the structure</p></td>
   
 </tr>
 
@@ -13835,7 +13823,7 @@ private subroutine <a href='../proc/json_update_string.html'>json_update_string<
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
+  <td><strong>val</strong></td><td><p>the new value</p></td>
   
 </tr>
 
@@ -13850,7 +13838,7 @@ private subroutine <a href='../proc/json_update_string.html'>json_update_string<
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if the variable was found and was a scalar.</p></td>
   
 </tr>
 
@@ -13904,7 +13892,7 @@ private subroutine <a href='../proc/json_update_string.html'>json_update_string<
 private subroutine <a href='../proc/json_update_string_name_ascii.html'>json_update_string_name_ascii</a>(json, p, path, val, found, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -13972,7 +13960,7 @@ private subroutine <a href='../proc/json_update_string_name_ascii.html'>json_upd
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable in the structure</p></td>
   
 </tr>
 
@@ -13987,7 +13975,7 @@ private subroutine <a href='../proc/json_update_string_name_ascii.html'>json_upd
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
+  <td><strong>val</strong></td><td><p>the new value</p></td>
   
 </tr>
 
@@ -14002,7 +13990,7 @@ private subroutine <a href='../proc/json_update_string_name_ascii.html'>json_upd
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if the variable was found and was a scalar.</p></td>
   
 </tr>
 
@@ -14056,7 +14044,7 @@ private subroutine <a href='../proc/json_update_string_name_ascii.html'>json_upd
 private subroutine <a href='../proc/json_update_string_val_ascii.html'>json_update_string_val_ascii</a>(json, p, path, val, found, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -14124,7 +14112,7 @@ private subroutine <a href='../proc/json_update_string_val_ascii.html'>json_upda
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable in the structure</p></td>
   
 </tr>
 
@@ -14139,7 +14127,7 @@ private subroutine <a href='../proc/json_update_string_val_ascii.html'>json_upda
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
+  <td><strong>val</strong></td><td><p>the new value</p></td>
   
 </tr>
 
@@ -14154,7 +14142,7 @@ private subroutine <a href='../proc/json_update_string_val_ascii.html'>json_upda
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if the variable was found and was a scalar.</p></td>
   
 </tr>
 
@@ -14208,7 +14196,7 @@ private subroutine <a href='../proc/json_update_string_val_ascii.html'>json_upda
 private subroutine <a href='../proc/json_value_add_double.html'>json_value_add_double</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -14232,7 +14220,7 @@ private subroutine <a href='../proc/json_value_add_double.html'>json_value_add_d
 
 
 
-<p>Add a real value child to the <a href="../type/json_value.html">json_value</a> variable</p>
+<p>Add a real value child to the <a href="../type/json_value.html">json_value</a> variable.</p><a href="../proc/json_value_add_double.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -14324,7 +14312,7 @@ private subroutine <a href='../proc/json_value_add_double.html'>json_value_add_d
 private subroutine <a href='../proc/json_value_add_double_vec.html'>json_value_add_double_vec</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -14348,7 +14336,7 @@ private subroutine <a href='../proc/json_value_add_double_vec.html'>json_value_a
 
 
 
-<p>Add a real vector to the structure.</p>
+<p>Add a real vector child to the <a href="../type/json_value.html">json_value</a> variable.</p><a href="../proc/json_value_add_double_vec.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -14440,7 +14428,7 @@ private subroutine <a href='../proc/json_value_add_double_vec.html'>json_value_a
 private subroutine <a href='../proc/json_value_add_integer.html'>json_value_add_integer</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -14464,7 +14452,7 @@ private subroutine <a href='../proc/json_value_add_integer.html'>json_value_add_
 
 
 
-<p>Add an integer value child to the <a href="../type/json_value.html">json_value</a> variable</p>
+<p>Add an integer value child to the <a href="../type/json_value.html">json_value</a> variable.</p><a href="../proc/json_value_add_integer.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -14556,7 +14544,7 @@ private subroutine <a href='../proc/json_value_add_integer.html'>json_value_add_
 private subroutine <a href='../proc/json_value_add_integer_vec.html'>json_value_add_integer_vec</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -14580,7 +14568,7 @@ private subroutine <a href='../proc/json_value_add_integer_vec.html'>json_value_
 
 
 
-<p>Add an integer vector to the structure.</p>
+<p>Add a integer vector child to the <a href="../type/json_value.html">json_value</a> variable.</p><a href="../proc/json_value_add_integer_vec.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -14672,7 +14660,7 @@ private subroutine <a href='../proc/json_value_add_integer_vec.html'>json_value_
 private subroutine <a href='../proc/json_value_add_logical.html'>json_value_add_logical</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -14696,7 +14684,7 @@ private subroutine <a href='../proc/json_value_add_logical.html'>json_value_add_
 
 
 
-<p>Add a logical value child to the <a href="../type/json_value.html">json_value</a> variable</p>
+<p>Add a logical value child to the <a href="../type/json_value.html">json_value</a> variable.</p><a href="../proc/json_value_add_logical.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -14788,7 +14776,7 @@ private subroutine <a href='../proc/json_value_add_logical.html'>json_value_add_
 private subroutine <a href='../proc/json_value_add_logical_vec.html'>json_value_add_logical_vec</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -14812,7 +14800,7 @@ private subroutine <a href='../proc/json_value_add_logical_vec.html'>json_value_
 
 
 
-<p>Add a logical vector to the structure.</p>
+<p>Add a logical vector child to the <a href="../type/json_value.html">json_value</a> variable.</p><a href="../proc/json_value_add_logical_vec.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -14904,7 +14892,7 @@ private subroutine <a href='../proc/json_value_add_logical_vec.html'>json_value_
 private subroutine <a href='../proc/json_value_add_member.html'>json_value_add_member</a>(json, p, member)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -14957,7 +14945,9 @@ private subroutine <a href='../proc/json_value_add_member.html'>json_value_add_m
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p</strong></td><td></td>
+  <td><strong>p</strong></td><td><p><code>p</code> should be a <code>json_object</code>
+ or a <code>json_array</code> (although this
+ is not currently checked)</p></td>
   
 </tr>
 
@@ -14994,7 +14984,7 @@ private subroutine <a href='../proc/json_value_add_member.html'>json_value_add_m
 private subroutine <a href='../proc/json_value_add_null.html'>json_value_add_null</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -15006,7 +14996,7 @@ private subroutine <a href='../proc/json_value_add_null.html'>json_value_add_nul
 
 
 
-<p>Add a NULL value child to the <a href="../type/json_value.html">json_value</a> variable</p>
+<p>Add a NULL value child to the <a href="../type/json_value.html">json_value</a> variable.</p><a href="../proc/json_value_add_null.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -15083,7 +15073,7 @@ private subroutine <a href='../proc/json_value_add_null.html'>json_value_add_nul
 private subroutine <a href='../proc/json_value_add_string.html'>json_value_add_string</a>(json, p, name, val, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -15107,7 +15097,7 @@ private subroutine <a href='../proc/json_value_add_string.html'>json_value_add_s
 
 
 
-<p>Add a character string child to the <a href="../type/json_value.html">json_value</a> variable.</p>
+<p>Add a character string child to the <a href="../type/json_value.html">json_value</a> variable.</p><a href="../proc/json_value_add_string.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -15229,7 +15219,7 @@ private subroutine <a href='../proc/json_value_add_string.html'>json_value_add_s
 private subroutine <a href='../proc/json_value_add_string_name_ascii.html'>json_value_add_string_name_ascii</a>(json, p, name, val, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -15363,7 +15353,7 @@ private subroutine <a href='../proc/json_value_add_string_name_ascii.html'>json_
 private subroutine <a href='../proc/json_value_add_string_val_ascii.html'>json_value_add_string_val_ascii</a>(json, p, name, val, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -15497,7 +15487,7 @@ private subroutine <a href='../proc/json_value_add_string_val_ascii.html'>json_v
 private subroutine <a href='../proc/json_value_add_string_vec.html'>json_value_add_string_vec</a>(json, p, name, val, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -15521,7 +15511,7 @@ private subroutine <a href='../proc/json_value_add_string_vec.html'>json_value_a
 
 
 
-<p>Add an array of character strings to the structure.</p>
+<p>Add a character string vector child to the <a href="../type/json_value.html">json_value</a> variable.</p><a href="../proc/json_value_add_string_vec.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -15643,7 +15633,7 @@ private subroutine <a href='../proc/json_value_add_string_vec.html'>json_value_a
 private subroutine <a href='../proc/json_value_add_string_vec_name_ascii.html'>json_value_add_string_vec_name_ascii</a>(json, p, name, val, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -15777,7 +15767,7 @@ private subroutine <a href='../proc/json_value_add_string_vec_name_ascii.html'>j
 private subroutine <a href='../proc/json_value_add_string_vec_val_ascii.html'>json_value_add_string_vec_val_ascii</a>(json, p, name, val, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -15911,7 +15901,7 @@ private subroutine <a href='../proc/json_value_add_string_vec_val_ascii.html'>js
 private recursive subroutine <a href='../proc/json_value_clone_func.html'>json_value_clone_func</a>(from, to, parent, previous, next, children, tail)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -15935,7 +15925,7 @@ private recursive subroutine <a href='../proc/json_value_clone_func.html'>json_v
 
 
 
-<p>Recursive deep copy function called by <a href="../proc/json_clone.html">json_clone</a>.</p>
+<p>Recursive deep copy function called by <a href="../proc/json_clone.html">json_clone</a>.</p><a href="../proc/json_value_clone_func.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -16074,7 +16064,7 @@ private recursive subroutine <a href='../proc/json_value_clone_func.html'>json_v
 private subroutine <a href='../proc/json_value_create.html'>json_value_create</a>(p)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -16087,7 +16077,7 @@ private subroutine <a href='../proc/json_value_create.html'>json_value_create</a
 
 
 <p>Allocate a <a href="../type/json_value.html">json_value</a> pointer variable.
-  This should be called before adding data to it.</p>
+  This should be called before adding data to it.</p><a href="../proc/json_value_create.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -16134,7 +16124,7 @@ private subroutine <a href='../proc/json_value_create.html'>json_value_create</a
 private subroutine <a href='../proc/json_value_create_array.html'>json_value_create_array</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -16157,7 +16147,7 @@ private subroutine <a href='../proc/json_value_create_array.html'>json_value_cre
 
 
 <p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it an array variable.
-  The pointer should not already be allocated.</p>
+  The pointer should not already be allocated.</p><a href="../proc/json_value_create_array.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -16234,7 +16224,7 @@ private subroutine <a href='../proc/json_value_create_array.html'>json_value_cre
 private subroutine <a href='../proc/json_value_create_double.html'>json_value_create_double</a>(json, p, val, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -16257,7 +16247,7 @@ private subroutine <a href='../proc/json_value_create_double.html'>json_value_cr
 
 
 <p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it a real(RK) variable.
-  The pointer should not already be allocated.</p>
+  The pointer should not already be allocated.</p><a href="../proc/json_value_create_double.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -16349,7 +16339,7 @@ private subroutine <a href='../proc/json_value_create_double.html'>json_value_cr
 private subroutine <a href='../proc/json_value_create_integer.html'>json_value_create_integer</a>(json, p, val, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -16372,7 +16362,7 @@ private subroutine <a href='../proc/json_value_create_integer.html'>json_value_c
 
 
 <p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it an integer(IK) variable.
-  The pointer should not already be allocated.</p>
+  The pointer should not already be allocated.</p><a href="../proc/json_value_create_integer.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -16464,7 +16454,7 @@ private subroutine <a href='../proc/json_value_create_integer.html'>json_value_c
 private subroutine <a href='../proc/json_value_create_logical.html'>json_value_create_logical</a>(json, p, val, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -16487,7 +16477,7 @@ private subroutine <a href='../proc/json_value_create_logical.html'>json_value_c
 
 
 <p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it a logical(LK) variable.
-  The pointer should not already be allocated.</p>
+  The pointer should not already be allocated.</p><a href="../proc/json_value_create_logical.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -16579,7 +16569,7 @@ private subroutine <a href='../proc/json_value_create_logical.html'>json_value_c
 private subroutine <a href='../proc/json_value_create_null.html'>json_value_create_null</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -16602,7 +16592,7 @@ private subroutine <a href='../proc/json_value_create_null.html'>json_value_crea
 
 
 <p>Allocate a json_value pointer and make it a null variable.
-  The pointer should not already be allocated.</p>
+  The pointer should not already be allocated.</p><a href="../proc/json_value_create_null.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -16679,7 +16669,7 @@ private subroutine <a href='../proc/json_value_create_null.html'>json_value_crea
 private subroutine <a href='../proc/json_value_create_object.html'>json_value_create_object</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -16702,7 +16692,7 @@ private subroutine <a href='../proc/json_value_create_object.html'>json_value_cr
 
 
 <p>Allocate a <a href="../type/json_value.html">json_value</a> pointer and make it an object variable.
-  The pointer should not already be allocated.</p>
+  The pointer should not already be allocated.</p><a href="../proc/json_value_create_object.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -16779,7 +16769,7 @@ private subroutine <a href='../proc/json_value_create_object.html'>json_value_cr
 private subroutine <a href='../proc/json_value_create_string.html'>json_value_create_string</a>(json, p, val, name, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -16802,7 +16792,7 @@ private subroutine <a href='../proc/json_value_create_string.html'>json_value_cr
 
 
 <p>Allocate a json_value pointer and make it a string variable.
-  The pointer should not already be allocated.</p>
+  The pointer should not already be allocated.</p><a href="../proc/json_value_create_string.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -16924,7 +16914,7 @@ private subroutine <a href='../proc/json_value_create_string.html'>json_value_cr
 private recursive subroutine <a href='../proc/json_value_destroy.html'>json_value_destroy</a>(json, p, destroy_next)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -16948,7 +16938,7 @@ private recursive subroutine <a href='../proc/json_value_destroy.html'>json_valu
 
 
 
-<p>Destroy a <a href="../type/json_value.html">json_value</a> linked-list structure.</p>
+<p>Destroy a <a href="../type/json_value.html">json_value</a> linked-list structure.</p><a href="../proc/json_value_destroy.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -17026,7 +17016,7 @@ private recursive subroutine <a href='../proc/json_value_destroy.html'>json_valu
 private subroutine <a href='../proc/json_value_get_child.html'>json_value_get_child</a>(json, p, child)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -17116,7 +17106,7 @@ private subroutine <a href='../proc/json_value_get_child.html'>json_value_get_ch
 private subroutine <a href='../proc/json_value_get_child_by_index.html'>json_value_get_child_by_index</a>(json, p, idx, child, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -17242,7 +17232,7 @@ private subroutine <a href='../proc/json_value_get_child_by_index.html'>json_val
 private subroutine <a href='../proc/json_value_get_child_by_name.html'>json_value_get_child_by_name</a>(json, p, name, child, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -17254,7 +17244,7 @@ private subroutine <a href='../proc/json_value_get_child_by_name.html'>json_valu
 
 
 
-<p>Returns a child in the object or array given the name string.</p>
+<p>Returns a child in the object or array given the name string.</p><a href="../proc/json_value_get_child_by_name.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -17366,7 +17356,7 @@ private subroutine <a href='../proc/json_value_get_child_by_name.html'>json_valu
 private subroutine <a href='../proc/json_value_insert_after.html'>json_value_insert_after</a>(json, p, element)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -17378,7 +17368,7 @@ private subroutine <a href='../proc/json_value_insert_after.html'>json_value_ins
 
 
 
-<p>Inserts <code>element</code> after <code>p</code>, and updates the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure accordingly.</p>
+<p>Inserts <code>element</code> after <code>p</code>, and updates the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure accordingly.</p><a href="../proc/json_value_insert_after.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -17457,7 +17447,7 @@ private subroutine <a href='../proc/json_value_insert_after.html'>json_value_ins
 private subroutine <a href='../proc/json_value_insert_after_child_by_index.html'>json_value_insert_after_child_by_index</a>(json, p, idx, element)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -17566,7 +17556,7 @@ private subroutine <a href='../proc/json_value_insert_after_child_by_index.html'
 private recursive subroutine <a href='../proc/json_value_print.html'>json_value_print</a>(json, p, iunit, str, indent, need_comma, colon, is_array_element, is_compressed_vector)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -17578,7 +17568,7 @@ private recursive subroutine <a href='../proc/json_value_print.html'>json_value_
 
 
 
-<p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure to a string or a file.</p>
+<p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure to a string or a file.</p><a href="../proc/json_value_print.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -17649,7 +17639,7 @@ private recursive subroutine <a href='../proc/json_value_print.html'>json_value_
   <td></td>
   
   <td>allocatable</td><td>::</td>
-  <td><strong>str</strong></td><td><p>if iunit==unit2str (-1) then the structure is
+  <td><strong>str</strong></td><td><p>if <code>iunit==unit2str</code> (-1) then the structure is
  printed to this string rather than
  a file. This mode is used by
  <a href="../proc/json_value_to_string.html">json_value_to_string</a>.</p></td>
@@ -17750,7 +17740,7 @@ private recursive subroutine <a href='../proc/json_value_print.html'>json_value_
 private subroutine <a href='../proc/json_value_remove.html'>json_value_remove</a>(json, p, destroy)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -17775,7 +17765,7 @@ private subroutine <a href='../proc/json_value_remove.html'>json_value_remove</a
 
 
 <p>Remove a <a href="../type/json_value.html">json_value</a> (and all its children)
-  from a linked-list structure, preserving the rest of the structure.</p>
+  from a linked-list structure, preserving the rest of the structure.</p><a href="../proc/json_value_remove.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -17831,9 +17821,7 @@ private subroutine <a href='../proc/json_value_remove.html'>json_value_remove</a
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>destroy</strong></td><td><p>If destroy is not present, it is also destroyed.
- If destroy is present and true, it is destroyed.
- If destroy is present and false, it is not destroyed.</p></td>
+  <td><strong>destroy</strong></td><td><p>Option to destroy <code>p</code> after it is removed:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
   
 </tr>
 
@@ -17851,10 +17839,10 @@ private subroutine <a href='../proc/json_value_remove.html'>json_value_remove</a
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-json_value_remove_if_present"></span><h3>
-private subroutine <a href='../proc/json_value_remove_if_present.html'>json_value_remove_if_present</a>(json, p, name)
+private subroutine <a href='../proc/json_value_remove_if_present.html'>json_value_remove_if_present</a>(json, p, path)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -17878,8 +17866,8 @@ private subroutine <a href='../proc/json_value_remove_if_present.html'>json_valu
 
 
 
-<p>Given the path string, remove the variable from
-  the <a href="../type/json_value.html">json_value</a> structure, if it exists.</p>
+<p>Given the path string, remove the variable
+  from <a href="../type/json_value.html">json_value</a>, if it exists.</p>
     
     <h4>Arguments</h4>
     
@@ -17935,7 +17923,7 @@ private subroutine <a href='../proc/json_value_remove_if_present.html'>json_valu
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>name</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>the path to the variable to remove</p></td>
   
 </tr>
 
@@ -17956,7 +17944,7 @@ private subroutine <a href='../proc/json_value_remove_if_present.html'>json_valu
 private subroutine <a href='../proc/json_value_rename.html'>json_value_rename</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -18057,7 +18045,7 @@ private subroutine <a href='../proc/json_value_rename.html'>json_value_rename</a
 private subroutine <a href='../proc/json_value_replace.html'>json_value_replace</a>(json, p1, p2, destroy)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -18069,7 +18057,7 @@ private subroutine <a href='../proc/json_value_replace.html'>json_value_replace<
 
 
 
-<p>Replace <code>p1</code> with <code>p2</code> in a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.</p>
+<p>Replace <code>p1</code> with <code>p2</code> in a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.</p><a href="../proc/json_value_replace.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -18164,7 +18152,7 @@ private subroutine <a href='../proc/json_value_replace.html'>json_value_replace<
 private subroutine <a href='../proc/json_value_reverse.html'>json_value_reverse</a>(json, p)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -18250,7 +18238,7 @@ private subroutine <a href='../proc/json_value_reverse.html'>json_value_reverse<
 private subroutine <a href='../proc/json_value_swap.html'>json_value_swap</a>(json, p1, p2)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -18275,7 +18263,7 @@ private subroutine <a href='../proc/json_value_swap.html'>json_value_swap</a>(js
 
 
 <p>Swap two elements in a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure.
-  All of the children are carried along as well.</p>
+  All of the children are carried along as well.</p><a href="../proc/json_value_swap.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -18352,7 +18340,7 @@ private subroutine <a href='../proc/json_value_swap.html'>json_value_swap</a>(js
 private subroutine <a href='../proc/json_value_to_string.html'>json_value_to_string</a>(json, p, str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -18453,7 +18441,7 @@ private subroutine <a href='../proc/json_value_to_string.html'>json_value_to_str
 private subroutine <a href='../proc/json_value_validate.html'>json_value_validate</a>(json, p, is_valid, error_msg)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -18480,7 +18468,7 @@ private subroutine <a href='../proc/json_value_validate.html'>json_value_validat
 <p>Validate a <a href="../type/json_value.html">json_value</a> linked list by checking to make sure
   all the pointers are properly associated, arrays and objects
   have the correct number of children, and the correct data is
-  allocated for the variable types.</p>
+  allocated for the variable types.</p><a href="../proc/json_value_validate.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -18573,7 +18561,7 @@ private subroutine <a href='../proc/json_value_validate.html'>json_value_validat
 private recursive subroutine <a href='../proc/parse_array.html'>parse_array</a>(json, unit, str, array)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -18677,7 +18665,7 @@ private recursive subroutine <a href='../proc/parse_array.html'>parse_array</a>(
 private subroutine <a href='../proc/parse_for_chars.html'>parse_for_chars</a>(json, unit, str, chars)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -18689,7 +18677,7 @@ private subroutine <a href='../proc/parse_for_chars.html'>parse_for_chars</a>(js
 
 
 
-<p>Core parsing routine.</p>
+<p>Core parsing routine.</p><a href="../proc/parse_for_chars.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -18781,7 +18769,7 @@ private subroutine <a href='../proc/parse_for_chars.html'>parse_for_chars</a>(js
 private subroutine <a href='../proc/parse_number.html'>parse_number</a>(json, unit, str, value)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -18807,7 +18795,7 @@ private subroutine <a href='../proc/parse_number.html'>parse_number</a>(json, un
 
 <p>Read a numerical value from the file (or string).
   The routine will determine if it is an integer or a double, and
-  allocate the type accordingly.</p>
+  allocate the type accordingly.</p><a href="../proc/parse_number.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -18899,7 +18887,7 @@ private subroutine <a href='../proc/parse_number.html'>parse_number</a>(json, un
 private recursive subroutine <a href='../proc/parse_object.html'>parse_object</a>(json, unit, str, parent)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -19003,7 +18991,7 @@ private recursive subroutine <a href='../proc/parse_object.html'>parse_object</a
 private subroutine <a href='../proc/parse_string.html'>parse_string</a>(json, unit, str, string)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -19015,7 +19003,7 @@ private subroutine <a href='../proc/parse_string.html'>parse_string</a>(json, un
 
 
 
-<p>Parses a string while reading a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file.</p>
+<p>Parses a string while reading a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file.</p><a href="../proc/parse_string.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -19107,7 +19095,7 @@ private subroutine <a href='../proc/parse_string.html'>parse_string</a>(json, un
 private recursive subroutine <a href='../proc/parse_value.html'>parse_value</a>(json, unit, str, value)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -19175,7 +19163,8 @@ private recursive subroutine <a href='../proc/parse_value.html'>parse_value</a>(
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>str</strong></td><td><p>string containing <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data (only used if unit=0)</p></td>
+  <td><strong>str</strong></td><td><p>string containing <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>
+ data (only used if <code>unit=0</code>)</p></td>
   
 </tr>
 
@@ -19211,7 +19200,7 @@ private recursive subroutine <a href='../proc/parse_value.html'>parse_value</a>(
 private recursive subroutine <a href='../proc/pop_char.html'>pop_char</a>(json, unit, str, skip_ws, skip_comments, eof, popped)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -19223,7 +19212,7 @@ private recursive subroutine <a href='../proc/pop_char.html'>pop_char</a>(json, 
 
 
 
-<p>Get the next character from the file (or string).</p>
+<p>Get the next character from the file (or string).</p><a href="../proc/pop_char.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -19281,7 +19270,7 @@ private recursive subroutine <a href='../proc/pop_char.html'>pop_char</a>(json, 
   
   <td></td><td>::</td>
   <td><strong>str</strong></td><td><p><abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> string (if parsing from a
- string) &ndash; only used if unit=0</p></td>
+ string) &ndash; only used if <code>unit=0</code></p></td>
   
 </tr>
 
@@ -19363,7 +19352,7 @@ private recursive subroutine <a href='../proc/pop_char.html'>pop_char</a>(json, 
 private subroutine <a href='../proc/push_char.html'>push_char</a>(json, c)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -19375,7 +19364,7 @@ private subroutine <a href='../proc/push_char.html'>push_char</a>(json, c)
 
 
 
-<p>Core routine.</p>
+<p>Core routine.</p><a href="../proc/push_char.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -19437,7 +19426,7 @@ private subroutine <a href='../proc/push_char.html'>push_char</a>(json, c)
 private subroutine <a href='../proc/to_array.html'>to_array</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -19536,7 +19525,7 @@ private subroutine <a href='../proc/to_array.html'>to_array</a>(json, p, name)
 private subroutine <a href='../proc/to_double.html'>to_double</a>(json, p, val, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -19651,7 +19640,7 @@ private subroutine <a href='../proc/to_double.html'>to_double</a>(json, p, val, 
 private subroutine <a href='../proc/to_integer.html'>to_integer</a>(json, p, val, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -19766,7 +19755,7 @@ private subroutine <a href='../proc/to_integer.html'>to_integer</a>(json, p, val
 private subroutine <a href='../proc/to_logical.html'>to_logical</a>(json, p, val, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -19881,7 +19870,7 @@ private subroutine <a href='../proc/to_logical.html'>to_logical</a>(json, p, val
 private subroutine <a href='../proc/to_null.html'>to_null</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -19980,7 +19969,7 @@ private subroutine <a href='../proc/to_null.html'>to_null</a>(json, p, name)
 private subroutine <a href='../proc/to_object.html'>to_object</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -20079,7 +20068,7 @@ private subroutine <a href='../proc/to_object.html'>to_object</a>(json, p, name)
 private subroutine <a href='../proc/to_string.html'>to_string</a>(json, p, val, name, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -20101,7 +20090,7 @@ private subroutine <a href='../proc/to_string.html'>to_string</a>(json, p, val, 
 
 
 
-<p>Change the <a href="../type/json_value.html">json_value</a> variable to a string.</p>
+<p>Change the <a href="../type/json_value.html">json_value</a> variable to a string.</p><a href="../proc/to_string.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -20227,7 +20216,7 @@ private subroutine <a href='../proc/to_string.html'>to_string</a>(json, p, val, 
 private subroutine <a href='../proc/wrap_json_add_double_by_path.html'>wrap_json_add_double_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -20361,7 +20350,7 @@ private subroutine <a href='../proc/wrap_json_add_double_by_path.html'>wrap_json
 private subroutine <a href='../proc/wrap_json_add_double_vec_by_path.html'>wrap_json_add_double_vec_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -20495,7 +20484,7 @@ private subroutine <a href='../proc/wrap_json_add_double_vec_by_path.html'>wrap_
 private subroutine <a href='../proc/wrap_json_add_integer_by_path.html'>wrap_json_add_integer_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -20629,7 +20618,7 @@ private subroutine <a href='../proc/wrap_json_add_integer_by_path.html'>wrap_jso
 private subroutine <a href='../proc/wrap_json_add_integer_vec_by_path.html'>wrap_json_add_integer_vec_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -20763,7 +20752,7 @@ private subroutine <a href='../proc/wrap_json_add_integer_vec_by_path.html'>wrap
 private subroutine <a href='../proc/wrap_json_add_logical_by_path.html'>wrap_json_add_logical_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -20897,7 +20886,7 @@ private subroutine <a href='../proc/wrap_json_add_logical_by_path.html'>wrap_jso
 private subroutine <a href='../proc/wrap_json_add_logical_vec_by_path.html'>wrap_json_add_logical_vec_by_path</a>(json, me, path, value, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -21031,7 +21020,7 @@ private subroutine <a href='../proc/wrap_json_add_logical_vec_by_path.html'>wrap
 private subroutine <a href='../proc/wrap_json_add_member_by_path.html'>wrap_json_add_member_by_path</a>(json, me, path, p, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -21165,7 +21154,7 @@ private subroutine <a href='../proc/wrap_json_add_member_by_path.html'>wrap_json
 private subroutine <a href='../proc/wrap_json_add_string_by_path.html'>wrap_json_add_string_by_path</a>(json, me, path, value, found, was_created, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -21329,7 +21318,7 @@ private subroutine <a href='../proc/wrap_json_add_string_by_path.html'>wrap_json
 private subroutine <a href='../proc/wrap_json_add_string_vec_by_path.html'>wrap_json_add_string_vec_by_path</a>(json, me, path, value, found, was_created, ilen, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -21511,7 +21500,7 @@ private subroutine <a href='../proc/wrap_json_add_string_vec_by_path.html'>wrap_
 private subroutine <a href='../proc/wrap_json_create_by_path.html'>wrap_json_create_by_path</a>(json, me, path, p, found, was_created)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -21648,7 +21637,7 @@ private subroutine <a href='../proc/wrap_json_create_by_path.html'>wrap_json_cre
 private subroutine <a href='../proc/wrap_json_get_alloc_string_vec_by_path.html'>wrap_json_get_alloc_string_vec_by_path</a>(json, me, path, vec, ilen, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -21784,7 +21773,7 @@ private subroutine <a href='../proc/wrap_json_get_alloc_string_vec_by_path.html'
 private subroutine <a href='../proc/wrap_json_get_array_by_path.html'>wrap_json_get_array_by_path</a>(json, me, path, array_callback, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -21903,7 +21892,7 @@ private subroutine <a href='../proc/wrap_json_get_array_by_path.html'>wrap_json_
 private subroutine <a href='../proc/wrap_json_get_by_path.html'>wrap_json_get_by_path</a>(json, me, path, p, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -22022,7 +22011,7 @@ private subroutine <a href='../proc/wrap_json_get_by_path.html'>wrap_json_get_by
 private subroutine <a href='../proc/wrap_json_get_double_by_path.html'>wrap_json_get_double_by_path</a>(json, me, path, value, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -22141,7 +22130,7 @@ private subroutine <a href='../proc/wrap_json_get_double_by_path.html'>wrap_json
 private subroutine <a href='../proc/wrap_json_get_double_vec_by_path.html'>wrap_json_get_double_vec_by_path</a>(json, me, path, vec, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -22260,7 +22249,7 @@ private subroutine <a href='../proc/wrap_json_get_double_vec_by_path.html'>wrap_
 private subroutine <a href='../proc/wrap_json_get_integer_by_path.html'>wrap_json_get_integer_by_path</a>(json, me, path, value, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -22379,7 +22368,7 @@ private subroutine <a href='../proc/wrap_json_get_integer_by_path.html'>wrap_jso
 private subroutine <a href='../proc/wrap_json_get_integer_vec_by_path.html'>wrap_json_get_integer_vec_by_path</a>(json, me, path, vec, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -22498,7 +22487,7 @@ private subroutine <a href='../proc/wrap_json_get_integer_vec_by_path.html'>wrap
 private subroutine <a href='../proc/wrap_json_get_logical_by_path.html'>wrap_json_get_logical_by_path</a>(json, me, path, value, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -22617,7 +22606,7 @@ private subroutine <a href='../proc/wrap_json_get_logical_by_path.html'>wrap_jso
 private subroutine <a href='../proc/wrap_json_get_logical_vec_by_path.html'>wrap_json_get_logical_vec_by_path</a>(json, me, path, vec, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -22736,7 +22725,7 @@ private subroutine <a href='../proc/wrap_json_get_logical_vec_by_path.html'>wrap
 private subroutine <a href='../proc/wrap_json_get_path.html'>wrap_json_get_path</a>(json, p, path, found, use_alt_array_tokens, path_sep)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -22834,8 +22823,9 @@ private subroutine <a href='../proc/wrap_json_get_path.html'>wrap_json_get_path<
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>use_alt_array_tokens</strong></td><td><p>if true, then '()' are used for array elements
- otherwise, '[]' are used [default]</p></td>
+  <td><strong>use_alt_array_tokens</strong></td><td><p>if true, then '()' are used
+ for array elements otherwise,
+ '[]' are used [default]</p></td>
   
 </tr>
 
@@ -22850,8 +22840,8 @@ private subroutine <a href='../proc/wrap_json_get_path.html'>wrap_json_get_path<
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>path_sep</strong></td><td><p>character to use for path separator
- (default is '.')</p></td>
+  <td><strong>path_sep</strong></td><td><p>character to use for path
+ separator (default is '.')</p></td>
   
 </tr>
 
@@ -22872,7 +22862,7 @@ private subroutine <a href='../proc/wrap_json_get_path.html'>wrap_json_get_path<
 private subroutine <a href='../proc/wrap_json_get_string_by_path.html'>wrap_json_get_string_by_path</a>(json, me, path, value, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -22991,7 +22981,7 @@ private subroutine <a href='../proc/wrap_json_get_string_by_path.html'>wrap_json
 private subroutine <a href='../proc/wrap_json_get_string_vec_by_path.html'>wrap_json_get_string_vec_by_path</a>(json, me, path, vec, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -23110,7 +23100,7 @@ private subroutine <a href='../proc/wrap_json_get_string_vec_by_path.html'>wrap_
 private subroutine <a href='../proc/wrap_json_info_by_path.html'>wrap_json_info_by_path</a>(json, p, path, found, var_type, n_children, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -23208,7 +23198,7 @@ private subroutine <a href='../proc/wrap_json_info_by_path.html'>wrap_json_info_
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td><p>variable type</p></td>
+  <td><strong>var_type</strong></td><td><p><abbr title="json_unknown, json_null, json_object, json_array, json_logical, json_integer, json_double, json_string">variable type</abbr></p></td>
   
 </tr>
 
@@ -23259,7 +23249,7 @@ private subroutine <a href='../proc/wrap_json_info_by_path.html'>wrap_json_info_
 private subroutine <a href='../proc/wrap_json_matrix_info_by_path.html'>wrap_json_matrix_info_by_path</a>(json, p, path, is_matrix, found, var_type, n_sets, set_size, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -23372,7 +23362,7 @@ private subroutine <a href='../proc/wrap_json_matrix_info_by_path.html'>wrap_jso
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>var_type</strong></td><td><p>variable type of data in
+  <td><strong>var_type</strong></td><td><p><abbr title="json_unknown, json_null, json_object, json_array, json_logical, json_integer, json_double, json_string">variable type</abbr> of data in
  the matrix (if all elements have
  the same type)</p></td>
   
@@ -23442,7 +23432,7 @@ private subroutine <a href='../proc/wrap_json_matrix_info_by_path.html'>wrap_jso
 private subroutine <a href='../proc/wrap_json_parse_string.html'>wrap_json_parse_string</a>(json, p, str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -23531,7 +23521,7 @@ private subroutine <a href='../proc/wrap_json_parse_string.html'>wrap_json_parse
 private subroutine <a href='../proc/wrap_json_rename_by_path.html'>wrap_json_rename_by_path</a>(json, me, path, name, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -23650,7 +23640,7 @@ private subroutine <a href='../proc/wrap_json_rename_by_path.html'>wrap_json_ren
 private subroutine <a href='../proc/wrap_json_throw_exception.html'>wrap_json_throw_exception</a>(json, msg)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -23724,7 +23714,7 @@ private subroutine <a href='../proc/wrap_json_throw_exception.html'>wrap_json_th
 private subroutine <a href='../proc/wrap_json_update_double.html'>wrap_json_update_double</a>(json, p, path, val, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -23792,7 +23782,7 @@ private subroutine <a href='../proc/wrap_json_update_double.html'>wrap_json_upda
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable in the structure</p></td>
   
 </tr>
 
@@ -23807,7 +23797,7 @@ private subroutine <a href='../proc/wrap_json_update_double.html'>wrap_json_upda
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
+  <td><strong>val</strong></td><td><p>the new value</p></td>
   
 </tr>
 
@@ -23822,7 +23812,7 @@ private subroutine <a href='../proc/wrap_json_update_double.html'>wrap_json_upda
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if the variable was found and was a scalar.</p></td>
   
 </tr>
 
@@ -23843,7 +23833,7 @@ private subroutine <a href='../proc/wrap_json_update_double.html'>wrap_json_upda
 private subroutine <a href='../proc/wrap_json_update_integer.html'>wrap_json_update_integer</a>(json, p, path, val, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -23911,7 +23901,7 @@ private subroutine <a href='../proc/wrap_json_update_integer.html'>wrap_json_upd
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable in the structure</p></td>
   
 </tr>
 
@@ -23926,7 +23916,7 @@ private subroutine <a href='../proc/wrap_json_update_integer.html'>wrap_json_upd
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
+  <td><strong>val</strong></td><td><p>the new value</p></td>
   
 </tr>
 
@@ -23941,7 +23931,7 @@ private subroutine <a href='../proc/wrap_json_update_integer.html'>wrap_json_upd
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if the variable was found and was a scalar.</p></td>
   
 </tr>
 
@@ -23962,7 +23952,7 @@ private subroutine <a href='../proc/wrap_json_update_integer.html'>wrap_json_upd
 private subroutine <a href='../proc/wrap_json_update_logical.html'>wrap_json_update_logical</a>(json, p, path, val, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -24030,7 +24020,7 @@ private subroutine <a href='../proc/wrap_json_update_logical.html'>wrap_json_upd
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable in the structure</p></td>
   
 </tr>
 
@@ -24045,7 +24035,7 @@ private subroutine <a href='../proc/wrap_json_update_logical.html'>wrap_json_upd
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
+  <td><strong>val</strong></td><td><p>the new value</p></td>
   
 </tr>
 
@@ -24060,7 +24050,7 @@ private subroutine <a href='../proc/wrap_json_update_logical.html'>wrap_json_upd
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if the variable was found and was a scalar.</p></td>
   
 </tr>
 
@@ -24081,7 +24071,7 @@ private subroutine <a href='../proc/wrap_json_update_logical.html'>wrap_json_upd
 private subroutine <a href='../proc/wrap_json_update_string.html'>wrap_json_update_string</a>(json, p, path, val, found, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -24149,7 +24139,7 @@ private subroutine <a href='../proc/wrap_json_update_string.html'>wrap_json_upda
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>path</strong></td><td><p>path to the variable in the structure</p></td>
   
 </tr>
 
@@ -24164,7 +24154,7 @@ private subroutine <a href='../proc/wrap_json_update_string.html'>wrap_json_upda
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>val</strong></td><td></td>
+  <td><strong>val</strong></td><td><p>the new value</p></td>
   
 </tr>
 
@@ -24179,7 +24169,7 @@ private subroutine <a href='../proc/wrap_json_update_string.html'>wrap_json_upda
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>found</strong></td><td><p>if the variable was found and was a scalar.</p></td>
   
 </tr>
 
@@ -24233,7 +24223,7 @@ private subroutine <a href='../proc/wrap_json_update_string.html'>wrap_json_upda
 private subroutine <a href='../proc/wrap_json_value_add_double.html'>wrap_json_value_add_double</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -24337,7 +24327,7 @@ private subroutine <a href='../proc/wrap_json_value_add_double.html'>wrap_json_v
 private subroutine <a href='../proc/wrap_json_value_add_double_vec.html'>wrap_json_value_add_double_vec</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -24441,7 +24431,7 @@ private subroutine <a href='../proc/wrap_json_value_add_double_vec.html'>wrap_js
 private subroutine <a href='../proc/wrap_json_value_add_integer.html'>wrap_json_value_add_integer</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -24545,7 +24535,7 @@ private subroutine <a href='../proc/wrap_json_value_add_integer.html'>wrap_json_
 private subroutine <a href='../proc/wrap_json_value_add_integer_vec.html'>wrap_json_value_add_integer_vec</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -24649,7 +24639,7 @@ private subroutine <a href='../proc/wrap_json_value_add_integer_vec.html'>wrap_j
 private subroutine <a href='../proc/wrap_json_value_add_logical.html'>wrap_json_value_add_logical</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -24753,7 +24743,7 @@ private subroutine <a href='../proc/wrap_json_value_add_logical.html'>wrap_json_
 private subroutine <a href='../proc/wrap_json_value_add_logical_vec.html'>wrap_json_value_add_logical_vec</a>(json, p, name, val)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -24857,7 +24847,7 @@ private subroutine <a href='../proc/wrap_json_value_add_logical_vec.html'>wrap_j
 private subroutine <a href='../proc/wrap_json_value_add_null.html'>wrap_json_value_add_null</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -24946,7 +24936,7 @@ private subroutine <a href='../proc/wrap_json_value_add_null.html'>wrap_json_val
 private subroutine <a href='../proc/wrap_json_value_add_string.html'>wrap_json_value_add_string</a>(json, p, name, val, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -25080,7 +25070,7 @@ private subroutine <a href='../proc/wrap_json_value_add_string.html'>wrap_json_v
 private subroutine <a href='../proc/wrap_json_value_add_string_vec.html'>wrap_json_value_add_string_vec</a>(json, p, name, val, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -25214,7 +25204,7 @@ private subroutine <a href='../proc/wrap_json_value_add_string_vec.html'>wrap_js
 private subroutine <a href='../proc/wrap_json_value_create_array.html'>wrap_json_value_create_array</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -25315,7 +25305,7 @@ private subroutine <a href='../proc/wrap_json_value_create_array.html'>wrap_json
 private subroutine <a href='../proc/wrap_json_value_create_double.html'>wrap_json_value_create_double</a>(json, p, val, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -25431,7 +25421,7 @@ private subroutine <a href='../proc/wrap_json_value_create_double.html'>wrap_jso
 private subroutine <a href='../proc/wrap_json_value_create_integer.html'>wrap_json_value_create_integer</a>(json, p, val, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -25547,7 +25537,7 @@ private subroutine <a href='../proc/wrap_json_value_create_integer.html'>wrap_js
 private subroutine <a href='../proc/wrap_json_value_create_logical.html'>wrap_json_value_create_logical</a>(json, p, val, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -25662,7 +25652,7 @@ private subroutine <a href='../proc/wrap_json_value_create_logical.html'>wrap_js
 private subroutine <a href='../proc/wrap_json_value_create_null.html'>wrap_json_value_create_null</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -25763,7 +25753,7 @@ private subroutine <a href='../proc/wrap_json_value_create_null.html'>wrap_json_
 private subroutine <a href='../proc/wrap_json_value_create_object.html'>wrap_json_value_create_object</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -25864,7 +25854,7 @@ private subroutine <a href='../proc/wrap_json_value_create_object.html'>wrap_jso
 private subroutine <a href='../proc/wrap_json_value_create_string.html'>wrap_json_value_create_string</a>(json, p, val, name, trim_str, adjustl_str)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -26010,7 +26000,7 @@ private subroutine <a href='../proc/wrap_json_value_create_string.html'>wrap_jso
 private subroutine <a href='../proc/wrap_json_value_get_child_by_name.html'>wrap_json_value_get_child_by_name</a>(json, p, name, child, found)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -26126,10 +26116,10 @@ private subroutine <a href='../proc/wrap_json_value_get_child_by_name.html'>wrap
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-wrap_json_value_remove_if_present"></span><h3>
-private subroutine <a href='../proc/wrap_json_value_remove_if_present.html'>wrap_json_value_remove_if_present</a>(json, p, name)
+private subroutine <a href='../proc/wrap_json_value_remove_if_present.html'>wrap_json_value_remove_if_present</a>(json, p, path)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -26141,7 +26131,7 @@ private subroutine <a href='../proc/wrap_json_value_remove_if_present.html'>wrap
 
 
 
-<p>Alternate version of <a href="../proc/json_value_remove_if_present.html">json_value_remove_if_present</a>, where <code>name</code> is kind=CDK.</p>
+<p>Alternate version of <a href="../proc/json_value_remove_if_present.html">json_value_remove_if_present</a>, where <code>path</code> is kind=CDK.</p>
     
     <h4>Arguments</h4>
     
@@ -26197,7 +26187,7 @@ private subroutine <a href='../proc/wrap_json_value_remove_if_present.html'>wrap
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>name</strong></td><td></td>
+  <td><strong>path</strong></td><td></td>
   
 </tr>
 
@@ -26218,7 +26208,7 @@ private subroutine <a href='../proc/wrap_json_value_remove_if_present.html'>wrap
 private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value_rename</a>(json, p, name)
     
     
-	 
+   
 </h3></div>
   <div class="panel-body">
        
@@ -26321,45 +26311,19 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
     </div>
   </div>
 
-  <section class="visible-xs visible-sm hidden-md">
-    <hr>
-    
-
-<div class="panel panel-default">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#allmods-1">All Modules</a></h3></div>
-  <div id="allmods-1" class="panel-collapse collapse">
-    <div class="list-group">
-      
-      <a class="list-group-item" href="../module/json_file_module.html">json_file_module</a>
-      
-      <a class="list-group-item" href="../module/json_kinds.html">json_kinds</a>
-      
-      <a class="list-group-item" href="../module/json_module.html">json_module</a>
-      
-      <a class="list-group-item" href="../module/json_parameters.html">json_parameters</a>
-      
-      <a class="list-group-item" href="../module/json_string_utilities.html">json_string_utilities</a>
-      
-      <a class="list-group-item" href="../module/json_value_module.html">json_value_module</a>
-      
-    </div>
-  </div>
-</div>
-
-
-  </section>
   
     <hr>    
     </div> <!-- /container -->
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2018 </p></div>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2018 
+                                          </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-06-24 04:15  
+             on 2018-07-02 01:17  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
@@ -26385,12 +26349,17 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
       MathJax.Hub.Config({
         TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
         jax: ['input/TeX','input/MathML','output/HTML-CSS'],
-        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js'],
-        'HTML-CSS': { 
-           styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: '#000000 ! important'} }
-        }
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
       });
     </script>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../tipuesearch/tipuesearch.js"></script>
+    
+    
   </body>
 </html>
