@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.3% of total for procedures.">18 statements</a>
+    title=" 0.5% of total for procedures.">29 statements</a>
      </li> 
      
      
@@ -256,9 +256,8 @@ private subroutine json_value_add_member(json, p, member)
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p</strong></td><td><p><code>p</code> should be a <code>json_object</code>
- or a <code>json_array</code> (although this
- is not currently checked)</p></td>
+  <td><strong>p</strong></td><td><p><code>p</code> must be a <code>json_object</code>
+ or a <code>json_array</code></p></td>
   
 </tr>
 
@@ -350,35 +349,49 @@ private subroutine json_value_add_member(json, p, member)
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">p</span>       <span class="c">!! `p` should be a `json_object`</span>
-                                              <span class="c">!! or a `json_array` (although this</span>
-                                              <span class="c">!! is not currently checked)</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">p</span>       <span class="c">!! `p` must be a `json_object`</span>
+                                              <span class="c">!! or a `json_array`</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">member</span>  <span class="c">!! the child member</span>
                                               <span class="c">!! to add to `p`</span>
 
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">var_type</span>  <span class="c">!! variable type of `p`</span>
+
     <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
 
-        <span class="c">! associate the parent</span>
-        <span class="n">member</span><span class="p">%</span><span class="n">parent</span> <span class="o">=&gt;</span> <span class="n">p</span>
+<span class="k">        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
 
-        <span class="c">! add to linked list</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">children</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">info</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">var_type</span><span class="o">=</span><span class="n">var_type</span><span class="p">)</span>
 
-<span class="k">            </span><span class="n">p</span><span class="p">%</span><span class="n">tail</span><span class="p">%</span><span class="n">next</span> <span class="o">=&gt;</span> <span class="n">member</span>
-            <span class="n">member</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">tail</span>
+            <span class="k">select case</span> <span class="p">(</span><span class="n">var_type</span><span class="p">)</span>
+            <span class="k">case</span><span class="p">(</span><span class="n">json_object</span><span class="p">,</span> <span class="n">json_array</span><span class="p">)</span>
 
-        <span class="k">else</span>
+                <span class="c">! associate the parent</span>
+                <span class="n">member</span><span class="p">%</span><span class="n">parent</span> <span class="o">=&gt;</span> <span class="n">p</span>
 
-<span class="k">            </span><span class="n">p</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">member</span>
-            <span class="n">member</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="nb">null</span><span class="p">()</span>  <span class="c">!first in the list</span>
+                <span class="c">! add to linked list</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">children</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">p</span><span class="p">%</span><span class="n">tail</span><span class="p">%</span><span class="n">next</span> <span class="o">=&gt;</span> <span class="n">member</span>
+                    <span class="n">member</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">tail</span>
+                <span class="k">else</span>
+<span class="k">                    </span><span class="n">p</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">member</span>
+                    <span class="n">member</span><span class="p">%</span><span class="n">previous</span> <span class="o">=&gt;</span> <span class="nb">null</span><span class="p">()</span>  <span class="c">!first in the list</span>
+                <span class="k">end if</span>
 
+                <span class="c">! new member is now the last one in the list</span>
+                <span class="n">p</span><span class="p">%</span><span class="n">tail</span> <span class="o">=&gt;</span> <span class="n">member</span>
+                <span class="n">p</span><span class="p">%</span><span class="n">n_children</span> <span class="o">=</span> <span class="n">p</span><span class="p">%</span><span class="n">n_children</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="k">case </span><span class="n">default</span>
+                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_add_member: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                          <span class="s1">&#39;can only add child to object or array&#39;</span><span class="p">)</span>
+            <span class="k">end select</span>
+
+<span class="k">        else</span>
+<span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_add_member: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                      <span class="s1">&#39;the pointer is not associated&#39;</span><span class="p">)</span>
         <span class="k">end if</span>
 
-        <span class="c">! new member is now the last one in the list</span>
-        <span class="n">p</span><span class="p">%</span><span class="n">tail</span> <span class="o">=&gt;</span> <span class="n">member</span>
-        <span class="n">p</span><span class="p">%</span><span class="n">n_children</span> <span class="o">=</span> <span class="n">p</span><span class="p">%</span><span class="n">n_children</span> <span class="o">+</span> <span class="mi">1</span>
-
-    <span class="k">end if</span>
+<span class="k">    end if</span>
 
 <span class="k">    end subroutine </span><span class="n">json_value_add_member</span>
 </pre></div>
@@ -402,7 +415,7 @@ private subroutine json_value_add_member(json, p, member)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-07-03 13:28  
+             on 2018-07-04 01:50  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
