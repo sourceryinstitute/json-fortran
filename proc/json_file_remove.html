@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_file_check_for_errors &ndash; JSON-Fortran</title>
+    <title>json_file_remove &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -114,7 +114,7 @@
     
   
   <div class="row">
-    <h1>json_file_check_for_errors
+    <h1>json_file_remove
       <small>Subroutine</small>
     
     </h1>
@@ -124,6 +124,10 @@
 <div class="well well-sm">
   <ul class="list-inline" style="margin-bottom:0px;display:inline">
      
+     <li><i class="fa fa-pencil"></i> Jacob Williams</li>
+     
+     
+    <li><i class="fa fa-calendar-o"></i> 7/7/2018</li>
      
      
      
@@ -132,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.1% of total for procedures.">7 statements</a>
+    title=" 0.1% of total for procedures.">6 statements</a>
      </li> 
      
      
@@ -149,7 +153,7 @@
      <li><a href='../module/json_file_module.html'>json_file_module</a></li>
     
   
-     <li class="active">json_file_check_for_errors</li>
+     <li class="active">json_file_remove</li>
   </ol>
 </div>
 </div>
@@ -193,7 +197,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_file_check_for_errors.html#src">json_file_check_for_errors</a>
+    <a class="list-group-item" href="../proc/json_file_remove.html#src">json_file_remove</a>
   </div>
 </div>
 
@@ -205,7 +209,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_file_check_for_errors(me, status_ok, error_msg)
+private subroutine json_file_remove(me, path)
     
     
    
@@ -215,7 +219,8 @@ private subroutine json_file_check_for_errors(me, status_ok, error_msg)
 
 
     
-    <p>Retrieve error status and message from the class.</p>
+    <p>Remove a variable from a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file.</p>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>This is just a wrapper to <a>remove_if_present</a>.</p></div>
     
 
     <h3>Arguments</h3>
@@ -236,7 +241,7 @@ private subroutine json_file_check_for_errors(me, status_ok, error_msg)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E21"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td><span class="anchor" id="variable-me%7E42"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -251,27 +256,12 @@ private subroutine json_file_check_for_errors(me, status_ok, error_msg)
   
 <tr>
   
-  <td><span class="anchor" id="variable-status_ok"></span>logical(kind=LK),</td>
-  <td>intent(out)</td>
+  <td><span class="anchor" id="variable-path%7E28"></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>status_ok</strong></td><td><p>true if there were no errors</p></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-error_msg"></span>character(kind=CK,len=:),</td>
-  <td>intent(out),</td>
-  <td></td>
-  
-  <td>allocatable</td><td>::</td>
-  <td><strong>error_msg</strong></td><td><p>the error message (if there were errors)</p></td>
+  <td><strong>path</strong></td><td><p>the path to the variable</p></td>
   
 </tr>
 
@@ -313,7 +303,7 @@ private subroutine json_file_check_for_errors(me, status_ok, error_msg)
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_file_check_for_errors.html#src">json_file_check_for_errors</a>
+    <a class="list-group-item" href="../proc/json_file_remove.html#src">json_file_remove</a>
   </div>
 </div>
 
@@ -342,17 +332,16 @@ private subroutine json_file_check_for_errors(me, status_ok, error_msg)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_check_for_errors</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">status_ok</span><span class="p">,</span><span class="n">error_msg</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_remove</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">path</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">me</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">status_ok</span> <span class="c">!! true if there were no errors</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">error_msg</span> <span class="c">!! the error message (if there were errors)</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">me</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">path</span> <span class="c">!! the path to the variable</span>
 
-    <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">check_for_errors</span><span class="p">(</span><span class="n">status_ok</span><span class="p">,</span><span class="n">error_msg</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">remove_if_present</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">,</span><span class="n">path</span><span class="p">)</span>
 
-    <span class="k">end subroutine </span><span class="n">json_file_check_for_errors</span>
+    <span class="k">end subroutine </span><span class="n">json_file_remove</span>
 </pre></div>
 
     </section>
