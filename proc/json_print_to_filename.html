@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_print_1 &ndash; JSON-Fortran</title>
+    <title>json_print_to_filename &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -114,7 +114,7 @@
     
   
   <div class="row">
-    <h1>json_print_1
+    <h1>json_print_to_filename
       <small>Subroutine</small>
     
     </h1>
@@ -127,7 +127,7 @@
      <li><i class="fa fa-pencil"></i> Jacob Williams</li>
      
      
-    <li><i class="fa fa-calendar-o"></i> 6/20/2014</li>
+    <li><i class="fa fa-calendar-o"></i> 12/23/2014</li>
      
      
      
@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.2% of total for procedures.">12 statements</a>
+    title=" 0.2% of total for procedures.">15 statements</a>
      </li> 
      
      
@@ -153,7 +153,7 @@
      <li><a href='../module/json_value_module.html'>json_value_module</a></li>
     
   
-     <li class="active">json_print_1</li>
+     <li class="active">json_print_to_filename</li>
   </ol>
 </div>
 </div>
@@ -197,7 +197,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_print_1.html#src">json_print_1</a>
+    <a class="list-group-item" href="../proc/json_print_to_filename.html#src">json_print_to_filename</a>
   </div>
 </div>
 
@@ -209,7 +209,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_print_1(json, p, iunit)
+private subroutine json_print_to_filename(json, p, filename)
     
     
    
@@ -240,7 +240,7 @@ private subroutine json_print_1(json, p, iunit)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E70"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E71"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -270,13 +270,13 @@ private subroutine json_print_1(json, p, iunit)
   
 <tr>
   
-  <td><span class="anchor" id="variable-iunit%7E5"></span>integer(kind=IK),</td>
+  <td><span class="anchor" id="variable-filename%7E3"></span>character(kind=CDK,len=*),</td>
   <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>iunit</strong></td><td><p>the file unit (the file must
- already have been opened, can't be -1).</p></td>
+  <td><strong>filename</strong></td><td><p>the filename to print to
+ (should not already be open)</p></td>
   
 </tr>
 
@@ -318,7 +318,7 @@ private subroutine json_print_1(json, p, iunit)
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_print_1.html#src">json_print_1</a>
+    <a class="list-group-item" href="../proc/json_print_to_filename.html#src">json_print_to_filename</a>
   </div>
 </div>
 
@@ -347,24 +347,28 @@ private subroutine json_print_1(json, p, iunit)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_print_1</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">iunit</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_print_to_filename</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">filename</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>       <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">p</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>               <span class="kd">::</span> <span class="n">iunit</span>   <span class="c">!! the file unit (the file must</span>
-                                                    <span class="c">!! already have been opened, can&#39;t be -1).</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">filename</span>  <span class="c">!! the filename to print to</span>
+                                                      <span class="c">!! (should not already be open)</span>
 
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">dummy</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">iunit</span>  <span class="c">!! file unit for `open` statement</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">istat</span>  <span class="c">!! `iostat` code for `open` statement</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">iunit</span><span class="o">/=</span><span class="n">unit2str</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json</span><span class="p">%</span><span class="n">json_value_print</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">iunit</span><span class="p">,</span><span class="n">str</span><span class="o">=</span><span class="n">dummy</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">1_IK</span><span class="p">,</span> <span class="n">colon</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+    <span class="k">open</span><span class="p">(</span><span class="n">newunit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,</span><span class="k">file</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;REPLACE&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span> <span class="n">FILE_ENCODING</span> <span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">istat</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        call </span><span class="n">json</span><span class="p">%</span><span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">iunit</span><span class="p">)</span>
+        <span class="k">close</span><span class="p">(</span><span class="n">iunit</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span>
     <span class="k">else</span>
-<span class="k">        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_print_1: iunit must not be -1.&#39;</span><span class="p">)</span>
+<span class="k">        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_print_to_filename: could not open file: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                              <span class="nb">trim</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
     <span class="k">end if</span>
 
-<span class="k">    end subroutine </span><span class="n">json_print_1</span>
+<span class="k">    end subroutine </span><span class="n">json_print_to_filename</span>
 </pre></div>
 
     </section>
@@ -386,7 +390,7 @@ private subroutine json_print_1(json, p, iunit)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-07-08 03:36  
+             on 2018-07-09 01:10  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
