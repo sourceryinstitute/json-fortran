@@ -148,6 +148,7 @@
 <li><a href="#changes-between-releases">Changes Between Releases</a><ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#670-2018-07-10">6.7.0 (2018-07-10)</a></li>
 <li><a href="#660-2018-07-01">6.6.0 (2018-07-01)</a></li>
 <li><a href="#650-2018-06-23">6.5.0 (2018-06-23)</a></li>
 <li><a href="#640-2018-06-10">6.4.0 (2018-06-10)</a></li>
@@ -183,7 +184,7 @@ of the <code>master</code> branch, please head back to the
 <a href="../../index.html">main page</a>.</p>
 <h2 id="latest-stable-release">Latest Stable Release</h2>
 <p><strong>Documentation:</strong>
-<a href="http://jacobwilliams.github.io/json-fortran/6.6.0/index.html">6.6.0</a></p>
+<a href="http://jacobwilliams.github.io/json-fortran/6.7.0/index.html">6.7.0</a></p>
 <p><strong>Download:</strong>
 <a href="https://github.com/jacobwilliams/json-fortran/releases/latest">https://github.com/jacobwilliams/json-fortran/releases/latest</a></p>
 <h2 id="past-releases">Past Releases</h2>
@@ -192,6 +193,11 @@ documentation from the documentation for official releases other than
 using the browser's back button. Feel free to bookmark this page, or
 the <a href="../../index.html">main project page</a> for convenient navigation.</p>
 <ul>
+<li><a href="http://jacobwilliams.github.io/json-fortran/6.7.0/index.html">6.7.0</a>
+   (<a href="https://github.com/cmacmackin/ford">FORD</a> generated documentation)<ul>
+<li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.7.0">Download</a></li>
+</ul>
+</li>
 <li><a href="http://jacobwilliams.github.io/json-fortran/6.6.0/index.html">6.6.0</a>
    (<a href="https://github.com/cmacmackin/ford">FORD</a> generated documentation)<ul>
 <li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.6.0">Download</a></li>
@@ -305,7 +311,7 @@ the <a href="../../index.html">main project page</a> for convenient navigation.<
 </ul>
 <h1 id="development-version">Development Version</h1>
 <p>Documentation for the latest development version may be found at
-<a href="https://jacobwilliams.github.io/json-fortran/6.6.0/index.html">https://jacobwilliams.github.io/json-fortran/6.6.0/index.html</a>
+<a href="https://jacobwilliams.github.io/json-fortran/6.7.0/index.html">https://jacobwilliams.github.io/json-fortran/6.7.0/index.html</a>
 or generated locally using the
 <a href="../../page/development-resources/build.sh.html">build.sh</a> build
 script.</p>
@@ -317,6 +323,7 @@ implemented between each release.</p>
 <ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#670-2018-07-10">6.7.0 (2018-07-10)</a></li>
 <li><a href="#660-2018-07-01">6.6.0 (2018-07-01)</a></li>
 <li><a href="#650-2018-06-23">6.5.0 (2018-06-23)</a></li>
 <li><a href="#640-2018-06-10">6.4.0 (2018-06-10)</a></li>
@@ -343,7 +350,22 @@ implemented between each release.</p>
 </li>
 </ul>
 <h3 id="unreleased"><a href="https://github.com/jacobwilliams/json-fortran/tree/HEAD">Unreleased</a></h3>
-<p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.6.0...HEAD">Complete Changeset</a></p>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.7.0...HEAD">Complete Changeset</a></p>
+<h3 id="670-2018-07-10"><a href="https://github.com/jacobwilliams/json-fortran/tree/6.7.0">6.7.0</a> (2018-07-10)</h3>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.6.0...6.7.0">Complete Changeset</a>
+or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.7.0">Download v6.7.0</a></p>
+<p><strong>Enhancements:</strong></p>
+<ul>
+<li>Made the two arguments to <code>json_check_for_errors()</code> optional, so now either or both can be used. Note that if no error has been raised, then <code>error_msg</code> is now returned unallocated. <a href="https://github.com/jacobwilliams/json-fortran/issues/344">#344</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/345">#345</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added an additional error check in <code>json_value_print()</code> to check for an unassociated pointer. <a href="https://github.com/jacobwilliams/json-fortran/issues/342">#342</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/343">#343</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added <code>remove()</code> method to <code>json_file</code> <a href="https://github.com/jacobwilliams/json-fortran/issues/339">#339</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/340">#340</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added additional error checks to <code>json_value_add_member()</code>. Now it will raise an exception if try to add a child to a non-array or non-object. <a href="https://github.com/jacobwilliams/json-fortran/issues/337">#337</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/338">#338</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added some additional unit tests to increase coverage <a href="https://github.com/jacobwilliams/json-fortran/pull/336">#336</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Fixed a bug in <code>json_value_clone_func()</code> where it could crash if attempting to clone an array element. Updated this routine to improve behavior when cloning an array element (the subsequent entries are no longer cloned). <a href="https://github.com/jacobwilliams/json-fortran/issues/334">#334</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/335">#335</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
 <h3 id="660-2018-07-01"><a href="https://github.com/jacobwilliams/json-fortran/tree/6.6.0">6.6.0</a> (2018-07-01)</h3>
 <p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.5.0...6.6.0">Complete Changeset</a>
 or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.6.0">Download v6.6.0</a></p>
@@ -1041,7 +1063,7 @@ browser's back button to navigate back to
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-07-10 12:57  
+             on 2018-07-10 13:16  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
