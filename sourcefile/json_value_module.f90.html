@@ -356,7 +356,7 @@
 </g>
 </g>
 <!-- sourcefile~json_file_module.f90&#45;&gt;sourcefile~json_value_module.f90 -->
-<g id="sourcefile~~json_value_module.f90~~AfferentGraph_edge2" class="edge"><title>sourcefile~json_file_module.f90&#45;&gt;sourcefile~json_value_module.f90</title>
+<g id="sourcefile~~json_value_module.f90~~AfferentGraph_edge1" class="edge"><title>sourcefile~json_file_module.f90&#45;&gt;sourcefile~json_value_module.f90</title>
 <path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M164.239,-19.277C155.568,-20.3888 146.517,-21.5491 137.562,-22.6972"/>
 <polygon fill="#ff0000" stroke="#ff0000" points="136.992,-19.2415 127.518,-23.9849 137.882,-26.1847 136.992,-19.2415"/>
 </g>
@@ -369,7 +369,7 @@
 </g>
 </g>
 <!-- sourcefile~json_module.f90&#45;&gt;sourcefile~json_value_module.f90 -->
-<g id="sourcefile~~json_value_module.f90~~AfferentGraph_edge1" class="edge"><title>sourcefile~json_module.f90&#45;&gt;sourcefile~json_value_module.f90</title>
+<g id="sourcefile~~json_value_module.f90~~AfferentGraph_edge2" class="edge"><title>sourcefile~json_module.f90&#45;&gt;sourcefile~json_value_module.f90</title>
 <path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M316.469,-32.6593C304.579,-32.8006 291.817,-32.9288 280,-33 228.445,-33.3106 215.555,-33.2604 164,-33 155.538,-32.9573 146.668,-32.894 137.862,-32.8196"/>
 <polygon fill="#ff0000" stroke="#ff0000" points="137.612,-29.3173 127.581,-32.7278 137.549,-36.3171 137.612,-29.3173"/>
 </g>
@@ -4213,7 +4213,7 @@
 <a name="ln-3743"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">trim_str</span>     <span class="c">!! if TRIM() should be called for each element</span>
 <a name="ln-3744"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">adjustl_str</span>  <span class="c">!! if ADJUSTL() should be called for each element</span>
 <a name="ln-3745"></a>
-<a name="ln-3746"></a>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">json_add_string_by_path</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">path</span><span class="p">),</span><span class="k">value</span><span class="p">,</span><span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">)</span>
+<a name="ln-3746"></a>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">json_add_string_by_path</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">path</span><span class="p">),</span><span class="k">value</span><span class="p">,</span><span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">,</span><span class="n">trim_str</span><span class="p">,</span><span class="n">adjustl_str</span><span class="p">)</span>
 <a name="ln-3747"></a>
 <a name="ln-3748"></a>    <span class="k">end subroutine </span><span class="n">json_add_string_by_path_path_ascii</span>
 <a name="ln-3749"></a><span class="c">!*****************************************************************************************</span>
@@ -4236,7 +4236,7 @@
 <a name="ln-3766"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">trim_str</span>     <span class="c">!! if TRIM() should be called for each element</span>
 <a name="ln-3767"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>      <span class="kd">::</span> <span class="n">adjustl_str</span>  <span class="c">!! if ADJUSTL() should be called for each element</span>
 <a name="ln-3768"></a>
-<a name="ln-3769"></a>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">json_add_string_by_path</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">to_unicode</span><span class="p">(</span><span class="k">value</span><span class="p">),</span><span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">)</span>
+<a name="ln-3769"></a>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">json_add_string_by_path</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">to_unicode</span><span class="p">(</span><span class="k">value</span><span class="p">),</span><span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">,</span><span class="n">trim_str</span><span class="p">,</span><span class="n">adjustl_str</span><span class="p">)</span>
 <a name="ln-3770"></a>
 <a name="ln-3771"></a>    <span class="k">end subroutine </span><span class="n">json_add_string_by_path_value_ascii</span>
 <a name="ln-3772"></a><span class="c">!*****************************************************************************************</span>
@@ -4603,7 +4603,7 @@
 <a name="ln-4133"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>  <span class="kd">::</span> <span class="n">adjustl_str</span>      <span class="c">!! if ADJUSTL() should be called for each element</span>
 <a name="ln-4134"></a>
 <a name="ln-4135"></a>    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">json_add_string_vec_by_path</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">path</span><span class="p">),</span><span class="k">value</span><span class="p">,&amp;</span>
-<a name="ln-4136"></a>                                            <span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">,</span><span class="n">ilen</span><span class="p">)</span>
+<a name="ln-4136"></a>                                            <span class="n">found</span><span class="p">,</span><span class="n">was_created</span><span class="p">,</span><span class="n">ilen</span><span class="p">,</span><span class="n">trim_str</span><span class="p">,</span><span class="n">adjustl_str</span><span class="p">)</span>
 <a name="ln-4137"></a>
 <a name="ln-4138"></a>    <span class="k">end subroutine </span><span class="n">json_add_string_vec_by_path_path_ascii</span>
 <a name="ln-4139"></a><span class="c">!*****************************************************************************************</span>
@@ -10817,7 +10817,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-07-12 15:57  
+             on 2018-07-13 01:47  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
