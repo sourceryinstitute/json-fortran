@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.6% of total for procedures.">38 statements</a>
+    title=" 0.7% of total for procedures.">43 statements</a>
      </li> 
      
      
@@ -223,6 +223,15 @@ private recursive subroutine json_value_destroy(json, p, destroy_next)
 <p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>The original FSON version of this
       routine was not properly freeing the memory.
       It was rewritten.</p></div>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>This routine destroys this variable, it's children, and
+      (if <code>destroy_next</code> is true) the subsequent elements in
+      an object or array. It does not destroy the parent or
+      previous elements.</p></div>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>There is some protection here to enable destruction of
+      improperly-created linked lists. However, likely there
+      are cases not handled. Use the <a href="../proc/json_value_validate.html">json_value_validate</a>
+      method to validate a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure that was manually
+      created using <a href="../type/json_value.html">json_value</a> pointers.</p></div>
     
 
     <h3>Arguments</h3>
@@ -453,8 +462,9 @@ private recursive subroutine json_value_destroy(json, p, destroy_next)
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span> <span class="kd">::</span> <span class="n">destroy_next</span> <span class="c">!! if true, then `p%next`</span>
                                                     <span class="c">!! is also destroyed (default is true)</span>
 
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">des_next</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span> <span class="k">pointer</span> <span class="kd">::</span> <span class="n">child</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">des_next</span>  <span class="c">!! local copy of `destroy_next` optional argument</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span> <span class="k">pointer</span> <span class="kd">::</span> <span class="n">child</span>  <span class="c">!! for getting child elements</span>
+    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">circular</span>  <span class="c">!! to check to malformed linked lists</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
 
@@ -468,16 +478,26 @@ private recursive subroutine json_value_destroy(json, p, destroy_next)
 
         <span class="k">call </span><span class="n">destroy_json_data</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">children</span><span class="p">))</span> <span class="k">then</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">next</span><span class="p">))</span> <span class="k">then</span>
+            <span class="c">! check for circular references:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span><span class="p">%</span><span class="n">next</span><span class="p">))</span> <span class="k">nullify</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">next</span><span class="p">)</span>
+        <span class="k">end if</span>
+
+<span class="k">        if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">children</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">            do while</span> <span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">n_children</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="n">child</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">children</span>
                 <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">child</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">                    </span><span class="n">p</span><span class="p">%</span><span class="n">children</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">children</span><span class="p">%</span><span class="n">next</span>
                     <span class="n">p</span><span class="p">%</span><span class="n">n_children</span> <span class="o">=</span> <span class="n">p</span><span class="p">%</span><span class="n">n_children</span> <span class="o">-</span> <span class="mi">1</span>
-                    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">(</span><span class="n">child</span><span class="p">,.</span><span class="n">false</span><span class="p">.)</span>
-                <span class="k">else</span>
-<span class="k">                    call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_destroy: &#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                              <span class="s1">&#39;Malformed JSON linked list&#39;</span><span class="p">)</span>
+                    <span class="c">! check children for circular references:</span>
+                    <span class="n">circular</span> <span class="o">=</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">children</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
+                                <span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">child</span><span class="p">))</span>
+                    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">destroy</span><span class="p">(</span><span class="n">child</span><span class="p">,</span><span class="n">destroy_next</span><span class="o">=</span><span class="p">.</span><span class="n">false</span><span class="p">.)</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">circular</span><span class="p">)</span> <span class="k">exit</span>
+<span class="k">                else</span>
+                    <span class="c">! it is a malformed JSON object. But, we will</span>
+                    <span class="c">! press ahead with the destroy process, since</span>
+                    <span class="c">! otherwise, there would be no way to destroy it.</span>
                     <span class="k">exit</span>
 <span class="k">                end if</span>
 <span class="k">            end do</span>
@@ -491,7 +511,7 @@ private recursive subroutine json_value_destroy(json, p, destroy_next)
         <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">parent</span><span class="p">))</span>   <span class="k">nullify</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">tail</span><span class="p">))</span>     <span class="k">nullify</span><span class="p">(</span><span class="n">p</span><span class="p">%</span><span class="n">tail</span><span class="p">)</span>
 
-        <span class="k">deallocate</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
         <span class="k">nullify</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
     <span class="k">end if</span>
@@ -518,7 +538,7 @@ private recursive subroutine json_value_destroy(json, p, destroy_next)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-07-13 01:47  
+             on 2018-07-13 03:06  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
