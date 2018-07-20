@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 1.4% of total for procedures.">82 statements</a>
+    title=" 1.4% of total for procedures.">85 statements</a>
      </li> 
      
      
@@ -252,7 +252,7 @@ private subroutine json_value_swap(json, p1, p2)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E118"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E117"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -272,7 +272,7 @@ private subroutine json_value_swap(json, p1, p2)
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p1</strong></td><td></td>
+  <td><strong>p1</strong></td><td><p>swap with <code>p2</code></p></td>
   
 </tr>
 
@@ -287,7 +287,7 @@ private subroutine json_value_swap(json, p1, p2)
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p2</strong></td><td></td>
+  <td><strong>p2</strong></td><td><p>swap with <code>p1</code></p></td>
   
 </tr>
 
@@ -363,11 +363,16 @@ private subroutine json_value_swap(json, p1, p2)
     <span class="k">implicit none</span>
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">p1</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">p2</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">p1</span>  <span class="c">!! swap with `p2`</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>       <span class="kd">::</span> <span class="n">p2</span>  <span class="c">!! swap with `p1`</span>
 
-    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">same_parent</span><span class="p">,</span><span class="n">first_last</span><span class="p">,</span><span class="n">adjacent</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+    <span class="kt">logical</span>                  <span class="kd">::</span> <span class="n">same_parent</span> <span class="c">!! if `p1` and `p2` have the same parent</span>
+    <span class="kt">logical</span>                  <span class="kd">::</span> <span class="n">first_last</span>  <span class="c">!! if `p1` and `p2` are the first,last or</span>
+                                            <span class="c">!! last,first children of a common parent</span>
+    <span class="kt">logical</span>                  <span class="kd">::</span> <span class="n">adjacent</span>    <span class="c">!! if `p1` and `p2` are adjacent</span>
+                                            <span class="c">!! elements in an array</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">a</span>           <span class="c">!! temporary variable</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">b</span>           <span class="c">!! temporary variable</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">return</span>
 
@@ -388,9 +393,7 @@ private subroutine json_value_swap(json, p1, p2)
                                 <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
                                 <span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">,</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">)</span> <span class="p">)</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">same_parent</span><span class="p">)</span> <span class="k">then</span>
-                    <span class="c">!if p1,p2 are the first,last or last,first</span>
-                    <span class="c">!children of a common parent</span>
-                    <span class="n">first_last</span> <span class="o">=</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p1</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
+<span class="k">                    </span><span class="n">first_last</span> <span class="o">=</span> <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p1</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
                                   <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">&amp;</span>
                                  <span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">p1</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">tail</span><span class="p">,</span><span class="n">p1</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
                                   <span class="nb">associated</span><span class="p">(</span><span class="n">p2</span><span class="p">%</span><span class="n">parent</span><span class="p">%</span><span class="n">children</span><span class="p">,</span><span class="n">p2</span><span class="p">))</span>
@@ -510,7 +513,7 @@ private subroutine json_value_swap(json, p1, p2)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-07-13 03:06  
+             on 2018-07-20 00:39  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

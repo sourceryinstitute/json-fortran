@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="<p>67.5% of total for derived types.</p>Including implementation: 7618 statements, 83.6% of total for derived types.">192 statements</a>
+    title="<p>67.6% of total for derived types.</p>Including implementation: 7659 statements, 83.7% of total for derived types.">193 statements</a>
      </li> 
      
      
@@ -478,6 +478,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_add_string_vec_name_ascii">json_value_add_string_vec_name_ascii</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_add_string_vec_val_ascii">json_value_add_string_vec_val_ascii</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_clone_func">json_value_clone_func</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_create_array">json_value_create_array</a>
       
@@ -1118,6 +1120,8 @@
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_add_string_vec_name_ascii">json_value_add_string_vec_name_ascii</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_add_string_vec_val_ascii">json_value_add_string_vec_val_ascii</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_clone_func">json_value_clone_func</a>
       
       <a class="list-group-item" href="../type/json_core.html#boundprocedure-json_value_create_array">json_value_create_array</a>
       
@@ -15859,7 +15863,7 @@ private subroutine <a href='../proc/wrap_json_value_get_child_by_name.html'>wrap
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-get_current_line_from_file_sequential"></span><h3>procedure, private :: <strong>get_current_line_from_file_sequential</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-get_current_line_from_file_sequential"></span><h3>procedure, private, nopass :: <strong>get_current_line_from_file_sequential</strong>  
     
   </h3></div>
   
@@ -15871,7 +15875,7 @@ private subroutine <a href='../proc/wrap_json_value_get_child_by_name.html'>wrap
           
     
     <h3>
-private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>get_current_line_from_file_sequential</a>(json, iunit, line)
+private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>get_current_line_from_file_sequential</a>(iunit, line)
     
     
    
@@ -15910,21 +15914,6 @@ private subroutine <a href='../proc/get_current_line_from_file_sequential.html'>
 
 
 <tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>json</strong></td><td></td>
-  
-</tr>
 
   
   
@@ -28291,6 +28280,182 @@ private subroutine <a href='../proc/json_value_add_string_vec_val_ascii.html'>js
     
      
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_value_clone_func"></span><h3>procedure, private, nopass :: <strong>json_value_clone_func</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private recursive subroutine <a href='../proc/json_value_clone_func.html'>json_value_clone_func</a>(from, to, parent, previous, next, children, tail)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>10/31/2015</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Recursive deep copy function called by <a href="../proc/json_clone.html">json_clone</a>.</p><a href="../proc/json_value_clone_func.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>from</strong></td><td><p>this is the structure to clone</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>to</strong></td><td><p>the clone is put here (it
+ must not already be associated)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td>optional</td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>parent</strong></td><td><p>to%parent</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td>optional</td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>previous</strong></td><td><p>to%previous</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td>optional</td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>next</strong></td><td><p>to%next</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td></td>
+  <td>optional</td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>children</strong></td><td><p>to%children</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td></td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>tail</strong></td><td><p>if "to" is the tail of
+ its parent's children</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_value_create_array"></span><h3>procedure, private :: <strong>json_value_create_array</strong>  
     
   </h3></div>
@@ -34581,7 +34746,7 @@ private subroutine <a href='../proc/json_value_swap.html'>json_value_swap</a>(js
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p1</strong></td><td></td>
+  <td><strong>p1</strong></td><td><p>swap with <code>p2</code></p></td>
   
 </tr>
 
@@ -34596,7 +34761,7 @@ private subroutine <a href='../proc/json_value_swap.html'>json_value_swap</a>(js
   <td></td>
   
   <td>pointer</td><td>::</td>
-  <td><strong>p2</strong></td><td></td>
+  <td><strong>p2</strong></td><td><p>swap with <code>p1</code></p></td>
   
 </tr>
 
@@ -45024,30 +45189,31 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
                                                                            <span class="c">!! children for duplicate keys</span>
 
         <span class="c">!other private routines:</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">name_equal</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">name_strings_equal</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_value_print</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">string_to_int</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">string_to_dble</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">parse_value</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">parse_number</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">parse_string</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">parse_for_chars</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">parse_object</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">parse_array</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">annotate_invalid_json</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">pop_char</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">push_char</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">get_current_line_from_file_stream</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">get_current_line_from_file_sequential</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">convert</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">to_string</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">to_logical</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">to_integer</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">to_double</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">to_null</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">to_object</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">to_array</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">name_equal</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">name_strings_equal</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">json_value_print</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">string_to_int</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">string_to_dble</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">parse_value</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">parse_number</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">parse_string</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">parse_for_chars</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">parse_object</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">parse_array</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">annotate_invalid_json</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">pop_char</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">push_char</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">get_current_line_from_file_stream</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">nopass</span> <span class="kd">::</span> <span class="n">get_current_line_from_file_sequential</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">convert</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">to_string</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">to_logical</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">to_integer</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">to_double</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">to_null</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">to_object</span>
+        <span class="k">procedure</span>        <span class="kd">::</span> <span class="n">to_array</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">nopass</span> <span class="kd">::</span> <span class="n">json_value_clone_func</span>
 
     <span class="k">end type </span><span class="n">json_core</span>
 </pre></div>
@@ -45070,7 +45236,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-07-13 03:06  
+             on 2018-07-20 00:39  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
