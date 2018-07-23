@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 6.5% of total for source files.">422 statements</a>
+    title=" 6.7% of total for source files.">433 statements</a>
      </li> 
      
      
@@ -904,445 +904,456 @@
 <a name="ln-433"></a><span class="c">!  * `\t`        - horizontal tab</span>
 <a name="ln-434"></a><span class="c">!  * `\uXXXX`    - 4 hexadecimal digits</span>
 <a name="ln-435"></a>
-<a name="ln-436"></a>    <span class="k">subroutine </span><span class="n">unescape_string</span><span class="p">(</span><span class="n">str_in</span><span class="p">,</span> <span class="n">str_out</span><span class="p">,</span> <span class="n">error_message</span><span class="p">)</span>
+<a name="ln-436"></a>    <span class="k">subroutine </span><span class="n">unescape_string</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">error_message</span><span class="p">)</span>
 <a name="ln-437"></a>
 <a name="ln-438"></a>    <span class="k">implicit none</span>
 <a name="ln-439"></a>
-<a name="ln-440"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">str_in</span>  <span class="c">!! string as stored in a [[json_value]]</span>
-<a name="ln-441"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str_out</span> <span class="c">!! decoded string</span>
-<a name="ln-442"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">error_message</span> <span class="c">!! will be allocated if there was an error</span>
-<a name="ln-443"></a>
-<a name="ln-444"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span>   <span class="c">!! counter</span>
-<a name="ln-445"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">n</span>   <span class="c">!! length of str_in</span>
-<a name="ln-446"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">m</span>   <span class="c">!! length of str_out</span>
-<a name="ln-447"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">c</span>  <span class="c">!! for scanning each character in string</span>
-<a name="ln-448"></a>
-<a name="ln-449"></a><span class="cp">#if defined __GFORTRAN__</span>
-<a name="ln-450"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">tmp</span>  <span class="c">!! for GFortran bug workaround</span>
-<a name="ln-451"></a><span class="cp">#endif</span>
-<a name="ln-452"></a>
-<a name="ln-453"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">scan</span><span class="p">(</span><span class="n">str_in</span><span class="p">,</span><span class="n">backslash</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
-<a name="ln-454"></a>
-<a name="ln-455"></a>        <span class="c">!there is at least one escape character, so process this string:</span>
-<a name="ln-456"></a>
-<a name="ln-457"></a>        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">str_in</span><span class="p">)</span>
-<a name="ln-458"></a>        <span class="n">str_out</span> <span class="o">=</span> <span class="nb">repeat</span><span class="p">(</span><span class="n">space</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="c">!size the output string (will be trimmed later)</span>
-<a name="ln-459"></a>        <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c">!counter in str_out</span>
-<a name="ln-460"></a>        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c">!counter in str_in</span>
-<a name="ln-461"></a>
-<a name="ln-462"></a>        <span class="k">do</span>
-<a name="ln-463"></a>
-<a name="ln-464"></a><span class="k">            </span><span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-<a name="ln-465"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="n">n</span><span class="p">)</span> <span class="k">exit</span> <span class="c">! finished</span>
-<a name="ln-466"></a>            <span class="n">c</span> <span class="o">=</span> <span class="n">str_in</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span> <span class="c">! get next character in the string</span>
-<a name="ln-467"></a>
-<a name="ln-468"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">backslash</span><span class="p">)</span> <span class="k">then</span>
-<a name="ln-469"></a>
-<a name="ln-470"></a><span class="k">                if</span> <span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">)</span> <span class="k">then</span>
-<a name="ln-471"></a>
-<a name="ln-472"></a><span class="k">                    </span><span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-<a name="ln-473"></a>                    <span class="n">c</span> <span class="o">=</span> <span class="n">str_in</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span> <span class="c">!character after the escape</span>
-<a name="ln-474"></a>
-<a name="ln-475"></a>                    <span class="k">if</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="p">[</span><span class="n">quotation_mark</span><span class="p">,</span><span class="n">backslash</span><span class="p">,</span><span class="n">slash</span><span class="p">,</span> <span class="p">&amp;</span>
-<a name="ln-476"></a>                         <span class="n">to_unicode</span><span class="p">([</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;f&#39;</span><span class="p">,</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;t&#39;</span><span class="p">])]))</span> <span class="k">then</span>
-<a name="ln-477"></a>
-<a name="ln-478"></a><span class="k">                        select case</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-<a name="ln-479"></a>                        <span class="k">case</span> <span class="p">(</span><span class="n">quotation_mark</span><span class="p">,</span><span class="n">backslash</span><span class="p">,</span><span class="n">slash</span><span class="p">)</span>
-<a name="ln-480"></a>                            <span class="c">!use d as is</span>
-<a name="ln-481"></a>                        <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
-<a name="ln-482"></a>                             <span class="n">c</span> <span class="o">=</span> <span class="n">bspace</span>
-<a name="ln-483"></a>                        <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
-<a name="ln-484"></a>                             <span class="n">c</span> <span class="o">=</span> <span class="n">formfeed</span>
-<a name="ln-485"></a>                        <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
-<a name="ln-486"></a>                             <span class="n">c</span> <span class="o">=</span> <span class="n">newline</span>
-<a name="ln-487"></a>                        <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<a name="ln-488"></a>                             <span class="n">c</span> <span class="o">=</span> <span class="n">carriage_return</span>
-<a name="ln-489"></a>                        <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
-<a name="ln-490"></a>                             <span class="n">c</span> <span class="o">=</span> <span class="n">horizontal_tab</span>
-<a name="ln-491"></a>                        <span class="k">end select</span>
-<a name="ln-492"></a>
-<a name="ln-493"></a><span class="k">                        </span><span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
-<a name="ln-494"></a>                        <span class="n">str_out</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
-<a name="ln-495"></a>
-<a name="ln-496"></a>                    <span class="k">else if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;u&#39;</span><span class="p">)</span> <span class="k">then</span> <span class="c">!expecting 4 hexadecimal digits after</span>
-<a name="ln-497"></a>                                            <span class="c">!the escape character    [\uXXXX]</span>
-<a name="ln-498"></a>
-<a name="ln-499"></a>                        <span class="c">!for now, we are just returning them as is</span>
-<a name="ln-500"></a>                        <span class="c">![not checking to see if it is a valid hex value]</span>
-<a name="ln-501"></a>                        <span class="c">!</span>
-<a name="ln-502"></a>                        <span class="c">! Example:</span>
-<a name="ln-503"></a>                        <span class="c">!   123456</span>
-<a name="ln-504"></a>                        <span class="c">!   \uXXXX</span>
-<a name="ln-505"></a>
-<a name="ln-506"></a>                        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">)</span> <span class="k">then</span>
-<a name="ln-507"></a><span class="k">                            </span><span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
-<a name="ln-508"></a>                            <span class="n">str_out</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="n">str_in</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span>
-<a name="ln-509"></a>                            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">4</span>
-<a name="ln-510"></a>                            <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">5</span>
-<a name="ln-511"></a>                        <span class="k">else</span>
-<a name="ln-512"></a><span class="k">                            </span><span class="n">error_message</span> <span class="o">=</span> <span class="s1">&#39;Error in unescape_string:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-<a name="ln-513"></a>                                                 <span class="s1">&#39; Invalid hexadecimal sequence&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-<a name="ln-514"></a>                                                 <span class="s1">&#39; in string: &#39;</span><span class="o">//</span><span class="n">str_in</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">:)</span>
-<a name="ln-515"></a>                            <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">str_out</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">str_out</span><span class="p">)</span>
-<a name="ln-516"></a>                            <span class="k">return</span>
-<a name="ln-517"></a><span class="k">                        end if</span>
-<a name="ln-518"></a>
-<a name="ln-519"></a><span class="k">                    else</span>
-<a name="ln-520"></a>                        <span class="c">!unknown escape character</span>
-<a name="ln-521"></a>                        <span class="n">error_message</span> <span class="o">=</span> <span class="s1">&#39;Error in unescape_string:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-<a name="ln-522"></a>                                             <span class="s1">&#39; unknown escape sequence in string &quot;&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-<a name="ln-523"></a>                                             <span class="nb">trim</span><span class="p">(</span><span class="n">str_in</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot; [&#39;</span><span class="o">//</span><span class="n">backslash</span><span class="o">//</span><span class="n">c</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
-<a name="ln-524"></a>                        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">str_out</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">str_out</span><span class="p">)</span>
-<a name="ln-525"></a>                        <span class="k">return</span>
-<a name="ln-526"></a><span class="k">                    end if</span>
-<a name="ln-527"></a>
-<a name="ln-528"></a><span class="k">                else</span>
-<a name="ln-529"></a>                    <span class="c">!an escape character is the last character in</span>
-<a name="ln-530"></a>                    <span class="c">! the string [this may not be valid syntax,</span>
-<a name="ln-531"></a>                    <span class="c">! but just keep it]</span>
-<a name="ln-532"></a>                    <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
-<a name="ln-533"></a>                    <span class="n">str_out</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
-<a name="ln-534"></a>                <span class="k">end if</span>
-<a name="ln-535"></a>
-<a name="ln-536"></a><span class="k">            else</span>
-<a name="ln-537"></a><span class="k">                </span><span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
-<a name="ln-538"></a>                <span class="n">str_out</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
-<a name="ln-539"></a>            <span class="k">end if</span>
-<a name="ln-540"></a>
-<a name="ln-541"></a><span class="k">        end do</span>
-<a name="ln-542"></a>
-<a name="ln-543"></a>        <span class="c">!trim trailing space:</span>
-<a name="ln-544"></a><span class="cp">#if defined __GFORTRAN__</span>
-<a name="ln-545"></a>        <span class="c">! workaround for Gfortran 6.1.0 bug</span>
-<a name="ln-546"></a>        <span class="n">tmp</span> <span class="o">=</span> <span class="n">str_out</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">m</span><span class="p">)</span>
-<a name="ln-547"></a>        <span class="n">str_out</span> <span class="o">=</span> <span class="n">tmp</span>
-<a name="ln-548"></a><span class="cp">#else</span>
-<a name="ln-549"></a>        <span class="n">str_out</span> <span class="o">=</span> <span class="n">str_out</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">m</span><span class="p">)</span>
-<a name="ln-550"></a><span class="cp">#endif</span>
-<a name="ln-551"></a>
-<a name="ln-552"></a>    <span class="k">else</span>
-<a name="ln-553"></a>        <span class="c">!there are no escape characters, so return as is:</span>
-<a name="ln-554"></a>        <span class="n">str_out</span> <span class="o">=</span> <span class="n">str_in</span>
-<a name="ln-555"></a>    <span class="k">end if</span>
-<a name="ln-556"></a>
-<a name="ln-557"></a><span class="k">    end subroutine </span><span class="n">unescape_string</span>
-<a name="ln-558"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-559"></a>
-<a name="ln-560"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-561"></a><span class="c">!&gt; author: Jacob Williams</span>
-<a name="ln-562"></a><span class="c">!  date:6/14/2014</span>
-<a name="ln-563"></a><span class="c">!</span>
-<a name="ln-564"></a><span class="c">!  Returns true if the string is a valid 4-digit hex string.</span>
-<a name="ln-565"></a><span class="c">!</span>
-<a name="ln-566"></a><span class="c">!# Examples</span>
-<a name="ln-567"></a><span class="c">!```fortran</span>
-<a name="ln-568"></a><span class="c">!    valid_json_hex(&#39;0000&#39;)  !returns true</span>
-<a name="ln-569"></a><span class="c">!    valid_json_hex(&#39;ABC4&#39;)  !returns true</span>
-<a name="ln-570"></a><span class="c">!    valid_json_hex(&#39;AB&#39;)    !returns false (&lt; 4 characters)</span>
-<a name="ln-571"></a><span class="c">!    valid_json_hex(&#39;WXYZ&#39;)  !returns false (invalid characters)</span>
-<a name="ln-572"></a><span class="c">!```</span>
-<a name="ln-573"></a>
-<a name="ln-574"></a>    <span class="k">pure function </span><span class="n">valid_json_hex</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span>
-<a name="ln-575"></a>
-<a name="ln-576"></a>    <span class="k">implicit none</span>
-<a name="ln-577"></a>
-<a name="ln-578"></a><span class="k">    </span><span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>                         <span class="kd">::</span> <span class="n">valid</span>  <span class="c">!! is str a value 4-digit hex string</span>
-<a name="ln-579"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>    <span class="c">!! the string to check.</span>
-<a name="ln-580"></a>
-<a name="ln-581"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">n</span>  <span class="c">!! length of `str`</span>
-<a name="ln-582"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">i</span>  <span class="c">!! counter</span>
-<a name="ln-583"></a>
-<a name="ln-584"></a>    <span class="c">!&gt; an array of the valid hex characters</span>
-<a name="ln-585"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">dimension</span><span class="p">(</span><span class="mi">22</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">valid_chars</span> <span class="o">=</span> <span class="p">&amp;</span>
-<a name="ln-586"></a>        <span class="p">[</span> <span class="p">(</span><span class="nb">achar</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">i</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span><span class="mi">57</span><span class="p">),</span> <span class="p">&amp;</span> <span class="c">! decimal digits</span>
-<a name="ln-587"></a>          <span class="p">(</span><span class="nb">achar</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">i</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span><span class="mi">70</span><span class="p">),</span> <span class="p">&amp;</span> <span class="c">! capital A-F</span>
-<a name="ln-588"></a>          <span class="p">(</span><span class="nb">achar</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">i</span><span class="o">=</span><span class="mi">97</span><span class="p">,</span><span class="mi">102</span><span class="p">)</span> <span class="p">]</span> <span class="c">! lowercase a-f</span>
-<a name="ln-589"></a>
-<a name="ln-590"></a>    <span class="c">!initialize</span>
-<a name="ln-591"></a>    <span class="n">valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
-<a name="ln-592"></a>
-<a name="ln-593"></a>    <span class="c">!check all the characters in the string:</span>
-<a name="ln-594"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-<a name="ln-595"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">4</span><span class="p">)</span> <span class="k">then</span>
-<a name="ln-596"></a><span class="k">        do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span>
-<a name="ln-597"></a>            <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">any</span><span class="p">(</span><span class="n">str</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="n">valid_chars</span><span class="p">))</span> <span class="k">return</span>
-<a name="ln-598"></a><span class="k">        end do</span>
-<a name="ln-599"></a><span class="k">        </span><span class="n">valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>    <span class="c">!all are in the set, so it is OK</span>
-<a name="ln-600"></a>    <span class="k">end if</span>
-<a name="ln-601"></a>
-<a name="ln-602"></a><span class="k">    end function </span><span class="n">valid_json_hex</span>
-<a name="ln-603"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-604"></a>
-<a name="ln-605"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-606"></a><span class="c">!&gt; author: Izaak Beekman</span>
-<a name="ln-607"></a><span class="c">!</span>
-<a name="ln-608"></a><span class="c">!  Convert string to unicode (CDK to CK).</span>
-<a name="ln-609"></a>
-<a name="ln-610"></a>    <span class="k">pure function </span><span class="n">to_uni</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-<a name="ln-611"></a>
-<a name="ln-612"></a>    <span class="k">implicit none</span>
-<a name="ln-613"></a>
-<a name="ln-614"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
-<a name="ln-615"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">))</span>       <span class="kd">::</span> <span class="n">to_uni</span>
-<a name="ln-616"></a>
-<a name="ln-617"></a>    <span class="n">to_uni</span> <span class="o">=</span> <span class="n">str</span>
-<a name="ln-618"></a>
-<a name="ln-619"></a>    <span class="k">end function </span><span class="n">to_uni</span>
-<a name="ln-620"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-621"></a>
-<a name="ln-622"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-623"></a><span class="c">!&gt; author: Izaak Beekman</span>
-<a name="ln-624"></a><span class="c">!</span>
-<a name="ln-625"></a><span class="c">!  Convert array of strings to unicode (CDK to CK).</span>
-<a name="ln-626"></a><span class="c">!</span>
-<a name="ln-627"></a><span class="c">!@note JW: may be able to remove this by making [[to_uni]] PURE ELEMENTAL ?</span>
-<a name="ln-628"></a>
-<a name="ln-629"></a>    <span class="k">pure function </span><span class="n">to_uni_vec</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-<a name="ln-630"></a>
-<a name="ln-631"></a>    <span class="k">implicit none</span>
+<a name="ln-440"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>           <span class="c">!! in: string as stored</span>
+<a name="ln-441"></a>                                                                        <span class="c">!! in a [[json_value]].</span>
+<a name="ln-442"></a>                                                                        <span class="c">!! out: decoded string.</span>
+<a name="ln-443"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>   <span class="kd">::</span> <span class="n">error_message</span> <span class="c">!! will be allocated if</span>
+<a name="ln-444"></a>                                                                        <span class="c">!! there was an error</span>
+<a name="ln-445"></a>
+<a name="ln-446"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span>   <span class="c">!! counter</span>
+<a name="ln-447"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">n</span>   <span class="c">!! length of `str`</span>
+<a name="ln-448"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">m</span>   <span class="c">!! length of `str_tmp`</span>
+<a name="ln-449"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">c</span>  <span class="c">!! for scanning each character in string</span>
+<a name="ln-450"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">str_tmp</span> <span class="c">!! temp decoded string (if the input</span>
+<a name="ln-451"></a>                                                    <span class="c">!! string contains an escape character</span>
+<a name="ln-452"></a>                                                    <span class="c">!! and needs to be decoded).</span>
+<a name="ln-453"></a>
+<a name="ln-454"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">scan</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">backslash</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-455"></a>
+<a name="ln-456"></a>        <span class="c">!there is at least one escape character, so process this string:</span>
+<a name="ln-457"></a>
+<a name="ln-458"></a>        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<a name="ln-459"></a>        <span class="n">str_tmp</span> <span class="o">=</span> <span class="nb">repeat</span><span class="p">(</span><span class="n">space</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="c">!size the output string (will be trimmed later)</span>
+<a name="ln-460"></a>        <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c">!counter in str_tmp</span>
+<a name="ln-461"></a>        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c">!counter in str</span>
+<a name="ln-462"></a>
+<a name="ln-463"></a>        <span class="k">do</span>
+<a name="ln-464"></a>
+<a name="ln-465"></a><span class="k">            </span><span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-466"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="n">n</span><span class="p">)</span> <span class="k">exit</span> <span class="c">! finished</span>
+<a name="ln-467"></a>            <span class="n">c</span> <span class="o">=</span> <span class="n">str</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span> <span class="c">! get next character in the string</span>
+<a name="ln-468"></a>
+<a name="ln-469"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">backslash</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-470"></a>
+<a name="ln-471"></a><span class="k">                if</span> <span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-472"></a>
+<a name="ln-473"></a><span class="k">                    </span><span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-474"></a>                    <span class="n">c</span> <span class="o">=</span> <span class="n">str</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span> <span class="c">!character after the escape</span>
+<a name="ln-475"></a>
+<a name="ln-476"></a>                    <span class="k">select case</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<a name="ln-477"></a>                    <span class="k">case</span> <span class="p">(</span><span class="n">quotation_mark</span><span class="p">,</span><span class="n">backslash</span><span class="p">,</span><span class="n">slash</span><span class="p">)</span>
+<a name="ln-478"></a>                        <span class="c">!use d as is</span>
+<a name="ln-479"></a>                        <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-480"></a>                        <span class="n">str_tmp</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
+<a name="ln-481"></a>                    <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<a name="ln-482"></a>                        <span class="n">c</span> <span class="o">=</span> <span class="n">bspace</span>
+<a name="ln-483"></a>                        <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-484"></a>                        <span class="n">str_tmp</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
+<a name="ln-485"></a>                    <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
+<a name="ln-486"></a>                        <span class="n">c</span> <span class="o">=</span> <span class="n">formfeed</span>
+<a name="ln-487"></a>                        <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-488"></a>                        <span class="n">str_tmp</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
+<a name="ln-489"></a>                    <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+<a name="ln-490"></a>                        <span class="n">c</span> <span class="o">=</span> <span class="n">newline</span>
+<a name="ln-491"></a>                        <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-492"></a>                        <span class="n">str_tmp</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
+<a name="ln-493"></a>                    <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<a name="ln-494"></a>                        <span class="n">c</span> <span class="o">=</span> <span class="n">carriage_return</span>
+<a name="ln-495"></a>                        <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-496"></a>                        <span class="n">str_tmp</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
+<a name="ln-497"></a>                    <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<a name="ln-498"></a>                        <span class="n">c</span> <span class="o">=</span> <span class="n">horizontal_tab</span>
+<a name="ln-499"></a>                        <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-500"></a>                        <span class="n">str_tmp</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
+<a name="ln-501"></a>
+<a name="ln-502"></a>                    <span class="k">case</span> <span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;u&#39;</span><span class="p">)</span> <span class="c">! expecting 4 hexadecimal digits after</span>
+<a name="ln-503"></a>                                  <span class="c">! the escape character    [\uXXXX]</span>
+<a name="ln-504"></a>
+<a name="ln-505"></a>                        <span class="c">!for now, we are just returning them as is</span>
+<a name="ln-506"></a>                        <span class="c">![not checking to see if it is a valid hex value]</span>
+<a name="ln-507"></a>                        <span class="c">!</span>
+<a name="ln-508"></a>                        <span class="c">! Example:</span>
+<a name="ln-509"></a>                        <span class="c">!   123456</span>
+<a name="ln-510"></a>                        <span class="c">!   \uXXXX</span>
+<a name="ln-511"></a>
+<a name="ln-512"></a>                        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-513"></a>
+<a name="ln-514"></a>                            <span class="c">! validate the hex string:</span>
+<a name="ln-515"></a>                            <span class="k">if</span> <span class="p">(</span><span class="n">valid_json_hex</span><span class="p">(</span><span class="n">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="p">)))</span> <span class="k">then</span>
+<a name="ln-516"></a><span class="k">                                </span><span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-517"></a>                                <span class="n">str_tmp</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="n">str</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span>
+<a name="ln-518"></a>                                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">4</span>
+<a name="ln-519"></a>                                <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">5</span>
+<a name="ln-520"></a>                            <span class="k">else</span>
+<a name="ln-521"></a><span class="k">                                </span><span class="n">error_message</span> <span class="o">=</span> <span class="s1">&#39;Error in unescape_string:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+<a name="ln-522"></a>                                                <span class="s1">&#39; Invalid hexadecimal sequence in string &quot;&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+<a name="ln-523"></a>                                                <span class="nb">trim</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot; [&#39;</span><span class="o">//</span><span class="n">str</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
+<a name="ln-524"></a>                                <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">str_tmp</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">str_tmp</span><span class="p">)</span>
+<a name="ln-525"></a>                                <span class="k">return</span>
+<a name="ln-526"></a><span class="k">                            end if</span>
+<a name="ln-527"></a><span class="k">                        else</span>
+<a name="ln-528"></a><span class="k">                            </span><span class="n">error_message</span> <span class="o">=</span> <span class="s1">&#39;Error in unescape_string:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+<a name="ln-529"></a>                                            <span class="s1">&#39; Invalid hexadecimal sequence in string &quot;&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+<a name="ln-530"></a>                                            <span class="nb">trim</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot; [&#39;</span><span class="o">//</span><span class="n">str</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">:)</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
+<a name="ln-531"></a>                            <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">str_tmp</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">str_tmp</span><span class="p">)</span>
+<a name="ln-532"></a>                            <span class="k">return</span>
+<a name="ln-533"></a><span class="k">                        end if</span>
+<a name="ln-534"></a>
+<a name="ln-535"></a><span class="k">                    case </span><span class="n">default</span>
+<a name="ln-536"></a>
+<a name="ln-537"></a>                        <span class="c">!unknown escape character</span>
+<a name="ln-538"></a>                        <span class="n">error_message</span> <span class="o">=</span> <span class="s1">&#39;Error in unescape_string:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+<a name="ln-539"></a>                                        <span class="s1">&#39; unknown escape sequence in string &quot;&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+<a name="ln-540"></a>                                        <span class="nb">trim</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot; [&#39;</span><span class="o">//</span><span class="n">backslash</span><span class="o">//</span><span class="n">c</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
+<a name="ln-541"></a>                        <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">str_tmp</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">str_tmp</span><span class="p">)</span>
+<a name="ln-542"></a>                        <span class="k">return</span>
+<a name="ln-543"></a>
+<a name="ln-544"></a><span class="k">                    end select</span>
+<a name="ln-545"></a>
+<a name="ln-546"></a><span class="k">                else</span>
+<a name="ln-547"></a>                    <span class="c">! an escape character is the last character in</span>
+<a name="ln-548"></a>                    <span class="c">! the string. This is an error.</span>
+<a name="ln-549"></a>                    <span class="n">error_message</span> <span class="o">=</span> <span class="s1">&#39;Error in unescape_string:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+<a name="ln-550"></a>                                    <span class="s1">&#39; invalid escape character in string &quot;&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+<a name="ln-551"></a>                                    <span class="nb">trim</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+<a name="ln-552"></a>                    <span class="k">if</span> <span class="p">(</span><span class="nb">allocated</span><span class="p">(</span><span class="n">str_tmp</span><span class="p">))</span> <span class="k">deallocate</span><span class="p">(</span><span class="n">str_tmp</span><span class="p">)</span>
+<a name="ln-553"></a>                    <span class="k">return</span>
+<a name="ln-554"></a><span class="k">                end if</span>
+<a name="ln-555"></a>
+<a name="ln-556"></a><span class="k">            else</span>
+<a name="ln-557"></a><span class="k">                </span><span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+<a name="ln-558"></a>                <span class="n">str_tmp</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">m</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
+<a name="ln-559"></a>            <span class="k">end if</span>
+<a name="ln-560"></a>
+<a name="ln-561"></a><span class="k">        end do</span>
+<a name="ln-562"></a>
+<a name="ln-563"></a>        <span class="c">!trim trailing space:</span>
+<a name="ln-564"></a>        <span class="n">str</span> <span class="o">=</span> <span class="n">str_tmp</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">m</span><span class="p">)</span>
+<a name="ln-565"></a>
+<a name="ln-566"></a>    <span class="k">end if</span>
+<a name="ln-567"></a>
+<a name="ln-568"></a><span class="k">    end subroutine </span><span class="n">unescape_string</span>
+<a name="ln-569"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-570"></a>
+<a name="ln-571"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-572"></a><span class="c">!&gt; author: Jacob Williams</span>
+<a name="ln-573"></a><span class="c">!  date:6/14/2014</span>
+<a name="ln-574"></a><span class="c">!</span>
+<a name="ln-575"></a><span class="c">!  Returns true if the string is a valid 4-digit hex string.</span>
+<a name="ln-576"></a><span class="c">!</span>
+<a name="ln-577"></a><span class="c">!# Examples</span>
+<a name="ln-578"></a><span class="c">!```fortran</span>
+<a name="ln-579"></a><span class="c">!    valid_json_hex(&#39;0000&#39;)  !returns true</span>
+<a name="ln-580"></a><span class="c">!    valid_json_hex(&#39;ABC4&#39;)  !returns true</span>
+<a name="ln-581"></a><span class="c">!    valid_json_hex(&#39;AB&#39;)    !returns false (&lt; 4 characters)</span>
+<a name="ln-582"></a><span class="c">!    valid_json_hex(&#39;WXYZ&#39;)  !returns false (invalid characters)</span>
+<a name="ln-583"></a><span class="c">!```</span>
+<a name="ln-584"></a>
+<a name="ln-585"></a>    <span class="k">pure function </span><span class="n">valid_json_hex</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span>
+<a name="ln-586"></a>
+<a name="ln-587"></a>    <span class="k">implicit none</span>
+<a name="ln-588"></a>
+<a name="ln-589"></a><span class="k">    </span><span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>                         <span class="kd">::</span> <span class="n">valid</span>  <span class="c">!! is str a value 4-digit hex string</span>
+<a name="ln-590"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>    <span class="c">!! the string to check.</span>
+<a name="ln-591"></a>
+<a name="ln-592"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">n</span>  <span class="c">!! length of `str`</span>
+<a name="ln-593"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">i</span>  <span class="c">!! counter</span>
+<a name="ln-594"></a>
+<a name="ln-595"></a>    <span class="c">!&gt; an array of the valid hex characters</span>
+<a name="ln-596"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="k">dimension</span><span class="p">(</span><span class="mi">22</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">valid_chars</span> <span class="o">=</span> <span class="p">&amp;</span>
+<a name="ln-597"></a>        <span class="p">[</span> <span class="p">(</span><span class="nb">achar</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">i</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span><span class="mi">57</span><span class="p">),</span> <span class="p">&amp;</span> <span class="c">! decimal digits</span>
+<a name="ln-598"></a>          <span class="p">(</span><span class="nb">achar</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">i</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span><span class="mi">70</span><span class="p">),</span> <span class="p">&amp;</span> <span class="c">! capital A-F</span>
+<a name="ln-599"></a>          <span class="p">(</span><span class="nb">achar</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">i</span><span class="o">=</span><span class="mi">97</span><span class="p">,</span><span class="mi">102</span><span class="p">)</span> <span class="p">]</span> <span class="c">! lowercase a-f</span>
+<a name="ln-600"></a>
+<a name="ln-601"></a>    <span class="c">!initialize</span>
+<a name="ln-602"></a>    <span class="n">valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+<a name="ln-603"></a>
+<a name="ln-604"></a>    <span class="c">!check all the characters in the string:</span>
+<a name="ln-605"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<a name="ln-606"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">4</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-607"></a><span class="k">        do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span>
+<a name="ln-608"></a>            <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">any</span><span class="p">(</span><span class="n">str</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="n">valid_chars</span><span class="p">))</span> <span class="k">return</span>
+<a name="ln-609"></a><span class="k">        end do</span>
+<a name="ln-610"></a><span class="k">        </span><span class="n">valid</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>    <span class="c">!all are in the set, so it is OK</span>
+<a name="ln-611"></a>    <span class="k">end if</span>
+<a name="ln-612"></a>
+<a name="ln-613"></a><span class="k">    end function </span><span class="n">valid_json_hex</span>
+<a name="ln-614"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-615"></a>
+<a name="ln-616"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-617"></a><span class="c">!&gt; author: Izaak Beekman</span>
+<a name="ln-618"></a><span class="c">!</span>
+<a name="ln-619"></a><span class="c">!  Convert string to unicode (CDK to CK).</span>
+<a name="ln-620"></a>
+<a name="ln-621"></a>    <span class="k">pure function </span><span class="n">to_uni</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<a name="ln-622"></a>
+<a name="ln-623"></a>    <span class="k">implicit none</span>
+<a name="ln-624"></a>
+<a name="ln-625"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
+<a name="ln-626"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">))</span>       <span class="kd">::</span> <span class="n">to_uni</span>
+<a name="ln-627"></a>
+<a name="ln-628"></a>    <span class="n">to_uni</span> <span class="o">=</span> <span class="n">str</span>
+<a name="ln-629"></a>
+<a name="ln-630"></a>    <span class="k">end function </span><span class="n">to_uni</span>
+<a name="ln-631"></a><span class="c">!*****************************************************************************************</span>
 <a name="ln-632"></a>
-<a name="ln-633"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">dimension</span><span class="p">(:),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>   <span class="kd">::</span> <span class="n">str</span>
-<a name="ln-634"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)),</span> <span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">str</span><span class="p">))</span> <span class="kd">::</span> <span class="n">to_uni_vec</span>
-<a name="ln-635"></a>
-<a name="ln-636"></a>    <span class="n">to_uni_vec</span> <span class="o">=</span> <span class="n">str</span>
-<a name="ln-637"></a>
-<a name="ln-638"></a>    <span class="k">end function </span><span class="n">to_uni_vec</span>
-<a name="ln-639"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-640"></a>
-<a name="ln-641"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-642"></a><span class="c">!&gt; author: Izaak Beekman</span>
-<a name="ln-643"></a><span class="c">!</span>
-<a name="ln-644"></a><span class="c">!  `CK`//`CDK` operator.</span>
-<a name="ln-645"></a>
-<a name="ln-646"></a>    <span class="k">pure function </span><span class="n">ucs4_join_default</span><span class="p">(</span><span class="n">ucs4_str</span><span class="p">,</span><span class="n">def_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-<a name="ln-647"></a>
-<a name="ln-648"></a>    <span class="k">implicit none</span>
-<a name="ln-649"></a>
-<a name="ln-650"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
-<a name="ln-651"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
-<a name="ln-652"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ucs4_str</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">def_str</span><span class="p">)))</span> <span class="kd">::</span> <span class="n">res</span>
-<a name="ln-653"></a>
-<a name="ln-654"></a>    <span class="n">res</span> <span class="o">=</span> <span class="n">ucs4_str</span><span class="o">//</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span>
-<a name="ln-655"></a>
-<a name="ln-656"></a>    <span class="k">end function </span><span class="n">ucs4_join_default</span>
-<a name="ln-657"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-633"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-634"></a><span class="c">!&gt; author: Izaak Beekman</span>
+<a name="ln-635"></a><span class="c">!</span>
+<a name="ln-636"></a><span class="c">!  Convert array of strings to unicode (CDK to CK).</span>
+<a name="ln-637"></a><span class="c">!</span>
+<a name="ln-638"></a><span class="c">!@note JW: may be able to remove this by making [[to_uni]] PURE ELEMENTAL ?</span>
+<a name="ln-639"></a>
+<a name="ln-640"></a>    <span class="k">pure function </span><span class="n">to_uni_vec</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<a name="ln-641"></a>
+<a name="ln-642"></a>    <span class="k">implicit none</span>
+<a name="ln-643"></a>
+<a name="ln-644"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">dimension</span><span class="p">(:),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>   <span class="kd">::</span> <span class="n">str</span>
+<a name="ln-645"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)),</span> <span class="k">dimension</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">str</span><span class="p">))</span> <span class="kd">::</span> <span class="n">to_uni_vec</span>
+<a name="ln-646"></a>
+<a name="ln-647"></a>    <span class="n">to_uni_vec</span> <span class="o">=</span> <span class="n">str</span>
+<a name="ln-648"></a>
+<a name="ln-649"></a>    <span class="k">end function </span><span class="n">to_uni_vec</span>
+<a name="ln-650"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-651"></a>
+<a name="ln-652"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-653"></a><span class="c">!&gt; author: Izaak Beekman</span>
+<a name="ln-654"></a><span class="c">!</span>
+<a name="ln-655"></a><span class="c">!  `CK`//`CDK` operator.</span>
+<a name="ln-656"></a>
+<a name="ln-657"></a>    <span class="k">pure function </span><span class="n">ucs4_join_default</span><span class="p">(</span><span class="n">ucs4_str</span><span class="p">,</span><span class="n">def_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 <a name="ln-658"></a>
-<a name="ln-659"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-660"></a><span class="c">!&gt; author: Izaak Beekman</span>
-<a name="ln-661"></a><span class="c">!</span>
-<a name="ln-662"></a><span class="c">!  `CDK`//`CK` operator.</span>
-<a name="ln-663"></a>
-<a name="ln-664"></a>    <span class="k">pure function </span><span class="n">default_join_ucs4</span><span class="p">(</span><span class="n">def_str</span><span class="p">,</span><span class="n">ucs4_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-<a name="ln-665"></a>
-<a name="ln-666"></a>    <span class="k">implicit none</span>
-<a name="ln-667"></a>
-<a name="ln-668"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
-<a name="ln-669"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
-<a name="ln-670"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">ucs4_str</span><span class="p">)))</span> <span class="kd">::</span> <span class="n">res</span>
-<a name="ln-671"></a>
-<a name="ln-672"></a>    <span class="n">res</span> <span class="o">=</span> <span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span><span class="o">//</span><span class="n">ucs4_str</span>
-<a name="ln-673"></a>
-<a name="ln-674"></a>    <span class="k">end function </span><span class="n">default_join_ucs4</span>
-<a name="ln-675"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-659"></a>    <span class="k">implicit none</span>
+<a name="ln-660"></a>
+<a name="ln-661"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
+<a name="ln-662"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
+<a name="ln-663"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ucs4_str</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">def_str</span><span class="p">)))</span> <span class="kd">::</span> <span class="n">res</span>
+<a name="ln-664"></a>
+<a name="ln-665"></a>    <span class="n">res</span> <span class="o">=</span> <span class="n">ucs4_str</span><span class="o">//</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span>
+<a name="ln-666"></a>
+<a name="ln-667"></a>    <span class="k">end function </span><span class="n">ucs4_join_default</span>
+<a name="ln-668"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-669"></a>
+<a name="ln-670"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-671"></a><span class="c">!&gt; author: Izaak Beekman</span>
+<a name="ln-672"></a><span class="c">!</span>
+<a name="ln-673"></a><span class="c">!  `CDK`//`CK` operator.</span>
+<a name="ln-674"></a>
+<a name="ln-675"></a>    <span class="k">pure function </span><span class="n">default_join_ucs4</span><span class="p">(</span><span class="n">def_str</span><span class="p">,</span><span class="n">ucs4_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 <a name="ln-676"></a>
-<a name="ln-677"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-678"></a><span class="c">!&gt; author: Izaak Beekman</span>
-<a name="ln-679"></a><span class="c">!</span>
-<a name="ln-680"></a><span class="c">!  `CK`==`CDK` operator.</span>
-<a name="ln-681"></a>
-<a name="ln-682"></a>    <span class="k">pure elemental function </span><span class="n">ucs4_comp_default</span><span class="p">(</span><span class="n">ucs4_str</span><span class="p">,</span><span class="n">def_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-<a name="ln-683"></a>
-<a name="ln-684"></a>    <span class="k">implicit none</span>
-<a name="ln-685"></a>
-<a name="ln-686"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
-<a name="ln-687"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
-<a name="ln-688"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">res</span>
-<a name="ln-689"></a>
-<a name="ln-690"></a>    <span class="n">res</span> <span class="o">=</span> <span class="p">(</span> <span class="n">ucs4_str</span> <span class="o">==</span> <span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span> <span class="p">)</span>
-<a name="ln-691"></a>
-<a name="ln-692"></a>    <span class="k">end function </span><span class="n">ucs4_comp_default</span>
-<a name="ln-693"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-677"></a>    <span class="k">implicit none</span>
+<a name="ln-678"></a>
+<a name="ln-679"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
+<a name="ln-680"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
+<a name="ln-681"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">ucs4_str</span><span class="p">)))</span> <span class="kd">::</span> <span class="n">res</span>
+<a name="ln-682"></a>
+<a name="ln-683"></a>    <span class="n">res</span> <span class="o">=</span> <span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span><span class="o">//</span><span class="n">ucs4_str</span>
+<a name="ln-684"></a>
+<a name="ln-685"></a>    <span class="k">end function </span><span class="n">default_join_ucs4</span>
+<a name="ln-686"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-687"></a>
+<a name="ln-688"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-689"></a><span class="c">!&gt; author: Izaak Beekman</span>
+<a name="ln-690"></a><span class="c">!</span>
+<a name="ln-691"></a><span class="c">!  `CK`==`CDK` operator.</span>
+<a name="ln-692"></a>
+<a name="ln-693"></a>    <span class="k">pure elemental function </span><span class="n">ucs4_comp_default</span><span class="p">(</span><span class="n">ucs4_str</span><span class="p">,</span><span class="n">def_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 <a name="ln-694"></a>
-<a name="ln-695"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-696"></a><span class="c">!&gt; author: Izaak Beekman</span>
-<a name="ln-697"></a><span class="c">!</span>
-<a name="ln-698"></a><span class="c">!  `CDK`==`CK` operator.</span>
-<a name="ln-699"></a>
-<a name="ln-700"></a>    <span class="k">pure elemental function </span><span class="n">default_comp_ucs4</span><span class="p">(</span><span class="n">def_str</span><span class="p">,</span><span class="n">ucs4_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-<a name="ln-701"></a>
-<a name="ln-702"></a>    <span class="k">implicit none</span>
-<a name="ln-703"></a>
-<a name="ln-704"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
-<a name="ln-705"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
-<a name="ln-706"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">res</span>
-<a name="ln-707"></a>
-<a name="ln-708"></a>    <span class="n">res</span> <span class="o">=</span> <span class="p">(</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span> <span class="o">==</span> <span class="n">ucs4_str</span><span class="p">)</span>
-<a name="ln-709"></a>
-<a name="ln-710"></a>    <span class="k">end function </span><span class="n">default_comp_ucs4</span>
-<a name="ln-711"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-695"></a>    <span class="k">implicit none</span>
+<a name="ln-696"></a>
+<a name="ln-697"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
+<a name="ln-698"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
+<a name="ln-699"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">res</span>
+<a name="ln-700"></a>
+<a name="ln-701"></a>    <span class="n">res</span> <span class="o">=</span> <span class="p">(</span> <span class="n">ucs4_str</span> <span class="o">==</span> <span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span> <span class="p">)</span>
+<a name="ln-702"></a>
+<a name="ln-703"></a>    <span class="k">end function </span><span class="n">ucs4_comp_default</span>
+<a name="ln-704"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-705"></a>
+<a name="ln-706"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-707"></a><span class="c">!&gt; author: Izaak Beekman</span>
+<a name="ln-708"></a><span class="c">!</span>
+<a name="ln-709"></a><span class="c">!  `CDK`==`CK` operator.</span>
+<a name="ln-710"></a>
+<a name="ln-711"></a>    <span class="k">pure elemental function </span><span class="n">default_comp_ucs4</span><span class="p">(</span><span class="n">def_str</span><span class="p">,</span><span class="n">ucs4_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 <a name="ln-712"></a>
-<a name="ln-713"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-714"></a><span class="c">!&gt; author: Jacob Williams</span>
-<a name="ln-715"></a><span class="c">!</span>
-<a name="ln-716"></a><span class="c">!  `CK`/=`CDK` operator.</span>
-<a name="ln-717"></a>
-<a name="ln-718"></a>    <span class="k">pure elemental function </span><span class="n">ucs4_neq_default</span><span class="p">(</span><span class="n">ucs4_str</span><span class="p">,</span><span class="n">def_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-<a name="ln-719"></a>
-<a name="ln-720"></a>    <span class="k">implicit none</span>
-<a name="ln-721"></a>
-<a name="ln-722"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
-<a name="ln-723"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
-<a name="ln-724"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">res</span>
-<a name="ln-725"></a>
-<a name="ln-726"></a>    <span class="n">res</span> <span class="o">=</span> <span class="p">(</span> <span class="n">ucs4_str</span> <span class="o">/=</span> <span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span> <span class="p">)</span>
-<a name="ln-727"></a>
-<a name="ln-728"></a>    <span class="k">end function </span><span class="n">ucs4_neq_default</span>
-<a name="ln-729"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-713"></a>    <span class="k">implicit none</span>
+<a name="ln-714"></a>
+<a name="ln-715"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
+<a name="ln-716"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
+<a name="ln-717"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">res</span>
+<a name="ln-718"></a>
+<a name="ln-719"></a>    <span class="n">res</span> <span class="o">=</span> <span class="p">(</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span> <span class="o">==</span> <span class="n">ucs4_str</span><span class="p">)</span>
+<a name="ln-720"></a>
+<a name="ln-721"></a>    <span class="k">end function </span><span class="n">default_comp_ucs4</span>
+<a name="ln-722"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-723"></a>
+<a name="ln-724"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-725"></a><span class="c">!&gt; author: Jacob Williams</span>
+<a name="ln-726"></a><span class="c">!</span>
+<a name="ln-727"></a><span class="c">!  `CK`/=`CDK` operator.</span>
+<a name="ln-728"></a>
+<a name="ln-729"></a>    <span class="k">pure elemental function </span><span class="n">ucs4_neq_default</span><span class="p">(</span><span class="n">ucs4_str</span><span class="p">,</span><span class="n">def_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 <a name="ln-730"></a>
-<a name="ln-731"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-732"></a><span class="c">!&gt; author: Jacob Williams</span>
-<a name="ln-733"></a><span class="c">!</span>
-<a name="ln-734"></a><span class="c">!  `CDK`/=`CK` operator.</span>
-<a name="ln-735"></a>
-<a name="ln-736"></a>    <span class="k">pure elemental function </span><span class="n">default_neq_ucs4</span><span class="p">(</span><span class="n">def_str</span><span class="p">,</span><span class="n">ucs4_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-<a name="ln-737"></a>
-<a name="ln-738"></a>    <span class="k">implicit none</span>
-<a name="ln-739"></a>
-<a name="ln-740"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
-<a name="ln-741"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
-<a name="ln-742"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">res</span>
-<a name="ln-743"></a>
-<a name="ln-744"></a>    <span class="n">res</span> <span class="o">=</span> <span class="p">(</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span> <span class="o">/=</span> <span class="n">ucs4_str</span><span class="p">)</span>
-<a name="ln-745"></a>
-<a name="ln-746"></a>    <span class="k">end function </span><span class="n">default_neq_ucs4</span>
-<a name="ln-747"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-731"></a>    <span class="k">implicit none</span>
+<a name="ln-732"></a>
+<a name="ln-733"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
+<a name="ln-734"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
+<a name="ln-735"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">res</span>
+<a name="ln-736"></a>
+<a name="ln-737"></a>    <span class="n">res</span> <span class="o">=</span> <span class="p">(</span> <span class="n">ucs4_str</span> <span class="o">/=</span> <span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span> <span class="p">)</span>
+<a name="ln-738"></a>
+<a name="ln-739"></a>    <span class="k">end function </span><span class="n">ucs4_neq_default</span>
+<a name="ln-740"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-741"></a>
+<a name="ln-742"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-743"></a><span class="c">!&gt; author: Jacob Williams</span>
+<a name="ln-744"></a><span class="c">!</span>
+<a name="ln-745"></a><span class="c">!  `CDK`/=`CK` operator.</span>
+<a name="ln-746"></a>
+<a name="ln-747"></a>    <span class="k">pure elemental function </span><span class="n">default_neq_ucs4</span><span class="p">(</span><span class="n">def_str</span><span class="p">,</span><span class="n">ucs4_str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 <a name="ln-748"></a>
-<a name="ln-749"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-750"></a><span class="c">!&gt; author: Jacob Williams</span>
-<a name="ln-751"></a><span class="c">!</span>
-<a name="ln-752"></a><span class="c">!  Returns lowercase version of the `CK` string.</span>
-<a name="ln-753"></a>
-<a name="ln-754"></a>    <span class="k">pure elemental function </span><span class="n">lowercase_string</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">s_lower</span><span class="p">)</span>
-<a name="ln-755"></a>
-<a name="ln-756"></a>    <span class="k">implicit none</span>
-<a name="ln-757"></a>
-<a name="ln-758"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>      <span class="c">!! input string</span>
-<a name="ln-759"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)))</span>   <span class="kd">::</span> <span class="n">s_lower</span>  <span class="c">!! lowercase version of the string</span>
-<a name="ln-760"></a>
-<a name="ln-761"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span>  <span class="c">!! counter</span>
-<a name="ln-762"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">j</span>  <span class="c">!! index of uppercase character</span>
-<a name="ln-763"></a>
-<a name="ln-764"></a>    <span class="n">s_lower</span> <span class="o">=</span> <span class="n">str</span>
-<a name="ln-765"></a>
-<a name="ln-766"></a>    <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len_trim</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-<a name="ln-767"></a>        <span class="n">j</span> <span class="o">=</span> <span class="nb">index</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span><span class="n">s_lower</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">))</span>
-<a name="ln-768"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="n">s_lower</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">lower</span><span class="p">(</span><span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="p">)</span>
-<a name="ln-769"></a>    <span class="k">end do</span>
-<a name="ln-770"></a>
-<a name="ln-771"></a><span class="k">    end function </span><span class="n">lowercase_string</span>
-<a name="ln-772"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-773"></a>
-<a name="ln-774"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-775"></a><span class="c">!&gt;</span>
-<a name="ln-776"></a><span class="c">!  Replace all occurrences of `s1` in `str` with `s2`.</span>
-<a name="ln-777"></a><span class="c">!</span>
-<a name="ln-778"></a><span class="c">!  A case-sensitive match is used.</span>
-<a name="ln-779"></a><span class="c">!</span>
-<a name="ln-780"></a><span class="c">!@note `str` must be allocated.</span>
+<a name="ln-749"></a>    <span class="k">implicit none</span>
+<a name="ln-750"></a>
+<a name="ln-751"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">def_str</span>
+<a name="ln-752"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span> <span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ucs4_str</span>
+<a name="ln-753"></a>    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">res</span>
+<a name="ln-754"></a>
+<a name="ln-755"></a>    <span class="n">res</span> <span class="o">=</span> <span class="p">(</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">def_str</span><span class="p">)</span> <span class="o">/=</span> <span class="n">ucs4_str</span><span class="p">)</span>
+<a name="ln-756"></a>
+<a name="ln-757"></a>    <span class="k">end function </span><span class="n">default_neq_ucs4</span>
+<a name="ln-758"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-759"></a>
+<a name="ln-760"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-761"></a><span class="c">!&gt; author: Jacob Williams</span>
+<a name="ln-762"></a><span class="c">!</span>
+<a name="ln-763"></a><span class="c">!  Returns lowercase version of the `CK` string.</span>
+<a name="ln-764"></a>
+<a name="ln-765"></a>    <span class="k">pure elemental function </span><span class="n">lowercase_string</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">s_lower</span><span class="p">)</span>
+<a name="ln-766"></a>
+<a name="ln-767"></a>    <span class="k">implicit none</span>
+<a name="ln-768"></a>
+<a name="ln-769"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>      <span class="c">!! input string</span>
+<a name="ln-770"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)))</span>   <span class="kd">::</span> <span class="n">s_lower</span>  <span class="c">!! lowercase version of the string</span>
+<a name="ln-771"></a>
+<a name="ln-772"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span>  <span class="c">!! counter</span>
+<a name="ln-773"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">j</span>  <span class="c">!! index of uppercase character</span>
+<a name="ln-774"></a>
+<a name="ln-775"></a>    <span class="n">s_lower</span> <span class="o">=</span> <span class="n">str</span>
+<a name="ln-776"></a>
+<a name="ln-777"></a>    <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len_trim</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<a name="ln-778"></a>        <span class="n">j</span> <span class="o">=</span> <span class="nb">index</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span><span class="n">s_lower</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">))</span>
+<a name="ln-779"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="n">s_lower</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">lower</span><span class="p">(</span><span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="p">)</span>
+<a name="ln-780"></a>    <span class="k">end do</span>
 <a name="ln-781"></a>
-<a name="ln-782"></a>    <span class="k">pure subroutine </span><span class="n">replace_string</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">)</span>
-<a name="ln-783"></a>
-<a name="ln-784"></a>    <span class="k">implicit none</span>
-<a name="ln-785"></a>
-<a name="ln-786"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
-<a name="ln-787"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">s1</span>
-<a name="ln-788"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">s2</span>
-<a name="ln-789"></a>
-<a name="ln-790"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">tmp</span>  <span class="c">!! temporary string for accumulating result</span>
-<a name="ln-791"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">i</span>      <span class="c">!! counter</span>
-<a name="ln-792"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">n</span>      <span class="c">!! for accumulating the string</span>
-<a name="ln-793"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ilen</span>   <span class="c">!! length of `str` string</span>
-<a name="ln-794"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ilen1</span>  <span class="c">!! length of `s1` string</span>
-<a name="ln-795"></a>
-<a name="ln-796"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
-<a name="ln-797"></a>
-<a name="ln-798"></a><span class="k">        </span><span class="n">tmp</span> <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;&#39;</span>  <span class="c">! initialize</span>
-<a name="ln-799"></a>        <span class="n">ilen1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+<a name="ln-782"></a><span class="k">    end function </span><span class="n">lowercase_string</span>
+<a name="ln-783"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-784"></a>
+<a name="ln-785"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-786"></a><span class="c">!&gt;</span>
+<a name="ln-787"></a><span class="c">!  Replace all occurrences of `s1` in `str` with `s2`.</span>
+<a name="ln-788"></a><span class="c">!</span>
+<a name="ln-789"></a><span class="c">!  A case-sensitive match is used.</span>
+<a name="ln-790"></a><span class="c">!</span>
+<a name="ln-791"></a><span class="c">!@note `str` must be allocated.</span>
+<a name="ln-792"></a>
+<a name="ln-793"></a>    <span class="k">pure subroutine </span><span class="n">replace_string</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">)</span>
+<a name="ln-794"></a>
+<a name="ln-795"></a>    <span class="k">implicit none</span>
+<a name="ln-796"></a>
+<a name="ln-797"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
+<a name="ln-798"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">s1</span>
+<a name="ln-799"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">s2</span>
 <a name="ln-800"></a>
-<a name="ln-801"></a>        <span class="c">!     .</span>
-<a name="ln-802"></a>        <span class="c">! &#39;123ab789&#39;</span>
-<a name="ln-803"></a>
-<a name="ln-804"></a>        <span class="k">do</span>
-<a name="ln-805"></a><span class="k">            </span><span class="n">ilen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-<a name="ln-806"></a>            <span class="n">i</span> <span class="o">=</span> <span class="nb">index</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">s1</span><span class="p">)</span>
-<a name="ln-807"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
-<a name="ln-808"></a><span class="k">                if</span> <span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">//</span><span class="n">str</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<a name="ln-809"></a>                <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">//</span><span class="n">s2</span> <span class="c">! replace s1 with s2 in new string</span>
-<a name="ln-810"></a>                <span class="n">n</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="n">ilen1</span>   <span class="c">! start of remainder of str to keep</span>
-<a name="ln-811"></a>                <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">&lt;=</span><span class="n">ilen</span><span class="p">)</span> <span class="k">then</span>
-<a name="ln-812"></a><span class="k">                    </span><span class="n">str</span> <span class="o">=</span> <span class="n">str</span><span class="p">(</span><span class="n">n</span><span class="p">:</span><span class="n">ilen</span><span class="p">)</span>
-<a name="ln-813"></a>                <span class="k">else</span>
-<a name="ln-814"></a>                    <span class="c">! done</span>
-<a name="ln-815"></a>                    <span class="k">exit</span>
-<a name="ln-816"></a><span class="k">                end if</span>
-<a name="ln-817"></a><span class="k">            else</span>
-<a name="ln-818"></a>                <span class="c">! done: get remainder of string</span>
-<a name="ln-819"></a>                <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">//</span><span class="n">str</span>
-<a name="ln-820"></a>                <span class="k">exit</span>
-<a name="ln-821"></a><span class="k">            end if</span>
-<a name="ln-822"></a><span class="k">        end do</span>
-<a name="ln-823"></a>
-<a name="ln-824"></a><span class="k">        </span><span class="n">str</span> <span class="o">=</span> <span class="n">tmp</span>
-<a name="ln-825"></a>
-<a name="ln-826"></a>    <span class="k">end if</span>
-<a name="ln-827"></a>
-<a name="ln-828"></a><span class="k">    end subroutine </span><span class="n">replace_string</span>
-<a name="ln-829"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-830"></a>
-<a name="ln-831"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-832"></a><span class="c">!&gt;</span>
-<a name="ln-833"></a><span class="c">!  Decode a string from the &quot;JSON Pointer&quot; RFC 6901 format.</span>
-<a name="ln-834"></a><span class="c">!</span>
-<a name="ln-835"></a><span class="c">!  It replaces `~1` with `/` and `~0` with `~`.</span>
+<a name="ln-801"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">tmp</span>  <span class="c">!! temporary string for accumulating result</span>
+<a name="ln-802"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">i</span>      <span class="c">!! counter</span>
+<a name="ln-803"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">n</span>      <span class="c">!! for accumulating the string</span>
+<a name="ln-804"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ilen</span>   <span class="c">!! length of `str` string</span>
+<a name="ln-805"></a>    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ilen1</span>  <span class="c">!! length of `s1` string</span>
+<a name="ln-806"></a>
+<a name="ln-807"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-808"></a>
+<a name="ln-809"></a><span class="k">        </span><span class="n">tmp</span> <span class="o">=</span> <span class="n">CK_</span><span class="s1">&#39;&#39;</span>  <span class="c">! initialize</span>
+<a name="ln-810"></a>        <span class="n">ilen1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+<a name="ln-811"></a>
+<a name="ln-812"></a>        <span class="c">!     .</span>
+<a name="ln-813"></a>        <span class="c">! &#39;123ab789&#39;</span>
+<a name="ln-814"></a>
+<a name="ln-815"></a>        <span class="k">do</span>
+<a name="ln-816"></a><span class="k">            </span><span class="n">ilen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<a name="ln-817"></a>            <span class="n">i</span> <span class="o">=</span> <span class="nb">index</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">s1</span><span class="p">)</span>
+<a name="ln-818"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-819"></a><span class="k">                if</span> <span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">//</span><span class="n">str</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<a name="ln-820"></a>                <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">//</span><span class="n">s2</span> <span class="c">! replace s1 with s2 in new string</span>
+<a name="ln-821"></a>                <span class="n">n</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="n">ilen1</span>   <span class="c">! start of remainder of str to keep</span>
+<a name="ln-822"></a>                <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">&lt;=</span><span class="n">ilen</span><span class="p">)</span> <span class="k">then</span>
+<a name="ln-823"></a><span class="k">                    </span><span class="n">str</span> <span class="o">=</span> <span class="n">str</span><span class="p">(</span><span class="n">n</span><span class="p">:</span><span class="n">ilen</span><span class="p">)</span>
+<a name="ln-824"></a>                <span class="k">else</span>
+<a name="ln-825"></a>                    <span class="c">! done</span>
+<a name="ln-826"></a>                    <span class="k">exit</span>
+<a name="ln-827"></a><span class="k">                end if</span>
+<a name="ln-828"></a><span class="k">            else</span>
+<a name="ln-829"></a>                <span class="c">! done: get remainder of string</span>
+<a name="ln-830"></a>                <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">//</span><span class="n">str</span>
+<a name="ln-831"></a>                <span class="k">exit</span>
+<a name="ln-832"></a><span class="k">            end if</span>
+<a name="ln-833"></a><span class="k">        end do</span>
+<a name="ln-834"></a>
+<a name="ln-835"></a><span class="k">        </span><span class="n">str</span> <span class="o">=</span> <span class="n">tmp</span>
 <a name="ln-836"></a>
-<a name="ln-837"></a>    <span class="k">pure function </span><span class="n">decode_rfc6901</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">str_out</span><span class="p">)</span>
+<a name="ln-837"></a>    <span class="k">end if</span>
 <a name="ln-838"></a>
-<a name="ln-839"></a>    <span class="k">implicit none</span>
-<a name="ln-840"></a>
-<a name="ln-841"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
-<a name="ln-842"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">str_out</span>
-<a name="ln-843"></a>
-<a name="ln-844"></a>    <span class="n">str_out</span> <span class="o">=</span> <span class="n">str</span>
-<a name="ln-845"></a>
-<a name="ln-846"></a>    <span class="k">call </span><span class="n">replace_string</span><span class="p">(</span><span class="n">str_out</span><span class="p">,</span><span class="n">tilde</span><span class="o">//</span><span class="n">CK_</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">slash</span><span class="p">)</span>
-<a name="ln-847"></a>    <span class="k">call </span><span class="n">replace_string</span><span class="p">(</span><span class="n">str_out</span><span class="p">,</span><span class="n">tilde</span><span class="o">//</span><span class="n">CK_</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">tilde</span><span class="p">)</span>
-<a name="ln-848"></a>
-<a name="ln-849"></a>    <span class="k">end function </span><span class="n">decode_rfc6901</span>
-<a name="ln-850"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-839"></a><span class="k">    end subroutine </span><span class="n">replace_string</span>
+<a name="ln-840"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-841"></a>
+<a name="ln-842"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-843"></a><span class="c">!&gt;</span>
+<a name="ln-844"></a><span class="c">!  Decode a string from the &quot;JSON Pointer&quot; RFC 6901 format.</span>
+<a name="ln-845"></a><span class="c">!</span>
+<a name="ln-846"></a><span class="c">!  It replaces `~1` with `/` and `~0` with `~`.</span>
+<a name="ln-847"></a>
+<a name="ln-848"></a>    <span class="k">pure function </span><span class="n">decode_rfc6901</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">str_out</span><span class="p">)</span>
+<a name="ln-849"></a>
+<a name="ln-850"></a>    <span class="k">implicit none</span>
 <a name="ln-851"></a>
-<a name="ln-852"></a><span class="c">!*****************************************************************************************</span>
-<a name="ln-853"></a><span class="c">!&gt;</span>
-<a name="ln-854"></a><span class="c">!  Encode a string into the &quot;JSON Pointer&quot; RFC 6901 format.</span>
-<a name="ln-855"></a><span class="c">!</span>
-<a name="ln-856"></a><span class="c">!  It replaces `~` with `~0` and `/` with `~1`.</span>
-<a name="ln-857"></a>
-<a name="ln-858"></a>    <span class="k">pure function </span><span class="n">encode_rfc6901</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">str_out</span><span class="p">)</span>
+<a name="ln-852"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
+<a name="ln-853"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">str_out</span>
+<a name="ln-854"></a>
+<a name="ln-855"></a>    <span class="n">str_out</span> <span class="o">=</span> <span class="n">str</span>
+<a name="ln-856"></a>
+<a name="ln-857"></a>    <span class="k">call </span><span class="n">replace_string</span><span class="p">(</span><span class="n">str_out</span><span class="p">,</span><span class="n">tilde</span><span class="o">//</span><span class="n">CK_</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">slash</span><span class="p">)</span>
+<a name="ln-858"></a>    <span class="k">call </span><span class="n">replace_string</span><span class="p">(</span><span class="n">str_out</span><span class="p">,</span><span class="n">tilde</span><span class="o">//</span><span class="n">CK_</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="n">tilde</span><span class="p">)</span>
 <a name="ln-859"></a>
-<a name="ln-860"></a>    <span class="k">implicit none</span>
-<a name="ln-861"></a>
-<a name="ln-862"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
-<a name="ln-863"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">str_out</span>
-<a name="ln-864"></a>
-<a name="ln-865"></a>    <span class="n">str_out</span> <span class="o">=</span> <span class="n">str</span>
-<a name="ln-866"></a>
-<a name="ln-867"></a>    <span class="k">call </span><span class="n">replace_string</span><span class="p">(</span><span class="n">str_out</span><span class="p">,</span><span class="n">tilde</span><span class="p">,</span><span class="n">tilde</span><span class="o">//</span><span class="n">CK_</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
-<a name="ln-868"></a>    <span class="k">call </span><span class="n">replace_string</span><span class="p">(</span><span class="n">str_out</span><span class="p">,</span><span class="n">slash</span><span class="p">,</span><span class="n">tilde</span><span class="o">//</span><span class="n">CK_</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-<a name="ln-869"></a>
-<a name="ln-870"></a>    <span class="k">end function </span><span class="n">encode_rfc6901</span>
-<a name="ln-871"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-860"></a>    <span class="k">end function </span><span class="n">decode_rfc6901</span>
+<a name="ln-861"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-862"></a>
+<a name="ln-863"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-864"></a><span class="c">!&gt;</span>
+<a name="ln-865"></a><span class="c">!  Encode a string into the &quot;JSON Pointer&quot; RFC 6901 format.</span>
+<a name="ln-866"></a><span class="c">!</span>
+<a name="ln-867"></a><span class="c">!  It replaces `~` with `~0` and `/` with `~1`.</span>
+<a name="ln-868"></a>
+<a name="ln-869"></a>    <span class="k">pure function </span><span class="n">encode_rfc6901</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">str_out</span><span class="p">)</span>
+<a name="ln-870"></a>
+<a name="ln-871"></a>    <span class="k">implicit none</span>
 <a name="ln-872"></a>
-<a name="ln-873"></a>    <span class="k">end module </span><span class="n">json_string_utilities</span>
-<a name="ln-874"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-873"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
+<a name="ln-874"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">str_out</span>
+<a name="ln-875"></a>
+<a name="ln-876"></a>    <span class="n">str_out</span> <span class="o">=</span> <span class="n">str</span>
+<a name="ln-877"></a>
+<a name="ln-878"></a>    <span class="k">call </span><span class="n">replace_string</span><span class="p">(</span><span class="n">str_out</span><span class="p">,</span><span class="n">tilde</span><span class="p">,</span><span class="n">tilde</span><span class="o">//</span><span class="n">CK_</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+<a name="ln-879"></a>    <span class="k">call </span><span class="n">replace_string</span><span class="p">(</span><span class="n">str_out</span><span class="p">,</span><span class="n">slash</span><span class="p">,</span><span class="n">tilde</span><span class="o">//</span><span class="n">CK_</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<a name="ln-880"></a>
+<a name="ln-881"></a>    <span class="k">end function </span><span class="n">encode_rfc6901</span>
+<a name="ln-882"></a><span class="c">!*****************************************************************************************</span>
+<a name="ln-883"></a>
+<a name="ln-884"></a>    <span class="k">end module </span><span class="n">json_string_utilities</span>
+<a name="ln-885"></a><span class="c">!*****************************************************************************************</span>
 </pre></div>
 
     </section>
@@ -1361,7 +1372,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-07-20 00:55  
+             on 2018-07-23 03:15  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
