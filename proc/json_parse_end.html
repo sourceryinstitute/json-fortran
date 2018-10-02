@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_get_double_vec_by_path &ndash; JSON-Fortran</title>
+    <title>json_parse_end &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -114,7 +114,7 @@
     
   
   <div class="row">
-    <h1>json_get_double_vec_by_path
+    <h1>json_parse_end
       <small>Subroutine</small>
     
     </h1>
@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.3% of total for procedures.">20 statements</a>
+    title=" 0.2% of total for procedures.">13 statements</a>
      </li> 
      
      
@@ -149,7 +149,7 @@
      <li><a href='../module/json_value_module.html'>json_value_module</a></li>
     
   
-     <li class="active">json_get_double_vec_by_path</li>
+     <li class="active">json_parse_end</li>
   </ol>
 </div>
 </div>
@@ -193,7 +193,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_get_double_vec_by_path.html#src">json_get_double_vec_by_path</a>
+    <a class="list-group-item" href="../proc/json_parse_end.html#src">json_parse_end</a>
   </div>
 </div>
 
@@ -205,7 +205,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_get_double_vec_by_path(json, me, path, vec, found)
+private subroutine json_parse_end(json, unit, str)
     
     
    
@@ -215,7 +215,9 @@ private subroutine json_get_double_vec_by_path(json, me, path, vec, found)
 
 
     
-    <p>Get a double vector from a <a href="../type/json_value.html">json_value</a>, given the path.</p>
+    <p>An error checking routine to call after a file (or string) has been parsed.
+  It will throw an exception if there are any other non-whitespace characters
+  in the file.</p>
     
 
     <h3>Arguments</h3>
@@ -236,7 +238,7 @@ private subroutine json_get_double_vec_by_path(json, me, path, vec, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E45"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E67"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -251,27 +253,12 @@ private subroutine json_get_double_vec_by_path(json, me, path, vec, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E110"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>pointer</td><td>::</td>
-  <td><strong>me</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-path%7E92"></span>character(kind=CK,len=*),</td>
+  <td><span class="anchor" id="variable-unit%7E2"></span>integer(kind=IK),</td>
   <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>path</strong></td><td></td>
+  <td><strong>unit</strong></td><td><p>file unit number</p></td>
   
 </tr>
 
@@ -281,27 +268,13 @@ private subroutine json_get_double_vec_by_path(json, me, path, vec, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-vec%7E24"></span>real(kind=RK),</td>
-  <td>intent(out),</td>
+  <td><span class="anchor" id="variable-str%7E20"></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
   <td></td>
   
-  <td>dimension(:), allocatable</td><td>::</td>
-  <td><strong>vec</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-found%7E88"></span>logical(kind=LK),</td>
-  <td>intent(out),</td>
-  <td>optional</td>
-  
   <td></td><td>::</td>
-  <td><strong>found</strong></td><td></td>
+  <td><strong>str</strong></td><td><p>string containing <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>
+ data (only used if <code>unit=0</code>)</p></td>
   
 </tr>
 
@@ -343,7 +316,7 @@ private subroutine json_get_double_vec_by_path(json, me, path, vec, found)
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_get_double_vec_by_path.html#src">json_get_double_vec_by_path</a>
+    <a class="list-group-item" href="../proc/json_parse_end.html#src">json_parse_end</a>
   </div>
 </div>
 
@@ -372,34 +345,33 @@ private subroutine json_get_double_vec_by_path(json, me, path, vec, found)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_get_double_vec_by_path</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">me</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">vec</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_parse_end</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">str</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>           <span class="kd">::</span> <span class="n">me</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>           <span class="kd">::</span> <span class="n">path</span>
-    <span class="kt">real</span><span class="p">(</span><span class="n">RK</span><span class="p">),</span><span class="k">dimension</span><span class="p">(:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">vec</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">optional</span>              <span class="kd">::</span> <span class="n">found</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">json</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">unit</span>   <span class="c">!! file unit number</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>    <span class="c">!! string containing JSON</span>
+                                                  <span class="c">!! data (only used if `unit=0`)</span>
 
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">p</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">eof</span> <span class="c">!! end-of-file flag</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">c</span>   <span class="c">!! character read from file</span>
+                                    <span class="c">!! (or string) by [[pop_char]]</span>
 
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="n">me</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">found</span><span class="p">)</span>
+    <span class="c">! first check for exceptions:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">return</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">        if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">found</span><span class="p">)</span> <span class="k">return</span>
-<span class="k">    else</span>
-<span class="k">        if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">return</span>
-<span class="k">    end if</span>
+    <span class="c">! pop the next non whitespace character off the file</span>
+    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">pop_char</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">str</span><span class="o">=</span><span class="n">str</span><span class="p">,</span> <span class="n">eof</span><span class="o">=</span><span class="n">eof</span><span class="p">,</span> <span class="n">skip_ws</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.,</span> <span class="p">&amp;</span>
+                        <span class="n">skip_comments</span><span class="o">=</span><span class="n">json</span><span class="p">%</span><span class="n">allow_comments</span><span class="p">,</span> <span class="n">popped</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
 
-<span class="k">    call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">vec</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">json</span><span class="p">%</span><span class="n">clear_exceptions</span><span class="p">()</span>
-        <span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">eof</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_parse_end:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                  <span class="s1">&#39; Unexpected character found after parsing value. &quot;&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                  <span class="n">c</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
     <span class="k">end if</span>
 
-<span class="k">    end subroutine </span><span class="n">json_get_double_vec_by_path</span>
+<span class="k">    end subroutine </span><span class="n">json_parse_end</span>
 </pre></div>
 
     </section>

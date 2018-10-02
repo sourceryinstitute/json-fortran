@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.8% of total for procedures.">48 statements</a>
+    title=" 0.8% of total for procedures.">49 statements</a>
      </li> 
      
      
@@ -258,7 +258,7 @@ private subroutine json_parse_file(json, file, p, unit)
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E67"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E68"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -303,7 +303,7 @@ private subroutine json_parse_file(json, file, p, unit)
   
 <tr>
   
-  <td><span class="anchor" id="variable-unit%7E2"></span>integer(kind=IK),</td>
+  <td><span class="anchor" id="variable-unit%7E3"></span>integer(kind=IK),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
@@ -488,7 +488,7 @@ private subroutine json_parse_file(json, file, p, unit)
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">has_duplicate</span>  <span class="c">!! if checking for duplicate keys</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">path</span> <span class="c">!! path to any duplicate key</span>
 
-    <span class="c">!clear any exceptions and initialize:</span>
+    <span class="c">! clear any exceptions and initialize:</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">initialize</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="p">(</span> <span class="nb">present</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
@@ -500,7 +500,7 @@ private subroutine json_parse_file(json, file, p, unit)
 
 <span class="k">        </span><span class="n">iunit</span> <span class="o">=</span> <span class="n">unit</span>
 
-        <span class="c">!check to see if the file is already open</span>
+        <span class="c">! check to see if the file is already open</span>
         <span class="c">! if it is, then use it, otherwise open the file with the name given.</span>
         <span class="k">inquire</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="n">is_open</span><span class="p">,</span> <span class="n">iostat</span><span class="o">=</span><span class="n">istat</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">istat</span><span class="o">==</span><span class="mi">0</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">is_open</span><span class="p">)</span> <span class="k">then</span>
@@ -514,7 +514,7 @@ private subroutine json_parse_file(json, file, p, unit)
                     <span class="n">iostat</span>      <span class="o">=</span> <span class="n">istat</span> <span class="p">&amp;</span>
                     <span class="n">FILE_ENCODING</span> <span class="p">)</span>
         <span class="k">else</span>
-            <span class="c">!if the file is already open, then we need to make sure</span>
+            <span class="c">! if the file is already open, then we need to make sure</span>
             <span class="c">! that it is open with the correct form/access/etc...</span>
         <span class="k">end if</span>
 
@@ -543,6 +543,7 @@ private subroutine json_parse_file(json, file, p, unit)
 
         <span class="c">! parse as a value</span>
         <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">parse_value</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,</span> <span class="n">str</span><span class="o">=</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="k">value</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">parse_end</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">iunit</span><span class="p">,</span> <span class="n">str</span><span class="o">=</span><span class="n">CK_</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
         <span class="c">! check for errors:</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
@@ -591,7 +592,7 @@ private subroutine json_parse_file(json, file, p, unit)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-09-30 01:33  
+             on 2018-10-02 01:05  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
