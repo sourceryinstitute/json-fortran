@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="<p>67.7% of total for derived types.</p>Including implementation: 7668 statements, 83.7% of total for derived types.">194 statements</a>
+    title="<p>68.0% of total for derived types.</p>Including implementation: 7701 statements, 83.7% of total for derived types.">197 statements</a>
      </li> 
      
      
@@ -185,6 +185,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#variable-char_count">char_count</a>
       
+      <a class="list-group-item" href="../type/json_core.html#variable-chunk">chunk</a>
+      
       <a class="list-group-item" href="../type/json_core.html#variable-comment_char">comment_char</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-compact_real">compact_real</a>
@@ -196,6 +198,10 @@
       <a class="list-group-item" href="../type/json_core.html#variable-escape_solidus">escape_solidus</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-exception_thrown">exception_thrown</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#variable-filesize">filesize</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#variable-ichunk">ichunk</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-ipos">ipos</a>
       
@@ -829,6 +835,8 @@
       
       <a class="list-group-item" href="../type/json_core.html#variable-char_count">char_count</a>
       
+      <a class="list-group-item" href="../type/json_core.html#variable-chunk">chunk</a>
+      
       <a class="list-group-item" href="../type/json_core.html#variable-comment_char">comment_char</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-compact_real">compact_real</a>
@@ -840,6 +848,10 @@
       <a class="list-group-item" href="../type/json_core.html#variable-escape_solidus">escape_solidus</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-exception_thrown">exception_thrown</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#variable-filesize">filesize</a>
+      
+      <a class="list-group-item" href="../type/json_core.html#variable-ichunk">ichunk</a>
       
       <a class="list-group-item" href="../type/json_core.html#variable-ipos">ipos</a>
       
@@ -1438,6 +1450,21 @@
   
 <tr>
   
+  <td><span class="anchor" id="variable-chunk"></span>character(kind=CK,len=:),</td>
+  
+  <td>private,</td>
+  <td>allocatable</td><td>::</td>
+  <td><strong>chunk</strong></td><td></td><td></td><td><p>a chunk read from a stream file
+ when <code>use_unformatted_stream=True</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
   <td><span class="anchor" id="variable-comment_char"></span>character(kind=CK,len=1),</td>
   
   <td>private</td>
@@ -1530,6 +1557,35 @@
  when an error is thrown in the class.
  Many of the methods will check this
  and return immediately if it is true.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-filesize"></span>integer,</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>filesize</strong></td><td> =</td><td>0</td><td><p>the file size when when <code>use_unformatted_stream=True</code></p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-ichunk"></span>integer,</td>
+  
+  <td>private</td>
+  <td></td><td>::</td>
+  <td><strong>ichunk</strong></td><td> =</td><td>0</td><td><p>index in <code>chunk</code> for <a href="../proc/pop_char.html">pop_char</a>
+ when <code>use_unformatted_stream=True</code></p></td>
   
 </tr>
 
@@ -32430,7 +32486,7 @@ private recursive subroutine <a href='../proc/parse_value.html'>parse_value</a>(
           
     
     <h3>
-private recursive subroutine <a href='../proc/pop_char.html'>pop_char</a>(json, unit, str, skip_ws, skip_comments, eof, popped)
+private subroutine <a href='../proc/pop_char.html'>pop_char</a>(json, unit, str, skip_ws, skip_comments, eof, popped)
     
     
    
@@ -44836,6 +44892,12 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
                                                   <span class="c">!! (both escaped and unescaped versions are still</span>
                                                   <span class="c">!! valid in all cases).</span>
 
+        <span class="kt">integer</span> <span class="kd">::</span> <span class="n">ichunk</span> <span class="o">=</span> <span class="mi">0</span> <span class="c">!! index in `chunk` for [[pop_char]]</span>
+                              <span class="c">!! when `use_unformatted_stream=True`</span>
+        <span class="kt">integer</span> <span class="kd">::</span> <span class="n">filesize</span> <span class="o">=</span> <span class="mi">0</span> <span class="c">!! the file size when when `use_unformatted_stream=True`</span>
+        <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">chunk</span>   <span class="c">!! a chunk read from a stream file</span>
+                                                        <span class="c">!! when `use_unformatted_stream=True`</span>
+
         <span class="k">contains</span>
 
 <span class="k">        private</span>
@@ -45349,7 +45411,7 @@ private subroutine <a href='../proc/wrap_json_value_rename.html'>wrap_json_value
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-10-02 01:05  
+             on 2018-10-20 20:48  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

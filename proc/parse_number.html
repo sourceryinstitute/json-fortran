@@ -386,7 +386,7 @@ private subroutine parse_number(json, unit, str, value)
 
     <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span><span class="p">)</span> <span class="k">then</span>
 
-<span class="k">        </span><span class="n">tmp</span> <span class="o">=</span> <span class="nb">repeat</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">)</span>
+<span class="k">        </span><span class="n">tmp</span> <span class="o">=</span> <span class="n">blank_chunk</span>
         <span class="n">ip</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">first</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
         <span class="n">is_integer</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>  <span class="c">!assume it may be an integer, unless otherwise determined</span>
@@ -410,7 +410,7 @@ private subroutine parse_number(json, unit, str, value)
 
                     <span class="c">!add it to the string:</span>
                     <span class="c">!tmp = tmp // c   !...original</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="nb">repeat</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="n">blank_chunk</span>
                     <span class="n">tmp</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span><span class="n">ip</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
                     <span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -420,7 +420,7 @@ private subroutine parse_number(json, unit, str, value)
 
                     <span class="c">!add it to the string:</span>
                     <span class="c">!tmp = tmp // c   !...original</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="nb">repeat</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="n">blank_chunk</span>
                     <span class="n">tmp</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span><span class="n">ip</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
                     <span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -428,7 +428,7 @@ private subroutine parse_number(json, unit, str, value)
 
                     <span class="c">!add it to the string:</span>
                     <span class="c">!tmp = tmp // c   !...original</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="nb">repeat</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="n">blank_chunk</span>
                     <span class="n">tmp</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span><span class="n">ip</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
                     <span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -482,7 +482,7 @@ private subroutine parse_number(json, unit, str, value)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-10-02 01:05  
+             on 2018-10-20 20:48  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

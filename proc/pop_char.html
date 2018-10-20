@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 1.3% of total for procedures.">77 statements</a>
+    title=" 1.5% of total for procedures.">94 statements</a>
      </li> 
      
      
@@ -205,7 +205,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private recursive subroutine pop_char(json, unit, str, skip_ws, skip_comments, eof, popped)
+private subroutine pop_char(json, unit, str, skip_ws, skip_comments, eof, popped)
     
     
    
@@ -411,7 +411,7 @@ private recursive subroutine pop_char(json, unit, str, skip_ws, skip_comments, e
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">recursive subroutine </span><span class="n">pop_char</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">unit</span><span class="p">,</span><span class="n">str</span><span class="p">,</span><span class="n">skip_ws</span><span class="p">,</span><span class="n">skip_comments</span><span class="p">,</span><span class="n">eof</span><span class="p">,</span><span class="n">popped</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">pop_char</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">unit</span><span class="p">,</span><span class="n">str</span><span class="p">,</span><span class="n">skip_ws</span><span class="p">,</span><span class="n">skip_comments</span><span class="p">,</span><span class="n">eof</span><span class="p">,</span><span class="n">popped</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -465,15 +465,40 @@ private recursive subroutine pop_char(json, unit, str, skip_ws, skip_comments, e
 
                     <span class="c">!read the next character:</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">use_unformatted_stream</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">                        read</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">json</span><span class="p">%</span><span class="n">ipos</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ios</span><span class="p">)</span> <span class="n">c</span>
-                    <span class="k">else</span>
-<span class="k">                        read</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;(A1)&#39;</span><span class="p">,</span><span class="n">advance</span><span class="o">=</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ios</span><span class="p">)</span> <span class="n">c</span>
+
+                        <span class="c">! in this case, we read the file in chunks.</span>
+                        <span class="c">! if we already have the character we need,</span>
+                        <span class="c">! then get it from the chunk. Otherwise,</span>
+                        <span class="c">! read in another chunk.</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">ichunk</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
+                            <span class="c">! read in a chunk:</span>
+                            <span class="n">json</span><span class="p">%</span><span class="n">ichunk</span> <span class="o">=</span> <span class="mi">0</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">filesize</span><span class="o">&lt;</span><span class="n">json</span><span class="p">%</span><span class="n">ipos</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">chunk</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
+                                <span class="c">! for the last chunk, we resize</span>
+                                <span class="c">! it to the correct size:</span>
+                                <span class="n">json</span><span class="p">%</span><span class="n">chunk</span> <span class="o">=</span> <span class="nb">repeat</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">json</span><span class="p">%</span><span class="n">filesize</span><span class="o">-</span><span class="n">json</span><span class="p">%</span><span class="n">ipos</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                            <span class="k">end if</span>
+<span class="k">                            read</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">json</span><span class="p">%</span><span class="n">ipos</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ios</span><span class="p">)</span> <span class="n">json</span><span class="p">%</span><span class="n">chunk</span>
+                        <span class="k">else</span>
+<span class="k">                            </span><span class="n">ios</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="k">end if</span>
+<span class="k">                        </span><span class="n">json</span><span class="p">%</span><span class="n">ichunk</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">ichunk</span> <span class="o">+</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">ichunk</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">chunk</span><span class="p">))</span> <span class="k">then</span>
+                            <span class="c">! check this just in case</span>
+                            <span class="n">ios</span> <span class="o">=</span> <span class="n">IOSTAT_END</span>
+                        <span class="k">else</span>
+                            <span class="c">! get the next character from the chunk:</span>
+                            <span class="n">c</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">chunk</span><span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">ichunk</span><span class="p">:</span><span class="n">json</span><span class="p">%</span><span class="n">ichunk</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">ichunk</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">chunk</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">                                </span><span class="n">json</span><span class="p">%</span><span class="n">ichunk</span> <span class="o">=</span> <span class="mi">0</span> <span class="c">! reset for next chunk</span>
+                            <span class="k">end if</span>
+<span class="k">                        end if</span>
+
+<span class="k">                    else</span>
+                        <span class="c">! a formatted read:</span>
+                        <span class="k">read</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;(A1)&#39;</span><span class="p">,</span><span class="n">advance</span><span class="o">=</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ios</span><span class="p">)</span> <span class="n">c</span>
                     <span class="k">end if</span>
 <span class="k">                    </span><span class="n">json</span><span class="p">%</span><span class="n">ipos</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">ipos</span> <span class="o">+</span> <span class="mi">1</span>
-
-                    <span class="c">!....note: maybe try read the file in chunks...</span>
-                    <span class="c">!.... or use asynchronous read with double buffering</span>
-                    <span class="c">!     (see Modern Fortran: Style and Usage)</span>
 
                 <span class="k">else</span>    <span class="c">!read from the string</span>
 
@@ -559,7 +584,7 @@ private recursive subroutine pop_char(json, unit, str, skip_ws, skip_comments, e
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-10-02 01:05  
+             on 2018-10-20 20:48  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.2% of total for procedures.">15 statements</a>
+    title=" 0.3% of total for procedures.">19 statements</a>
      </li> 
      
      
@@ -348,7 +348,7 @@ public subroutine string_to_integer(str, ival, status_ok)
 </g>
 </g>
 <!-- proc~json_get_by_path_rfc6901&#45;&gt;proc~string_to_integer -->
-<g id="proc~~string_to_integer~~CalledByGraph_edge4" class="edge"><title>proc~json_get_by_path_rfc6901&#45;&gt;proc~string_to_integer</title>
+<g id="proc~~string_to_integer~~CalledByGraph_edge3" class="edge"><title>proc~json_get_by_path_rfc6901&#45;&gt;proc~string_to_integer</title>
 <path fill="none" stroke="#ff0000" d="M162.769,-62.2998C179.211,-64.2841 196.563,-66.3782 212.329,-68.2811"/>
 <polygon fill="#ff0000" stroke="#ff0000" points="212.089,-71.7774 222.436,-69.5009 212.928,-64.8279 212.089,-71.7774"/>
 </g>
@@ -361,7 +361,7 @@ public subroutine string_to_integer(str, ival, status_ok)
 </g>
 </g>
 <!-- proc~json_get_integer&#45;&gt;proc~string_to_integer -->
-<g id="proc~~string_to_integer~~CalledByGraph_edge3" class="edge"><title>proc~json_get_integer&#45;&gt;proc~string_to_integer</title>
+<g id="proc~~string_to_integer~~CalledByGraph_edge4" class="edge"><title>proc~json_get_integer&#45;&gt;proc~string_to_integer</title>
 <path fill="none" stroke="#ff0000" d="M139.101,-19.9529C154.241,-23.2368 171.066,-27.5675 186,-33 204.174,-39.611 223.472,-49.3458 238.778,-57.7791"/>
 <polygon fill="#ff0000" stroke="#ff0000" points="237.315,-60.9717 247.747,-62.8223 240.746,-54.8702 237.315,-60.9717"/>
 </g>
@@ -495,15 +495,18 @@ public subroutine string_to_integer(str, ival, status_ok)
 
     <span class="c">! Compute how many digits we need to read</span>
     <span class="n">ndigits</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">len_trim</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-    <span class="n">ndigits_digits</span> <span class="o">=</span> <span class="nb">floor</span><span class="p">(</span><span class="n">log10</span><span class="p">(</span><span class="kt">real</span><span class="p">(</span><span class="n">ndigits</span><span class="p">)))</span><span class="o">+</span><span class="mi">1</span>
-    <span class="k">allocate</span><span class="p">(</span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="n">ndigits_digits</span><span class="p">)</span> <span class="kd">::</span> <span class="nb">digits</span><span class="p">)</span>
-    <span class="k">write</span><span class="p">(</span><span class="nb">digits</span><span class="p">,</span><span class="s1">&#39;(I0)&#39;</span><span class="p">)</span> <span class="n">ndigits</span> <span class="c">!gfortran will have a runtime error with * edit descriptor here</span>
-    <span class="c">! gfortran bug: &#39;*&#39; edit descriptor for ISO_10646 strings does bad stuff.</span>
-    <span class="k">read</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="s1">&#39;(I&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="nb">digits</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span> <span class="n">ival</span>   <span class="c">!string to integer</span>
-
-    <span class="c">! error check:</span>
-    <span class="n">status_ok</span> <span class="o">=</span> <span class="p">(</span><span class="n">ierr</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">status_ok</span><span class="p">)</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">0_IK</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ndigits</span><span class="o">/=</span><span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        </span><span class="n">ndigits_digits</span> <span class="o">=</span> <span class="nb">floor</span><span class="p">(</span><span class="n">log10</span><span class="p">(</span><span class="kt">real</span><span class="p">(</span><span class="n">ndigits</span><span class="p">)))</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">allocate</span><span class="p">(</span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="n">ndigits_digits</span><span class="p">)</span> <span class="kd">::</span> <span class="nb">digits</span><span class="p">)</span>
+        <span class="k">write</span><span class="p">(</span><span class="nb">digits</span><span class="p">,</span><span class="s1">&#39;(I0)&#39;</span><span class="p">)</span> <span class="n">ndigits</span> <span class="c">!gfortran will have a runtime error with * edit descriptor here</span>
+        <span class="c">! gfortran bug: &#39;*&#39; edit descriptor for ISO_10646 strings does bad stuff.</span>
+        <span class="k">read</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="s1">&#39;(I&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="nb">digits</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span> <span class="n">ival</span>   <span class="c">!string to integer</span>
+        <span class="c">! error check:</span>
+        <span class="n">status_ok</span> <span class="o">=</span> <span class="p">(</span><span class="n">ierr</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span>
+<span class="k">        </span><span class="n">status_ok</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+    <span class="k">end if</span>
+<span class="k">    if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">status_ok</span><span class="p">)</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">0_IK</span>
 
     <span class="k">end subroutine </span><span class="n">string_to_integer</span>
 </pre></div>
@@ -527,7 +530,7 @@ public subroutine string_to_integer(str, ival, status_ok)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2018-10-02 01:05  
+             on 2018-10-20 20:48  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
