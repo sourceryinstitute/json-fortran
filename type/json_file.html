@@ -898,9 +898,10 @@
   
   <div class="panel-body">
     
-    <p>Structure constructor to initialize a <a href="../type/json_file.html">json_file</a> object
-  with an existing <a href="../type/json_value.html">json_value</a> object, and either the <a href="../type/json_core.html">json_core</a>
-  settings or a <a href="../type/json_core.html">json_core</a> instance.</p><a href="../interface/json_file.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    <p>Structure constructor to initialize a <a href="../type/json_file.html">json_file</a>
+  object with an existing <a href="../type/json_value.html">json_value</a> object or a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr>
+  string, and either the <a href="../type/json_core.html">json_core</a> settings or a
+  <a href="../type/json_core.html">json_core</a> instance.</p><a href="../interface/json_file.html" class="pull-right"><emph>Read more&hellip;</emph></a>
   </div>
   
   <ul class="list-group">
@@ -1331,6 +1332,898 @@ private function <a href='../proc/initialize_json_file_v2.html'>initialize_json_
   
   <td>pointer</td><td>::</td>
   <td><strong>json_value_object</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json_core_object</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>type(<a href='../type/json_file.html'>json_file</a>)
+  </small></h4>
+  
+    
+
+    </li>
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+private function <a href='../proc/initialize_json_file_from_string.html'>initialize_json_file_from_string</a>(str, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error) result(file_object)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>01/19/2019</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Cast a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> string as a <a href="../type/json_file.html">json_file</a> object.
+  It also calls the <code>initialize()</code> method.</p><a href="../proc/initialize_json_file_from_string.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>str</strong></td><td><p>string to load <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data from</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>verbose</strong></td><td><p>mainly useful for debugging (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>compact_reals</strong></td><td><p>to compact the real number strings for output (default is true)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>print_signs</strong></td><td><p>always print numeric sign (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>real_format</strong></td><td><p>Real number format: &lsquo;E&rsquo; [default], &lsquo;*&rsquo;, &lsquo;G&rsquo;, &lsquo;EN&rsquo;, or &lsquo;ES&rsquo;</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>spaces_per_tab</strong></td><td><p>number of spaces per tab for indenting (default is 2)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
+ conversions are done for the <code>get</code> routines
+ (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
+ space to be considered significant.
+ (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
+ case sensitive. (default is true)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>no_whitespace</strong></td><td><p>if true, printing the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure is
+ done without adding any non-significant
+ spaces or linebreaks (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>unescape_strings</strong></td><td><p>If false, then the raw escaped
+ string is returned from <a href="../proc/json_get_string.html">json_get_string</a>
+ and similar routines. If true [default],
+ then the string is returned unescaped.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>comment_char</strong></td><td><p>If present, this character is used
+ to denote comments in the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file,
+ which will be ignored if present.
+ Example: <code>!</code> or <code>#</code>. Setting this
+ to a blank string disables the
+ ignoring of comments. (Default is <code>!</code>).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_mode</strong></td><td><p>How the path strings are interpreted in the
+ <code>get_by_path</code> routines:
+ * 1 &ndash; Default mode (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)
+ * 2 &ndash; as RFC 6901 &ldquo;<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer&rdquo; paths
+   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)
+ * 3 &ndash; JSONPath &ldquo;bracket-notation&rdquo;
+   see <a href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_separator</strong></td><td><p>The <code>path</code> separator to use
+ in the &ldquo;default&rdquo; mode for
+ the paths in the various
+ <code>get_by_path</code> routines.
+ Example: <code>.</code> [default] or <code>%</code>.
+ Note: if <code>path_mode/=1</code>
+ then this is ignored.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>compress_vectors</strong></td><td><p>If true, then arrays of integers,
+ nulls, doubles, and logicals are
+ printed all on one line.
+ [Note: <code>no_whitespace</code> will
+ override this option if necessary].
+ (Default is False).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>allow_duplicate_keys</strong></td><td><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>escape_solidus</strong></td><td><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>stop_on_error</strong></td><td><p>If an exception is raised, then immediately quit.
+ (Default is False).</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>type(<a href='../type/json_file.html'>json_file</a>)
+  </small></h4>
+  
+    
+
+    </li>
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+private function <a href='../proc/wrap_initialize_json_file_from_string.html'>wrap_initialize_json_file_from_string</a>(str, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error) result(file_object)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/initialize_json_file_from_string.html">initialize_json_file_from_string</a>, where &ldquo;str&rdquo; is kind=CDK.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>str</strong></td><td><p>string to load <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data from</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>verbose</strong></td><td><p>mainly useful for debugging (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>compact_reals</strong></td><td><p>to compact the real number strings for output (default is true)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>print_signs</strong></td><td><p>always print numeric sign (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>real_format</strong></td><td><p>Real number format: &lsquo;E&rsquo; [default], &lsquo;*&rsquo;, &lsquo;G&rsquo;, &lsquo;EN&rsquo;, or &lsquo;ES&rsquo;</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>spaces_per_tab</strong></td><td><p>number of spaces per tab for indenting (default is 2)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
+ conversions are done for the <code>get</code> routines
+ (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>trailing_spaces_significant</strong></td><td><p>for name and path comparisons, is trailing
+ space to be considered significant.
+ (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>case_sensitive_keys</strong></td><td><p>for name and path comparisons, are they
+ case sensitive. (default is true)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>no_whitespace</strong></td><td><p>if true, printing the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure is
+ done without adding any non-significant
+ spaces or linebreaks (default is false)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>unescape_strings</strong></td><td><p>If false, then the raw escaped
+ string is returned from <a href="../proc/json_get_string.html">json_get_string</a>
+ and similar routines. If true [default],
+ then the string is returned unescaped.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>comment_char</strong></td><td><p>If present, this character is used
+ to denote comments in the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file,
+ which will be ignored if present.
+ Example: <code>!</code> or <code>#</code>. Setting this
+ to a blank string disables the
+ ignoring of comments. (Default is <code>!</code>).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_mode</strong></td><td><p>How the path strings are interpreted in the
+ <code>get_by_path</code> routines:
+ * 1 &ndash; Default mode (see <a href="../proc/json_get_by_path_default.html">json_get_by_path_default</a>)
+ * 2 &ndash; as RFC 6901 &ldquo;<abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> Pointer&rdquo; paths
+   (see <a href="../proc/json_get_by_path_rfc6901.html">json_get_by_path_rfc6901</a>)
+ * 3 &ndash; JSONPath &ldquo;bracket-notation&rdquo;
+   see <a href="../proc/json_get_by_path_jsonpath_bracket.html">json_get_by_path_jsonpath_bracket</a>)</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=1),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>path_separator</strong></td><td><p>The <code>path</code> separator to use
+ in the &ldquo;default&rdquo; mode for
+ the paths in the various
+ <code>get_by_path</code> routines.
+ Example: <code>.</code> [default] or <code>%</code>.
+ Note: if <code>path_mode/=1</code>
+ then this is ignored.</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>compress_vectors</strong></td><td><p>If true, then arrays of integers,
+ nulls, doubles, and logicals are
+ printed all on one line.
+ [Note: <code>no_whitespace</code> will
+ override this option if necessary].
+ (Default is False).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>allow_duplicate_keys</strong></td><td><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>escape_solidus</strong></td><td><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>stop_on_error</strong></td><td><p>If an exception is raised, then immediately quit.
+ (Default is False).</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>type(<a href='../type/json_file.html'>json_file</a>)
+  </small></h4>
+  
+    
+
+    </li>
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+private function <a href='../proc/initialize_json_file_from_string_v2.html'>initialize_json_file_from_string_v2</a>(str, json_core_object) result(file_object)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>1/19/2019</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Cast a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> string and a <a href="../type/json_core.html">json_core</a> object
+  as a <a href="../type/json_file.html">json_file</a> object.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>str</strong></td><td><p>string to load <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data from</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>json_core_object</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>type(<a href='../type/json_file.html'>json_file</a>)
+  </small></h4>
+  
+    
+
+    </li>
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+private function <a href='../proc/wrap_initialize_json_file_from_string_v2.html'>wrap_initialize_json_file_from_string_v2</a>(str, json_core_object) result(file_object)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/initialize_json_file_from_string_v2.html">initialize_json_file_from_string_v2</a>, where &ldquo;str&rdquo; is kind=CDK.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>str</strong></td><td><p>string to load <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data from</p></td>
   
 </tr>
 
@@ -22118,7 +23011,7 @@ private subroutine <a href='../proc/wrap_json_file_variable_matrix_info.html'>wr
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-01-20 15:20  
+             on 2019-01-21 16:14  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
