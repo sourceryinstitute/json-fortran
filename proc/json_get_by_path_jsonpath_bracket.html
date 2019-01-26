@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 2.7% of total for procedures.">169 statements</a>
+    title=" 2.6% of total for procedures.">169 statements</a>
      </li> 
      
      
@@ -225,7 +225,7 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
 <p>The first character <code>$</code> is optional, and signifies the root
   of the structure. If it is not present, then the first key
   is taken to be in the <code>me</code> object.</p>
-<p>Single or double quotes may be used.</p>
+<p>Single or real quotes may be used.</p>
 <h3 id="example">Example</h3>
 <div class="codehilite"><pre><span></span>    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">json</span>
     <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">dat</span><span class="p">,</span><span class="n">p</span>
@@ -255,7 +255,7 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
 <p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p><abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> <code>null</code> values are used here for unknown variables
       when <code>create_it</code> is True.</p></div>
 <p></p><div class="alert alert-warning" role="alert"><h4>Warning</h4><p>Note that if using single quotes, this routine cannot parse
-         a key containing <code>']</code>. If using double quotes, this routine
+         a key containing <code>']</code>. If using real quotes, this routine
          cannot parse a key containing <code>"]</code>. If the key contains both
          <code>']</code> and <code>"]</code>, there is no way to parse it using this routine.</p></div>
     
@@ -278,7 +278,7 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E40"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
+  <td><span class="anchor" id="variable-json%7E42"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -293,7 +293,7 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E22"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td><span class="anchor" id="variable-me%7E24"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
   <td>intent(in),</td>
   <td></td>
   
@@ -308,7 +308,7 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
   
 <tr>
   
-  <td><span class="anchor" id="variable-path%7E23"></span>character(kind=CK,len=*),</td>
+  <td><span class="anchor" id="variable-path%7E25"></span>character(kind=CK,len=*),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -341,7 +341,7 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
   
 <tr>
   
-  <td><span class="anchor" id="variable-found%7E21"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-found%7E23"></span>logical(kind=LK),</td>
   <td>intent(out),</td>
   <td>optional</td>
   
@@ -375,7 +375,7 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
   
 <tr>
   
-  <td><span class="anchor" id="variable-was_created%7E16"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-was_created%7E18"></span>logical(kind=LK),</td>
   <td>intent(out),</td>
   <td>optional</td>
   
@@ -417,31 +417,31 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
 <polygon fill="none" stroke="black" points="185.5,-45 0.5,-45 0.5,-21 185.5,-21 185.5,-45"/>
 <text text-anchor="middle" x="93" y="-30.6" font-family="Helvetica,sans-Serif" font-size="10.50">json_get_by_path_jsonpath_bracket</text>
 </g>
-<!-- proc~json_value_create -->
-<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node2" class="node"><title>proc~json_value_create</title>
-<g id="a_proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node2"><a xlink:href=".././proc/json_value_create.html" xlink:title="json_value_create">
-<polygon fill="#d9534f" stroke="#d9534f" points="322,-66 222,-66 222,-42 322,-42 322,-66"/>
-<text text-anchor="middle" x="272" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value_create</text>
-</a>
-</g>
-</g>
-<!-- proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~json_value_create -->
-<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_edge1" class="edge"><title>proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~json_value_create</title>
-<path fill="none" stroke="#ff0000" d="M185.611,-43.8691C194.486,-44.9221 203.32,-45.9702 211.755,-46.9709"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="211.478,-50.4625 221.821,-48.1651 212.303,-43.5113 211.478,-50.4625"/>
-</g>
 <!-- proc~string_to_integer -->
-<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node3" class="node"><title>proc~string_to_integer</title>
-<g id="a_proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node3"><a xlink:href=".././proc/string_to_integer.html" xlink:title="string_to_integer">
-<polygon fill="#d9534f" stroke="#d9534f" points="318.5,-24 225.5,-24 225.5,-0 318.5,-0 318.5,-24"/>
-<text text-anchor="middle" x="272" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">string_to_integer</text>
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node2" class="node"><title>proc~string_to_integer</title>
+<g id="a_proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node2"><a xlink:href=".././proc/string_to_integer.html" xlink:title="string_to_integer">
+<polygon fill="#d9534f" stroke="#d9534f" points="318.5,-66 225.5,-66 225.5,-42 318.5,-42 318.5,-66"/>
+<text text-anchor="middle" x="272" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">string_to_integer</text>
 </a>
 </g>
 </g>
 <!-- proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~string_to_integer -->
-<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_edge2" class="edge"><title>proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~string_to_integer</title>
-<path fill="none" stroke="#ff0000" d="M185.611,-22.1309C195.77,-20.9256 205.875,-19.7267 215.388,-18.598"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="215.936,-22.0576 225.454,-17.4038 215.111,-15.1064 215.936,-22.0576"/>
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_edge1" class="edge"><title>proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~string_to_integer</title>
+<path fill="none" stroke="#ff0000" d="M185.611,-43.8691C195.77,-45.0744 205.875,-46.2733 215.388,-47.402"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="215.111,-50.8936 225.454,-48.5962 215.936,-43.9424 215.111,-50.8936"/>
+</g>
+<!-- proc~json_value_create -->
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node3" class="node"><title>proc~json_value_create</title>
+<g id="a_proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_node3"><a xlink:href=".././proc/json_value_create.html" xlink:title="json_value_create">
+<polygon fill="#d9534f" stroke="#d9534f" points="322,-24 222,-24 222,-0 322,-0 322,-24"/>
+<text text-anchor="middle" x="272" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value_create</text>
+</a>
+</g>
+</g>
+<!-- proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~json_value_create -->
+<g id="proc~~json_get_by_path_jsonpath_bracket~~CallsGraph_edge2" class="edge"><title>proc~json_get_by_path_jsonpath_bracket&#45;&gt;proc~json_value_create</title>
+<path fill="none" stroke="#ff0000" d="M185.611,-22.1309C194.486,-21.0779 203.32,-20.0298 211.755,-19.0291"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="212.303,-22.4887 221.821,-17.8349 211.478,-15.5375 212.303,-22.4887"/>
 </g>
 </g>
 </svg>
@@ -596,7 +596,7 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
                                                    <span class="c">!! traversing the structure</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">i</span>                  <span class="c">!! counter</span>
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">ilen</span>               <span class="c">!! length of `path` string</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">double_quotes</span>      <span class="c">!! if the keys are enclosed in `&quot;`,</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">real_quotes</span>      <span class="c">!! if the keys are enclosed in `&quot;`,</span>
                                                    <span class="c">!! rather than `&#39;` tokens.</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">create</span>             <span class="c">!! if the object is to be created</span>
     <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">created</span>            <span class="c">!! if `create` is true, then this will be</span>
@@ -672,14 +672,14 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
                         <span class="c">! verify length of remaining string</span>
                         <span class="k">if</span> <span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">2</span><span class="o">&lt;=</span><span class="n">ilen</span><span class="p">)</span> <span class="k">then</span>
 
-<span class="k">                            </span><span class="n">double_quotes</span> <span class="o">=</span> <span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">quotation_mark</span>   <span class="c">! [&quot;</span>
+<span class="k">                            </span><span class="n">real_quotes</span> <span class="o">=</span> <span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">quotation_mark</span>   <span class="c">! [&quot;</span>
 
-                            <span class="k">if</span> <span class="p">(</span><span class="n">double_quotes</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="n">single_quote</span><span class="p">)</span> <span class="k">then</span>  <span class="c">! [&#39;</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">real_quotes</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="n">single_quote</span><span class="p">)</span> <span class="k">then</span>  <span class="c">! [&#39;</span>
 
                                 <span class="c">! it might be a key value: [&#39;abc&#39;]</span>
 
                                 <span class="n">istart</span> <span class="o">=</span> <span class="n">istart</span> <span class="o">+</span> <span class="mi">1</span> <span class="c">! move counter to &#39; index</span>
-                                <span class="k">if</span> <span class="p">(</span><span class="n">double_quotes</span><span class="p">)</span> <span class="k">then</span>
+                                <span class="k">if</span> <span class="p">(</span><span class="n">real_quotes</span><span class="p">)</span> <span class="k">then</span>
 <span class="k">                                    </span><span class="n">iend</span> <span class="o">=</span> <span class="n">istart</span> <span class="o">+</span> <span class="nb">index</span><span class="p">(</span><span class="n">path</span><span class="p">(</span><span class="n">istart</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">ilen</span><span class="p">),&amp;</span>
                                            <span class="n">quotation_mark</span><span class="o">//</span><span class="n">end_array</span><span class="p">)</span>  <span class="c">! &quot;]</span>
                                 <span class="k">else</span>
@@ -903,7 +903,7 @@ private subroutine json_get_by_path_jsonpath_bracket(json, me, path, p, found, c
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-01-21 20:17  
+             on 2019-01-26 21:53  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
