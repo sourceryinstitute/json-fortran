@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.9% of total for procedures.">57 statements</a>
+    title=" 0.8% of total for procedures.">52 statements</a>
      </li> 
      
      
@@ -397,60 +397,53 @@ private subroutine parse_number(json, unit, str, value)
             <span class="c">!get the next character:</span>
             <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">pop_char</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">str</span><span class="o">=</span><span class="n">str</span><span class="p">,</span> <span class="n">eof</span><span class="o">=</span><span class="n">eof</span><span class="p">,</span> <span class="n">skip_ws</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.,</span> <span class="n">popped</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="p">(</span><span class="n">eof</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in parse_number:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                     <span class="s1">&#39; Unexpected end of file while parsing number.&#39;</span><span class="p">)</span>
-                <span class="k">return</span>
-<span class="k">            else</span>
+            <span class="k">select case</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="k">case</span><span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">CK_</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>    <span class="c">!note: allowing a &#39;+&#39; as the first character here.</span>
 
-<span class="k">                select case</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span>
-                <span class="k">case</span><span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">CK_</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>    <span class="c">!note: allowing a &#39;+&#39; as the first character here.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">is_integer</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">first</span><span class="p">))</span> <span class="n">is_integer</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
 
-                    <span class="k">if</span> <span class="p">(</span><span class="n">is_integer</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">first</span><span class="p">))</span> <span class="n">is_integer</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="c">!add it to the string:</span>
+                <span class="c">!tmp = tmp // c   !...original</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="n">blank_chunk</span>
+                <span class="n">tmp</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span><span class="n">ip</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
+                <span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">+</span> <span class="mi">1</span>
 
-                    <span class="c">!add it to the string:</span>
-                    <span class="c">!tmp = tmp // c   !...original</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="n">blank_chunk</span>
-                    <span class="n">tmp</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span><span class="n">ip</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
-                    <span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">case</span><span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">CK_</span><span class="s1">&#39;E&#39;</span><span class="p">,</span><span class="n">CK_</span><span class="s1">&#39;e&#39;</span><span class="p">)</span>    <span class="c">!can be present in real numbers</span>
 
-                <span class="k">case</span><span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">CK_</span><span class="s1">&#39;E&#39;</span><span class="p">,</span><span class="n">CK_</span><span class="s1">&#39;e&#39;</span><span class="p">)</span>    <span class="c">!can be present in real numbers</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">is_integer</span><span class="p">)</span> <span class="n">is_integer</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
 
-                    <span class="k">if</span> <span class="p">(</span><span class="n">is_integer</span><span class="p">)</span> <span class="n">is_integer</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
+                <span class="c">!add it to the string:</span>
+                <span class="c">!tmp = tmp // c   !...original</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="n">blank_chunk</span>
+                <span class="n">tmp</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span><span class="n">ip</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
+                <span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">+</span> <span class="mi">1</span>
 
-                    <span class="c">!add it to the string:</span>
-                    <span class="c">!tmp = tmp // c   !...original</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="n">blank_chunk</span>
-                    <span class="n">tmp</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span><span class="n">ip</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
-                    <span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">case</span><span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;0&#39;</span><span class="p">:</span><span class="n">CK_</span><span class="s1">&#39;9&#39;</span><span class="p">)</span>    <span class="c">!valid characters for numbers</span>
 
-                <span class="k">case</span><span class="p">(</span><span class="n">CK_</span><span class="s1">&#39;0&#39;</span><span class="p">:</span><span class="n">CK_</span><span class="s1">&#39;9&#39;</span><span class="p">)</span>    <span class="c">!valid characters for numbers</span>
+                <span class="c">!add it to the string:</span>
+                <span class="c">!tmp = tmp // c   !...original</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="n">blank_chunk</span>
+                <span class="n">tmp</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span><span class="n">ip</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
+                <span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">+</span> <span class="mi">1</span>
 
-                    <span class="c">!add it to the string:</span>
-                    <span class="c">!tmp = tmp // c   !...original</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">ip</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">//</span> <span class="n">blank_chunk</span>
-                    <span class="n">tmp</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span><span class="n">ip</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span>
-                    <span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">case </span><span class="n">default</span>
 
-                <span class="k">case </span><span class="n">default</span>
+                <span class="c">!push back the last character read:</span>
+                <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">push_char</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
-                    <span class="c">!push back the last character read:</span>
-                    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">push_char</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                <span class="c">!string to value:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">is_integer</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">ival</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">string_to_int</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">to_integer</span><span class="p">(</span><span class="k">value</span><span class="p">,</span><span class="n">ival</span><span class="p">)</span>
+                <span class="k">else</span>
+<span class="k">                    </span><span class="n">rval</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">string_to_dble</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">to_real</span><span class="p">(</span><span class="k">value</span><span class="p">,</span><span class="n">rval</span><span class="p">)</span>
+                <span class="k">end if</span>
 
-                    <span class="c">!string to value:</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">is_integer</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">                        </span><span class="n">ival</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">string_to_int</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-                        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">to_integer</span><span class="p">(</span><span class="k">value</span><span class="p">,</span><span class="n">ival</span><span class="p">)</span>
-                    <span class="k">else</span>
-<span class="k">                        </span><span class="n">rval</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">string_to_dble</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-                        <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">to_real</span><span class="p">(</span><span class="k">value</span><span class="p">,</span><span class="n">rval</span><span class="p">)</span>
-                    <span class="k">end if</span>
+<span class="k">                exit</span>    <span class="c">!finished</span>
 
-<span class="k">                    exit</span>    <span class="c">!finished</span>
+            <span class="k">end select</span>
 
-                <span class="k">end select</span>
-
-<span class="k">            end if</span>
 <span class="k">            if</span> <span class="p">(</span><span class="n">first</span><span class="p">)</span> <span class="n">first</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
 
         <span class="k">end do</span>
@@ -482,7 +475,7 @@ private subroutine parse_number(json, unit, str, value)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-01-26 21:53  
+             on 2019-01-26 22:16  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
