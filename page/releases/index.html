@@ -148,6 +148,7 @@
 <li><a href="#changes-between-releases">Changes Between Releases</a><ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#700-2019-01-26">7.0.0 (2019-01-26)</a></li>
 <li><a href="#6110-2019-01-19">6.11.0 (2019-01-19)</a></li>
 <li><a href="#6100-2019-10-20">6.10.0 (2019-10-20)</a></li>
 <li><a href="#690-2018-07-29">6.9.0 (2018-07-29)</a></li>
@@ -188,7 +189,7 @@ of the <code>master</code> branch, please head back to the
 <a href="../../index.html">main page</a>.</p>
 <h2 id="latest-stable-release">Latest Stable Release</h2>
 <p><strong>Documentation:</strong>
-<a href="http://jacobwilliams.github.io/json-fortran/6.11.0/index.html">6.11.0</a></p>
+<a href="http://jacobwilliams.github.io/json-fortran/7.0./index.html">7.0.</a></p>
 <p><strong>Download:</strong>
 <a href="https://github.com/jacobwilliams/json-fortran/releases/latest">https://github.com/jacobwilliams/json-fortran/releases/latest</a></p>
 <h2 id="past-releases">Past Releases</h2>
@@ -197,6 +198,11 @@ documentation from the documentation for official releases other than
 using the browser&rsquo;s back button. Feel free to bookmark this page, or
 the <a href="../../index.html">main project page</a> for convenient navigation.</p>
 <ul>
+<li><a href="http://jacobwilliams.github.io/json-fortran/7.0.0/index.html">7.0.0</a>
+   (<a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a> generated documentation)<ul>
+<li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/7.0.0">Download</a></li>
+</ul>
+</li>
 <li><a href="http://jacobwilliams.github.io/json-fortran/6.11.0/index.html">6.11.0</a>
    (<a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a> generated documentation)<ul>
 <li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.11.0">Download</a></li>
@@ -335,7 +341,7 @@ the <a href="../../index.html">main project page</a> for convenient navigation.<
 </ul>
 <h1 id="development-version">Development Version</h1>
 <p>Documentation for the latest development version may be found at
-<a href="https://jacobwilliams.github.io/json-fortran/6.11.0/index.html">https://jacobwilliams.github.io/json-fortran/6.11.0/index.html</a>
+<a href="https://jacobwilliams.github.io/json-fortran/7.0./index.html">https://jacobwilliams.github.io/json-fortran/7.0./index.html</a>
 or generated locally using the
 <a href="../../page/development-resources/build.sh.html">build.sh</a> build
 script.</p>
@@ -347,6 +353,7 @@ implemented between each release.</p>
 <ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#700-2019-01-26">7.0.0 (2019-01-26)</a></li>
 <li><a href="#611-2019-01-19">6.11.0 (2019-01-19)</a></li>
 <li><a href="#610-2019-10-20">6.10.0 (2019-10-20)</a></li>
 <li><a href="#690-2018-07-29">6.9.0 (2018-07-29)</a></li>
@@ -378,7 +385,27 @@ implemented between each release.</p>
 </li>
 </ul>
 <h3 id="unreleased"><a href="https://github.com/jacobwilliams/json-fortran/tree/HEAD">Unreleased</a></h3>
-<p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.11.0...HEAD">Complete Changeset</a></p>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/7.0.0...HEAD">Complete Changeset</a></p>
+<h3 id="700-2019-01-26"><a href="https://github.com/jacobwilliams/json-fortran/tree/7.0.0">7.0.0</a> (2019-01-26)</h3>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.11.0...7.0.0">Complete Changeset</a>
+or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/7.0.0">Download v7.0.0</a></p>
+<p><strong>Enhancements:</strong></p>
+<ul>
+<li>Added support for multiple real kinds:</li>
+<li>The library now supports the default real kind specified (<code>real32</code>, <code>real64</code> and <code>real128</code>) as well as the kinds in this set with less precision than the default. For example, if <code>real64</code> is specified (which is the default), then both <code>real32</code> and <code>real64</code> are available in all the public APIs. Internally, the values are always stored in a variable of the default kind. <a href="https://github.com/jacobwilliams/json-fortran/issues/386">#386</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/387">#387</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Added a <code>create_real()</code> method and a <code>json_real</code> parameter to replace <code>create_double()</code> and <code>json_double</code>. The old versions are still available for backward compatibility.</li>
+<li>Added CMake options to control integer and real kinds <a href="https://github.com/jacobwilliams/json-fortran/issues/284">#284</a></li>
+<li>Updated the default real format statement to correctly correspond to the specified real kind.</li>
+<li>Added new <code>json_file</code> constructor functions for strings. This allows a <code>json_file</code> to be initialized using syntax such as: <code>f = json_file('{"x": 1}')</code>. <a href="https://github.com/jacobwilliams/json-fortran/issues/381">#381</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/382">#382</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Fixed some links in the documentation.</li>
+</ul>
+<p><strong>Bug fixes:</strong></p>
+<ul>
+<li>Fixed an issue where the parser would fail if the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure was just a lone integer. <a href="https://github.com/jacobwilliams/json-fortran/issues/388">#388</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/389">#389</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Fixed an issue where the unit tests did not compile when using <code>real32</code> or <code>real128</code>. <a href="https://github.com/jacobwilliams/json-fortran/issues/383">#383</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/384">#384</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Fixed various issues preventing compilation if the integer kind was changed from the default. <a href="https://github.com/jacobwilliams/json-fortran/issues/365">#365</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/385">#385</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Renamed the integrated tests preprocessor flag to <code>INTEGRATED_TESTS</code> since it was mispelled. <a href="https://github.com/jacobwilliams/json-fortran/issues/390">#390</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/391">#391</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+</ul>
 <h3 id="6110-2019-01-19"><a href="https://github.com/jacobwilliams/json-fortran/tree/6.11.0">6.11.0</a> (2019-01-19)</h3>
 <p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.10.0...6.11.0">Complete Changeset</a>
 or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/6.11.0">Download v6.11.0</a></p>
@@ -1145,7 +1172,7 @@ browser&rsquo;s back button to navigate back to
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-01-27 01:07  
+             on 2019-01-27 02:49  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
