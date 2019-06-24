@@ -667,7 +667,7 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
 <span class="k">                end if</span>
 <span class="k">                if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">                    call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_by_path_default:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                              <span class="s1">&#39; Error getting array element&#39;</span><span class="p">)</span>
+                                              <span class="s1">&#39; Error getting array element&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
                     <span class="k">exit</span>
 <span class="k">                end if</span>
 <span class="k">                </span><span class="n">child_i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
@@ -675,7 +675,8 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
             <span class="k">case</span> <span class="p">(</span><span class="n">end_array</span><span class="p">,</span><span class="n">end_array_alt</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="k">array</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">                    call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_by_path_default: Unexpected &#39;</span><span class="o">//</span><span class="n">c</span><span class="p">)</span>
+<span class="k">                    call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_by_path_default:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
+                                              <span class="s1">&#39; Unexpected &#39;</span><span class="o">//</span><span class="n">c</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
                     <span class="k">exit</span>
 <span class="k">                end if</span>
 <span class="k">                array</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
@@ -760,7 +761,7 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
 
 <span class="k">                    if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">                        call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_by_path_default:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                                  <span class="s1">&#39; Error getting child member.&#39;</span><span class="p">)</span>
+                                                  <span class="s1">&#39; Error getting child member.&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
                         <span class="k">exit</span>
 <span class="k">                    end if</span>
 
@@ -822,7 +823,7 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
 <span class="k">                if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>    <span class="c">!everything seems to be ok</span>
             <span class="k">else</span>
 <span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_get_by_path_default:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                          <span class="s1">&#39; variable not found: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                                          <span class="s1">&#39; variable not found: &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">path</span><span class="p">),</span><span class="n">found</span><span class="p">)</span>
                 <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">))</span> <span class="k">then</span>
 <span class="k">                    </span><span class="n">found</span> <span class="o">=</span> <span class="p">.</span><span class="n">false</span><span class="p">.</span>
                     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">clear_exceptions</span><span class="p">()</span>
@@ -861,7 +862,7 @@ private subroutine json_get_by_path_default(json, me, path, p, found, create_it,
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-06-18 03:24  
+             on 2019-06-24 01:13  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

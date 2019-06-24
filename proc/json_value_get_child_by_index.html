@@ -298,7 +298,7 @@ private subroutine json_value_get_child_by_index(json, p, idx, child, found)
   
 <tr>
   
-  <td><span class="anchor" id="variable-found%7E123"></span>logical(kind=LK),</td>
+  <td><span class="anchor" id="variable-found%7E124"></span>logical(kind=LK),</td>
   <td>intent(out),</td>
   <td>optional</td>
   
@@ -416,13 +416,13 @@ private subroutine json_value_get_child_by_index(json, p, idx, child, found)
 <span class="k">                    </span><span class="n">child</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="p">%</span><span class="n">tail</span>  <span class="c">! last one</span>
                 <span class="k">else</span>
 <span class="k">                    call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_get_child_by_index:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                              <span class="s1">&#39; child%tail is not associated.&#39;</span><span class="p">)</span>
+                                              <span class="s1">&#39; child%tail is not associated.&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
                 <span class="k">end if</span>
 
 <span class="k">            </span><span class="n">elseif</span> <span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">1</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">idx</span><span class="o">&gt;</span><span class="n">p</span><span class="p">%</span><span class="n">n_children</span><span class="p">)</span> <span class="k">then</span>
 
 <span class="k">                call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_get_child_by_index:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                          <span class="s1">&#39; idx is out of range.&#39;</span><span class="p">)</span>
+                                          <span class="s1">&#39; idx is out of range.&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
 
             <span class="k">else</span>
 
@@ -439,7 +439,7 @@ private subroutine json_value_get_child_by_index(json, p, idx, child, found)
 <span class="k">                            </span><span class="n">child</span> <span class="o">=&gt;</span> <span class="n">child</span><span class="p">%</span><span class="n">previous</span>
                         <span class="k">else</span>
 <span class="k">                            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_get_child_by_index:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                                      <span class="s1">&#39; child%previous is not associated.&#39;</span><span class="p">)</span>
+                                                      <span class="s1">&#39; child%previous is not associated.&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
                             <span class="k">nullify</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
                             <span class="k">exit</span>
 <span class="k">                        end if</span>
@@ -456,7 +456,7 @@ private subroutine json_value_get_child_by_index(json, p, idx, child, found)
 <span class="k">                            </span><span class="n">child</span> <span class="o">=&gt;</span> <span class="n">child</span><span class="p">%</span><span class="n">next</span>
                         <span class="k">else</span>
 <span class="k">                            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_get_child_by_index:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                                      <span class="s1">&#39; child%next is not associated.&#39;</span><span class="p">)</span>
+                                                      <span class="s1">&#39; child%next is not associated.&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
                             <span class="k">nullify</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
                             <span class="k">exit</span>
 <span class="k">                        end if</span>
@@ -470,7 +470,7 @@ private subroutine json_value_get_child_by_index(json, p, idx, child, found)
 <span class="k">        else</span>
 
 <span class="k">            call </span><span class="n">json</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_value_get_child_by_index:&#39;</span><span class="o">//</span><span class="p">&amp;</span>
-                                      <span class="s1">&#39; p%children is not associated.&#39;</span><span class="p">)</span>
+                                      <span class="s1">&#39; p%children is not associated.&#39;</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
 
         <span class="k">end if</span>
 
@@ -510,7 +510,7 @@ private subroutine json_value_get_child_by_index(json, p, idx, child, found)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-06-18 03:24  
+             on 2019-06-24 01:13  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

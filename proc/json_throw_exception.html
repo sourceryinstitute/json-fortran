@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.2% of total for procedures.">15 statements</a>
+    title=" 0.3% of total for procedures.">18 statements</a>
      </li> 
      
      
@@ -209,7 +209,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_throw_exception(json, msg)
+private subroutine json_throw_exception(json, msg, found)
     
     
    
@@ -266,6 +266,24 @@ private subroutine json_throw_exception(json, msg)
   
   <td></td><td>::</td>
   <td><strong>msg</strong></td><td><p>the error message</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-found%7E116"></span>logical(kind=LK),</td>
+  <td>intent(inout),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>found</strong></td><td><p>if the caller is handling the
+ exception with an optimal return
+ argument. If so, <code>json%stop_on_error</code>
+ is ignored.</p></td>
   
 </tr>
 
@@ -336,7 +354,7 @@ private subroutine json_throw_exception(json, msg)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_throw_exception</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">msg</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_throw_exception</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
 
 <span class="cp">#ifdef __INTEL_COMPILER</span>
     <span class="k">use </span><span class="n">ifcore</span><span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="n">tracebackqq</span>
@@ -346,11 +364,18 @@ private subroutine json_throw_exception(json, msg)
 
 <span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">json</span>
     <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">msg</span>    <span class="c">!! the error message</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">),</span><span class="k">optional</span>  <span class="kd">::</span> <span class="n">found</span>  <span class="c">!! if the caller is handling the</span>
+                                                  <span class="c">!! exception with an optimal return</span>
+                                                  <span class="c">!! argument. If so, `json%stop_on_error`</span>
+                                                  <span class="c">!! is ignored.</span>
+
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">stop_on_error</span>
 
     <span class="n">json</span><span class="p">%</span><span class="n">exception_thrown</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
     <span class="n">json</span><span class="p">%</span><span class="n">err_message</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">stop_on_error</span> <span class="o">=</span> <span class="n">json</span><span class="p">%</span><span class="n">stop_on_error</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">present</span><span class="p">(</span><span class="n">found</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">json</span><span class="p">%</span><span class="n">stop_on_error</span><span class="p">)</span> <span class="k">then</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">stop_on_error</span><span class="p">)</span> <span class="k">then</span>
 
 <span class="cp">#ifdef __INTEL_COMPILER</span>
         <span class="c">! for Intel, we raise a traceback and quit</span>
@@ -399,7 +424,7 @@ private subroutine json_throw_exception(json, msg)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-06-18 03:24  
+             on 2019-06-24 01:13  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
