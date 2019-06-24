@@ -148,6 +148,7 @@
 <li><a href="#changes-between-releases">Changes Between Releases</a><ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#710-2019-06-23">7.1.0 (2019-06-23)</a></li>
 <li><a href="#700-2019-01-26">7.0.0 (2019-01-26)</a></li>
 <li><a href="#6110-2019-01-19">6.11.0 (2019-01-19)</a></li>
 <li><a href="#6100-2019-10-20">6.10.0 (2019-10-20)</a></li>
@@ -189,7 +190,7 @@ of the <code>master</code> branch, please head back to the
 <a href="../../index.html">main page</a>.</p>
 <h2 id="latest-stable-release">Latest Stable Release</h2>
 <p><strong>Documentation:</strong>
-<a href="http://jacobwilliams.github.io/json-fortran/7.0.0/index.html">7.0.0</a></p>
+<a href="http://jacobwilliams.github.io/json-fortran/7.1.0/index.html">7.1.0</a></p>
 <p><strong>Download:</strong>
 <a href="https://github.com/jacobwilliams/json-fortran/releases/latest">https://github.com/jacobwilliams/json-fortran/releases/latest</a></p>
 <h2 id="past-releases">Past Releases</h2>
@@ -198,6 +199,11 @@ documentation from the documentation for official releases other than
 using the browser&rsquo;s back button. Feel free to bookmark this page, or
 the <a href="../../index.html">main project page</a> for convenient navigation.</p>
 <ul>
+<li><a href="http://jacobwilliams.github.io/json-fortran/7.1.0/index.html">7.1.0</a>
+   (<a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a> generated documentation)<ul>
+<li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/7.1.0">Download</a></li>
+</ul>
+</li>
 <li><a href="http://jacobwilliams.github.io/json-fortran/7.0.0/index.html">7.0.0</a>
    (<a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a> generated documentation)<ul>
 <li><a href="https://github.com/jacobwilliams/json-fortran/releases/tag/7.0.0">Download</a></li>
@@ -341,7 +347,7 @@ the <a href="../../index.html">main project page</a> for convenient navigation.<
 </ul>
 <h1 id="development-version">Development Version</h1>
 <p>Documentation for the latest development version may be found at
-<a href="https://jacobwilliams.github.io/json-fortran/7.0.0/index.html">https://jacobwilliams.github.io/json-fortran/7.0.0/index.html</a>
+<a href="https://jacobwilliams.github.io/json-fortran/7.1.0/index.html">https://jacobwilliams.github.io/json-fortran/7.1.0/index.html</a>
 or generated locally using the
 <a href="../../page/development-resources/build.sh.html">build.sh</a> build
 script.</p>
@@ -353,6 +359,7 @@ implemented between each release.</p>
 <ul>
 <li><a href="#change-log">Change Log</a><ul>
 <li><a href="#unreleased">Unreleased</a></li>
+<li><a href="#710-2019-06-23">7.1.0 (2019-06-23)</a></li>
 <li><a href="#700-2019-01-26">7.0.0 (2019-01-26)</a></li>
 <li><a href="#611-2019-01-19">6.11.0 (2019-01-19)</a></li>
 <li><a href="#610-2019-10-20">6.10.0 (2019-10-20)</a></li>
@@ -385,7 +392,19 @@ implemented between each release.</p>
 </li>
 </ul>
 <h3 id="unreleased"><a href="https://github.com/jacobwilliams/json-fortran/tree/HEAD">Unreleased</a></h3>
-<p><a href="https://github.com/jacobwilliams/json-fortran/compare/7.0.0...HEAD">Complete Changeset</a></p>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/7.1.0...HEAD">Complete Changeset</a></p>
+<h3 id="710-2019-06-23"><a href="https://github.com/jacobwilliams/json-fortran/tree/7.1.0">7.1.0</a> (2019-06-23)</h3>
+<p><a href="https://github.com/jacobwilliams/json-fortran/compare/7.0.0...7.1.0">Complete Changeset</a>
+or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/7.1.0">Download v7.1.0</a></p>
+<p><strong>Enhancements:</strong></p>
+<ul>
+<li>Added a Visual Studio Code workspace file <a href="https://github.com/jacobwilliams/json-fortran/issues/399">#399</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/400">#400</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Improvements to <code>json_value_get_child_by_index</code> efficiency <a href="https://github.com/jacobwilliams/json-fortran/issues/401">#401</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/402">#402</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</li>
+<li>Updates to CMake install rule for better compatibility with Visual Studio <a href="https://github.com/jacobwilliams/json-fortran/pull/396">#396</a> (<a href="https://github.com/zbeekman">zbeekman</a>)</li>
+</ul>
+<p><strong>Bug fixes:</strong>
+- Fix for undeclared variable causing failing test on Mac <a href="https://github.com/jacobwilliams/json-fortran/pull/392">#392</a> (<a href="https://github.com/porteri">porteri</a>)
+- Fixed a bug where using <code>json%add()</code> to create new variables in a structure would stop the program if <code>stop_on_failure</code> was enabled. <a href="https://github.com/jacobwilliams/json-fortran/issues/403">#403</a> <a href="https://github.com/jacobwilliams/json-fortran/pull/404">#404</a> (<a href="https://github.com/jacobwilliams">jacobwilliams</a>)</p>
 <h3 id="700-2019-01-26"><a href="https://github.com/jacobwilliams/json-fortran/tree/7.0.0">7.0.0</a> (2019-01-26)</h3>
 <p><a href="https://github.com/jacobwilliams/json-fortran/compare/6.11.0...7.0.0">Complete Changeset</a>
 or <a href="https://github.com/jacobwilliams/json-fortran/releases/tag/7.0.0">Download v7.0.0</a></p>
@@ -1172,7 +1191,7 @@ browser&rsquo;s back button to navigate back to
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-06-24 01:13  
+             on 2019-06-24 01:28  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
