@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.2% of total for procedures.">10 statements</a>
+    title=" 0.4% of total for procedures.">23 statements</a>
      </li> 
      
      
@@ -209,7 +209,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-public subroutine string_to_real(str, rval, status_ok)
+public subroutine string_to_real(str, use_quiet_nan, rval, status_ok)
     
     
    
@@ -253,6 +253,22 @@ public subroutine string_to_real(str, rval, status_ok)
   
   <td></td><td>::</td>
   <td><strong>str</strong></td><td><p>the string to convert to a real</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-use_quiet_nan%7E8"></span>logical(kind=LK),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_quiet_nan</strong></td><td><p>if true, return NaN&rsquo;s as <code>ieee_quiet_nan</code>.
+ otherwise, use <code>ieee_signaling_nan</code>.</p></td>
   
 </tr>
 
@@ -317,31 +333,31 @@ public subroutine string_to_real(str, rval, status_ok)
 <polygon fill="none" stroke="black" points="203,-45 121,-45 121,-21 203,-21 203,-45"/>
 <text text-anchor="middle" x="162" y="-30.6" font-family="Helvetica,sans-Serif" font-size="10.50">string_to_real</text>
 </g>
-<!-- proc~json_get_real -->
-<g id="proc~~string_to_real~~CalledByGraph_node2" class="node"><title>proc~json_get_real</title>
-<g id="a_proc~~string_to_real~~CalledByGraph_node2"><a xlink:href=".././proc/json_get_real.html" xlink:title="json_get_real">
-<polygon fill="#d9534f" stroke="#d9534f" points="83,-66 2,-66 2,-42 83,-42 83,-66"/>
-<text text-anchor="middle" x="42.5" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_get_real</text>
-</a>
-</g>
-</g>
-<!-- proc~json_get_real&#45;&gt;proc~string_to_real -->
-<g id="proc~~string_to_real~~CalledByGraph_edge1" class="edge"><title>proc~json_get_real&#45;&gt;proc~string_to_real</title>
-<path fill="none" stroke="#ff0000" d="M83.2801,-46.8904C92.1786,-45.3 101.728,-43.5934 110.981,-41.9396"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="111.633,-45.3786 120.861,-40.1738 110.401,-38.4878 111.633,-45.3786"/>
-</g>
 <!-- proc~string_to_dble -->
-<g id="proc~~string_to_real~~CalledByGraph_node3" class="node"><title>proc~string_to_dble</title>
-<g id="a_proc~~string_to_real~~CalledByGraph_node3"><a xlink:href=".././proc/string_to_dble.html" xlink:title="string_to_dble">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="85,-24 0,-24 0,-0 85,-0 85,-24"/>
-<text text-anchor="middle" x="42.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">string_to_dble</text>
+<g id="proc~~string_to_real~~CalledByGraph_node2" class="node"><title>proc~string_to_dble</title>
+<g id="a_proc~~string_to_real~~CalledByGraph_node2"><a xlink:href=".././proc/string_to_dble.html" xlink:title="string_to_dble">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="85,-66 0,-66 0,-42 85,-42 85,-66"/>
+<text text-anchor="middle" x="42.5" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">string_to_dble</text>
 </a>
 </g>
 </g>
 <!-- proc~string_to_dble&#45;&gt;proc~string_to_real -->
-<g id="proc~~string_to_real~~CalledByGraph_edge2" class="edge"><title>proc~string_to_dble&#45;&gt;proc~string_to_real</title>
-<path fill="none" stroke="#ff0000" d="M85.2569,-19.4629C93.6012,-20.9543 102.446,-22.535 111.034,-24.07"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="110.494,-27.5287 120.953,-25.8427 111.725,-20.6379 110.494,-27.5287"/>
+<g id="proc~~string_to_real~~CalledByGraph_edge1" class="edge"><title>proc~string_to_dble&#45;&gt;proc~string_to_real</title>
+<path fill="none" stroke="#ff0000" d="M85.2569,-46.5371C93.6012,-45.0457 102.446,-43.465 111.034,-41.93"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="111.725,-45.3621 120.953,-40.1573 110.494,-38.4713 111.725,-45.3621"/>
+</g>
+<!-- proc~json_get_real -->
+<g id="proc~~string_to_real~~CalledByGraph_node3" class="node"><title>proc~json_get_real</title>
+<g id="a_proc~~string_to_real~~CalledByGraph_node3"><a xlink:href=".././proc/json_get_real.html" xlink:title="json_get_real">
+<polygon fill="#d9534f" stroke="#d9534f" points="83,-24 2,-24 2,-0 83,-0 83,-24"/>
+<text text-anchor="middle" x="42.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_get_real</text>
+</a>
+</g>
+</g>
+<!-- proc~json_get_real&#45;&gt;proc~string_to_real -->
+<g id="proc~~string_to_real~~CalledByGraph_edge2" class="edge"><title>proc~json_get_real&#45;&gt;proc~string_to_real</title>
+<path fill="none" stroke="#ff0000" d="M83.2801,-19.1096C92.1786,-20.7 101.728,-22.4066 110.981,-24.0604"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="110.401,-27.5122 120.861,-25.8262 111.633,-20.6214 110.401,-27.5122"/>
 </g>
 </g>
 </svg>
@@ -460,21 +476,36 @@ public subroutine string_to_real(str, rval, status_ok)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">string_to_real</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">rval</span><span class="p">,</span><span class="n">status_ok</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">string_to_real</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">use_quiet_nan</span><span class="p">,</span><span class="n">rval</span><span class="p">,</span><span class="n">status_ok</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>        <span class="c">!! the string to convert to a real</span>
-    <span class="kt">real</span><span class="p">(</span><span class="n">RK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">rval</span>       <span class="c">!! `str` converted to a real value</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>             <span class="kd">::</span> <span class="n">status_ok</span>  <span class="c">!! true if there were no errors</span>
+<span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>           <span class="c">!! the string to convert to a real</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>              <span class="kd">::</span> <span class="n">use_quiet_nan</span> <span class="c">!! if true, return NaN&#39;s as `ieee_quiet_nan`.</span>
+                                                         <span class="c">!! otherwise, use `ieee_signaling_nan`.</span>
+    <span class="kt">real</span><span class="p">(</span><span class="n">RK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">rval</span>          <span class="c">!! `str` converted to a real value</span>
+    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>             <span class="kd">::</span> <span class="n">status_ok</span>     <span class="c">!! true if there were no errors</span>
 
     <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ierr</span>  <span class="c">!! read iostat error code</span>
 
     <span class="k">read</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">fmt</span><span class="o">=*</span><span class="p">,</span><span class="n">iostat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span> <span class="n">rval</span>
     <span class="n">status_ok</span> <span class="o">=</span> <span class="p">(</span><span class="n">ierr</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">status_ok</span><span class="p">)</span> <span class="n">rval</span> <span class="o">=</span> <span class="mf">0.0_RK</span>
+    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="n">status_ok</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        </span><span class="n">rval</span> <span class="o">=</span> <span class="mf">0.0_RK</span>
+    <span class="k">else</span>
+<span class="k">        if</span> <span class="p">(</span><span class="n">ieee_support_nan</span><span class="p">(</span><span class="n">rval</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">            if</span> <span class="p">(</span><span class="n">ieee_is_nan</span><span class="p">(</span><span class="n">rval</span><span class="p">))</span> <span class="k">then</span>
+                <span class="c">! make sure to return the correct NaN</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">use_quiet_nan</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">                    </span><span class="n">rval</span> <span class="o">=</span> <span class="n">ieee_value</span><span class="p">(</span><span class="n">rval</span><span class="p">,</span><span class="n">ieee_quiet_nan</span><span class="p">)</span>
+                <span class="k">else</span>
+<span class="k">                    </span><span class="n">rval</span> <span class="o">=</span> <span class="n">ieee_value</span><span class="p">(</span><span class="n">rval</span><span class="p">,</span><span class="n">ieee_signaling_nan</span><span class="p">)</span>
+                <span class="k">end if</span>
+<span class="k">            end if</span>
+<span class="k">        end if</span>
+<span class="k">    end if</span>
 
-    <span class="k">end subroutine </span><span class="n">string_to_real</span>
+<span class="k">    end subroutine </span><span class="n">string_to_real</span>
 </pre></div>
 
     </section>
@@ -496,7 +527,7 @@ public subroutine string_to_real(str, rval, status_ok)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-06-24 02:23  
+             on 2019-07-10 04:10  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

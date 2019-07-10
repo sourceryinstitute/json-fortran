@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_file_print_2 &ndash; JSON-Fortran</title>
+    <title>json_file_print_to_unit &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -114,7 +114,7 @@
     
   
   <div class="row">
-    <h1>json_file_print_2
+    <h1>json_file_print_to_unit
       <small>Subroutine</small>
     
     </h1>
@@ -127,7 +127,7 @@
      <li><i class="fa fa-pencil"></i> Jacob Williams</li>
      
      
-    <li><i class="fa fa-calendar-o"></i> 1/11/2015</li>
+    <li><i class="fa fa-calendar-o"></i> 12/9/2013</li>
      
      
      
@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.1% of total for procedures.">6 statements</a>
+    title=" 0.2% of total for procedures.">10 statements</a>
      </li> 
      
      
@@ -153,7 +153,7 @@
      <li><a href='../module/json_file_module.html'>json_file_module</a></li>
     
   
-     <li class="active">json_file_print_2</li>
+     <li class="active">json_file_print_to_unit</li>
   </ol>
 </div>
 </div>
@@ -197,7 +197,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_file_print_2.html#src">json_file_print_2</a>
+    <a class="list-group-item" href="../proc/json_file_print_to_unit.html#src">json_file_print_to_unit</a>
   </div>
 </div>
 
@@ -209,7 +209,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_file_print_2(me, filename)
+private subroutine json_file_print_to_unit(me, iunit)
     
     
    
@@ -219,17 +219,7 @@ private subroutine json_file_print_2(me, filename)
 
 
     
-    <p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure to the specified filename.
-  The file is opened, printed, and then closed.</p>
-<h3 id="example">Example</h3>
-<p>Example loading a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file, changing a value, and then printing
-  result to a new file:</p>
-<div class="codehilite"><pre><span></span>     <span class="k">type</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span> <span class="kd">::</span> <span class="n">f</span>
-     <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
-     <span class="k">call </span><span class="n">f</span><span class="p">%</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;my_file.json&#39;</span><span class="p">)</span>    <span class="c">!open the original file</span>
-     <span class="k">call </span><span class="n">f</span><span class="p">%</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>    <span class="c">!change the value of a variable</span>
-     <span class="k">call </span><span class="n">f</span><span class="p">%</span><span class="n">print_file</span><span class="p">(</span><span class="s1">&#39;my_file_2.json&#39;</span><span class="p">)</span> <span class="c">!save file as new name</span>
-</pre></div>
+    <p>Prints the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file to the specified file unit number.</p>
     
 
     <h3>Arguments</h3>
@@ -250,7 +240,7 @@ private subroutine json_file_print_2(me, filename)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E42"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td><span class="anchor" id="variable-me%7E49"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
@@ -265,12 +255,12 @@ private subroutine json_file_print_2(me, filename)
   
 <tr>
   
-  <td><span class="anchor" id="variable-filename%7E2"></span>character(kind=CDK,len=*),</td>
+  <td><span class="anchor" id="variable-iunit"></span>integer(kind=IK),</td>
   <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>filename</strong></td><td><p>filename to print to</p></td>
+  <td><strong>iunit</strong></td><td><p>file unit number (must not be -1)</p></td>
   
 </tr>
 
@@ -312,7 +302,7 @@ private subroutine json_file_print_2(me, filename)
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_file_print_2.html#src">json_file_print_2</a>
+    <a class="list-group-item" href="../proc/json_file_print_to_unit.html#src">json_file_print_to_unit</a>
   </div>
 </div>
 
@@ -341,16 +331,20 @@ private subroutine json_file_print_2(me, filename)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_print_2</span><span class="p">(</span><span class="n">me</span><span class="p">,</span><span class="n">filename</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_print_to_unit</span><span class="p">(</span><span class="n">me</span><span class="p">,</span> <span class="n">iunit</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>       <span class="kd">::</span> <span class="n">me</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CDK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">filename</span>  <span class="c">!! filename to print to</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">me</span>
+    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>          <span class="kd">::</span> <span class="n">iunit</span>  <span class="c">!! file unit number (must not be -1)</span>
 
-    <span class="k">call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="k">print</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">,</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">iunit</span><span class="o">/=</span><span class="n">unit2str</span><span class="p">)</span> <span class="k">then</span>
+<span class="k">        call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="k">print</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">,</span><span class="n">iunit</span><span class="o">=</span><span class="n">iunit</span><span class="p">)</span>
+    <span class="k">else</span>
+<span class="k">        call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_file_print_to_unit: iunit must not be -1.&#39;</span><span class="p">)</span>
+    <span class="k">end if</span>
 
-    <span class="k">end subroutine </span><span class="n">json_file_print_2</span>
+<span class="k">    end subroutine </span><span class="n">json_file_print_to_unit</span>
 </pre></div>
 
     </section>
@@ -372,7 +366,7 @@ private subroutine json_file_print_2(me, filename)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-06-24 02:23  
+             on 2019-07-10 04:10  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

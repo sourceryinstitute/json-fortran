@@ -132,7 +132,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.4% of total for procedures.">23 statements</a>
+    title=" 0.4% of total for procedures.">26 statements</a>
      </li> 
      
      
@@ -205,7 +205,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private function wrap_initialize_json_file_from_string(str, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error) result(file_object)
+private function wrap_initialize_json_file_from_string(str, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error, null_to_real_mode, non_normal_mode, use_quiet_nan) result(file_object)
     
     
    
@@ -333,7 +333,7 @@ private function wrap_initialize_json_file_from_string(str, verbose, compact_rea
   <td></td><td>::</td>
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
- (default is false)</p></td>
+ (default is false).</p></td>
   
 </tr>
 
@@ -547,6 +547,68 @@ private function wrap_initialize_json_file_from_string(str, verbose, compact_rea
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-null_to_real_mode%7E4"></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>null_to_real_mode</strong></td><td><p>if <code>strict_type_checking=false</code>:</p>
+<ul>
+<li>1 : an exception will be raised if
+   try to retrieve a <code>null</code> as a real.</li>
+<li>2 : a <code>null</code> retrieved as a real
+   will return a NaN. [default]</li>
+<li>3 : a <code>null</code> retrieved as a real
+   will return 0.0.</li>
+</ul></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-non_normal_mode%7E3"></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>non_normal_mode</strong></td><td><p>How to serialize NaN, Infinity, and
+ -Infinity real values:</p>
+<ul>
+<li>1 : as strings (e.g., &ldquo;NaN&rdquo;,
+   &ldquo;Infinity&rdquo;, &ldquo;-Infinity&rdquo;) [default]</li>
+<li>2 : as <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> <code>null</code> values</li>
+</ul></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-use_quiet_nan%7E4"></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_quiet_nan</strong></td><td><p>if true [default], <code>null_to_real_mode=2</code>
+ and <a href="../proc/string_to_real.html">string_to_real</a> will use
+ <code>ieee_quiet_nan</code> for NaN values. If false,
+ <code>ieee_signaling_nan</code> will be used.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -583,60 +645,60 @@ private function wrap_initialize_json_file_from_string(str, verbose, compact_rea
 <polygon fill="white" stroke="none" points="-4,4 -4,-91 501,-91 501,4 -4,4"/>
 <!-- proc~wrap_initialize_json_file_from_string -->
 <g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_node1" class="node"><title>proc~wrap_initialize_json_file_from_string</title>
-<polygon fill="none" stroke="black" points="194,-45 1.42109e-14,-45 1.42109e-14,-21 194,-21 194,-45"/>
-<text text-anchor="middle" x="97" y="-30.6" font-family="Helvetica,sans-Serif" font-size="10.50">wrap_initialize_json_file_from_string</text>
-</g>
-<!-- interface~to_unicode -->
-<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_node2" class="node"><title>interface~to_unicode</title>
-<g id="a_proc~~wrap_initialize_json_file_from_string~~CallsGraph_node2"><a xlink:href=".././interface/to_unicode.html" xlink:title="to_unicode">
-<polygon fill="#a7506f" stroke="#a7506f" points="347,-66 277,-66 277,-42 347,-42 347,-66"/>
-<text text-anchor="middle" x="312" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_unicode</text>
-</a>
-</g>
-</g>
-<!-- proc~wrap_initialize_json_file_from_string&#45;&gt;interface~to_unicode -->
-<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_edge1" class="edge"><title>proc~wrap_initialize_json_file_from_string&#45;&gt;interface~to_unicode</title>
-<path fill="none" stroke="#ff0000" d="M194.218,-42.4863C219.494,-44.9783 245.549,-47.5471 266.619,-49.6244"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="266.547,-53.1342 276.842,-50.6324 267.234,-46.168 266.547,-53.1342"/>
+<polygon fill="none" stroke="black" points="194,-66 1.42109e-14,-66 1.42109e-14,-42 194,-42 194,-66"/>
+<text text-anchor="middle" x="97" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50">wrap_initialize_json_file_from_string</text>
 </g>
 <!-- proc~initialize_json_file_from_string -->
-<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_node3" class="node"><title>proc~initialize_json_file_from_string</title>
-<g id="a_proc~~wrap_initialize_json_file_from_string~~CallsGraph_node3"><a xlink:href=".././proc/initialize_json_file_from_string.html" xlink:title="initialize_json_file_from_string">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="394,-24 230,-24 230,-0 394,-0 394,-24"/>
-<text text-anchor="middle" x="312" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">initialize_json_file_from_string</text>
+<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_node2" class="node"><title>proc~initialize_json_file_from_string</title>
+<g id="a_proc~~wrap_initialize_json_file_from_string~~CallsGraph_node2"><a xlink:href=".././proc/initialize_json_file_from_string.html" xlink:title="initialize_json_file_from_string">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="394,-87 230,-87 230,-63 394,-63 394,-87"/>
+<text text-anchor="middle" x="312" y="-72.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">initialize_json_file_from_string</text>
 </a>
 </g>
 </g>
 <!-- proc~wrap_initialize_json_file_from_string&#45;&gt;proc~initialize_json_file_from_string -->
-<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_edge2" class="edge"><title>proc~wrap_initialize_json_file_from_string&#45;&gt;proc~initialize_json_file_from_string</title>
-<path fill="none" stroke="#ff0000" d="M194.218,-23.5137C202.683,-22.6792 211.235,-21.836 219.658,-21.0055"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="220.246,-24.4646 229.854,-20.0003 219.559,-17.4984 220.246,-24.4646"/>
+<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_edge1" class="edge"><title>proc~wrap_initialize_json_file_from_string&#45;&gt;proc~initialize_json_file_from_string</title>
+<path fill="none" stroke="#ff0000" d="M194.218,-63.4863C202.683,-64.3208 211.235,-65.164 219.658,-65.9945"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="219.559,-69.5016 229.854,-66.9997 220.246,-62.5354 219.559,-69.5016"/>
 </g>
-<!-- proc~to_uni -->
-<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_node4" class="node"><title>proc~to_uni</title>
-<g id="a_proc~~wrap_initialize_json_file_from_string~~CallsGraph_node4"><a xlink:href=".././proc/to_uni.html" xlink:title="to_uni">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="490.5,-87 436.5,-87 436.5,-63 490.5,-63 490.5,-87"/>
-<text text-anchor="middle" x="463.5" y="-72.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni</text>
+<!-- interface~to_unicode -->
+<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_node3" class="node"><title>interface~to_unicode</title>
+<g id="a_proc~~wrap_initialize_json_file_from_string~~CallsGraph_node3"><a xlink:href=".././interface/to_unicode.html" xlink:title="to_unicode">
+<polygon fill="#a7506f" stroke="#a7506f" points="347,-45 277,-45 277,-21 347,-21 347,-45"/>
+<text text-anchor="middle" x="312" y="-30.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_unicode</text>
 </a>
 </g>
 </g>
-<!-- interface~to_unicode&#45;&gt;proc~to_uni -->
-<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_edge3" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M347.298,-58.8178C370.878,-62.13 402.142,-66.5216 426.151,-69.8941"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="425.894,-73.3923 436.284,-71.3175 426.868,-66.4604 425.894,-73.3923"/>
+<!-- proc~wrap_initialize_json_file_from_string&#45;&gt;interface~to_unicode -->
+<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_edge2" class="edge"><title>proc~wrap_initialize_json_file_from_string&#45;&gt;interface~to_unicode</title>
+<path fill="none" stroke="#ff0000" d="M194.218,-44.5137C219.494,-42.0217 245.549,-39.4529 266.619,-37.3756"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="267.234,-40.832 276.842,-36.3676 266.547,-33.8658 267.234,-40.832"/>
 </g>
 <!-- proc~to_uni_vec -->
-<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_node5" class="node"><title>proc~to_uni_vec</title>
-<g id="a_proc~~wrap_initialize_json_file_from_string~~CallsGraph_node5"><a xlink:href=".././proc/to_uni_vec.html" xlink:title="to_uni_vec">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="497,-45 430,-45 430,-21 497,-21 497,-45"/>
-<text text-anchor="middle" x="463.5" y="-30.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni_vec</text>
+<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_node4" class="node"><title>proc~to_uni_vec</title>
+<g id="a_proc~~wrap_initialize_json_file_from_string~~CallsGraph_node4"><a xlink:href=".././proc/to_uni_vec.html" xlink:title="to_uni_vec">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="497,-66 430,-66 430,-42 497,-42 497,-66"/>
+<text text-anchor="middle" x="463.5" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni_vec</text>
 </a>
 </g>
 </g>
 <!-- interface~to_unicode&#45;&gt;proc~to_uni_vec -->
-<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_edge4" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M347.298,-49.1822C368.828,-46.1579 396.765,-42.2336 419.736,-39.007"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="420.484,-42.4364 429.899,-37.5793 419.51,-35.5045 420.484,-42.4364"/>
+<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_edge3" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni_vec</title>
+<path fill="none" stroke="#00ffff" stroke-dasharray="5,2" d="M347.298,-37.8178C368.828,-40.8421 396.765,-44.7664 419.736,-47.993"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="419.51,-51.4955 429.899,-49.4207 420.484,-44.5636 419.51,-51.4955"/>
+</g>
+<!-- proc~to_uni -->
+<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_node5" class="node"><title>proc~to_uni</title>
+<g id="a_proc~~wrap_initialize_json_file_from_string~~CallsGraph_node5"><a xlink:href=".././proc/to_uni.html" xlink:title="to_uni">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="490.5,-24 436.5,-24 436.5,-0 490.5,-0 490.5,-24"/>
+<text text-anchor="middle" x="463.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">to_uni</text>
+</a>
+</g>
+</g>
+<!-- interface~to_unicode&#45;&gt;proc~to_uni -->
+<g id="proc~~wrap_initialize_json_file_from_string~~CallsGraph_edge4" class="edge"><title>interface~to_unicode&#45;&gt;proc~to_uni</title>
+<path fill="none" stroke="#00ffff" stroke-dasharray="5,2" d="M347.298,-28.1822C370.878,-24.87 402.142,-20.4784 426.151,-17.1059"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="426.868,-20.5396 436.284,-15.6825 425.894,-13.6077 426.868,-20.5396"/>
 </g>
 </g>
 </svg>
@@ -848,20 +910,9 @@ private function wrap_initialize_json_file_from_string(str, verbose, compact_rea
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">function </span><span class="n">wrap_initialize_json_file_from_string</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">verbose</span><span class="p">,</span><span class="n">compact_reals</span><span class="p">,&amp;</span>
-                                  <span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">,</span><span class="n">spaces_per_tab</span><span class="p">,&amp;</span>
-                                  <span class="n">strict_type_checking</span><span class="p">,&amp;</span>
-                                  <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
-                                  <span class="n">case_sensitive_keys</span><span class="p">,&amp;</span>
-                                  <span class="n">no_whitespace</span><span class="p">,&amp;</span>
-                                  <span class="n">unescape_strings</span><span class="p">,&amp;</span>
-                                  <span class="n">comment_char</span><span class="p">,&amp;</span>
-                                  <span class="n">path_mode</span><span class="p">,&amp;</span>
-                                  <span class="n">path_separator</span><span class="p">,&amp;</span>
-                                  <span class="n">compress_vectors</span><span class="p">,&amp;</span>
-                                  <span class="n">allow_duplicate_keys</span><span class="p">,&amp;</span>
-                                  <span class="n">escape_solidus</span><span class="p">,&amp;</span>
-                                  <span class="n">stop_on_error</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">file_object</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">function </span><span class="n">wrap_initialize_json_file_from_string</span><span class="p">(</span><span class="n">str</span><span class="p">,&amp;</span>
+<span class="cp">#include &quot;json_initialize_dummy_arguments.inc&quot;</span>
+                                                  <span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">file_object</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
@@ -870,20 +921,9 @@ private function wrap_initialize_json_file_from_string(str, verbose, compact_rea
 <span class="cp">#include &quot;json_initialize_arguments.inc&quot;</span>
 
     <span class="n">file_object</span> <span class="o">=</span> <span class="n">initialize_json_file_from_string</span><span class="p">(&amp;</span>
-                                  <span class="n">to_unicode</span><span class="p">(</span><span class="n">str</span><span class="p">),</span><span class="n">verbose</span><span class="p">,</span><span class="n">compact_reals</span><span class="p">,&amp;</span>
-                                  <span class="n">print_signs</span><span class="p">,</span><span class="n">real_format</span><span class="p">,</span><span class="n">spaces_per_tab</span><span class="p">,&amp;</span>
-                                  <span class="n">strict_type_checking</span><span class="p">,&amp;</span>
-                                  <span class="n">trailing_spaces_significant</span><span class="p">,&amp;</span>
-                                  <span class="n">case_sensitive_keys</span><span class="p">,&amp;</span>
-                                  <span class="n">no_whitespace</span><span class="p">,&amp;</span>
-                                  <span class="n">unescape_strings</span><span class="p">,&amp;</span>
-                                  <span class="n">comment_char</span><span class="p">,&amp;</span>
-                                  <span class="n">path_mode</span><span class="p">,&amp;</span>
-                                  <span class="n">path_separator</span><span class="p">,&amp;</span>
-                                  <span class="n">compress_vectors</span><span class="p">,&amp;</span>
-                                  <span class="n">allow_duplicate_keys</span><span class="p">,&amp;</span>
-                                  <span class="n">escape_solidus</span><span class="p">,&amp;</span>
-                                  <span class="n">stop_on_error</span><span class="p">)</span>
+                                  <span class="n">to_unicode</span><span class="p">(</span><span class="n">str</span><span class="p">),&amp;</span>
+<span class="cp">#include &quot;json_initialize_dummy_arguments.inc&quot;</span>
+                                                <span class="p">)</span>
 
     <span class="k">end function </span><span class="n">wrap_initialize_json_file_from_string</span>
 </pre></div>
@@ -907,7 +947,7 @@ private function wrap_initialize_json_file_from_string(str, verbose, compact_rea
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-06-24 02:23  
+             on 2019-07-10 04:10  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

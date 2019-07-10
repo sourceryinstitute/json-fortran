@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="<p>26.6% of total for derived types.</p>Including implementation: 1654 statements, 16.8% of total for derived types.">80 statements</a>
+    title="<p>28.0% of total for derived types.</p>Including implementation: 1767 statements, 17.5% of total for derived types.">89 statements</a>
      </li> 
      
      
@@ -215,6 +215,18 @@
 
 
 
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#fins-0">Finalization Procedures</a></h3></div>
+  <div id="fins-0" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../type/json_file.html#finalproc-finalize_json_file">finalize_json_file</a>
+      
+    </div>
+  </div>
+</div>
+
+
 
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#boundprocs-0">Type-Bound Procedures</a></h3></div>
@@ -225,9 +237,15 @@
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-add%7E3">add</a>
       
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-assign_json_file">assign_json_file</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-assignment%28%3D%29">assignment(=)</a>
+      
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-check_for_errors">check_for_errors</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-clear_exceptions">clear_exceptions</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-deserialize">deserialize</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-destroy%7E2">destroy</a>
       
@@ -242,6 +260,8 @@
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-initialize">initialize</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-initialize_json_core_in_file">initialize_json_core_in_file</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_add">json_file_add</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_add_integer">json_file_add_integer</a>
       
@@ -301,11 +321,11 @@
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_load_from_string">json_file_load_from_string</a>
       
-      <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_print_1">json_file_print_1</a>
-      
-      <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_print_2">json_file_print_2</a>
-      
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_print_to_console">json_file_print_to_console</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_print_to_filename">json_file_print_to_filename</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_print_to_unit">json_file_print_to_unit</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_remove">json_file_remove</a>
       
@@ -337,6 +357,8 @@
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_variable_matrix_info">json_file_variable_matrix_info</a>
       
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-load">load</a>
+      
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-load_file">load_file</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-load_from_string">load_from_string</a>
@@ -345,7 +367,11 @@
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-move">move</a>
       
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-nullify">nullify</a>
+      
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-operator%28.in.%29">operator(.in.)</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-print%7E2">print</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-print_error_message">print_error_message</a>
       
@@ -358,6 +384,8 @@
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-rename">rename</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-rename%7E2">rename</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-serialize">serialize</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-set_json_core_in_file">set_json_core_in_file</a>
       
@@ -478,8 +506,8 @@
     <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cval</span>
     <span class="kt">logical</span> <span class="kd">::</span> <span class="n">found</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">initialize</span><span class="p">(</span><span class="n">compact_reals</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">load_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;myfile.json&#39;</span><span class="p">)</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span> <span class="c">!print to the console</span>
+    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;myfile.json&#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="k">print</span><span class="p">()</span> <span class="c">!print to the console</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;var.i&#39;</span><span class="p">,</span><span class="n">ival</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;var.r(3)&#39;</span><span class="p">,</span><span class="n">rval</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
     <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;var.c&#39;</span><span class="p">,</span><span class="n">cval</span><span class="p">,</span><span class="n">found</span><span class="p">)</span>
@@ -488,8 +516,9 @@
 </pre></div>
 
 
-<p></p><div class="alert alert-warning" role="alert"><h4>Warning</h4><p>The <code>destroy()</code> method must be called before the variable
-         goes out of scope or a memory leak will occur.</p></div>
+<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>The <code>destroy()</code> method may be called to free the memory if necessary.
+      <a href="../type/json_file.html">json_file</a> includes a finalizer that also calls
+      <code>destroy()</code> when the variable goes out of scope.</p></div>
     <br>
     
     <div class="panel panel-default">
@@ -510,42 +539,42 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-98 235,-98 235,4 -4,4"/>
 <!-- type~json_file -->
 <g id="type~~json_file~~InheritsGraph_node1" class="node"><title>type~json_file</title>
-<polygon fill="none" stroke="black" points="231,-42 176,-42 176,-18 231,-18 231,-42"/>
-<text text-anchor="middle" x="203.5" y="-27.6" font-family="Helvetica,sans-Serif" font-size="10.50">json_file</text>
-</g>
-<!-- type~json_value -->
-<g id="type~~json_file~~InheritsGraph_node2" class="node"><title>type~json_value</title>
-<g id="a_type~~json_file~~InheritsGraph_node2"><a xlink:href=".././type/json_value.html" xlink:title="json_value">
-<polygon fill="#5cb85c" stroke="#5cb85c" points="118,-66 51,-66 51,-42 118,-42 118,-66"/>
-<text text-anchor="middle" x="84.5" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value</text>
-</a>
-</g>
-</g>
-<!-- type~json_file&#45;&gt;type~json_value -->
-<g id="type~~json_file~~InheritsGraph_edge2" class="edge"><title>type~json_file&#45;&gt;type~json_value</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M175.951,-35.446C161.903,-38.3276 144.309,-41.9366 128.382,-45.2037"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="127.303,-41.8521 118.21,-47.2902 128.709,-48.7093 127.303,-41.8521"/>
-<text text-anchor="middle" x="147" y="-45.4" font-family="Helvetica,sans-Serif" font-size="9.50">p</text>
+<polygon fill="none" stroke="black" points="231,-68 176,-68 176,-44 231,-44 231,-68"/>
+<text text-anchor="middle" x="203.5" y="-53.6" font-family="Helvetica,sans-Serif" font-size="10.50">json_file</text>
 </g>
 <!-- type~json_core -->
-<g id="type~~json_file~~InheritsGraph_node3" class="node"><title>type~json_core</title>
-<g id="a_type~~json_file~~InheritsGraph_node3"><a xlink:href=".././type/json_core.html" xlink:title="json_core">
-<polygon fill="#5cb85c" stroke="#5cb85c" points="116,-24 53,-24 53,-0 116,-0 116,-24"/>
-<text text-anchor="middle" x="84.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_core</text>
+<g id="type~~json_file~~InheritsGraph_node2" class="node"><title>type~json_core</title>
+<g id="a_type~~json_file~~InheritsGraph_node2"><a xlink:href=".././type/json_core.html" xlink:title="json_core">
+<polygon fill="#5cb85c" stroke="#5cb85c" points="116,-94 53,-94 53,-70 116,-70 116,-94"/>
+<text text-anchor="middle" x="84.5" y="-79.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_core</text>
 </a>
 </g>
 </g>
 <!-- type~json_file&#45;&gt;type~json_core -->
 <g id="type~~json_file~~InheritsGraph_edge1" class="edge"><title>type~json_file&#45;&gt;type~json_core</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M175.896,-21.2168C170.055,-19.5736 163.863,-18.046 158,-17 147.753,-15.172 136.581,-14.0029 126.144,-13.2579"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="126.207,-9.75538 116.014,-12.6455 125.785,-16.7426 126.207,-9.75538"/>
-<text text-anchor="middle" x="147" y="-19.4" font-family="Helvetica,sans-Serif" font-size="9.50">core</text>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M175.951,-61.8998C161.211,-65.1754 142.567,-69.3185 126.041,-72.991"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="125.081,-69.6189 116.078,-75.2049 126.599,-76.4522 125.081,-69.6189"/>
+<text text-anchor="middle" x="147" y="-72.4" font-family="Helvetica,sans-Serif" font-size="9.50">core</text>
+</g>
+<!-- type~json_value -->
+<g id="type~~json_file~~InheritsGraph_node3" class="node"><title>type~json_value</title>
+<g id="a_type~~json_file~~InheritsGraph_node3"><a xlink:href=".././type/json_value.html" xlink:title="json_value">
+<polygon fill="#5cb85c" stroke="#5cb85c" points="118,-24 51,-24 51,-0 118,-0 118,-24"/>
+<text text-anchor="middle" x="84.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">json_value</text>
+</a>
+</g>
+</g>
+<!-- type~json_file&#45;&gt;type~json_value -->
+<g id="type~~json_file~~InheritsGraph_edge2" class="edge"><title>type~json_file&#45;&gt;type~json_value</title>
+<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M175.951,-46.0157C161.657,-40.6404 143.693,-33.8846 127.549,-27.8131"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="128.373,-24.3837 117.78,-24.1397 125.908,-30.9357 128.373,-24.3837"/>
+<text text-anchor="middle" x="147" y="-41.4" font-family="Helvetica,sans-Serif" font-size="9.50">p</text>
 </g>
 <!-- type~json_value&#45;&gt;type~json_value -->
 <g id="type~~json_file~~InheritsGraph_edge3" class="edge"><title>type~json_value&#45;&gt;type~json_value</title>
-<path fill="none" stroke="#ff0000" stroke-dasharray="5,2" d="M94.7513,-66.0139C98.3312,-74.9717 94.9141,-84 84.5,-84 78.1539,-84 74.4061,-80.6474 73.2565,-76.0013"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="76.7429,-76.3109 74.2487,-66.0139 69.7772,-75.6189 76.7429,-76.3109"/>
-<text text-anchor="middle" x="84.5" y="-86.4" font-family="Helvetica,sans-Serif" font-size="9.50">previous, next, parent, children, tail</text>
+<path fill="none" stroke="#00ffff" stroke-dasharray="5,2" d="M94.7513,-24.0139C98.3312,-32.9717 94.9141,-42 84.5,-42 78.1539,-42 74.4061,-38.6474 73.2565,-34.0013"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="76.7429,-34.3109 74.2487,-24.0139 69.7772,-33.6189 76.7429,-34.3109"/>
+<text text-anchor="middle" x="84.5" y="-44.4" font-family="Helvetica,sans-Serif" font-size="9.50">previous, next, parent, children, tail</text>
 </g>
 </g>
 </svg>
@@ -634,6 +663,18 @@
 
 
 
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#fins-1">Finalization Procedures</a></h3></div>
+  <div id="fins-1" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../type/json_file.html#finalproc-finalize_json_file">finalize_json_file</a>
+      
+    </div>
+  </div>
+</div>
+
+
 
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#boundprocs-1">Type-Bound Procedures</a></h3></div>
@@ -644,9 +685,15 @@
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-add%7E3">add</a>
       
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-assign_json_file">assign_json_file</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-assignment%28%3D%29">assignment(=)</a>
+      
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-check_for_errors">check_for_errors</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-clear_exceptions">clear_exceptions</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-deserialize">deserialize</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-destroy%7E2">destroy</a>
       
@@ -661,6 +708,8 @@
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-initialize">initialize</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-initialize_json_core_in_file">initialize_json_core_in_file</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_add">json_file_add</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_add_integer">json_file_add_integer</a>
       
@@ -720,11 +769,11 @@
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_load_from_string">json_file_load_from_string</a>
       
-      <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_print_1">json_file_print_1</a>
-      
-      <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_print_2">json_file_print_2</a>
-      
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_print_to_console">json_file_print_to_console</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_print_to_filename">json_file_print_to_filename</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_print_to_unit">json_file_print_to_unit</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_remove">json_file_remove</a>
       
@@ -756,6 +805,8 @@
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-json_file_variable_matrix_info">json_file_variable_matrix_info</a>
       
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-load">load</a>
+      
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-load_file">load_file</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-load_from_string">load_from_string</a>
@@ -764,7 +815,11 @@
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-move">move</a>
       
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-nullify">nullify</a>
+      
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-operator%28.in.%29">operator(.in.)</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-print%7E2">print</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-print_error_message">print_error_message</a>
       
@@ -777,6 +832,8 @@
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-rename">rename</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-rename%7E2">rename</a>
+      
+      <a class="list-group-item" href="../type/json_file.html#boundprocedure-serialize">serialize</a>
       
       <a class="list-group-item" href="../type/json_file.html#boundprocedure-set_json_core_in_file">set_json_core_in_file</a>
       
@@ -952,7 +1009,7 @@
     
     
     <h3>
-private function <a href='../proc/initialize_json_file.html'>initialize_json_file</a>(p, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error) result(file_object)
+private function <a href='../proc/initialize_json_file.html'>initialize_json_file</a>(p, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error, null_to_real_mode, non_normal_mode, use_quiet_nan) result(file_object)
     
     
    
@@ -1000,12 +1057,13 @@ private function <a href='../proc/initialize_json_file.html'>initialize_json_fil
 <tr>
   
   <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  <td>intent(in),</td>
+  <td></td>
   <td>optional</td>
   
   <td>pointer</td><td>::</td>
   <td><strong>p</strong></td><td><p><code>json_value</code> object to cast
- as a <code>json_file</code> object</p></td>
+ as a <code>json_file</code> object. This
+ will be nullified.</p></td>
   
 </tr>
 
@@ -1097,7 +1155,7 @@ private function <a href='../proc/initialize_json_file.html'>initialize_json_fil
   <td></td><td>::</td>
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
- (default is false)</p></td>
+ (default is false).</p></td>
   
 </tr>
 
@@ -1297,6 +1355,55 @@ private function <a href='../proc/initialize_json_file.html'>initialize_json_fil
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>null_to_real_mode</strong></td><td><p>if <code>strict_type_checking=false</code>:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>non_normal_mode</strong></td><td><p>How to serialize NaN, Infinity, and
+ -Infinity real values:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_quiet_nan</strong></td><td><p>if true [default], <code>null_to_real_mode=2</code>
+ and <a href="../proc/string_to_real.html">string_to_real</a> will use
+ <code>ieee_quiet_nan</code> for NaN values. If false,
+ <code>ieee_signaling_nan</code> will be used.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -1412,7 +1519,7 @@ private function <a href='../proc/initialize_json_file_v2.html'>initialize_json_
     
     
     <h3>
-private function <a href='../proc/initialize_json_file_from_string.html'>initialize_json_file_from_string</a>(str, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error) result(file_object)
+private function <a href='../proc/initialize_json_file_from_string.html'>initialize_json_file_from_string</a>(str, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error, null_to_real_mode, non_normal_mode, use_quiet_nan) result(file_object)
     
     
    
@@ -1556,7 +1663,7 @@ private function <a href='../proc/initialize_json_file_from_string.html'>initial
   <td></td><td>::</td>
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
- (default is false)</p></td>
+ (default is false).</p></td>
   
 </tr>
 
@@ -1756,6 +1863,55 @@ private function <a href='../proc/initialize_json_file_from_string.html'>initial
   
 </tr>
 
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>null_to_real_mode</strong></td><td><p>if <code>strict_type_checking=false</code>:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>non_normal_mode</strong></td><td><p>How to serialize NaN, Infinity, and
+ -Infinity real values:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_quiet_nan</strong></td><td><p>if true [default], <code>null_to_real_mode=2</code>
+ and <a href="../proc/string_to_real.html">string_to_real</a> will use
+ <code>ieee_quiet_nan</code> for NaN values. If false,
+ <code>ieee_signaling_nan</code> will be used.</p></td>
+  
+</tr>
+
 </tbody>
 </table>
 
@@ -1778,7 +1934,7 @@ private function <a href='../proc/initialize_json_file_from_string.html'>initial
     
     
     <h3>
-private function <a href='../proc/wrap_initialize_json_file_from_string.html'>wrap_initialize_json_file_from_string</a>(str, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error) result(file_object)
+private function <a href='../proc/wrap_initialize_json_file_from_string.html'>wrap_initialize_json_file_from_string</a>(str, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error, null_to_real_mode, non_normal_mode, use_quiet_nan) result(file_object)
     
     
    
@@ -1909,7 +2065,7 @@ private function <a href='../proc/wrap_initialize_json_file_from_string.html'>wr
   <td></td><td>::</td>
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
- (default is false)</p></td>
+ (default is false).</p></td>
   
 </tr>
 
@@ -2106,6 +2262,55 @@ private function <a href='../proc/wrap_initialize_json_file_from_string.html'>wr
   <td></td><td>::</td>
   <td><strong>stop_on_error</strong></td><td><p>If an exception is raised, then immediately quit.
  (Default is False).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>null_to_real_mode</strong></td><td><p>if <code>strict_type_checking=false</code>:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>non_normal_mode</strong></td><td><p>How to serialize NaN, Infinity, and
+ -Infinity real values:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_quiet_nan</strong></td><td><p>if true [default], <code>null_to_real_mode=2</code>
+ and <a href="../proc/string_to_real.html">string_to_real</a> will use
+ <code>ieee_quiet_nan</code> for NaN values. If false,
+ <code>ieee_signaling_nan</code> will be used.</p></td>
   
 </tr>
 
@@ -2310,6 +2515,82 @@ private function <a href='../proc/wrap_initialize_json_file_from_string_v2.html'
     
     
     
+    <section>
+    <h2>Finalization Procedures</h2>
+     
+         
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="finalproc-finalize_json_file"></span><h3>final :: <strong>finalize_json_file</strong> 
+    </h3></div>
+  <div class="panel-body">
+    
+
+
+    
+  </div>
+  <ul class="list-group">
+     <li class="list-group-item">
+       
+    
+    <h3>
+private subroutine <a href='../proc/finalize_json_file.html'>finalize_json_file</a>(me)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+
+
+<p>Finalizer for <a href="../type/json_file.html">json_file</a> class.</p><a href="../proc/finalize_json_file.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+     </li>
+  </ul>
+</div>
+
+         
+    </section>
+    <br>
+    
     
      
     <section>
@@ -2317,7 +2598,7 @@ private function <a href='../proc/wrap_initialize_json_file_from_string_v2.html'
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-add"></span><h3>generic, public :: <strong>add</strong>  => <a href='../type/json_file.html#boundprocedure-json_file_add_object'>json_file_add_object</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_object'>wrap_json_file_add_object</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_integer'>json_file_add_integer</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_integer'>wrap_json_file_add_integer</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_real32'>json_file_add_real32</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_real32'>wrap_json_file_add_real32</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_real'>json_file_add_real</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_real'>wrap_json_file_add_real</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_logical'>json_file_add_logical</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_logical'>wrap_json_file_add_logical</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_string'>json_file_add_string</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_string'>wrap_json_file_add_string</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_integer_vec'>json_file_add_integer_vec</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_integer_vec'>wrap_json_file_add_integer_vec</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_real32_vec'>json_file_add_real32_vec</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_real32_vec'>wrap_json_file_add_real32_vec</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_real_vec'>json_file_add_real_vec</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_real_vec'>wrap_json_file_add_real_vec</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_logical_vec'>json_file_add_logical_vec</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_logical_vec'>wrap_json_file_add_logical_vec</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_string_vec'>json_file_add_string_vec</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_string_vec'>wrap_json_file_add_string_vec</a> 
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-add"></span><h3>generic, public :: <strong>add</strong>  => <a href='../type/json_file.html#boundprocedure-json_file_add'>json_file_add</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_object'>json_file_add_object</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_object'>wrap_json_file_add_object</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_integer'>json_file_add_integer</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_integer'>wrap_json_file_add_integer</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_real32'>json_file_add_real32</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_real32'>wrap_json_file_add_real32</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_real'>json_file_add_real</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_real'>wrap_json_file_add_real</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_logical'>json_file_add_logical</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_logical'>wrap_json_file_add_logical</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_string'>json_file_add_string</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_string'>wrap_json_file_add_string</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_integer_vec'>json_file_add_integer_vec</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_integer_vec'>wrap_json_file_add_integer_vec</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_real32_vec'>json_file_add_real32_vec</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_real32_vec'>wrap_json_file_add_real32_vec</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_real_vec'>json_file_add_real_vec</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_real_vec'>wrap_json_file_add_real_vec</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_logical_vec'>json_file_add_logical_vec</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_logical_vec'>wrap_json_file_add_logical_vec</a>, <a href='../type/json_file.html#boundprocedure-json_file_add_string_vec'>json_file_add_string_vec</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_add_string_vec'>wrap_json_file_add_string_vec</a> 
     
   </h3></div>
   
@@ -2335,12 +2616,114 @@ private function <a href='../proc/wrap_initialize_json_file_from_string_v2.html'
   <span class="k">call </span><span class="n">f</span><span class="p">%</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;inputs.t&#39;</span><span class="p">,</span> <span class="mf">0.0_rk</span><span class="p">)</span>
   <span class="k">call </span><span class="n">f</span><span class="p">%</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;inputs.x&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0_rk</span><span class="p">,</span><span class="mf">2.0_rk</span><span class="p">,</span><span class="mf">3.0_rk</span><span class="p">])</span>
   <span class="k">call </span><span class="n">f</span><span class="p">%</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;inputs.flag&#39;</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
-  <span class="k">call </span><span class="n">f</span><span class="p">%</span><span class="n">print_file</span><span class="p">()</span>
+  <span class="k">call </span><span class="n">f</span><span class="p">%</span><span class="k">print</span><span class="p">()</span>  <span class="c">! print to the console</span>
   <span class="k">end program </span><span class="n">test</span>
 </pre></div>
   </div>
   
   <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_file_add.html'>json_file_add</a>(me, p, destroy_original)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Add a <a href="../type/json_value.html">json_value</a> pointer as the root object to a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file.</p><a href="../proc/json_file_add.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>pointer to the variable to add</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>destroy_original</strong></td><td><p>if the file currently contains
+ an associated pointer, it is
+ destroyed. [Default is True]</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
     
       <li class="list-group-item">
       
@@ -6060,6 +6443,204 @@ private subroutine <a href='../proc/json_file_add_string_vec_vec_ascii.html'>jso
     
      
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-assign_json_file"></span><h3>procedure, public :: <strong>assign_json_file</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/assign_json_file.html'>assign_json_file</a>(me, f)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Assignment operator for <a href="../type/json_core.html">json_core</a>.
+  This will duplicate the <a href="../type/json_core.html">json_core</a> and also
+  perform a deep copy of the <a href="../type/json_value.html">json_value</a> data structure.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>f</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-assignment%28%3D%29"></span><h3>generic, public :: <strong>assignment(=)</strong>  => <a href='../type/json_file.html#boundprocedure-assign_json_file'>assign_json_file</a> 
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/assign_json_file.html'>assign_json_file</a>(me, f)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Assignment operator for <a href="../type/json_core.html">json_core</a>.
+  This will duplicate the <a href="../type/json_core.html">json_core</a> and also
+  perform a deep copy of the <a href="../type/json_value.html">json_value</a> data structure.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>f</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-check_for_errors"></span><h3>procedure, public :: <strong>check_for_errors</strong>  => <a href='../proc/json_file_check_for_errors.html'>json_file_check_for_errors</a> 
     
   </h3></div>
@@ -6235,6 +6816,187 @@ private pure subroutine <a href='../proc/json_file_clear_exceptions.html'>json_f
     
      
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-deserialize"></span><h3>generic, public :: <strong>deserialize</strong>  => <a href='../type/json_file.html#boundprocedure-json_file_load_from_string'>json_file_load_from_string</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_load_from_string'>wrap_json_file_load_from_string</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>Load <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> from a string.</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_file_load_from_string.html'>json_file_load_from_string</a>(me, str)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>1/13/2015</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Load the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data from a string.</p><a href="../proc/json_file_load_from_string.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>str</strong></td><td><p>string to load <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data from</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/wrap_json_file_load_from_string.html'>wrap_json_file_load_from_string</a>(me, str)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+
+
+<p>Alternate version of <a href="../proc/json_file_load_from_string.html">json_file_load_from_string</a>, where &ldquo;str&rdquo; is kind=CDK.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>str</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-destroy%7E2"></span><h3>procedure, public :: <strong>destroy</strong>  => <a href='../proc/json_file_destroy.html'>json_file_destroy</a> 
     
   </h3></div>
@@ -6271,7 +7033,7 @@ private subroutine <a href='../proc/json_file_destroy.html'>json_file_destroy</a
 
 
 <p>Destroy the <a href="../type/json_value.html">json_value</a> data in a <a href="../type/json_file.html">json_file</a>.
-  This must be done when the variable is no longer needed,
+  This may be done when the variable is no longer needed,
   or will be reused to open a different file.
   Otherwise a memory leak will occur.</p><a href="../proc/json_file_destroy.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
@@ -9617,7 +10379,7 @@ private subroutine <a href='../proc/wrap_json_file_variable_info.html'>wrap_json
             
     
     <h3>
-private subroutine <a href='../proc/initialize_json_core_in_file.html'>initialize_json_core_in_file</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error)
+private subroutine <a href='../proc/initialize_json_core_in_file.html'>initialize_json_core_in_file</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error, null_to_real_mode, non_normal_mode, use_quiet_nan)
     
     
    
@@ -9749,7 +10511,7 @@ private subroutine <a href='../proc/initialize_json_core_in_file.html'>initializ
   <td></td><td>::</td>
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
- (default is false)</p></td>
+ (default is false).</p></td>
   
 </tr>
 
@@ -9946,6 +10708,55 @@ private subroutine <a href='../proc/initialize_json_core_in_file.html'>initializ
   <td></td><td>::</td>
   <td><strong>stop_on_error</strong></td><td><p>If an exception is raised, then immediately quit.
  (Default is False).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>null_to_real_mode</strong></td><td><p>if <code>strict_type_checking=false</code>:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>non_normal_mode</strong></td><td><p>How to serialize NaN, Infinity, and
+ -Infinity real values:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_quiet_nan</strong></td><td><p>if true [default], <code>null_to_real_mode=2</code>
+ and <a href="../proc/string_to_real.html">string_to_real</a> will use
+ <code>ieee_quiet_nan</code> for NaN values. If false,
+ <code>ieee_signaling_nan</code> will be used.</p></td>
   
 </tr>
 
@@ -10053,7 +10864,7 @@ private subroutine <a href='../proc/set_json_core_in_file.html'>set_json_core_in
           
     
     <h3>
-private subroutine <a href='../proc/initialize_json_core_in_file.html'>initialize_json_core_in_file</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error)
+private subroutine <a href='../proc/initialize_json_core_in_file.html'>initialize_json_core_in_file</a>(me, verbose, compact_reals, print_signs, real_format, spaces_per_tab, strict_type_checking, trailing_spaces_significant, case_sensitive_keys, no_whitespace, unescape_strings, comment_char, path_mode, path_separator, compress_vectors, allow_duplicate_keys, escape_solidus, stop_on_error, null_to_real_mode, non_normal_mode, use_quiet_nan)
     
     
    
@@ -10185,7 +10996,7 @@ private subroutine <a href='../proc/initialize_json_core_in_file.html'>initializ
   <td></td><td>::</td>
   <td><strong>strict_type_checking</strong></td><td><p>if true, no integer, double, or logical type
  conversions are done for the <code>get</code> routines
- (default is false)</p></td>
+ (default is false).</p></td>
   
 </tr>
 
@@ -10382,6 +11193,169 @@ private subroutine <a href='../proc/initialize_json_core_in_file.html'>initializ
   <td></td><td>::</td>
   <td><strong>stop_on_error</strong></td><td><p>If an exception is raised, then immediately quit.
  (Default is False).</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>null_to_real_mode</strong></td><td><p>if <code>strict_type_checking=false</code>:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>non_normal_mode</strong></td><td><p>How to serialize NaN, Infinity, and
+ -Infinity real values:</p><a href="None" class="pull-right"><emph>Read more&hellip;</emph></a></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>use_quiet_nan</strong></td><td><p>if true [default], <code>null_to_real_mode=2</code>
+ and <a href="../proc/string_to_real.html">string_to_real</a> will use
+ <code>ieee_quiet_nan</code> for NaN values. If false,
+ <code>ieee_signaling_nan</code> will be used.</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_file_add"></span><h3>procedure, public :: <strong>json_file_add</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/json_file_add.html'>json_file_add</a>(me, p, destroy_original)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Add a <a href="../type/json_value.html">json_value</a> pointer as the root object to a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file.</p><a href="../proc/json_file_add.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>pointer</td><td>::</td>
+  <td><strong>p</strong></td><td><p>pointer to the variable to add</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical(kind=LK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>destroy_original</strong></td><td><p>if the file currently contains
+ an associated pointer, it is
+ destroyed. [Default is True]</p></td>
   
 </tr>
 
@@ -14537,7 +15511,7 @@ private subroutine <a href='../proc/json_file_load_from_string.html'>json_file_l
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_file_print_1"></span><h3>procedure, public :: <strong>json_file_print_1</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_file_print_to_console"></span><h3>procedure, public :: <strong>json_file_print_to_console</strong>  
     
   </h3></div>
   
@@ -14549,7 +15523,191 @@ private subroutine <a href='../proc/json_file_load_from_string.html'>json_file_l
           
     
     <h3>
-private subroutine <a href='../proc/json_file_print_1.html'>json_file_print_1</a>(me, iunit)
+private subroutine <a href='../proc/json_file_print_to_console.html'>json_file_print_to_console</a>(me)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>1/11/2015</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file to the console.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_file_print_to_filename"></span><h3>procedure, public :: <strong>json_file_print_to_filename</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/json_file_print_to_filename.html'>json_file_print_to_filename</a>(me, filename)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>1/11/2015</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure to the specified filename.
+  The file is opened, printed, and then closed.</p><a href="../proc/json_file_print_to_filename.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>filename</strong></td><td><p>filename to print to</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_file_print_to_unit"></span><h3>procedure, public :: <strong>json_file_print_to_unit</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/json_file_print_to_unit.html'>json_file_print_to_unit</a>(me, iunit)
     
     
    
@@ -14616,190 +15774,6 @@ private subroutine <a href='../proc/json_file_print_1.html'>json_file_print_1</a
   
   <td></td><td>::</td>
   <td><strong>iunit</strong></td><td><p>file unit number (must not be -1)</p></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-        
-      
-      </li>
-    
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_file_print_2"></span><h3>procedure, public :: <strong>json_file_print_2</strong>  
-    
-  </h3></div>
-  
-  <ul class="list-group">
-    
-      <li class="list-group-item">
-      
-        
-          
-    
-    <h3>
-private subroutine <a href='../proc/json_file_print_2.html'>json_file_print_2</a>(me, filename)
-    
-    
-   
-</h3>
-    
-
-
-
-
-
-  <dl class="dl-horizontal">
-    
-    <dt>Author</dt><dd>Jacob Williams</dd>
-    
-    
-    <dt>Date</dt><dd>1/11/2015</dd>
-    
-    
-    
-    
-  </dl>
-
-
-
-<p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure to the specified filename.
-  The file is opened, printed, and then closed.</p><a href="../proc/json_file_print_2.html" class="pull-right"><emph>Read more&hellip;</emph></a>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>me</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>filename</strong></td><td><p>filename to print to</p></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-        
-      
-      </li>
-    
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-json_file_print_to_console"></span><h3>procedure, public :: <strong>json_file_print_to_console</strong>  
-    
-  </h3></div>
-  
-  <ul class="list-group">
-    
-      <li class="list-group-item">
-      
-        
-          
-    
-    <h3>
-private subroutine <a href='../proc/json_file_print_to_console.html'>json_file_print_to_console</a>(me)
-    
-    
-   
-</h3>
-    
-
-
-
-
-
-  <dl class="dl-horizontal">
-    
-    <dt>Author</dt><dd>Jacob Williams</dd>
-    
-    
-    <dt>Date</dt><dd>1/11/2015</dd>
-    
-    
-    
-    
-  </dl>
-
-
-
-<p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file to the console.</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>me</strong></td><td></td>
   
 </tr>
 
@@ -16844,9 +17818,139 @@ private subroutine <a href='../proc/json_file_variable_matrix_info.html'>json_fi
     
      
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-load"></span><h3>procedure, public :: <strong>load</strong>  => <a href='../proc/json_file_load.html'>json_file_load</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>Load <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> from a file.</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/json_file_load.html'>json_file_load</a>(me, filename, unit)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>12/9/2013</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Load the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data from a file.</p><a href="../proc/json_file_load.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>filename</strong></td><td><p>the filename to open</p></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>unit</strong></td><td><p>the unit number to use
+ (if not present, a newunit
+ is used)</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-load_file"></span><h3>procedure, public :: <strong>load_file</strong>  => <a href='../proc/json_file_load.html'>json_file_load</a> 
     
   </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>The same as <code>load</code>, but only here for backward compatibility</p>
+  </div>
   
   <ul class="list-group">
     
@@ -16963,6 +18067,13 @@ private subroutine <a href='../proc/json_file_load.html'>json_file_load</a>(me, 
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-load_from_string"></span><h3>generic, public :: <strong>load_from_string</strong>  => <a href='../type/json_file.html#boundprocedure-json_file_load_from_string'>json_file_load_from_string</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_load_from_string'>wrap_json_file_load_from_string</a> 
     
   </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>The same as <code>deserialize</code>, but only here for backward compatibility</p>
+  </div>
   
   <ul class="list-group">
     
@@ -17596,6 +18707,89 @@ private subroutine <a href='../proc/json_file_move_pointer.html'>json_file_move_
     
      
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-nullify"></span><h3>procedure, public :: <strong>nullify</strong>  => <a href='../proc/json_file_nullify.html'>json_file_nullify</a> 
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/json_file_nullify.html'>json_file_nullify</a>(me)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Nullify the <a href="../type/json_value.html">json_value</a> pointer in a <a href="../type/json_file.html">json_file</a>,
+  but do not destroy it.</p><a href="../proc/json_file_nullify.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-operator%28.in.%29"></span><h3>generic, public :: <strong>operator(.in.)</strong>  => <a href='../type/json_file.html#boundprocedure-json_file_valid_path_op'>json_file_valid_path_op</a>, <a href='../type/json_file.html#boundprocedure-wrap_json_file_valid_path_op'>wrap_json_file_valid_path_op</a> 
     
   </h3></div>
@@ -17796,6 +18990,265 @@ private function <a href='../proc/wrap_json_file_valid_path_op.html'>wrap_json_f
     
      
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-print%7E2"></span><h3>generic, public :: <strong>print</strong>  => <a href='../type/json_file.html#boundprocedure-json_file_print_to_console'>json_file_print_to_console</a>, <a href='../type/json_file.html#boundprocedure-json_file_print_to_unit'>json_file_print_to_unit</a>, <a href='../type/json_file.html#boundprocedure-json_file_print_to_filename'>json_file_print_to_filename</a> 
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_file_print_to_console.html'>json_file_print_to_console</a>(me)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>1/11/2015</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file to the console.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_file_print_to_unit.html'>json_file_print_to_unit</a>(me, iunit)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>12/9/2013</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Prints the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file to the specified file unit number.</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer(kind=IK),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>iunit</strong></td><td><p>file unit number (must not be -1)</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+      <li class="list-group-item">
+      
+         
+            
+    
+    <h3>
+private subroutine <a href='../proc/json_file_print_to_filename.html'>json_file_print_to_filename</a>(me, filename)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>1/11/2015</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure to the specified filename.
+  The file is opened, printed, and then closed.</p><a href="../proc/json_file_print_to_filename.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CDK,len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>filename</strong></td><td><p>filename to print to</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+         
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-print_error_message"></span><h3>procedure, public :: <strong>print_error_message</strong>  => <a href='../proc/json_file_print_error_message.html'>json_file_print_error_message</a> 
     
   </h3></div>
@@ -17883,9 +19336,16 @@ private subroutine <a href='../proc/json_file_print_error_message.html'>json_fil
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-print_file"></span><h3>generic, public :: <strong>print_file</strong>  => <a href='../type/json_file.html#boundprocedure-json_file_print_to_console'>json_file_print_to_console</a>, <a href='../type/json_file.html#boundprocedure-json_file_print_1'>json_file_print_1</a>, <a href='../type/json_file.html#boundprocedure-json_file_print_2'>json_file_print_2</a> 
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-print_file"></span><h3>generic, public :: <strong>print_file</strong>  => <a href='../type/json_file.html#boundprocedure-json_file_print_to_console'>json_file_print_to_console</a>, <a href='../type/json_file.html#boundprocedure-json_file_print_to_unit'>json_file_print_to_unit</a>, <a href='../type/json_file.html#boundprocedure-json_file_print_to_filename'>json_file_print_to_filename</a> 
     
   </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>The same as <code>print</code>, but only here for backward compatibility</p>
+  </div>
   
   <ul class="list-group">
     
@@ -17967,7 +19427,7 @@ private subroutine <a href='../proc/json_file_print_to_console.html'>json_file_p
             
     
     <h3>
-private subroutine <a href='../proc/json_file_print_1.html'>json_file_print_1</a>(me, iunit)
+private subroutine <a href='../proc/json_file_print_to_unit.html'>json_file_print_to_unit</a>(me, iunit)
     
     
    
@@ -18054,7 +19514,7 @@ private subroutine <a href='../proc/json_file_print_1.html'>json_file_print_1</a
             
     
     <h3>
-private subroutine <a href='../proc/json_file_print_2.html'>json_file_print_2</a>(me, filename)
+private subroutine <a href='../proc/json_file_print_to_filename.html'>json_file_print_to_filename</a>(me, filename)
     
     
    
@@ -18080,7 +19540,7 @@ private subroutine <a href='../proc/json_file_print_2.html'>json_file_print_2</a
 
 
 <p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure to the specified filename.
-  The file is opened, printed, and then closed.</p><a href="../proc/json_file_print_2.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+  The file is opened, printed, and then closed.</p><a href="../proc/json_file_print_to_filename.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -18145,6 +19605,13 @@ private subroutine <a href='../proc/json_file_print_2.html'>json_file_print_2</a
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-print_to_string"></span><h3>procedure, public :: <strong>print_to_string</strong>  => <a href='../proc/json_file_print_to_string.html'>json_file_print_to_string</a> 
     
   </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>The same as <code>serialize</code>, but only here for backward compatibility</p>
+  </div>
   
   <ul class="list-group">
     
@@ -18905,6 +20372,112 @@ private subroutine <a href='../proc/json_file_rename_name_ascii.html'>json_file_
     
 
          
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-serialize"></span><h3>procedure, public :: <strong>serialize</strong>  => <a href='../proc/json_file_print_to_string.html'>json_file_print_to_string</a> 
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+
+
+    <p>Print the <a href="../type/json_value.html">json_value</a> structure to an allocatable string</p>
+  </div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/json_file_print_to_string.html'>json_file_print_to_string</a>(me, str)
+    
+    
+   
+</h3>
+    
+
+
+
+
+
+  <dl class="dl-horizontal">
+    
+    <dt>Author</dt><dd>Jacob Williams</dd>
+    
+    
+    <dt>Date</dt><dd>1/11/2015</dd>
+    
+    
+    
+    
+  </dl>
+
+
+
+<p>Print the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file to a string.</p><a href="../proc/json_file_print_to_string.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>me</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>str</strong></td><td><p>string to print <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> data to</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
       
       </li>
     
@@ -25337,11 +26910,32 @@ private subroutine <a href='../proc/wrap_json_file_variable_matrix_info.html'>wr
 
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">get_core</span> <span class="o">=&gt;</span> <span class="n">get_json_core_in_file</span>
 
+        <span class="c">!&gt;</span>
+        <span class="c">!  Load JSON from a file.</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">load</span> <span class="o">=&gt;</span> <span class="n">json_file_load</span>
+
+        <span class="c">!&gt;</span>
+        <span class="c">!  The same as `load`, but only here for backward compatibility</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">load_file</span> <span class="o">=&gt;</span> <span class="n">json_file_load</span>
 
+        <span class="c">!&gt;</span>
+        <span class="c">!  Load JSON from a string.</span>
+        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">deserialize</span> <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_load_from_string</span><span class="p">)</span>
+
+        <span class="c">!&gt;</span>
+        <span class="c">!  The same as `deserialize`, but only here for backward compatibility</span>
         <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">load_from_string</span> <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_load_from_string</span><span class="p">)</span>
 
+        <span class="c">!&gt;</span>
+        <span class="c">!  Print the [[json_value]] structure to an allocatable string</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">serialize</span> <span class="o">=&gt;</span> <span class="n">json_file_print_to_string</span>
+
+        <span class="c">!&gt;</span>
+        <span class="c">!  The same as `serialize`, but only here for backward compatibility</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">print_to_string</span> <span class="o">=&gt;</span> <span class="n">json_file_print_to_string</span>
+
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">destroy</span> <span class="o">=&gt;</span> <span class="n">json_file_destroy</span>
+        <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="k">nullify</span> <span class="o">=&gt;</span> <span class="n">json_file_nullify</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">move</span>    <span class="o">=&gt;</span> <span class="n">json_file_move_pointer</span>
         <span class="k">generic</span><span class="p">,</span><span class="k">public</span>   <span class="kd">::</span> <span class="n">info</span>    <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_variable_info</span><span class="p">)</span>
         <span class="k">generic</span><span class="p">,</span><span class="k">public</span>   <span class="kd">::</span> <span class="n">matrix_info</span> <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_variable_matrix_info</span><span class="p">)</span>
@@ -25352,11 +26946,15 @@ private subroutine <a href='../proc/wrap_json_file_variable_matrix_info.html'>wr
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">check_for_errors</span> <span class="o">=&gt;</span> <span class="n">json_file_check_for_errors</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">clear_exceptions</span> <span class="o">=&gt;</span> <span class="n">json_file_clear_exceptions</span>
 
-        <span class="k">procedure</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">print_to_string</span> <span class="o">=&gt;</span> <span class="n">json_file_print_to_string</span>
+        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="k">print</span> <span class="o">=&gt;</span> <span class="n">json_file_print_to_console</span><span class="p">,</span> <span class="p">&amp;</span>
+                                   <span class="n">json_file_print_to_unit</span><span class="p">,</span> <span class="p">&amp;</span>
+                                   <span class="n">json_file_print_to_filename</span>
 
+        <span class="c">!&gt;</span>
+        <span class="c">!  The same as `print`, but only here for backward compatibility</span>
         <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">print_file</span> <span class="o">=&gt;</span> <span class="n">json_file_print_to_console</span><span class="p">,</span> <span class="p">&amp;</span>
-                                        <span class="n">json_file_print_1</span><span class="p">,</span> <span class="p">&amp;</span>
-                                        <span class="n">json_file_print_2</span>
+                                        <span class="n">json_file_print_to_unit</span><span class="p">,</span> <span class="p">&amp;</span>
+                                        <span class="n">json_file_print_to_filename</span>
 
         <span class="c">!&gt;</span>
         <span class="c">!  Rename a variable, specifying it by path</span>
@@ -25411,10 +27009,11 @@ private subroutine <a href='../proc/wrap_json_file_variable_matrix_info.html'>wr
         <span class="c">!  call f%add(&#39;inputs.t&#39;, 0.0_rk)</span>
         <span class="c">!  call f%add(&#39;inputs.x&#39;, [1.0_rk,2.0_rk,3.0_rk])</span>
         <span class="c">!  call f%add(&#39;inputs.flag&#39;, .true.)</span>
-        <span class="c">!  call f%print_file()</span>
+        <span class="c">!  call f%print()  ! print to the console</span>
         <span class="c">!  end program test</span>
         <span class="c">!```</span>
-        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">add</span> <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_add_object</span><span class="p">),</span>      <span class="p">&amp;</span>
+        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">add</span> <span class="o">=&gt;</span> <span class="n">json_file_add</span><span class="p">,</span> <span class="p">&amp;</span>
+                                 <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_add_object</span><span class="p">),</span>      <span class="p">&amp;</span>
                                  <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_add_integer</span><span class="p">),</span>     <span class="p">&amp;</span>
 <span class="cp">#ifndef REAL32</span>
                                  <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_add_real32</span><span class="p">),</span>      <span class="p">&amp;</span>
@@ -25479,6 +27078,9 @@ private subroutine <a href='../proc/wrap_json_file_variable_matrix_info.html'>wr
         <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">operator</span><span class="p">(.</span><span class="n">in</span><span class="p">.)</span> <span class="o">=&gt;</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_valid_path_op</span><span class="p">)</span>
         <span class="k">procedure</span><span class="p">,</span><span class="k">pass</span><span class="p">(</span><span class="n">me</span><span class="p">)</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_valid_path_op</span><span class="p">)</span>
 
+        <span class="k">generic</span><span class="p">,</span><span class="k">public</span> <span class="kd">::</span> <span class="n">assignment</span><span class="p">(</span><span class="o">=</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">assign_json_file</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">assign_json_file</span>
+
         <span class="c">! ***************************************************</span>
         <span class="c">! private routines</span>
         <span class="c">! ***************************************************</span>
@@ -25530,6 +27132,7 @@ private subroutine <a href='../proc/wrap_json_file_variable_matrix_info.html'>wr
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_file_get_root</span>
 
         <span class="c">!add:</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_file_add</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_add_object</span><span class="p">)</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_add_integer</span><span class="p">)</span>
 <span class="cp">#ifndef REAL32</span>
@@ -25577,10 +27180,12 @@ private subroutine <a href='../proc/wrap_json_file_variable_matrix_info.html'>wr
         <span class="c">!remove:</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">MAYBEWRAP</span><span class="p">(</span><span class="n">json_file_remove</span><span class="p">)</span>
 
-        <span class="c">!print_file:</span>
+        <span class="c">!print:</span>
         <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_file_print_to_console</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_file_print_1</span>
-        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_file_print_2</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_file_print_to_unit</span>
+        <span class="k">procedure</span> <span class="kd">::</span> <span class="n">json_file_print_to_filename</span>
+
+        <span class="k">final</span> <span class="kd">::</span> <span class="n">finalize_json_file</span>
 
     <span class="k">end type </span><span class="n">json_file</span>
 </pre></div>
@@ -25603,7 +27208,7 @@ private subroutine <a href='../proc/wrap_json_file_variable_matrix_info.html'>wr
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-06-24 02:23  
+             on 2019-07-10 04:10  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>

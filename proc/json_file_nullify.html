@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_file_print_1 &ndash; JSON-Fortran</title>
+    <title>json_file_nullify &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -114,7 +114,7 @@
     
   
   <div class="row">
-    <h1>json_file_print_1
+    <h1>json_file_nullify
       <small>Subroutine</small>
     
     </h1>
@@ -127,8 +127,6 @@
      <li><i class="fa fa-pencil"></i> Jacob Williams</li>
      
      
-    <li><i class="fa fa-calendar-o"></i> 12/9/2013</li>
-     
      
      
     
@@ -136,7 +134,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.2% of total for procedures.">10 statements</a>
+    title=" 0.1% of total for procedures.">5 statements</a>
      </li> 
      
      
@@ -153,7 +151,7 @@
      <li><a href='../module/json_file_module.html'>json_file_module</a></li>
     
   
-     <li class="active">json_file_print_1</li>
+     <li class="active">json_file_nullify</li>
   </ol>
 </div>
 </div>
@@ -197,7 +195,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_file_print_1.html#src">json_file_print_1</a>
+    <a class="list-group-item" href="../proc/json_file_nullify.html#src">json_file_nullify</a>
   </div>
 </div>
 
@@ -209,7 +207,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_file_print_1(me, iunit)
+private subroutine json_file_nullify(me)
     
     
    
@@ -219,7 +217,20 @@ private subroutine json_file_print_1(me, iunit)
 
 
     
-    <p>Prints the <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> file to the specified file unit number.</p>
+    <p>Nullify the <a href="../type/json_value.html">json_value</a> pointer in a <a href="../type/json_file.html">json_file</a>,
+  but do not destroy it.</p>
+<p>This should normally only be done if the pointer is the target of
+  another pointer outside the class that is still intended to be in
+  scope after the <a href="../type/json_file.html">json_file</a> has gone out of scope.
+  Otherwise, this would result in a memory leak.</p>
+<h3 id="see-also">See also</h3>
+<ul>
+<li><a href="../proc/json_file_destroy.html">json_file_destroy</a></li>
+</ul>
+<h3 id="history">History</h3>
+<ul>
+<li>6/30/2019 : Created</li>
+</ul>
     
 
     <h3>Arguments</h3>
@@ -240,27 +251,12 @@ private subroutine json_file_print_1(me, iunit)
   
 <tr>
   
-  <td><span class="anchor" id="variable-me%7E41"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
+  <td><span class="anchor" id="variable-me%7E44"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
   <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
   <td><strong>me</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-iunit"></span>integer(kind=IK),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>iunit</strong></td><td><p>file unit number (must not be -1)</p></td>
   
 </tr>
 
@@ -302,7 +298,7 @@ private subroutine json_file_print_1(me, iunit)
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_file_print_1.html#src">json_file_print_1</a>
+    <a class="list-group-item" href="../proc/json_file_nullify.html#src">json_file_nullify</a>
   </div>
 </div>
 
@@ -331,20 +327,15 @@ private subroutine json_file_print_1(me, iunit)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_print_1</span><span class="p">(</span><span class="n">me</span><span class="p">,</span> <span class="n">iunit</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_file_nullify</span><span class="p">(</span><span class="n">me</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>  <span class="kd">::</span> <span class="n">me</span>
-    <span class="kt">integer</span><span class="p">(</span><span class="n">IK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>          <span class="kd">::</span> <span class="n">iunit</span>  <span class="c">!! file unit number (must not be -1)</span>
+<span class="k">    class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">me</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">iunit</span><span class="o">/=</span><span class="n">unit2str</span><span class="p">)</span> <span class="k">then</span>
-<span class="k">        call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="k">print</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">,</span><span class="n">iunit</span><span class="o">=</span><span class="n">iunit</span><span class="p">)</span>
-    <span class="k">else</span>
-<span class="k">        call </span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">throw_exception</span><span class="p">(</span><span class="s1">&#39;Error in json_file_print_1: iunit must not be -1.&#39;</span><span class="p">)</span>
-    <span class="k">end if</span>
+    <span class="k">nullify</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">)</span>
 
-<span class="k">    end subroutine </span><span class="n">json_file_print_1</span>
+    <span class="k">end subroutine </span><span class="n">json_file_nullify</span>
 </pre></div>
 
     </section>
@@ -366,7 +357,7 @@ private subroutine json_file_print_1(me, iunit)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-06-24 02:23  
+             on 2019-07-10 04:10  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
