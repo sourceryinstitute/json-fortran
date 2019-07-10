@@ -10,7 +10,7 @@
     <meta name="author" content="Jacob Williams" >
     <link rel="icon" href="../favicon.png">
 
-    <title>json_value_add_string &ndash; JSON-Fortran</title>
+    <title>assign_json_file_to_string &ndash; JSON-Fortran</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -114,7 +114,7 @@
     
   
   <div class="row">
-    <h1>json_value_add_string
+    <h1>assign_json_file_to_string
       <small>Subroutine</small>
     
     </h1>
@@ -127,8 +127,6 @@
      <li><i class="fa fa-pencil"></i> Jacob Williams</li>
      
      
-    <li><i class="fa fa-calendar-o"></i> 1/19/2014</li>
-     
      
      
     
@@ -136,24 +134,24 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.2% of total for procedures.">12 statements</a>
+    title=" 0.2% of total for procedures.">13 statements</a>
      </li> 
      
      
      
-    <li><i class="fa fa-code"></i><a href="../src/json_value_module.F90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/json_file_module.F90"> Source File</a></li>
      
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
     
-     <li><a href='../sourcefile/json_value_module.f90.html'>json_value_module.F90</a></li>
+     <li><a href='../sourcefile/json_file_module.f90.html'>json_file_module.F90</a></li>
     
-     <li><a href='../module/json_value_module.html'>json_value_module</a></li>
+     <li><a href='../module/json_file_module.html'>json_file_module</a></li>
     
   
-     <li class="active">json_value_add_string</li>
+     <li class="active">assign_json_file_to_string</li>
   </ol>
 </div>
 </div>
@@ -197,7 +195,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_value_add_string.html#src">json_value_add_string</a>
+    <a class="list-group-item" href="../proc/assign_json_file_to_string.html#src">assign_json_file_to_string</a>
   </div>
 </div>
 
@@ -209,7 +207,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-private subroutine json_value_add_string(json, p, name, val, trim_str, adjustl_str)
+private subroutine assign_json_file_to_string(str, me)
     
     
    
@@ -219,9 +217,13 @@ private subroutine json_value_add_string(json, p, name, val, trim_str, adjustl_s
 
 
     
-    <p>Add a character string child to the <a href="../type/json_value.html">json_value</a> variable.</p>
-<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>This routine is part of the public <abbr title="Application Programming Interface: a set of routines, protocols, and tools for building software applications">API</abbr> that can be
-      used to build a <abbr title="JavaScript Object Notation: A human friendly syntax for storing and exchanging data">JSON</abbr> structure using <a href="../type/json_value.html">json_value</a> pointers.</p></div>
+    <p>Assignment operator for character = <a href="../type/json_core.html">json_core</a>.
+  This is just a wrapper for the <a href="../proc/json_value_to_string.html">json_value_to_string</a> routine.</p>
+<h3 id="note">Note</h3>
+<ul>
+<li>If an exception is raised or the file contains no data,
+    this will return an empty string.</li>
+</ul>
     
 
     <h3>Arguments</h3>
@@ -242,12 +244,12 @@ private subroutine json_value_add_string(json, p, name, val, trim_str, adjustl_s
   
 <tr>
   
-  <td><span class="anchor" id="variable-json%7E103"></span>class(<a href='../type/json_core.html'>json_core</a>),</td>
-  <td>intent(inout)</td>
+  <td><span class="anchor" id="variable-str%7E5"></span>character(kind=CK,len=:),</td>
+  <td>intent(out),</td>
   <td></td>
   
-  <td></td><td>::</td>
-  <td><strong>json</strong></td><td></td>
+  <td>allocatable</td><td>::</td>
+  <td><strong>str</strong></td><td></td>
   
 </tr>
 
@@ -257,72 +259,12 @@ private subroutine json_value_add_string(json, p, name, val, trim_str, adjustl_s
   
 <tr>
   
-  <td><span class="anchor" id="variable-p%7E56"></span>type(<a href='../type/json_value.html'>json_value</a>),</td>
-  <td></td>
-  <td></td>
-  
-  <td>pointer</td><td>::</td>
-  <td><strong>p</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-name%7E29"></span>character(kind=CK,len=*),</td>
+  <td><span class="anchor" id="variable-me%7E7"></span>class(<a href='../type/json_file.html'>json_file</a>),</td>
   <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>name</strong></td><td><p>name of the variable</p></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-val%7E50"></span>character(kind=CK,len=*),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>val</strong></td><td><p>value</p></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-trim_str%7E22"></span>logical(kind=LK),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>trim_str</strong></td><td><p>if TRIM() should be called for the <code>val</code></p></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-adjustl_str%7E22"></span>logical(kind=LK),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>adjustl_str</strong></td><td><p>if ADJUSTL() should be called for the <code>val</code></p></td>
+  <td><strong>me</strong></td><td></td>
   
 </tr>
 
@@ -364,7 +306,7 @@ private subroutine json_value_add_string(json, p, name, val, trim_str, adjustl_s
 <div class="panel panel-primary">
   <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
   <div class="list-group">
-    <a class="list-group-item" href="../proc/json_value_add_string.html#src">json_value_add_string</a>
+    <a class="list-group-item" href="../proc/assign_json_file_to_string.html#src">assign_json_file_to_string</a>
   </div>
 </div>
 
@@ -393,26 +335,33 @@ private subroutine json_value_add_string(json, p, name, val, trim_str, adjustl_s
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">json_value_add_string</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">trim_str</span><span class="p">,</span> <span class="n">adjustl_str</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>    <span class="k">subroutine </span><span class="n">assign_json_file_to_string</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">me</span><span class="p">)</span>
 
     <span class="k">implicit none</span>
 
-<span class="k">    class</span><span class="p">(</span><span class="n">json_core</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span>      <span class="kd">::</span> <span class="n">json</span>
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span>            <span class="kd">::</span> <span class="n">p</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">name</span>        <span class="c">!! name of the variable</span>
-    <span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">val</span>         <span class="c">!! value</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>     <span class="kd">::</span> <span class="n">trim_str</span>    <span class="c">!! if TRIM() should be called for the `val`</span>
-    <span class="kt">logical</span><span class="p">(</span><span class="n">LK</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span><span class="k">optional</span>     <span class="kd">::</span> <span class="n">adjustl_str</span> <span class="c">!! if ADJUSTL() should be called for the `val`</span>
+<span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">CK</span><span class="p">,</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="p">,</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">str</span>
+    <span class="k">class</span><span class="p">(</span><span class="n">json_file</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">me</span>
 
-    <span class="k">type</span><span class="p">(</span><span class="n">json_value</span><span class="p">),</span><span class="k">pointer</span> <span class="kd">::</span> <span class="n">var</span>
+    <span class="k">type</span><span class="p">(</span><span class="n">json_core</span><span class="p">)</span> <span class="kd">::</span> <span class="n">core_copy</span> <span class="c">!! a copy of `core` from `me`</span>
 
-    <span class="c">!create the variable:</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">create_string</span><span class="p">(</span><span class="n">var</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">trim_str</span><span class="p">,</span><span class="n">adjustl_str</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">failed</span><span class="p">()</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">associated</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
+<span class="k">        </span><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">else</span>
 
-    <span class="c">!add it:</span>
-    <span class="k">call </span><span class="n">json</span><span class="p">%</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
+        <span class="c">! This is sort of a hack. Since `me` has to have `intent(in)`</span>
+        <span class="c">! for the assignment to work, we need to make a copy of `me%core`</span>
+        <span class="c">! so we can call the low level routine (since it needs it to</span>
+        <span class="c">! be `intent(inout)`) because it&#39;s possible for this</span>
+        <span class="c">! function to raise an exception.</span>
 
-    <span class="k">end subroutine </span><span class="n">json_value_add_string</span>
+        <span class="n">core_copy</span> <span class="o">=</span> <span class="n">me</span><span class="p">%</span><span class="n">core</span> <span class="c">! copy the parser settings</span>
+
+        <span class="k">call </span><span class="n">core_copy</span><span class="p">%</span><span class="n">serialize</span><span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">p</span><span class="p">,</span><span class="n">str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">me</span><span class="p">%</span><span class="n">core</span><span class="p">%</span><span class="n">failed</span><span class="p">())</span> <span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">end if</span>
+
+<span class="k">    end subroutine </span><span class="n">assign_json_file_to_string</span>
 </pre></div>
 
     </section>
