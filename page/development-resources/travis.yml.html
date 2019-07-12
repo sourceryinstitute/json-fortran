@@ -157,40 +157,104 @@ trigger automatic documentation deployment.</p>
     <span class="o">-</span> $<span class="nv">HOME</span><span class="o">/</span>.<span class="nv">cache</span><span class="o">/</span><span class="nv">pip</span>
     <span class="o">-</span> $<span class="nv">HOME</span><span class="o">/</span>.<span class="nv">local</span>
 
-<span class="nv">addons</span>:
-  <span class="nv">apt</span>:
-    <span class="nv">sources</span>:
-      <span class="o">-</span> <span class="nv">kalakris</span><span class="o">-</span><span class="nv">cmake</span>
-      <span class="o">-</span> <span class="nv">ubuntu</span><span class="o">-</span><span class="nv">toolchain</span><span class="o">-</span><span class="nv">r</span><span class="o">-</span><span class="nv">test</span>
-    <span class="nv">packages</span>:
-      <span class="o">-</span> <span class="nv">gfortran</span><span class="o">-</span><span class="mi">6</span>
-      <span class="o">-</span> <span class="nv">binutils</span>
-      <span class="o">-</span> <span class="nv">cmake</span>
-      <span class="o">-</span> <span class="nv">python</span><span class="o">-</span><span class="nv">pip</span>
-      <span class="o">-</span> <span class="nv">graphviz</span>
-
 # <span class="nv">Build</span> <span class="nv">matrix</span>: <span class="nv">Run</span> <span class="nv">the</span> <span class="nv">three</span> <span class="nv">build</span> <span class="nv">systems</span> <span class="nv">and</span> <span class="nv">tests</span> <span class="nv">in</span> <span class="nv">parallel</span>
-<span class="nv">env</span>:
-  <span class="nv">global</span>:
-    <span class="o">-</span> <span class="nv">CHECK_README_PROGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
-  <span class="nv">matrix</span>:
-      # <span class="nv">CMake</span> <span class="nv">build</span> <span class="nv">with</span> <span class="nv">unit</span> <span class="nv">tests</span>, <span class="nv">no</span> <span class="nv">documentation</span>, <span class="nv">with</span> <span class="nv">coverage</span> <span class="nv">analysis</span>
-      # <span class="nv">No</span> <span class="nv">unicode</span> <span class="nv">so</span> <span class="nv">that</span> <span class="nv">coverage</span> <span class="nv">combined</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">build</span> <span class="nv">script</span> <span class="nv">will</span> <span class="nv">cover</span> <span class="nv">unicode</span>
-      # <span class="nv">and</span> <span class="nv">non</span><span class="o">-</span><span class="nv">unicode</span> <span class="nv">code</span> <span class="nv">paths</span>
-    <span class="o">-</span> <span class="o">&gt;</span>
-      <span class="nv">BUILD_SCRIPT</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">mkdir cmake-build &amp;&amp;</span>
-      <span class="nv">cd</span> <span class="nv">cmake</span><span class="o">-</span><span class="nv">build</span> <span class="o">&amp;&amp;</span>
-      <span class="nv">cmake</span> .. <span class="o">&amp;&amp;</span>
-      <span class="nv">make</span> <span class="o">-</span><span class="nv">j</span> <span class="mi">4</span> <span class="nv">check</span><span class="s2">&quot;</span>
-      <span class="nv">CODE_COVERAGE</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
-      <span class="nv">DEPLOY_DOCUMENTATION</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
+<span class="nv">matrix</span>:
+  <span class="k">include</span>:
+    <span class="o">-</span> <span class="nv">os</span>: <span class="nv">linux</span>
+      <span class="nv">dist</span>: <span class="nv">trusty</span>
+      <span class="nv">addons</span>:
+        <span class="nv">apt</span>:
+          <span class="nv">sources</span>:
+            <span class="o">-</span> <span class="nv">kalakris</span><span class="o">-</span><span class="nv">cmake</span>
+            <span class="o">-</span> <span class="nv">ubuntu</span><span class="o">-</span><span class="nv">toolchain</span><span class="o">-</span><span class="nv">r</span><span class="o">-</span><span class="nv">test</span>
+          <span class="nv">packages</span>:
+            <span class="o">-</span> <span class="nv">gfortran</span><span class="o">-</span><span class="mi">6</span>
+            <span class="o">-</span> <span class="nv">binutils</span>
+            <span class="o">-</span> <span class="nv">cmake</span>
+            <span class="o">-</span> <span class="nv">python</span><span class="o">-</span><span class="nv">pip</span>
+      <span class="nv">env</span>:
+        <span class="o">-</span> <span class="nv">GFORTRAN</span><span class="o">=</span><span class="nv">gfortran</span><span class="o">-</span><span class="mi">6</span>
+        <span class="o">-</span> <span class="nv">GCOV</span><span class="o">=</span><span class="nv">gcov</span><span class="o">-</span><span class="mi">6</span>
+        # <span class="nv">CMake</span> <span class="nv">build</span> <span class="nv">with</span> <span class="nv">unit</span> <span class="nv">tests</span>, <span class="nv">no</span> <span class="nv">documentation</span>, <span class="nv">with</span> <span class="nv">coverage</span> <span class="nv">analysis</span>
+        # <span class="nv">No</span> <span class="nv">unicode</span> <span class="nv">so</span> <span class="nv">that</span> <span class="nv">coverage</span> <span class="nv">combined</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">build</span> <span class="nv">script</span> <span class="nv">will</span> <span class="nv">cover</span> <span class="nv">unicode</span>
+        # <span class="nv">and</span> <span class="nv">non</span><span class="o">-</span><span class="nv">unicode</span> <span class="nv">code</span> <span class="nv">paths</span>
+        <span class="o">-</span> <span class="nv">BUILD_SCRIPT</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">mkdir cmake-build &amp;&amp; cd cmake-build &amp;&amp; cmake .. &amp;&amp; make -j 4 check</span><span class="s2">&quot;</span>
+        <span class="o">-</span> <span class="nv">CODE_COVERAGE</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
+        <span class="o">-</span> <span class="nv">DEPLOY_DOCUMENTATION</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
 
-      # <span class="nv">build</span> <span class="nv">with</span> <span class="nv">build</span>.<span class="nv">sh</span>, <span class="nv">make</span> <span class="nv">documentation</span>, <span class="nv">run</span> <span class="nv">unit</span> <span class="nv">tests</span> <span class="nv">and</span> <span class="nv">perform</span> <span class="nv">coverage</span> <span class="nv">analysis</span>
-    <span class="o">-</span> <span class="o">&gt;</span>
-      <span class="nv">BUILD_SCRIPT</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">./build.sh --coverage --skip-documentation &amp;&amp;</span>
-      .<span class="o">/</span><span class="nv">build</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">coverage</span> <span class="o">--</span><span class="nv">enable</span><span class="o">-</span><span class="nv">unicode</span><span class="s2">&quot;</span>
-      <span class="nv">CODE_COVERAGE</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">yes</span><span class="s2">&quot;</span>
-      <span class="nv">DEPLOY_DOCUMENTATION</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">yes</span><span class="s2">&quot;</span>
+    <span class="o">-</span> <span class="nv">os</span>: <span class="nv">linux</span>
+      <span class="nv">dist</span>: <span class="nv">trusty</span>
+      <span class="nv">addons</span>:
+        <span class="nv">apt</span>:
+          <span class="nv">sources</span>:
+            <span class="o">-</span> <span class="nv">ubuntu</span><span class="o">-</span><span class="nv">toolchain</span><span class="o">-</span><span class="nv">r</span><span class="o">-</span><span class="nv">test</span>
+          <span class="nv">packages</span>:
+            <span class="o">-</span> <span class="nv">gfortran</span><span class="o">-</span><span class="mi">6</span>
+            <span class="o">-</span> <span class="nv">binutils</span>
+            <span class="o">-</span> <span class="nv">python</span><span class="o">-</span><span class="nv">pip</span>
+            <span class="o">-</span> <span class="nv">graphviz</span>
+      <span class="nv">env</span>:
+        <span class="o">-</span> <span class="nv">GFORTRAN</span><span class="o">=</span><span class="nv">gfortran</span><span class="o">-</span><span class="mi">6</span>
+        <span class="o">-</span> <span class="nv">GCOV</span><span class="o">=</span><span class="nv">gcov</span><span class="o">-</span><span class="mi">6</span>
+        # <span class="nv">build</span> <span class="nv">with</span> <span class="nv">build</span>.<span class="nv">sh</span>, <span class="nv">make</span> <span class="nv">documentation</span>, <span class="nv">run</span> <span class="nv">unit</span> <span class="nv">tests</span>
+        # <span class="nv">and</span> <span class="nv">perform</span> <span class="nv">coverage</span> <span class="nv">analysis</span>
+        <span class="o">-</span> <span class="nv">BUILD_SCRIPT</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">./build.sh --coverage --skip-documentation &amp;&amp; ./build.sh --coverage --enable-unicode</span><span class="s2">&quot;</span>
+        <span class="o">-</span> <span class="nv">CODE_COVERAGE</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">yes</span><span class="s2">&quot;</span>
+        <span class="o">-</span> <span class="nv">DEPLOY_DOCUMENTATION</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">yes</span><span class="s2">&quot;</span>
+
+    <span class="o">-</span> <span class="nv">os</span>: <span class="nv">linux</span>
+      <span class="nv">dist</span>: <span class="nv">trusty</span>
+      <span class="nv">addons</span>:
+        <span class="nv">apt</span>:
+          <span class="nv">sources</span>:
+            <span class="o">-</span> <span class="nv">ubuntu</span><span class="o">-</span><span class="nv">toolchain</span><span class="o">-</span><span class="nv">r</span><span class="o">-</span><span class="nv">test</span>
+          <span class="nv">packages</span>:
+            <span class="o">-</span> <span class="nv">gfortran</span><span class="o">-</span><span class="mi">7</span>
+            <span class="o">-</span> <span class="nv">binutils</span>
+            <span class="o">-</span> <span class="nv">python</span><span class="o">-</span><span class="nv">pip</span>
+      <span class="nv">env</span>:
+        <span class="o">-</span> <span class="nv">GFORTRAN</span><span class="o">=</span><span class="nv">gfortran</span><span class="o">-</span><span class="mi">7</span>
+        <span class="o">-</span> <span class="nv">GCOV</span><span class="o">=</span><span class="nv">gcov</span><span class="o">-</span><span class="mi">7</span>
+        # <span class="nv">build</span> <span class="nv">with</span> <span class="nv">build</span>.<span class="nv">sh</span>, <span class="nv">run</span> <span class="nv">unit</span> <span class="nv">tests</span>
+        <span class="o">-</span> <span class="nv">BUILD_SCRIPT</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">./build.sh --skip-documentation &amp;&amp; ./build.sh --skip-documentation --enable-unicode</span><span class="s2">&quot;</span>
+        <span class="o">-</span> <span class="nv">CODE_COVERAGE</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
+        <span class="o">-</span> <span class="nv">DEPLOY_DOCUMENTATION</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
+
+    <span class="o">-</span> <span class="nv">os</span>: <span class="nv">linux</span>
+      <span class="nv">dist</span>: <span class="nv">trusty</span>
+      <span class="nv">addons</span>:
+        <span class="nv">apt</span>:
+          <span class="nv">sources</span>:
+            <span class="o">-</span> <span class="nv">ubuntu</span><span class="o">-</span><span class="nv">toolchain</span><span class="o">-</span><span class="nv">r</span><span class="o">-</span><span class="nv">test</span>
+          <span class="nv">packages</span>:
+            <span class="o">-</span> <span class="nv">gfortran</span><span class="o">-</span><span class="mi">8</span>
+            <span class="o">-</span> <span class="nv">binutils</span>
+            <span class="o">-</span> <span class="nv">python</span><span class="o">-</span><span class="nv">pip</span>
+      <span class="nv">env</span>:
+        <span class="o">-</span> <span class="nv">GFORTRAN</span><span class="o">=</span><span class="nv">gfortran</span><span class="o">-</span><span class="mi">8</span>
+        <span class="o">-</span> <span class="nv">GCOV</span><span class="o">=</span><span class="nv">gcov</span><span class="o">-</span><span class="mi">8</span>
+        # <span class="nv">build</span> <span class="nv">with</span> <span class="nv">build</span>.<span class="nv">sh</span>, <span class="nv">run</span> <span class="nv">unit</span> <span class="nv">tests</span>
+        <span class="o">-</span> <span class="nv">BUILD_SCRIPT</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">./build.sh --skip-documentation &amp;&amp; ./build.sh --skip-documentation --enable-unicode</span><span class="s2">&quot;</span>
+        <span class="o">-</span> <span class="nv">CODE_COVERAGE</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
+        <span class="o">-</span> <span class="nv">DEPLOY_DOCUMENTATION</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
+
+    <span class="o">-</span> <span class="nv">os</span>: <span class="nv">linux</span>
+      <span class="nv">dist</span>: <span class="nv">trusty</span>
+      <span class="nv">addons</span>:
+        <span class="nv">apt</span>:
+          <span class="nv">sources</span>:
+            <span class="o">-</span> <span class="nv">ubuntu</span><span class="o">-</span><span class="nv">toolchain</span><span class="o">-</span><span class="nv">r</span><span class="o">-</span><span class="nv">test</span>
+          <span class="nv">packages</span>:
+            <span class="o">-</span> <span class="nv">gfortran</span><span class="o">-</span><span class="mi">9</span>
+            <span class="o">-</span> <span class="nv">binutils</span>
+            <span class="o">-</span> <span class="nv">python</span><span class="o">-</span><span class="nv">pip</span>
+      <span class="nv">env</span>:
+        <span class="o">-</span> <span class="nv">GFORTRAN</span><span class="o">=</span><span class="nv">gfortran</span><span class="o">-</span><span class="mi">9</span>
+        <span class="o">-</span> <span class="nv">GCOV</span><span class="o">=</span><span class="nv">gcov</span><span class="o">-</span><span class="mi">9</span>
+        # <span class="nv">build</span> <span class="nv">with</span> <span class="nv">build</span>.<span class="nv">sh</span>, <span class="nv">run</span> <span class="nv">unit</span> <span class="nv">tests</span>
+        <span class="o">-</span> <span class="nv">BUILD_SCRIPT</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">./build.sh --skip-documentation &amp;&amp; ./build.sh --skip-documentation --enable-unicode</span><span class="s2">&quot;</span>
+        <span class="o">-</span> <span class="nv">CODE_COVERAGE</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
+        <span class="o">-</span> <span class="nv">DEPLOY_DOCUMENTATION</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">no</span><span class="s2">&quot;</span>
 
 <span class="nv">install</span>:
   <span class="o">-</span> <span class="o">|</span>
@@ -198,18 +262,11 @@ trigger automatic documentation deployment.</p>
       <span class="nv">mkdir</span> <span class="s2">&quot;</span><span class="s">$HOME/.local/bin</span><span class="s2">&quot;</span>
     <span class="nv">fi</span>
   <span class="o">-</span> <span class="nv">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">$HOME/.local/bin:$PATH</span><span class="s2">&quot;</span>
-  <span class="o">-</span> <span class="nv">export</span> <span class="nv">FC</span><span class="o">=/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">gfortran</span><span class="o">-</span><span class="mi">6</span>
-  <span class="o">-</span> <span class="nv">ln</span> <span class="o">-</span><span class="nv">fs</span> <span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">gfortran</span><span class="o">-</span><span class="mi">6</span> <span class="s2">&quot;</span><span class="s">$HOME/.local/bin/gfortran</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> <span class="nv">gfortran</span> <span class="o">--</span><span class="nv">version</span>
-  <span class="o">-</span> <span class="nv">ls</span> <span class="o">-</span><span class="nv">l</span> <span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">gfortran</span><span class="o">-</span><span class="mi">6</span>
-  <span class="o">-</span> <span class="nv">ln</span> <span class="o">-</span><span class="nv">fs</span> <span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">gcov</span><span class="o">-</span><span class="mi">6</span> <span class="s2">&quot;</span><span class="s">$HOME/.local/bin/gcov</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> <span class="nv">gcov</span> <span class="o">--</span><span class="nv">version</span>
+  <span class="o">-</span> <span class="nv">export</span> <span class="nv">FC</span><span class="o">=/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span>$<span class="nv">GFORTRAN</span>
+  <span class="o">-</span> <span class="nv">ln</span> <span class="o">-</span><span class="nv">fs</span> <span class="mh">$FC</span> <span class="s2">&quot;</span><span class="s">$HOME/.local/bin/gfortran</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> <span class="nv">gfortran</span> <span class="o">--</span><span class="nv">version</span>
+  <span class="o">-</span> <span class="nv">ls</span> <span class="o">-</span><span class="nv">l</span> <span class="mh">$FC</span>
+  <span class="o">-</span> <span class="nv">ln</span> <span class="o">-</span><span class="nv">fs</span> <span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span>$<span class="nv">GCOV</span> <span class="s2">&quot;</span><span class="s">$HOME/.local/bin/gcov</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> <span class="nv">gcov</span> <span class="o">--</span><span class="nv">version</span>
   <span class="o">-</span> <span class="nv">perl</span> <span class="o">--</span><span class="nv">version</span>
-  <span class="o">-</span> <span class="o">|</span>
-    <span class="k">if</span> <span class="o">!</span> <span class="nv">which</span> <span class="nv">f90split</span><span class="c1">; then</span>
-      <span class="nv">wget</span> <span class="nv">http</span>:<span class="o">//</span><span class="nv">people</span>.<span class="nv">sc</span>.<span class="nv">fsu</span>.<span class="nv">edu</span><span class="o">/~</span><span class="nv">jburkardt</span><span class="o">/</span><span class="nv">f_src</span><span class="o">/</span><span class="nv">f90split</span><span class="o">/</span><span class="nv">f90split</span>.<span class="nv">f90</span> <span class="o">&amp;&amp;</span> \
-      <span class="nv">gfortran</span> <span class="o">-</span><span class="nv">o</span> <span class="nv">f90split</span> <span class="nv">f90split</span>.<span class="nv">f90</span> <span class="o">&amp;&amp;</span> \
-      <span class="nv">mv</span> <span class="nv">f90split</span> <span class="s2">&quot;</span><span class="s">$HOME/.local/bin/</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> \
-      <span class="nv">rm</span> <span class="nv">f90split</span>.<span class="nv">f90</span>
-    <span class="nv">fi</span>
   <span class="o">-</span> <span class="nv">pip</span> <span class="nv">install</span> <span class="o">--</span><span class="nv">upgrade</span> <span class="nv">pygooglechart</span>
   <span class="o">-</span> <span class="nv">pip</span> <span class="nv">install</span> <span class="o">--</span><span class="nv">upgrade</span> <span class="nv">graphviz</span>
   <span class="o">-</span> <span class="ss">(</span><span class="nv">pip</span> <span class="nv">install</span> <span class="o">--</span><span class="nv">upgrade</span> <span class="nv">FoBiS</span>.<span class="nv">py</span><span class="o">==</span><span class="mi">2</span>.<span class="mi">2</span>.<span class="mi">8</span> <span class="o">&amp;&amp;</span> <span class="nv">FoBiS</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">version</span><span class="ss">)</span>
@@ -217,13 +274,6 @@ trigger automatic documentation deployment.</p>
   <span class="o">-</span> <span class="ss">(</span><span class="nv">pip</span> <span class="nv">install</span> <span class="o">--</span><span class="nv">upgrade</span> <span class="nv">git</span><span class="o">+</span><span class="nv">https</span>:<span class="o">//</span><span class="nv">github</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">dmeranda</span><span class="o">/</span><span class="nv">demjson</span>.<span class="nv">git</span> <span class="o">&amp;&amp;</span> <span class="nv">jsonlint</span> <span class="o">--</span><span class="nv">version</span><span class="ss">)</span>
 
 <span class="nv">before_script</span>:
-  <span class="o">-</span> <span class="o">|</span>
-    <span class="k">if</span> [[ <span class="mh">$C</span><span class="nv">HECK_README_PROGS</span> <span class="o">==</span> [<span class="nv">yY</span>]<span class="o">*</span> ]]<span class="c1">; then</span>
-      <span class="nv">f90split</span> <span class="nv">README</span>.<span class="nv">md</span> <span class="o">&amp;&amp;</span> \
-      <span class="k">for</span> <span class="nv">f</span> <span class="nv">in</span> <span class="nv">example</span><span class="o">*</span>.<span class="nv">md</span><span class="c1">; do</span>
-        <span class="nv">mv</span> <span class="mh">$f</span> <span class="nv">src</span><span class="o">/</span><span class="nv">tests</span><span class="o">/</span><span class="nv">jf_test_</span>${<span class="nv">f</span><span class="o">%</span>.<span class="nv">md</span>}.<span class="nv">f90</span>
-      <span class="nv">done</span>
-    <span class="nv">fi</span>
   <span class="o">-</span> <span class="o">|</span>
     <span class="k">if</span> [ <span class="s2">&quot;</span><span class="s">$TRAVIS_TAG</span><span class="s2">&quot;</span> ]<span class="c1">; then</span>
       <span class="k">if</span> [[ <span class="s2">&quot;</span><span class="s">v$TRAVIS_TAG</span><span class="s2">&quot;</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="s">v$(cat .VERSION)</span><span class="s2">&quot;</span> ]]<span class="c1">; then</span>
@@ -247,10 +297,11 @@ trigger automatic documentation deployment.</p>
   <span class="o">-</span> <span class="ss">(</span><span class="nv">yes</span> <span class="o">|</span> <span class="nv">rm</span> <span class="o">-</span><span class="nv">r</span> <span class="nv">doc</span> <span class="nv">gh</span><span class="o">-</span><span class="nv">pages</span><span class="ss">)</span> <span class="o">||</span> <span class="nv">true</span> # <span class="nv">wipe</span> <span class="nv">out</span> <span class="nv">doc</span> <span class="nv">dirs</span> <span class="nv">to</span> <span class="nv">avoid</span> <span class="nv">confusing</span> <span class="nv">codecov</span>
   <span class="o">-</span> <span class="o">|</span>
     <span class="k">if</span> [[ <span class="mh">$C</span><span class="nv">ODE_COVERAGE</span> <span class="o">==</span> [<span class="nv">yY</span>]<span class="o">*</span> ]]<span class="c1">; then</span>
+      <span class="nv">alias</span> <span class="nv">gcov</span><span class="o">=</span>$<span class="nv">GCOV</span>
       <span class="nv">rm</span> <span class="nv">json_</span><span class="o">*</span>.<span class="nv">F90</span><span class="o">-*</span><span class="nv">unicode</span>.<span class="nv">gcov</span> <span class="o">||</span> <span class="nv">true</span>
       <span class="nv">mv</span> <span class="nv">json_</span><span class="o">*</span>.<span class="nv">F90</span>.<span class="nv">gcov</span> <span class="nv">src</span><span class="o">/</span>
       <span class="nv">mv</span> <span class="nv">jf_test</span><span class="o">*</span>.[<span class="nv">fF</span>]<span class="mi">90</span>.<span class="nv">gcov</span> <span class="nv">src</span><span class="o">/</span><span class="nv">tests</span><span class="o">/</span>
-      <span class="nv">bash</span> <span class="o">&lt;</span><span class="ss">(</span><span class="nv">curl</span> <span class="o">-</span><span class="nv">s</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">codecov</span>.<span class="nv">io</span><span class="o">/</span><span class="nv">bash</span><span class="ss">)</span> <span class="o">-</span><span class="nv">v</span> <span class="o">-</span><span class="nv">X</span> <span class="nv">gcov</span>
+      <span class="nv">bash</span> <span class="o">&lt;</span><span class="ss">(</span><span class="nv">curl</span> <span class="o">-</span><span class="nv">s</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">codecov</span>.<span class="nv">io</span><span class="o">/</span><span class="nv">bash</span><span class="ss">)</span> <span class="o">-</span><span class="nv">v</span> <span class="o">-</span><span class="nv">X</span> $<span class="nv">GCOV</span>
     <span class="nv">fi</span>
 </pre></div>
 
@@ -358,7 +409,7 @@ browser&rsquo;s back button to navigate back to
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-07-10 21:51  
+             on 2019-07-12 04:14  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> JSON-Fortran was developed by Jacob Williams</p></div>
