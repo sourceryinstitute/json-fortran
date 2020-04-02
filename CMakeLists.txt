@@ -184,6 +184,9 @@ set_target_properties ( ${LIB_NAME}-static
   VERSION ${VERSION}
   ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib
   Fortran_MODULE_DIRECTORY ${MODULE_DIR} )
+target_include_directories(${LIB_NAME}-static
+  INTERFACE "$<BUILD_INTERFACE:${MODULE_DIR}>"
+  )
 set_target_properties ( ${LIB_NAME}
   PROPERTIES
   OUTPUT_NAME ${LIB_NAME}
@@ -191,6 +194,9 @@ set_target_properties ( ${LIB_NAME}
   VERSION ${VERSION}
   LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib
   Fortran_MODULE_DIRECTORY ${PROJECT_BINARY_DIR} )
+target_include_directories(${LIB_NAME}
+  INTERFACE "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}>"
+  )
 
 #-------------------------------------
 # Build the documentation with FORD
