@@ -278,6 +278,14 @@
                                               !! `ieee_quiet_nan` for NaN values. If false,
                                               !! `ieee_signaling_nan` will be used.
 
+        logical(LK) :: strict_integer_type_checking = .true.
+                            !! * If false, when parsing JSON, if an integer numeric value
+                            !!   cannot be converted to an integer (`integer(IK)`),
+                            !!   then an attempt is then make to convert it
+                            !!   to a real (`real(RK)`).
+                            !! * If true [default], an exception will be raised if an integer
+                            !!   value cannot be read when parsing JSON.
+
         integer :: ichunk = 0 !! index in `chunk` for [[pop_char]]
                               !! when `use_unformatted_stream=True`
         integer :: filesize = 0 !! the file size when when `use_unformatted_stream=True`
@@ -1123,6 +1131,10 @@
 
     if (present(use_quiet_nan)) then
         me%use_quiet_nan = use_quiet_nan
+    end if
+
+    if (present(strict_integer_type_checking)) then
+        me%strict_integer_type_checking = strict_integer_type_checking
     end if
 
     !Set the format for real numbers:
@@ -6772,6 +6784,7 @@
     logical(LK)              :: created     !! if `create` is true, then this will be
                                             !! true if the leaf object had to be created
     integer(IK)              :: j           !! counter of children when creating object
+    logical(LK)              :: status_ok   !! integer to string conversion flag
 
     nullify(p)
 
@@ -6877,7 +6890,13 @@
                     exit
                 end if
                 array = .false.
-                child_i = json%string_to_int(path(child_i:i-1))
+                call string_to_integer(path(child_i:i-1),child_i,status_ok)
+                if (.not. status_ok) then
+                    call json%throw_exception('Error in json_get_by_path_default:'//&
+                                              ' Could not convert array index to integer: '//&
+                                              trim(path(child_i:i-1)),found)
+                    exit
+                end if
 
                 nullify(tmp)
                 if (create) then
@@ -7726,17 +7745,22 @@
                                                               !! (otherwise use `json%path_separator`)
                                                               !! (only used if `path_mode=1`)
 
-    type(json_value),pointer                   :: tmp            !! for traversing the structure
-    type(json_value),pointer                   :: element        !! for traversing the structure
-    integer(IK)                                :: var_type       !! JSON variable type flag
-    character(kind=CK,len=:),allocatable       :: name           !! variable name
-    character(kind=CK,len=:),allocatable       :: parent_name    !! variable's parent name
-    character(kind=CK,len=max_integer_str_len) :: istr           !! for integer to string conversion
-                                                                 !! (array indices)
-    integer(IK)                                :: i              !! counter
-    integer(IK)                                :: n_children     !! number of children for parent
-    logical(LK)                                :: use_brackets   !! to use '[]' characters for arrays
-    logical(LK)                                :: parent_is_root !! if the parent is the root
+    character(kind=CK,len=:),allocatable       :: name         !! variable name
+    character(kind=CK,len=:),allocatable       :: parent_name  !! variable's parent name
+    character(kind=CK,len=max_integer_str_len) :: istr         !! for integer to string conversion
+                                                               !! (array indices)
+    type(json_value),pointer :: tmp            !! for traversing the structure
+    type(json_value),pointer :: element        !! for traversing the structure
+    integer(IK)              :: var_type       !! JSON variable type flag
+    integer(IK)              :: tmp_var_type   !! JSON variable type flag
+    integer(IK)              :: i              !! counter
+    integer(IK)              :: n_children     !! number of children for parent
+    logical(LK)              :: use_brackets   !! to use '[]' characters for arrays
+    logical(LK)              :: parent_is_root !! if the parent is the root
+    character(kind=CK,len=1) :: array_start    !! for `path_mode=1`, the character to start arrays
+    character(kind=CK,len=1) :: array_end      !! for `path_mode=1`, the character to end arrays
+    logical                  :: consecutive_arrays      !! check for array of array case
+    integer(IK)              :: parents_parent_var_type !! `var_type` for parent's parent
 
     !optional input:
     if (present(use_alt_array_tokens)) then
@@ -7744,6 +7768,19 @@
     else
         use_brackets = .true.
     end if
+
+    if (json%path_mode==1_IK) then
+        if (use_brackets) then
+            array_start = start_array
+            array_end   = end_array
+        else
+            array_start = start_array_alt
+            array_end   = end_array_alt
+        end if
+    end if
+
+    ! initialize:
+    consecutive_arrays = .false.
 
     if (associated(p)) then
 
@@ -7767,6 +7804,13 @@
                                n_children=n_children,name=parent_name)
                 if (json%path_mode==2_IK) then
                     parent_name = encode_rfc6901(parent_name)
+                end if
+                if (associated(tmp%parent%parent)) then
+                    call json%info(tmp%parent%parent,var_type=parents_parent_var_type)
+                    consecutive_arrays = parents_parent_var_type == json_array .and. &
+                                         var_type == json_array
+                else
+                    consecutive_arrays = .false.
                 end if
 
                 select case (var_type)
@@ -7797,36 +7841,52 @@
                         ! example: `$['key'][1]`
                         ! [note: this uses 1-based indices]
                         call integer_to_string(i,int_fmt,istr)
-                        call add_to_path(start_array//single_quote//parent_name//&
-                                         single_quote//end_array//&
-                                         start_array//trim(adjustl(istr))//end_array,CK_'')
+                        if (consecutive_arrays) then
+                            call add_to_path(start_array//trim(adjustl(istr))//end_array,CK_'')
+                        else
+                            call add_to_path(start_array//single_quote//parent_name//&
+                                             single_quote//end_array//&
+                                             start_array//trim(adjustl(istr))//end_array,CK_'')
+                        end if
                     case(2_IK)
                         ! rfc6901
+                        ! Example: '/key/0'
                         call integer_to_string(i-1_IK,int_fmt,istr) ! 0-based index
-                        call add_to_path(parent_name//slash//trim(adjustl(istr)))
+                        if (consecutive_arrays) then
+                            call add_to_path(trim(adjustl(istr)))
+                        else
+                            call add_to_path(parent_name//slash//trim(adjustl(istr)))
+                        end if
                     case(1_IK)
                         ! default
+                        ! Example: `key[1]`
                         call integer_to_string(i,int_fmt,istr)
-                        if (use_brackets) then
-                            call add_to_path(parent_name//start_array//&
-                                             trim(adjustl(istr))//end_array,path_sep)
+                        if (consecutive_arrays) then
+                            call add_to_path(array_start//trim(adjustl(istr))//array_end,path_sep)
                         else
-                            call add_to_path(parent_name//start_array_alt//&
-                                             trim(adjustl(istr))//end_array_alt,path_sep)
+                            call add_to_path(parent_name//array_start//&
+                                             trim(adjustl(istr))//array_end,path_sep)
                         end if
                     end select
-                    tmp => tmp%parent  ! already added parent name
+
+                    if (.not. consecutive_arrays) tmp => tmp%parent  ! already added parent name
 
                 case (json_object)
 
-                    !process parent on the next pass
-                    select case(json%path_mode)
-                    case(3_IK)
-                        call add_to_path(start_array//single_quote//name//&
-                                         single_quote//end_array,CK_'')
-                    case default
-                        call add_to_path(name,path_sep)
-                    end select
+                    if (.not. consecutive_arrays) then
+                        ! idea is not to print the array name if
+                        ! it was already printed with the array
+
+                        !process parent on the next pass
+                        select case(json%path_mode)
+                        case(3_IK)
+                            call add_to_path(start_array//single_quote//name//&
+                                            single_quote//end_array,CK_'')
+                        case default
+                            call add_to_path(name,path_sep)
+                        end select
+
+                    end if
 
                 case default
 
@@ -7895,7 +7955,7 @@
         !! prepend the string to the path
         implicit none
         character(kind=CK,len=*),intent(in) :: str  !! string to prepend to `path`
-        character(kind=CK,len=*),intent(in),optional :: path_sep
+        character(kind=CK,len=1),intent(in),optional :: path_sep
             !! path separator (default is '.').
             !! (ignored if `json%path_mode/=1`)
 
@@ -7919,12 +7979,20 @@
             if (.not. allocated(path)) then
                 path = str
             else
-                if (present(path_sep)) then
-                    ! use user specified:
-                    path = str//path_sep//path
+                ! shouldn't add the path_sep for cases like x[1][2]
+                ! [if current is an array element, and the previous was
+                ! also an array element] so check for that here:
+                if (.not. ( str(len(str):len(str))==array_end .and. &
+                            path(1:1)==array_start )) then
+                    if (present(path_sep)) then
+                        ! use user specified:
+                        path = str//path_sep//path
+                    else
+                        ! use the default:
+                        path = str//json%path_separator//path
+                    end if
                 else
-                    ! use the default:
-                    path = str//json%path_separator//path
+                    path = str//path
                 end if
             end if
         end select
@@ -7991,8 +8059,8 @@
         if (.not. status_ok) then
             ival = 0
             call json%throw_exception('Error in string_to_int: '//&
-                                      'string cannot be converted to an integer: '//&
-                                      trim(str))
+                                    'string cannot be converted to an integer: '//&
+                                    trim(str))
         end if
 
     else
@@ -8061,12 +8129,12 @@
             !type conversions
             select case(me%var_type)
             case (json_real)
-                value = int(me%dbl_value)
+                value = int(me%dbl_value, IK)
             case (json_logical)
                 if (me%log_value) then
-                    value = 1
+                    value = 1_IK
                 else
-                    value = 0
+                    value = 0_IK
                 end if
             case (json_string)
                 call string_to_integer(me%str_value,value,status_ok)
@@ -8291,7 +8359,7 @@
             !type conversions
             select case (me%var_type)
             case (json_integer)
-                value = me%int_value
+                value = real(me%int_value, RK)
             case (json_logical)
                 if (me%log_value) then
                     value = 1.0_RK
@@ -9457,7 +9525,7 @@
 !      higher-level routines are provided (see `get` methods), so
 !      this routine does not have to be used for those cases.
 
-    subroutine json_get_array(json, me, array_callback)
+    recursive subroutine json_get_array(json, me, array_callback)
 
     implicit none
 
@@ -9562,7 +9630,7 @@
 !  This routine calls the user-supplied array_callback subroutine
 !  for each element in the array (specified by the path).
 
-    subroutine json_get_array_by_path(json, me, path, array_callback, found)
+    recursive subroutine json_get_array_by_path(json, me, path, array_callback, found)
 
     implicit none
 
@@ -9607,7 +9675,7 @@
 !>
 !  Alternate version of [[json_get_array_by_path]], where "path" is kind=CDK
 
-    subroutine wrap_json_get_array_by_path(json, me, path, array_callback, found)
+    recursive subroutine wrap_json_get_array_by_path(json, me, path, array_callback, found)
 
     implicit none
 
@@ -11128,6 +11196,8 @@
     type(json_value),pointer            :: value
 
     character(kind=CK,len=:),allocatable :: tmp !! temp string
+    character(kind=CK,len=:),allocatable :: saved_err_message !! temp error message for
+                                                              !! string to int conversion
     character(kind=CK,len=1) :: c           !! character returned by [[pop_char]]
     logical(LK)              :: eof         !! end of file flag
     real(RK)                 :: rval        !! real value
@@ -11187,9 +11257,31 @@
 
                 !string to value:
                 if (is_integer) then
+                    ! it is an integer:
                     ival = json%string_to_int(tmp)
-                    call json%to_integer(value,ival)
+
+                    if (json%exception_thrown .and. .not. json%strict_integer_type_checking) then
+                        ! if it couldn't be converted to an integer,
+                        ! then try to convert it to a real value and see if that works
+
+                        saved_err_message = json%err_message  ! keep the original error message
+                        call json%clear_exceptions()          ! clear exceptions
+                        rval = json%string_to_dble(tmp)
+                        if (json%exception_thrown) then
+                            ! restore original error message and continue
+                            json%err_message = saved_err_message
+                            call json%to_integer(value,ival) ! just so we have something
+                        else
+                            ! in this case, we return a real
+                            call json%to_real(value,rval)
+                        end if
+
+                    else
+                        call json%to_integer(value,ival)
+                    end if
+
                 else
+                    ! it is a real:
                     rval = json%string_to_dble(tmp)
                     call json%to_real(value,rval)
                 end if

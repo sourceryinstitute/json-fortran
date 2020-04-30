@@ -98,6 +98,8 @@
     call test_40(n_errors); if (n_errors /= 0) stop 1
     call test_41(n_errors); if (n_errors /= 0) stop 1
     call test_42(n_errors); if (n_errors /= 0) stop 1
+    call test_43(n_errors); if (n_errors /= 0) stop 1
+    call test_44(n_errors); if (n_errors /= 0) stop 1
 
     end program jsonfortrantest
 !*****************************************************************************************
